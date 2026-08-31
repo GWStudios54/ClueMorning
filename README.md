@@ -41,8 +41,6 @@ This rebuilds the 365-day schedule, Trail solutions, Word Steps, Deep Cut daily 
 
 ## Deploy
 
-1. Extract the project fully.
-2. Run `DEPLOY_WINDOWS.cmd`.
-3. The script handles the D1 binding/schema setup, tests, and Worker deployment.
+Production deploys from the `main` branch through Cloudflare's native Git integration. The configured build step ensures the D1 leaderboard binding exists, applies `schema.sql`, and runs the test suite before `npx wrangler deploy` publishes the Worker.
 
-After deployment, `/api/health` should report version `2.6.2`, `wordSteps: 365`, `deepCutPrompts: 107`, and `deepCutDailySets: 365`.
+After deployment, `/api/health` should report version `2.6.2`, `leaderboard: true`, `wordSteps: 365`, `deepCutPrompts: 107`, and `deepCutDailySets: 365`.
