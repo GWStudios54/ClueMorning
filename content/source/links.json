@@ -1,0 +1,182 @@
+[
+  {
+    "clues": [
+      "___ BIRD",
+      "___ BOARD",
+      "___ BERRY"
+    ],
+    "answer": "BLACK",
+    "note": "BLACKBIRD \u00b7 BLACKBOARD \u00b7 BLACKBERRY"
+  },
+  {
+    "clues": [
+      "___ BEAN",
+      "___ SHOP",
+      "___ TABLE"
+    ],
+    "answer": "COFFEE",
+    "note": "COFFEE BEAN \u00b7 COFFEE SHOP \u00b7 COFFEE TABLE"
+  },
+  {
+    "clues": [
+      "___ LIGHT",
+      "___ RISE",
+      "___ BURN"
+    ],
+    "answer": "SUN",
+    "note": "SUNLIGHT \u00b7 SUNRISE \u00b7 SUNBURN"
+  },
+  {
+    "clues": [
+      "___ FLY",
+      "___ BALL",
+      "___ MILK"
+    ],
+    "answer": "BUTTER",
+    "note": "BUTTERFLY \u00b7 BUTTERBALL \u00b7 BUTTERMILK"
+  },
+  {
+    "clues": [
+      "___ HOUSE",
+      "___ FLY",
+      "___ PLACE"
+    ],
+    "answer": "FIRE",
+    "note": "FIREHOUSE \u00b7 FIREFLY \u00b7 FIREPLACE"
+  },
+  {
+    "clues": [
+      "___ MAN",
+      "___ BALL",
+      "___ FALL"
+    ],
+    "answer": "SNOW",
+    "note": "SNOWMAN \u00b7 SNOWBALL \u00b7 SNOWFALL"
+  },
+  {
+    "clues": [
+      "___ CASE",
+      "___ WORM",
+      "___ MARK"
+    ],
+    "answer": "BOOK",
+    "note": "BOOKCASE \u00b7 BOOKWORM \u00b7 BOOKMARK"
+  },
+  {
+    "clues": [
+      "___ BOW",
+      "___ DROP",
+      "___ FOREST"
+    ],
+    "answer": "RAIN",
+    "note": "RAINBOW \u00b7 RAINDROP \u00b7 RAINFOREST"
+  },
+  {
+    "clues": [
+      "___ HORSE",
+      "___ SHELL",
+      "___ FOOD"
+    ],
+    "answer": "SEA",
+    "note": "SEAHORSE \u00b7 SEASHELL \u00b7 SEAFOOD"
+  },
+  {
+    "clues": [
+      "___ STORM",
+      "___ MAN",
+      "___ FLAKE"
+    ],
+    "answer": "SNOW",
+    "note": "SNOWSTORM \u00b7 SNOWMAN \u00b7 SNOWFLAKE"
+  },
+  {
+    "clues": [
+      "___ LIGHT",
+      "___ WORK",
+      "___ PLACE"
+    ],
+    "answer": "FIRE",
+    "note": "FIRELIGHT \u00b7 FIREWORK \u00b7 FIREPLACE"
+  },
+  {
+    "clues": [
+      "___ PRINT",
+      "___ BALL",
+      "___ STEP"
+    ],
+    "answer": "FOOT",
+    "note": "FOOTPRINT \u00b7 FOOTBALL \u00b7 FOOTSTEP"
+  },
+  {
+    "clues": [
+      "___ SHINE",
+      "___ FLOWER",
+      "___ SET"
+    ],
+    "answer": "SUN",
+    "note": "SUNSHINE \u00b7 SUNFLOWER \u00b7 SUNSET"
+  },
+  {
+    "clues": [
+      "___ COAT",
+      "___ DROP",
+      "___ BOW"
+    ],
+    "answer": "RAIN",
+    "note": "RAINCOAT \u00b7 RAINDROP \u00b7 RAINBOW"
+  },
+  {
+    "clues": [
+      "___ DOG",
+      "___ HOUSE",
+      "___ WOOD"
+    ],
+    "answer": "FIRE",
+    "note": "FIRE DOG \u00b7 FIREHOUSE \u00b7 FIREWOOD"
+  },
+  {
+    "clues": [
+      "___ BERRY",
+      "___ JACK",
+      "___ BIRD"
+    ],
+    "answer": "BLACK",
+    "note": "BLACKBERRY \u00b7 BLACKJACK \u00b7 BLACKBIRD"
+  },
+  {
+    "clues": [
+      "___ CAKE",
+      "___ BALL",
+      "___ CUP"
+    ],
+    "answer": "BUTTER",
+    "note": "BUTTER CAKE \u00b7 BUTTERBALL \u00b7 BUTTERCUP"
+  },
+  {
+    "clues": [
+      "___ SIDE",
+      "___ SHORE",
+      "___ SICK"
+    ],
+    "answer": "SEA",
+    "note": "SEASIDE \u00b7 SEASHORE \u00b7 SEASICK"
+  },
+  {
+    "clues": [
+      "___ LIGHT",
+      "___ FLOWER",
+      "___ SCREEN"
+    ],
+    "answer": "SUN",
+    "note": "SUNLIGHT \u00b7 SUNFLOWER \u00b7 SUNSCREEN"
+  },
+  {
+    "clues": [
+      "___ FALL",
+      "___ FLAKE",
+      "___ BALL"
+    ],
+    "answer": "SNOW",
+    "note": "SNOWFALL \u00b7 SNOWFLAKE \u00b7 SNOWBALL"
+  }
+]

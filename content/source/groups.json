@@ -1,0 +1,458 @@
+[
+  [
+    {
+      "name": "Things with keys",
+      "words": [
+        "PIANO",
+        "MAP",
+        "LOCK",
+        "KEYBOARD"
+      ]
+    },
+    {
+      "name": "Can be sharp",
+      "words": [
+        "KNIFE",
+        "IMAGE",
+        "TURN",
+        "CHEESE"
+      ]
+    },
+    {
+      "name": "Kinds of roll",
+      "words": [
+        "DRUM",
+        "HONOR",
+        "SPRING",
+        "DINNER"
+      ]
+    },
+    {
+      "name": "Things that can run",
+      "words": [
+        "NOSE",
+        "ENGINE",
+        "RIVER",
+        "PROGRAM"
+      ]
+    }
+  ],
+  [
+    {
+      "name": "Found at a beach",
+      "words": [
+        "SAND",
+        "SHELL",
+        "TIDE",
+        "DUNE"
+      ]
+    },
+    {
+      "name": "Can follow BOOK",
+      "words": [
+        "MARK",
+        "CASE",
+        "WORM",
+        "KEEPER"
+      ]
+    },
+    {
+      "name": "Card suits",
+      "words": [
+        "HEART",
+        "SPADE",
+        "CLUB",
+        "DIAMOND"
+      ]
+    },
+    {
+      "name": "Ways to move quickly",
+      "words": [
+        "DASH",
+        "SPRINT",
+        "RUSH",
+        "BOLT"
+      ]
+    }
+  ],
+  [
+    {
+      "name": "Breakfast items",
+      "words": [
+        "TOAST",
+        "EGGS",
+        "BACON",
+        "CEREAL"
+      ]
+    },
+    {
+      "name": "Can be blue",
+      "words": [
+        "SKY",
+        "WHALE",
+        "BERRY",
+        "JEANS"
+      ]
+    },
+    {
+      "name": "Parts of a tree",
+      "words": [
+        "ROOT",
+        "BARK",
+        "TRUNK",
+        "BRANCH"
+      ]
+    },
+    {
+      "name": "Things you can strike",
+      "words": [
+        "MATCH",
+        "BELL",
+        "POSE",
+        "DEAL"
+      ]
+    }
+  ],
+  [
+    {
+      "name": "Kinds of jacket",
+      "words": [
+        "LIFE",
+        "SPORT",
+        "DENIM",
+        "RAIN"
+      ]
+    },
+    {
+      "name": "Found in a toolbox",
+      "words": [
+        "LEVEL",
+        "HAMMER",
+        "PLIERS",
+        "WRENCH"
+      ]
+    },
+    {
+      "name": "Can follow GRAND",
+      "words": [
+        "SLAM",
+        "PIANO",
+        "JURY",
+        "CANYON"
+      ]
+    },
+    {
+      "name": "Have a shell",
+      "words": [
+        "TURTLE",
+        "EGG",
+        "TACO",
+        "SNAIL"
+      ]
+    }
+  ],
+  [
+    {
+      "name": "Kinds of tea",
+      "words": [
+        "GREEN",
+        "BLACK",
+        "HERBAL",
+        "ICED"
+      ]
+    },
+    {
+      "name": "At a wedding",
+      "words": [
+        "RING",
+        "VOW",
+        "CAKE",
+        "VEIL"
+      ]
+    },
+    {
+      "name": "Things with a bank",
+      "words": [
+        "RIVER",
+        "PIGGY",
+        "DATA",
+        "BLOOD"
+      ]
+    },
+    {
+      "name": "Can be broken",
+      "words": [
+        "GLASS",
+        "PROMISE",
+        "RECORD",
+        "HEART"
+      ]
+    }
+  ],
+  [
+    {
+      "name": "Parts of a book",
+      "words": [
+        "SPINE",
+        "COVER",
+        "PAGE",
+        "INDEX"
+      ]
+    },
+    {
+      "name": "Can be electric",
+      "words": [
+        "CAR",
+        "EEL",
+        "GUITAR",
+        "FENCE"
+      ]
+    },
+    {
+      "name": "Kinds of board",
+      "words": [
+        "DASH",
+        "SURF",
+        "KEY",
+        "SCORE"
+      ]
+    },
+    {
+      "name": "Things you can pitch",
+      "words": [
+        "TENT",
+        "BALL",
+        "IDEA",
+        "VOICE"
+      ]
+    }
+  ],
+  [
+    {
+      "name": "Things that ring",
+      "words": [
+        "PHONE",
+        "BELL",
+        "ALARM",
+        "DOORBELL"
+      ]
+    },
+    {
+      "name": "Can follow FIRE",
+      "words": [
+        "PLACE",
+        "WORK",
+        "FLY",
+        "WOOD"
+      ]
+    },
+    {
+      "name": "Kinds of cap",
+      "words": [
+        "BASEBALL",
+        "BOTTLE",
+        "KNEE",
+        "ICE"
+      ]
+    },
+    {
+      "name": "Things with teeth",
+      "words": [
+        "COMB",
+        "SAW",
+        "ZIPPER",
+        "GEAR"
+      ]
+    }
+  ],
+  [
+    {
+      "name": "Can be stuffed",
+      "words": [
+        "TURKEY",
+        "ANIMAL",
+        "PEPPER",
+        "PILLOW"
+      ]
+    },
+    {
+      "name": "Weather words",
+      "words": [
+        "RAIN",
+        "HAIL",
+        "FOG",
+        "SLEET"
+      ]
+    },
+    {
+      "name": "Kinds of court",
+      "words": [
+        "TENNIS",
+        "FOOD",
+        "SUPREME",
+        "ROYAL"
+      ]
+    },
+    {
+      "name": "Things with wings",
+      "words": [
+        "BIRD",
+        "PLANE",
+        "ANGEL",
+        "BUILDING"
+      ]
+    }
+  ],
+  [
+    {
+      "name": "At a campsite",
+      "words": [
+        "TENT",
+        "FIRE",
+        "LANTERN",
+        "COOLER"
+      ]
+    },
+    {
+      "name": "Can be full",
+      "words": [
+        "MOON",
+        "HOUSE",
+        "TANK",
+        "BELLY"
+      ]
+    },
+    {
+      "name": "Kinds of line",
+      "words": [
+        "PUNCH",
+        "PHONE",
+        "FINISH",
+        "FISHING"
+      ]
+    },
+    {
+      "name": "Things with a screen",
+      "words": [
+        "PHONE",
+        "WINDOW",
+        "MOVIE",
+        "FIREPLACE"
+      ]
+    }
+  ],
+  [
+    {
+      "name": "Can follow GOLD",
+      "words": [
+        "FISH",
+        "MINE",
+        "RUSH",
+        "LEAF"
+      ]
+    },
+    {
+      "name": "In a garden",
+      "words": [
+        "SOIL",
+        "HOSE",
+        "SHOVEL",
+        "WEEDS"
+      ]
+    },
+    {
+      "name": "Kinds of wave",
+      "words": [
+        "TIDAL",
+        "SOUND",
+        "HAND",
+        "MICRO"
+      ]
+    },
+    {
+      "name": "Things you can draw",
+      "words": [
+        "CARD",
+        "BATH",
+        "CURTAIN",
+        "MAP"
+      ]
+    }
+  ],
+  [
+    {
+      "name": "Things in a kitchen",
+      "words": [
+        "OVEN",
+        "SINK",
+        "WHISK",
+        "PLATE"
+      ]
+    },
+    {
+      "name": "Can be frozen",
+      "words": [
+        "LAKE",
+        "PIZZA",
+        "ACCOUNT",
+        "YOGURT"
+      ]
+    },
+    {
+      "name": "Kinds of club",
+      "words": [
+        "GOLF",
+        "BOOK",
+        "NIGHT",
+        "SANDWICH"
+      ]
+    },
+    {
+      "name": "Things with a horn",
+      "words": [
+        "RHINO",
+        "CAR",
+        "TRUMPET",
+        "UNICORN"
+      ]
+    }
+  ],
+  [
+    {
+      "name": "Kinds of light",
+      "words": [
+        "MOON",
+        "SUN",
+        "FLASH",
+        "NIGHT"
+      ]
+    },
+    {
+      "name": "Things at a desk",
+      "words": [
+        "PEN",
+        "MOUSE",
+        "PAPER",
+        "LAMP"
+      ]
+    },
+    {
+      "name": "Can follow STAR",
+      "words": [
+        "FISH",
+        "DUST",
+        "BOARD",
+        "LIGHT"
+      ]
+    },
+    {
+      "name": "Things that can be tied",
+      "words": [
+        "SHOE",
+        "GAME",
+        "KNOT",
+        "SCORE"
+      ]
+    }
+  ]
+]

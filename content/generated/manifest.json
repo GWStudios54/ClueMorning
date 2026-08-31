@@ -1,0 +1,20 @@
+{
+  "rebuiltAt": "2026-08-31T15:40:00.062Z",
+  "yearPackStart": "2026-08-30",
+  "yearPackDays": 365,
+  "wordBankCounts": {
+    "5": 45,
+    "6": 36,
+    "7": 25,
+    "8": 20,
+    "9": 18,
+    "10": 18
+  },
+  "groups": 12,
+  "links": 20,
+  "trailBoards": 365,
+  "wordSteps": 365,
+  "wordStepsDictionary": 3401,
+  "deepCutPrompts": 107,
+  "deepCutDailySets": 365
+}

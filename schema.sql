@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS leaderboard (
   link_score INTEGER NOT NULL DEFAULT 0,
   steps_score INTEGER NOT NULL DEFAULT 0,
   lineup_score INTEGER NOT NULL DEFAULT 0,
+  deepcut_score INTEGER NOT NULL DEFAULT 0,
   updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (date, player_id)
 );

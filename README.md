@@ -1,59 +1,48 @@
-# Clue Morning v2.6.0 — Six Games + SEO Foundation
+# Clue Morning v2.6.2 — Eight-Topic Deep Cut
 
-This release expands the daily set from four games to six and adds a real search-engine foundation for `cluemorning.com`.
+Clue Morning is a six-game daily word and logic site for `cluemorning.com`. Everyone receives the same official daily set on the Pacific-time schedule.
 
-## New daily games
+## Daily games
 
-### Word Steps
-- Four-letter word ladder.
-- Change exactly one letter per move.
-- Every intermediate word must be in the Clue Morning dictionary.
-- Daily puzzles include a known shortest path and a par value.
-- Up to eight moves; players can undo or reveal a shortest path.
-- 365 generated daily Word Steps puzzles are included.
+- Letter Grid — 5–10 letters, six guesses.
+- Four Groups — four hidden connections among sixteen words.
+- Letter Trail — 4×4 adjacent-letter word hunt with drag/tap input.
+- Triple Link — one word completes three clues.
+- Word Steps — four-letter word ladder with a verified shortest path.
+- Deep Cut — eight open-answer trivia prompts, 25 seconds each; less-obvious accepted answers score more.
 
-### Lineup
-- Six items must be placed in the correct order.
-- Daily rules vary: chronology, size, distance, rank, sequence, and more.
-- Three checks are allowed; the solution is revealed after the third miss.
-- 365 generated daily Lineup puzzles are included from curated ordered fact sets.
+## Deep Cut
 
-## Six-game daily system
-- Today now contains Letter Grid, Four Groups, Letter Trail, Triple Link, Word Steps, and Lineup.
-- Daily score, streak completion, archive completion, and automatic leaderboard posting now use all six games.
-- The D1 leaderboard automatically adds `steps_score` and `lineup_score` columns to an existing database on first use.
-- Existing four-game local state is preserved; the two new games are added cleanly to the current day.
+Deep Cut replaces Lineup in the six-game daily set. It uses 107 curated closed-category prompts and generates 365 shared eight-prompt daily sets. Accepted answers are ordered editorially from more obvious to less obvious so scoring works immediately without needing a large player population. Each valid answer scores 30–100 points.
+
+The browser receives only prompt IDs/text. Accepted answer lists stay in the Worker runtime and are checked by `/api/deepcut/check`.
 
 ## SEO foundation
-- Homepage title and description rewritten around free daily word and logic games.
-- Canonical URL, robots meta, Open Graph metadata, Twitter metadata, and WebSite structured data added.
-- Added `/robots.txt` and `/sitemap.xml`.
-- Added crawlable, indexable game guide pages:
-  - `/games/letter-grid/`
-  - `/games/four-groups/`
-  - `/games/letter-trail/`
-  - `/games/triple-link/`
-  - `/games/word-steps/`
-  - `/games/lineup/`
-- Added `/about/`.
-- Homepage contains crawlable internal links to all six game guides.
-- Game-guide play buttons deep-link back into the correct daily game with `/?play=...`.
 
-## Deploy
-1. Extract the ZIP completely.
-2. Run `DEPLOY_WINDOWS.cmd`.
-3. The deploy script will find/create the D1 database, bind it, apply schema setup, test, and deploy.
+- canonical metadata, Open Graph metadata, robots directives and structured data
+- `/robots.txt` and `/sitemap.xml`
+- `/about/`
+- crawlable game guides for all six games, including `/games/deep-cut/`
+- the retired `/games/lineup/` page redirects visitors to Deep Cut and is `noindex`
 
-Do not run the deployment script from inside the ZIP.
+## Leaderboard
 
-## Optional content rebuild
-On Windows, run this directly if PowerShell blocks npm scripts:
+Daily completion and automatic posting now use all six current games. Existing D1 tables keep the old `lineup_score` column for backward compatibility and add `deepcut_score` automatically.
+
+## Content rebuild
+
+On Windows, if PowerShell blocks npm scripts, run:
 
 ```powershell
 node tools\rebuild_content.mjs
 ```
 
-It rebuilds the 365-day content pack, Trail solutions, Word Steps puzzles, and Lineup puzzles.
+This rebuilds the 365-day schedule, Trail solutions, Word Steps, Deep Cut daily sets, and `src/puzzles.js`.
 
-## Health endpoint
-After deployment, `/api/health` should report version `2.6.0`, `leaderboard: true`, `wordSteps: 365`, and `lineups: 365`.
+## Deploy
+
+1. Extract the project fully.
+2. Run `DEPLOY_WINDOWS.cmd`.
+3. The script handles the D1 binding/schema setup, tests, and Worker deployment.
+
+After deployment, `/api/health` should report version `2.6.2`, `wordSteps: 365`, `deepCutPrompts: 107`, and `deepCutDailySets: 365`.

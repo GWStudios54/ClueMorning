@@ -1,0 +1,4718 @@
+[
+  {
+    "start": "FILL",
+    "target": "NOTE",
+    "par": 5,
+    "solution": [
+      "FILL",
+      "FILE",
+      "FINE",
+      "NINE",
+      "NONE",
+      "NOTE"
+    ]
+  },
+  {
+    "start": "LEND",
+    "target": "PICK",
+    "par": 6,
+    "solution": [
+      "LEND",
+      "LAND",
+      "BAND",
+      "BANK",
+      "BACK",
+      "PACK",
+      "PICK"
+    ]
+  },
+  {
+    "start": "TEND",
+    "target": "WANT",
+    "par": 4,
+    "solution": [
+      "TEND",
+      "SEND",
+      "SENT",
+      "WENT",
+      "WANT"
+    ]
+  },
+  {
+    "start": "EASE",
+    "target": "SAFE",
+    "par": 4,
+    "solution": [
+      "EASE",
+      "CASE",
+      "CAME",
+      "SAME",
+      "SAFE"
+    ]
+  },
+  {
+    "start": "HELD",
+    "target": "TALK",
+    "par": 4,
+    "solution": [
+      "HELD",
+      "HELL",
+      "TELL",
+      "TALL",
+      "TALK"
+    ]
+  },
+  {
+    "start": "LOOK",
+    "target": "TAKE",
+    "par": 6,
+    "solution": [
+      "LOOK",
+      "TOOK",
+      "TOOL",
+      "TOLL",
+      "TALL",
+      "TALE",
+      "TAKE"
+    ]
+  },
+  {
+    "start": "BELL",
+    "target": "ROAD",
+    "par": 5,
+    "solution": [
+      "BELL",
+      "HELL",
+      "HELD",
+      "HEAD",
+      "READ",
+      "ROAD"
+    ]
+  },
+  {
+    "start": "CODE",
+    "target": "DATA",
+    "par": 6,
+    "solution": [
+      "CODE",
+      "COME",
+      "CAME",
+      "GAME",
+      "GATE",
+      "DATE",
+      "DATA"
+    ]
+  },
+  {
+    "start": "CAKE",
+    "target": "PORT",
+    "par": 5,
+    "solution": [
+      "CAKE",
+      "CASE",
+      "CAST",
+      "PAST",
+      "PART",
+      "PORT"
+    ]
+  },
+  {
+    "start": "HOLE",
+    "target": "POST",
+    "par": 5,
+    "solution": [
+      "HOLE",
+      "ROLE",
+      "ROSE",
+      "LOSE",
+      "LOST",
+      "POST"
+    ]
+  },
+  {
+    "start": "HATE",
+    "target": "LACK",
+    "par": 5,
+    "solution": [
+      "HATE",
+      "FATE",
+      "FACE",
+      "PACE",
+      "PACK",
+      "LACK"
+    ]
+  },
+  {
+    "start": "FELT",
+    "target": "HELD",
+    "par": 3,
+    "solution": [
+      "FELT",
+      "FELL",
+      "HELL",
+      "HELD"
+    ]
+  },
+  {
+    "start": "HOLD",
+    "target": "WILL",
+    "par": 4,
+    "solution": [
+      "HOLD",
+      "HELD",
+      "HELL",
+      "WELL",
+      "WILL"
+    ]
+  },
+  {
+    "start": "SAID",
+    "target": "WARM",
+    "par": 5,
+    "solution": [
+      "SAID",
+      "SAND",
+      "HAND",
+      "HARD",
+      "WARD",
+      "WARM"
+    ]
+  },
+  {
+    "start": "BELT",
+    "target": "WEEK",
+    "par": 5,
+    "solution": [
+      "BELT",
+      "BEAT",
+      "BEAR",
+      "WEAR",
+      "WEAK",
+      "WEEK"
+    ]
+  },
+  {
+    "start": "BELL",
+    "target": "CASE",
+    "par": 6,
+    "solution": [
+      "BELL",
+      "BALL",
+      "TALL",
+      "TALE",
+      "TAKE",
+      "CAKE",
+      "CASE"
+    ]
+  },
+  {
+    "start": "FIRE",
+    "target": "LAKE",
+    "par": 4,
+    "solution": [
+      "FIRE",
+      "FINE",
+      "LINE",
+      "LANE",
+      "LAKE"
+    ]
+  },
+  {
+    "start": "LIVE",
+    "target": "SOLD",
+    "par": 6,
+    "solution": [
+      "LIVE",
+      "GIVE",
+      "GAVE",
+      "SAVE",
+      "SALE",
+      "SOLE",
+      "SOLD"
+    ]
+  },
+  {
+    "start": "BEST",
+    "target": "WEAR",
+    "par": 3,
+    "solution": [
+      "BEST",
+      "BEAT",
+      "BEAR",
+      "WEAR"
+    ]
+  },
+  {
+    "start": "BOAT",
+    "target": "HELD",
+    "par": 4,
+    "solution": [
+      "BOAT",
+      "BEAT",
+      "HEAT",
+      "HEAD",
+      "HELD"
+    ]
+  },
+  {
+    "start": "CELL",
+    "target": "LAND",
+    "par": 6,
+    "solution": [
+      "CELL",
+      "HELL",
+      "HELD",
+      "HEAD",
+      "LEAD",
+      "LEND",
+      "LAND"
+    ]
+  },
+  {
+    "start": "HELD",
+    "target": "SOLE",
+    "par": 3,
+    "solution": [
+      "HELD",
+      "HOLD",
+      "SOLD",
+      "SOLE"
+    ]
+  },
+  {
+    "start": "BAND",
+    "target": "SEEM",
+    "par": 4,
+    "solution": [
+      "BAND",
+      "SAND",
+      "SEND",
+      "SEED",
+      "SEEM"
+    ]
+  },
+  {
+    "start": "HARM",
+    "target": "TAKE",
+    "par": 5,
+    "solution": [
+      "HARM",
+      "HARD",
+      "CARD",
+      "CARE",
+      "CAKE",
+      "TAKE"
+    ]
+  },
+  {
+    "start": "PORT",
+    "target": "TOLL",
+    "par": 6,
+    "solution": [
+      "PORT",
+      "FORT",
+      "FORD",
+      "CORD",
+      "COLD",
+      "TOLD",
+      "TOLL"
+    ]
+  },
+  {
+    "start": "MILK",
+    "target": "WILD",
+    "par": 5,
+    "solution": [
+      "MILK",
+      "MILE",
+      "FILE",
+      "FILL",
+      "WILL",
+      "WILD"
+    ]
+  },
+  {
+    "start": "CAME",
+    "target": "LIFE",
+    "par": 4,
+    "solution": [
+      "CAME",
+      "CAKE",
+      "LAKE",
+      "LIKE",
+      "LIFE"
+    ]
+  },
+  {
+    "start": "GAVE",
+    "target": "KILL",
+    "par": 5,
+    "solution": [
+      "GAVE",
+      "GIVE",
+      "FIVE",
+      "FILE",
+      "FILL",
+      "KILL"
+    ]
+  },
+  {
+    "start": "FIRM",
+    "target": "GATE",
+    "par": 5,
+    "solution": [
+      "FIRM",
+      "FIRE",
+      "FIVE",
+      "GIVE",
+      "GAVE",
+      "GATE"
+    ]
+  },
+  {
+    "start": "NOTE",
+    "target": "WILL",
+    "par": 6,
+    "solution": [
+      "NOTE",
+      "NONE",
+      "NINE",
+      "FINE",
+      "FILE",
+      "FILL",
+      "WILL"
+    ]
+  },
+  {
+    "start": "BEAT",
+    "target": "SAID",
+    "par": 5,
+    "solution": [
+      "BEAT",
+      "SEAT",
+      "SENT",
+      "SEND",
+      "SAND",
+      "SAID"
+    ]
+  },
+  {
+    "start": "SAID",
+    "target": "WENT",
+    "par": 4,
+    "solution": [
+      "SAID",
+      "SAND",
+      "SEND",
+      "SENT",
+      "WENT"
+    ]
+  },
+  {
+    "start": "WEAR",
+    "target": "WEST",
+    "par": 4,
+    "solution": [
+      "WEAR",
+      "BEAR",
+      "BEAT",
+      "BEST",
+      "WEST"
+    ]
+  },
+  {
+    "start": "BOND",
+    "target": "WEEK",
+    "par": 6,
+    "solution": [
+      "BOND",
+      "BAND",
+      "SAND",
+      "SEND",
+      "SEED",
+      "SEEK",
+      "WEEK"
+    ]
+  },
+  {
+    "start": "CARD",
+    "target": "LACK",
+    "par": 6,
+    "solution": [
+      "CARD",
+      "HARD",
+      "HAND",
+      "BAND",
+      "BANK",
+      "BACK",
+      "LACK"
+    ]
+  },
+  {
+    "start": "BEEN",
+    "target": "ROAD",
+    "par": 5,
+    "solution": [
+      "BEEN",
+      "BEER",
+      "BEAR",
+      "REAR",
+      "READ",
+      "ROAD"
+    ]
+  },
+  {
+    "start": "FOOT",
+    "target": "YARD",
+    "par": 5,
+    "solution": [
+      "FOOT",
+      "FOOD",
+      "WOOD",
+      "WORD",
+      "WARD",
+      "YARD"
+    ]
+  },
+  {
+    "start": "BOAT",
+    "target": "TAKE",
+    "par": 6,
+    "solution": [
+      "BOAT",
+      "COAT",
+      "COST",
+      "CAST",
+      "CASE",
+      "CAKE",
+      "TAKE"
+    ]
+  },
+  {
+    "start": "CAMP",
+    "target": "LOSE",
+    "par": 6,
+    "solution": [
+      "CAMP",
+      "CAME",
+      "CASE",
+      "CAST",
+      "LAST",
+      "LOST",
+      "LOSE"
+    ]
+  },
+  {
+    "start": "WELL",
+    "target": "WIDE",
+    "par": 5,
+    "solution": [
+      "WELL",
+      "WILL",
+      "WILD",
+      "WIND",
+      "WINE",
+      "WIDE"
+    ]
+  },
+  {
+    "start": "MEAN",
+    "target": "SOLD",
+    "par": 6,
+    "solution": [
+      "MEAN",
+      "MEAT",
+      "HEAT",
+      "HEAD",
+      "HELD",
+      "HOLD",
+      "SOLD"
+    ]
+  },
+  {
+    "start": "CORD",
+    "target": "SEAT",
+    "par": 6,
+    "solution": [
+      "CORD",
+      "COLD",
+      "HOLD",
+      "HELD",
+      "HEAD",
+      "HEAT",
+      "SEAT"
+    ]
+  },
+  {
+    "start": "LEFT",
+    "target": "NONE",
+    "par": 5,
+    "solution": [
+      "LEFT",
+      "LIFT",
+      "LIFE",
+      "LINE",
+      "NINE",
+      "NONE"
+    ]
+  },
+  {
+    "start": "FELT",
+    "target": "TASK",
+    "par": 5,
+    "solution": [
+      "FELT",
+      "FELL",
+      "TELL",
+      "TALL",
+      "TALK",
+      "TASK"
+    ]
+  },
+  {
+    "start": "SAME",
+    "target": "WISE",
+    "par": 6,
+    "solution": [
+      "SAME",
+      "CAME",
+      "CARE",
+      "CORE",
+      "WORE",
+      "WIRE",
+      "WISE"
+    ]
+  },
+  {
+    "start": "FIVE",
+    "target": "SICK",
+    "par": 6,
+    "solution": [
+      "FIVE",
+      "FINE",
+      "LINE",
+      "LINK",
+      "PINK",
+      "PICK",
+      "SICK"
+    ]
+  },
+  {
+    "start": "FORD",
+    "target": "REAR",
+    "par": 5,
+    "solution": [
+      "FORD",
+      "LORD",
+      "LOAD",
+      "LEAD",
+      "READ",
+      "REAR"
+    ]
+  },
+  {
+    "start": "HEAT",
+    "target": "WEST",
+    "par": 3,
+    "solution": [
+      "HEAT",
+      "BEAT",
+      "BEST",
+      "WEST"
+    ]
+  },
+  {
+    "start": "BONE",
+    "target": "SENT",
+    "par": 5,
+    "solution": [
+      "BONE",
+      "BOND",
+      "BAND",
+      "SAND",
+      "SEND",
+      "SENT"
+    ]
+  },
+  {
+    "start": "SOLD",
+    "target": "TALE",
+    "par": 3,
+    "solution": [
+      "SOLD",
+      "SOLE",
+      "SALE",
+      "TALE"
+    ]
+  },
+  {
+    "start": "NICE",
+    "target": "SEND",
+    "par": 6,
+    "solution": [
+      "NICE",
+      "NINE",
+      "LINE",
+      "LANE",
+      "LAND",
+      "SAND",
+      "SEND"
+    ]
+  },
+  {
+    "start": "FELT",
+    "target": "KIND",
+    "par": 6,
+    "solution": [
+      "FELT",
+      "FELL",
+      "WELL",
+      "WILL",
+      "WILD",
+      "WIND",
+      "KIND"
+    ]
+  },
+  {
+    "start": "BEAR",
+    "target": "SAND",
+    "par": 5,
+    "solution": [
+      "BEAR",
+      "BEAT",
+      "SEAT",
+      "SENT",
+      "SEND",
+      "SAND"
+    ]
+  },
+  {
+    "start": "CAME",
+    "target": "WIDE",
+    "par": 5,
+    "solution": [
+      "CAME",
+      "CARE",
+      "CORE",
+      "WORE",
+      "WIRE",
+      "WIDE"
+    ]
+  },
+  {
+    "start": "BONE",
+    "target": "WORE",
+    "par": 5,
+    "solution": [
+      "BONE",
+      "NONE",
+      "NINE",
+      "WINE",
+      "WIRE",
+      "WORE"
+    ]
+  },
+  {
+    "start": "FULL",
+    "target": "GEAR",
+    "par": 6,
+    "solution": [
+      "FULL",
+      "FELL",
+      "BELL",
+      "BELT",
+      "BEAT",
+      "BEAR",
+      "GEAR"
+    ]
+  },
+  {
+    "start": "BALL",
+    "target": "TYPE",
+    "par": 4,
+    "solution": [
+      "BALL",
+      "TALL",
+      "TALE",
+      "TAPE",
+      "TYPE"
+    ]
+  },
+  {
+    "start": "FUND",
+    "target": "WORD",
+    "par": 6,
+    "solution": [
+      "FUND",
+      "FIND",
+      "WIND",
+      "WINE",
+      "WIRE",
+      "WORE",
+      "WORD"
+    ]
+  },
+  {
+    "start": "REAR",
+    "target": "WENT",
+    "par": 5,
+    "solution": [
+      "REAR",
+      "BEAR",
+      "BEAT",
+      "SEAT",
+      "SENT",
+      "WENT"
+    ]
+  },
+  {
+    "start": "HOLD",
+    "target": "MADE",
+    "par": 5,
+    "solution": [
+      "HOLD",
+      "SOLD",
+      "SOLE",
+      "SALE",
+      "MALE",
+      "MADE"
+    ]
+  },
+  {
+    "start": "REAL",
+    "target": "TELL",
+    "par": 5,
+    "solution": [
+      "REAL",
+      "READ",
+      "HEAD",
+      "HELD",
+      "HELL",
+      "TELL"
+    ]
+  },
+  {
+    "start": "SHOT",
+    "target": "STEP",
+    "par": 3,
+    "solution": [
+      "SHOT",
+      "SHOP",
+      "STOP",
+      "STEP"
+    ]
+  },
+  {
+    "start": "BANK",
+    "target": "BOOM",
+    "par": 6,
+    "solution": [
+      "BANK",
+      "BACK",
+      "LACK",
+      "LOCK",
+      "LOOK",
+      "BOOK",
+      "BOOM"
+    ]
+  },
+  {
+    "start": "BOOT",
+    "target": "FEEL",
+    "par": 6,
+    "solution": [
+      "BOOT",
+      "BOAT",
+      "BEAT",
+      "MEAT",
+      "MEET",
+      "FEET",
+      "FEEL"
+    ]
+  },
+  {
+    "start": "BOOK",
+    "target": "CASE",
+    "par": 6,
+    "solution": [
+      "BOOK",
+      "BOOT",
+      "BOAT",
+      "COAT",
+      "COST",
+      "CAST",
+      "CASE"
+    ]
+  },
+  {
+    "start": "NOTE",
+    "target": "PINK",
+    "par": 5,
+    "solution": [
+      "NOTE",
+      "NONE",
+      "NINE",
+      "LINE",
+      "LINK",
+      "PINK"
+    ]
+  },
+  {
+    "start": "BOAT",
+    "target": "FORD",
+    "par": 4,
+    "solution": [
+      "BOAT",
+      "BOOT",
+      "FOOT",
+      "FOOD",
+      "FORD"
+    ]
+  },
+  {
+    "start": "LAST",
+    "target": "WISE",
+    "par": 5,
+    "solution": [
+      "LAST",
+      "CAST",
+      "CASH",
+      "WASH",
+      "WISH",
+      "WISE"
+    ]
+  },
+  {
+    "start": "CAME",
+    "target": "MALE",
+    "par": 3,
+    "solution": [
+      "CAME",
+      "CAKE",
+      "MAKE",
+      "MALE"
+    ]
+  },
+  {
+    "start": "LINE",
+    "target": "PACE",
+    "par": 5,
+    "solution": [
+      "LINE",
+      "NINE",
+      "NICE",
+      "RICE",
+      "RACE",
+      "PACE"
+    ]
+  },
+  {
+    "start": "HARM",
+    "target": "WALL",
+    "par": 6,
+    "solution": [
+      "HARM",
+      "FARM",
+      "FIRM",
+      "FILM",
+      "FILL",
+      "WILL",
+      "WALL"
+    ]
+  },
+  {
+    "start": "HAVE",
+    "target": "TOLL",
+    "par": 5,
+    "solution": [
+      "HAVE",
+      "SAVE",
+      "SALE",
+      "TALE",
+      "TALL",
+      "TOLL"
+    ]
+  },
+  {
+    "start": "FALL",
+    "target": "SEEM",
+    "par": 5,
+    "solution": [
+      "FALL",
+      "FELL",
+      "FEEL",
+      "FEED",
+      "SEED",
+      "SEEM"
+    ]
+  },
+  {
+    "start": "SOLE",
+    "target": "VOTE",
+    "par": 5,
+    "solution": [
+      "SOLE",
+      "ROLE",
+      "ROSE",
+      "NOSE",
+      "NOTE",
+      "VOTE"
+    ]
+  },
+  {
+    "start": "LAKE",
+    "target": "MILE",
+    "par": 3,
+    "solution": [
+      "LAKE",
+      "MAKE",
+      "MALE",
+      "MILE"
+    ]
+  },
+  {
+    "start": "FORD",
+    "target": "PARK",
+    "par": 4,
+    "solution": [
+      "FORD",
+      "FORT",
+      "PORT",
+      "PART",
+      "PARK"
+    ]
+  },
+  {
+    "start": "HOPE",
+    "target": "KILL",
+    "par": 6,
+    "solution": [
+      "HOPE",
+      "HOLE",
+      "HOLD",
+      "HELD",
+      "HELL",
+      "HILL",
+      "KILL"
+    ]
+  },
+  {
+    "start": "FIVE",
+    "target": "GONE",
+    "par": 4,
+    "solution": [
+      "FIVE",
+      "FINE",
+      "NINE",
+      "NONE",
+      "GONE"
+    ]
+  },
+  {
+    "start": "WIFE",
+    "target": "WORD",
+    "par": 3,
+    "solution": [
+      "WIFE",
+      "WIRE",
+      "WORE",
+      "WORD"
+    ]
+  },
+  {
+    "start": "EASE",
+    "target": "LIFE",
+    "par": 5,
+    "solution": [
+      "EASE",
+      "CASE",
+      "CAKE",
+      "LAKE",
+      "LIKE",
+      "LIFE"
+    ]
+  },
+  {
+    "start": "BELL",
+    "target": "FUEL",
+    "par": 3,
+    "solution": [
+      "BELL",
+      "FELL",
+      "FULL",
+      "FUEL"
+    ]
+  },
+  {
+    "start": "LOST",
+    "target": "YARD",
+    "par": 6,
+    "solution": [
+      "LOST",
+      "COST",
+      "CAST",
+      "CASE",
+      "CARE",
+      "CARD",
+      "YARD"
+    ]
+  },
+  {
+    "start": "LOCK",
+    "target": "RIDE",
+    "par": 6,
+    "solution": [
+      "LOCK",
+      "LACK",
+      "PACK",
+      "PACE",
+      "RACE",
+      "RICE",
+      "RIDE"
+    ]
+  },
+  {
+    "start": "MINE",
+    "target": "MODE",
+    "par": 4,
+    "solution": [
+      "MINE",
+      "MILE",
+      "MALE",
+      "MADE",
+      "MODE"
+    ]
+  },
+  {
+    "start": "CORD",
+    "target": "SOME",
+    "par": 3,
+    "solution": [
+      "CORD",
+      "CORE",
+      "COME",
+      "SOME"
+    ]
+  },
+  {
+    "start": "READ",
+    "target": "YARD",
+    "par": 6,
+    "solution": [
+      "READ",
+      "LEAD",
+      "LOAD",
+      "LORD",
+      "CORD",
+      "CARD",
+      "YARD"
+    ]
+  },
+  {
+    "start": "THAT",
+    "target": "VAST",
+    "par": 5,
+    "solution": [
+      "THAT",
+      "CHAT",
+      "COAT",
+      "COST",
+      "CAST",
+      "VAST"
+    ]
+  },
+  {
+    "start": "GEAR",
+    "target": "TALL",
+    "par": 6,
+    "solution": [
+      "GEAR",
+      "BEAR",
+      "BEAT",
+      "BELT",
+      "BELL",
+      "BALL",
+      "TALL"
+    ]
+  },
+  {
+    "start": "HARM",
+    "target": "PAIN",
+    "par": 6,
+    "solution": [
+      "HARM",
+      "HARD",
+      "HAND",
+      "LAND",
+      "LAID",
+      "PAID",
+      "PAIN"
+    ]
+  },
+  {
+    "start": "HATE",
+    "target": "WIRE",
+    "par": 5,
+    "solution": [
+      "HATE",
+      "LATE",
+      "LANE",
+      "LINE",
+      "WINE",
+      "WIRE"
+    ]
+  },
+  {
+    "start": "FATE",
+    "target": "KICK",
+    "par": 5,
+    "solution": [
+      "FATE",
+      "FACE",
+      "PACE",
+      "PACK",
+      "PICK",
+      "KICK"
+    ]
+  },
+  {
+    "start": "COOK",
+    "target": "FOOD",
+    "par": 4,
+    "solution": [
+      "COOK",
+      "BOOK",
+      "BOOT",
+      "FOOT",
+      "FOOD"
+    ]
+  },
+  {
+    "start": "BOOT",
+    "target": "NEAR",
+    "par": 4,
+    "solution": [
+      "BOOT",
+      "BOAT",
+      "BEAT",
+      "BEAR",
+      "NEAR"
+    ]
+  },
+  {
+    "start": "LAST",
+    "target": "WAGE",
+    "par": 5,
+    "solution": [
+      "LAST",
+      "CAST",
+      "CASE",
+      "CAKE",
+      "WAKE",
+      "WAGE"
+    ]
+  },
+  {
+    "start": "HELD",
+    "target": "PULL",
+    "par": 4,
+    "solution": [
+      "HELD",
+      "HELL",
+      "FELL",
+      "FULL",
+      "PULL"
+    ]
+  },
+  {
+    "start": "LIKE",
+    "target": "PAGE",
+    "par": 4,
+    "solution": [
+      "LIKE",
+      "LAKE",
+      "WAKE",
+      "WAGE",
+      "PAGE"
+    ]
+  },
+  {
+    "start": "FUND",
+    "target": "HERO",
+    "par": 6,
+    "solution": [
+      "FUND",
+      "FIND",
+      "FINE",
+      "FIRE",
+      "HIRE",
+      "HERE",
+      "HERO"
+    ]
+  },
+  {
+    "start": "FORT",
+    "target": "LINK",
+    "par": 6,
+    "solution": [
+      "FORT",
+      "FORM",
+      "FIRM",
+      "FIRE",
+      "FINE",
+      "LINE",
+      "LINK"
+    ]
+  },
+  {
+    "start": "NOSE",
+    "target": "POST",
+    "par": 3,
+    "solution": [
+      "NOSE",
+      "LOSE",
+      "LOST",
+      "POST"
+    ]
+  },
+  {
+    "start": "BALL",
+    "target": "LOAD",
+    "par": 6,
+    "solution": [
+      "BALL",
+      "HALL",
+      "HELL",
+      "HELD",
+      "HEAD",
+      "LEAD",
+      "LOAD"
+    ]
+  },
+  {
+    "start": "LOOK",
+    "target": "WEAR",
+    "par": 6,
+    "solution": [
+      "LOOK",
+      "BOOK",
+      "BOOT",
+      "BOAT",
+      "BEAT",
+      "BEAR",
+      "WEAR"
+    ]
+  },
+  {
+    "start": "GOOD",
+    "target": "MOVE",
+    "par": 5,
+    "solution": [
+      "GOOD",
+      "WOOD",
+      "WORD",
+      "WORE",
+      "MORE",
+      "MOVE"
+    ]
+  },
+  {
+    "start": "FORM",
+    "target": "WILD",
+    "par": 5,
+    "solution": [
+      "FORM",
+      "FIRM",
+      "FILM",
+      "FILL",
+      "WILL",
+      "WILD"
+    ]
+  },
+  {
+    "start": "PACE",
+    "target": "SOLE",
+    "par": 6,
+    "solution": [
+      "PACE",
+      "RACE",
+      "RICE",
+      "RISE",
+      "ROSE",
+      "ROLE",
+      "SOLE"
+    ]
+  },
+  {
+    "start": "CAKE",
+    "target": "SOLD",
+    "par": 5,
+    "solution": [
+      "CAKE",
+      "MAKE",
+      "MALE",
+      "SALE",
+      "SOLE",
+      "SOLD"
+    ]
+  },
+  {
+    "start": "LAID",
+    "target": "LEAD",
+    "par": 3,
+    "solution": [
+      "LAID",
+      "LAND",
+      "LEND",
+      "LEAD"
+    ]
+  },
+  {
+    "start": "FILE",
+    "target": "LOVE",
+    "par": 3,
+    "solution": [
+      "FILE",
+      "FIVE",
+      "LIVE",
+      "LOVE"
+    ]
+  },
+  {
+    "start": "SAID",
+    "target": "ZONE",
+    "par": 5,
+    "solution": [
+      "SAID",
+      "SAND",
+      "BAND",
+      "BOND",
+      "BONE",
+      "ZONE"
+    ]
+  },
+  {
+    "start": "HOPE",
+    "target": "LORD",
+    "par": 4,
+    "solution": [
+      "HOPE",
+      "COPE",
+      "CORE",
+      "CORD",
+      "LORD"
+    ]
+  },
+  {
+    "start": "FILE",
+    "target": "HOLD",
+    "par": 5,
+    "solution": [
+      "FILE",
+      "FILL",
+      "HILL",
+      "HELL",
+      "HELD",
+      "HOLD"
+    ]
+  },
+  {
+    "start": "FACE",
+    "target": "WISH",
+    "par": 5,
+    "solution": [
+      "FACE",
+      "RACE",
+      "RICE",
+      "RISE",
+      "WISE",
+      "WISH"
+    ]
+  },
+  {
+    "start": "WASH",
+    "target": "WIFE",
+    "par": 3,
+    "solution": [
+      "WASH",
+      "WISH",
+      "WISE",
+      "WIFE"
+    ]
+  },
+  {
+    "start": "CAME",
+    "target": "WIND",
+    "par": 6,
+    "solution": [
+      "CAME",
+      "CAKE",
+      "LAKE",
+      "LIKE",
+      "LINE",
+      "WINE",
+      "WIND"
+    ]
+  },
+  {
+    "start": "CAMP",
+    "target": "SAFE",
+    "par": 3,
+    "solution": [
+      "CAMP",
+      "CAME",
+      "SAME",
+      "SAFE"
+    ]
+  },
+  {
+    "start": "HANG",
+    "target": "MAKE",
+    "par": 5,
+    "solution": [
+      "HANG",
+      "HAND",
+      "LAND",
+      "LANE",
+      "LAKE",
+      "MAKE"
+    ]
+  },
+  {
+    "start": "CARE",
+    "target": "FIRM",
+    "par": 5,
+    "solution": [
+      "CARE",
+      "CARD",
+      "HARD",
+      "HARM",
+      "FARM",
+      "FIRM"
+    ]
+  },
+  {
+    "start": "LANE",
+    "target": "SAID",
+    "par": 3,
+    "solution": [
+      "LANE",
+      "LAND",
+      "SAND",
+      "SAID"
+    ]
+  },
+  {
+    "start": "FEAR",
+    "target": "FILL",
+    "par": 6,
+    "solution": [
+      "FEAR",
+      "BEAR",
+      "BEAT",
+      "BELT",
+      "BELL",
+      "BILL",
+      "FILL"
+    ]
+  },
+  {
+    "start": "ELSE",
+    "target": "SOME",
+    "par": 5,
+    "solution": [
+      "ELSE",
+      "EASE",
+      "CASE",
+      "CAME",
+      "SAME",
+      "SOME"
+    ]
+  },
+  {
+    "start": "BILL",
+    "target": "FIND",
+    "par": 4,
+    "solution": [
+      "BILL",
+      "FILL",
+      "FILE",
+      "FINE",
+      "FIND"
+    ]
+  },
+  {
+    "start": "COST",
+    "target": "FEAR",
+    "par": 5,
+    "solution": [
+      "COST",
+      "COAT",
+      "BOAT",
+      "BEAT",
+      "BEAR",
+      "FEAR"
+    ]
+  },
+  {
+    "start": "DEAD",
+    "target": "GOLF",
+    "par": 5,
+    "solution": [
+      "DEAD",
+      "HEAD",
+      "HELD",
+      "HOLD",
+      "GOLD",
+      "GOLF"
+    ]
+  },
+  {
+    "start": "CORE",
+    "target": "TANK",
+    "par": 6,
+    "solution": [
+      "CORE",
+      "CARE",
+      "CAKE",
+      "TAKE",
+      "TALE",
+      "TALK",
+      "TANK"
+    ]
+  },
+  {
+    "start": "SALT",
+    "target": "TAKE",
+    "par": 3,
+    "solution": [
+      "SALT",
+      "SALE",
+      "TALE",
+      "TAKE"
+    ]
+  },
+  {
+    "start": "LAID",
+    "target": "MEAT",
+    "par": 6,
+    "solution": [
+      "LAID",
+      "SAID",
+      "SAND",
+      "SEND",
+      "SENT",
+      "SEAT",
+      "MEAT"
+    ]
+  },
+  {
+    "start": "CARE",
+    "target": "PACK",
+    "par": 6,
+    "solution": [
+      "CARE",
+      "CAKE",
+      "WAKE",
+      "WAGE",
+      "PAGE",
+      "PACE",
+      "PACK"
+    ]
+  },
+  {
+    "start": "MEAL",
+    "target": "SAND",
+    "par": 5,
+    "solution": [
+      "MEAL",
+      "MEAT",
+      "SEAT",
+      "SENT",
+      "SEND",
+      "SAND"
+    ]
+  },
+  {
+    "start": "LATE",
+    "target": "RANK",
+    "par": 5,
+    "solution": [
+      "LATE",
+      "LANE",
+      "LAND",
+      "BAND",
+      "BANK",
+      "RANK"
+    ]
+  },
+  {
+    "start": "GOAL",
+    "target": "REST",
+    "par": 6,
+    "solution": [
+      "GOAL",
+      "COAL",
+      "COAT",
+      "BOAT",
+      "BEAT",
+      "BEST",
+      "REST"
+    ]
+  },
+  {
+    "start": "FACT",
+    "target": "LEFT",
+    "par": 5,
+    "solution": [
+      "FACT",
+      "FAST",
+      "LAST",
+      "LIST",
+      "LIFT",
+      "LEFT"
+    ]
+  },
+  {
+    "start": "ROSE",
+    "target": "SALT",
+    "par": 4,
+    "solution": [
+      "ROSE",
+      "ROLE",
+      "SOLE",
+      "SALE",
+      "SALT"
+    ]
+  },
+  {
+    "start": "COME",
+    "target": "TALL",
+    "par": 5,
+    "solution": [
+      "COME",
+      "CAME",
+      "CAKE",
+      "TAKE",
+      "TALE",
+      "TALL"
+    ]
+  },
+  {
+    "start": "BAND",
+    "target": "LOOK",
+    "par": 5,
+    "solution": [
+      "BAND",
+      "BANK",
+      "BACK",
+      "LACK",
+      "LOCK",
+      "LOOK"
+    ]
+  },
+  {
+    "start": "FIRE",
+    "target": "HALF",
+    "par": 5,
+    "solution": [
+      "FIRE",
+      "FILE",
+      "FILL",
+      "HILL",
+      "HALL",
+      "HALF"
+    ]
+  },
+  {
+    "start": "LEAD",
+    "target": "NONE",
+    "par": 6,
+    "solution": [
+      "LEAD",
+      "LEND",
+      "LAND",
+      "BAND",
+      "BOND",
+      "BONE",
+      "NONE"
+    ]
+  },
+  {
+    "start": "BEAR",
+    "target": "TEXT",
+    "par": 4,
+    "solution": [
+      "BEAR",
+      "BEAT",
+      "BEST",
+      "TEST",
+      "TEXT"
+    ]
+  },
+  {
+    "start": "MILK",
+    "target": "NOSE",
+    "par": 5,
+    "solution": [
+      "MILK",
+      "MILE",
+      "MINE",
+      "NINE",
+      "NONE",
+      "NOSE"
+    ]
+  },
+  {
+    "start": "BEER",
+    "target": "SEAT",
+    "par": 3,
+    "solution": [
+      "BEER",
+      "BEAR",
+      "BEAT",
+      "SEAT"
+    ]
+  },
+  {
+    "start": "BEAR",
+    "target": "SENT",
+    "par": 3,
+    "solution": [
+      "BEAR",
+      "BEAT",
+      "SEAT",
+      "SENT"
+    ]
+  },
+  {
+    "start": "KICK",
+    "target": "LOVE",
+    "par": 6,
+    "solution": [
+      "KICK",
+      "PICK",
+      "PINK",
+      "LINK",
+      "LINE",
+      "LIVE",
+      "LOVE"
+    ]
+  },
+  {
+    "start": "COAL",
+    "target": "ROOM",
+    "par": 5,
+    "solution": [
+      "COAL",
+      "COOL",
+      "COOK",
+      "BOOK",
+      "BOOM",
+      "ROOM"
+    ]
+  },
+  {
+    "start": "MALE",
+    "target": "WIFE",
+    "par": 4,
+    "solution": [
+      "MALE",
+      "MILE",
+      "MINE",
+      "WINE",
+      "WIFE"
+    ]
+  },
+  {
+    "start": "LACK",
+    "target": "MASS",
+    "par": 6,
+    "solution": [
+      "LACK",
+      "PACK",
+      "PARK",
+      "PART",
+      "PAST",
+      "PASS",
+      "MASS"
+    ]
+  },
+  {
+    "start": "FARM",
+    "target": "LIST",
+    "par": 6,
+    "solution": [
+      "FARM",
+      "FORM",
+      "FORT",
+      "PORT",
+      "POST",
+      "LOST",
+      "LIST"
+    ]
+  },
+  {
+    "start": "BAND",
+    "target": "PINK",
+    "par": 5,
+    "solution": [
+      "BAND",
+      "LAND",
+      "LANE",
+      "LINE",
+      "LINK",
+      "PINK"
+    ]
+  },
+  {
+    "start": "PINK",
+    "target": "WORD",
+    "par": 6,
+    "solution": [
+      "PINK",
+      "LINK",
+      "LINE",
+      "WINE",
+      "WIRE",
+      "WORE",
+      "WORD"
+    ]
+  },
+  {
+    "start": "BOOK",
+    "target": "ROCK",
+    "par": 3,
+    "solution": [
+      "BOOK",
+      "LOOK",
+      "LOCK",
+      "ROCK"
+    ]
+  },
+  {
+    "start": "HERE",
+    "target": "WINE",
+    "par": 3,
+    "solution": [
+      "HERE",
+      "WERE",
+      "WIRE",
+      "WINE"
+    ]
+  },
+  {
+    "start": "CARD",
+    "target": "TASK",
+    "par": 6,
+    "solution": [
+      "CARD",
+      "HARD",
+      "HAND",
+      "BAND",
+      "BANK",
+      "TANK",
+      "TASK"
+    ]
+  },
+  {
+    "start": "LAID",
+    "target": "WALK",
+    "par": 6,
+    "solution": [
+      "LAID",
+      "LAND",
+      "BAND",
+      "BANK",
+      "TANK",
+      "TALK",
+      "WALK"
+    ]
+  },
+  {
+    "start": "COME",
+    "target": "VAST",
+    "par": 4,
+    "solution": [
+      "COME",
+      "CAME",
+      "CASE",
+      "CAST",
+      "VAST"
+    ]
+  },
+  {
+    "start": "BAND",
+    "target": "HEAD",
+    "par": 4,
+    "solution": [
+      "BAND",
+      "LAND",
+      "LEND",
+      "LEAD",
+      "HEAD"
+    ]
+  },
+  {
+    "start": "FELL",
+    "target": "MEET",
+    "par": 3,
+    "solution": [
+      "FELL",
+      "FEEL",
+      "FEET",
+      "MEET"
+    ]
+  },
+  {
+    "start": "HIRE",
+    "target": "LOAD",
+    "par": 5,
+    "solution": [
+      "HIRE",
+      "WIRE",
+      "WORE",
+      "WORD",
+      "LORD",
+      "LOAD"
+    ]
+  },
+  {
+    "start": "GONE",
+    "target": "LINK",
+    "par": 4,
+    "solution": [
+      "GONE",
+      "NONE",
+      "NINE",
+      "LINE",
+      "LINK"
+    ]
+  },
+  {
+    "start": "EAST",
+    "target": "FARM",
+    "par": 6,
+    "solution": [
+      "EAST",
+      "PAST",
+      "PART",
+      "PORT",
+      "FORT",
+      "FORM",
+      "FARM"
+    ]
+  },
+  {
+    "start": "PORT",
+    "target": "ROLE",
+    "par": 5,
+    "solution": [
+      "PORT",
+      "POST",
+      "LOST",
+      "LOSE",
+      "ROSE",
+      "ROLE"
+    ]
+  },
+  {
+    "start": "CAST",
+    "target": "HOLD",
+    "par": 6,
+    "solution": [
+      "CAST",
+      "CASE",
+      "CAME",
+      "COME",
+      "HOME",
+      "HOLE",
+      "HOLD"
+    ]
+  },
+  {
+    "start": "CARD",
+    "target": "EASE",
+    "par": 3,
+    "solution": [
+      "CARD",
+      "CARE",
+      "CASE",
+      "EASE"
+    ]
+  },
+  {
+    "start": "LAKE",
+    "target": "NOSE",
+    "par": 5,
+    "solution": [
+      "LAKE",
+      "LIKE",
+      "LINE",
+      "NINE",
+      "NONE",
+      "NOSE"
+    ]
+  },
+  {
+    "start": "BEST",
+    "target": "GOAL",
+    "par": 5,
+    "solution": [
+      "BEST",
+      "BEAT",
+      "BOAT",
+      "COAT",
+      "COAL",
+      "GOAL"
+    ]
+  },
+  {
+    "start": "LACK",
+    "target": "ROOM",
+    "par": 5,
+    "solution": [
+      "LACK",
+      "LOCK",
+      "LOOK",
+      "BOOK",
+      "BOOM",
+      "ROOM"
+    ]
+  },
+  {
+    "start": "DEAR",
+    "target": "TEXT",
+    "par": 5,
+    "solution": [
+      "DEAR",
+      "BEAR",
+      "BEAT",
+      "BEST",
+      "TEST",
+      "TEXT"
+    ]
+  },
+  {
+    "start": "NEED",
+    "target": "TOOL",
+    "par": 6,
+    "solution": [
+      "NEED",
+      "FEED",
+      "FEEL",
+      "FELL",
+      "TELL",
+      "TOLL",
+      "TOOL"
+    ]
+  },
+  {
+    "start": "FEET",
+    "target": "TEAM",
+    "par": 6,
+    "solution": [
+      "FEET",
+      "MEET",
+      "MEAT",
+      "BEAT",
+      "BEAR",
+      "TEAR",
+      "TEAM"
+    ]
+  },
+  {
+    "start": "MADE",
+    "target": "RICE",
+    "par": 6,
+    "solution": [
+      "MADE",
+      "MAKE",
+      "LAKE",
+      "LATE",
+      "RATE",
+      "RACE",
+      "RICE"
+    ]
+  },
+  {
+    "start": "MEAN",
+    "target": "WILL",
+    "par": 6,
+    "solution": [
+      "MEAN",
+      "MEAT",
+      "BEAT",
+      "BELT",
+      "BELL",
+      "BILL",
+      "WILL"
+    ]
+  },
+  {
+    "start": "BALL",
+    "target": "FATE",
+    "par": 6,
+    "solution": [
+      "BALL",
+      "TALL",
+      "TALE",
+      "TAKE",
+      "LAKE",
+      "LATE",
+      "FATE"
+    ]
+  },
+  {
+    "start": "BASE",
+    "target": "NAME",
+    "par": 3,
+    "solution": [
+      "BASE",
+      "CASE",
+      "CAME",
+      "NAME"
+    ]
+  },
+  {
+    "start": "HOLY",
+    "target": "WISH",
+    "par": 6,
+    "solution": [
+      "HOLY",
+      "HOLE",
+      "ROLE",
+      "ROSE",
+      "RISE",
+      "WISE",
+      "WISH"
+    ]
+  },
+  {
+    "start": "COLD",
+    "target": "DEAD",
+    "par": 4,
+    "solution": [
+      "COLD",
+      "HOLD",
+      "HELD",
+      "HEAD",
+      "DEAD"
+    ]
+  },
+  {
+    "start": "JAIL",
+    "target": "LIVE",
+    "par": 6,
+    "solution": [
+      "JAIL",
+      "FAIL",
+      "FALL",
+      "FILL",
+      "FILE",
+      "FIVE",
+      "LIVE"
+    ]
+  },
+  {
+    "start": "MAKE",
+    "target": "SIDE",
+    "par": 6,
+    "solution": [
+      "MAKE",
+      "LAKE",
+      "LIKE",
+      "LIFE",
+      "WIFE",
+      "WIDE",
+      "SIDE"
+    ]
+  },
+  {
+    "start": "POST",
+    "target": "WITH",
+    "par": 6,
+    "solution": [
+      "POST",
+      "COST",
+      "CAST",
+      "CASH",
+      "WASH",
+      "WISH",
+      "WITH"
+    ]
+  },
+  {
+    "start": "COOL",
+    "target": "HOLY",
+    "par": 5,
+    "solution": [
+      "COOL",
+      "TOOL",
+      "TOLL",
+      "TOLD",
+      "HOLD",
+      "HOLY"
+    ]
+  },
+  {
+    "start": "BOND",
+    "target": "MAKE",
+    "par": 5,
+    "solution": [
+      "BOND",
+      "BAND",
+      "LAND",
+      "LANE",
+      "LAKE",
+      "MAKE"
+    ]
+  },
+  {
+    "start": "HIRE",
+    "target": "LINK",
+    "par": 4,
+    "solution": [
+      "HIRE",
+      "FIRE",
+      "FINE",
+      "LINE",
+      "LINK"
+    ]
+  },
+  {
+    "start": "BELT",
+    "target": "TAPE",
+    "par": 5,
+    "solution": [
+      "BELT",
+      "BELL",
+      "BALL",
+      "TALL",
+      "TALE",
+      "TAPE"
+    ]
+  },
+  {
+    "start": "COAT",
+    "target": "NEAR",
+    "par": 4,
+    "solution": [
+      "COAT",
+      "BOAT",
+      "BEAT",
+      "BEAR",
+      "NEAR"
+    ]
+  },
+  {
+    "start": "MAIL",
+    "target": "TALK",
+    "par": 4,
+    "solution": [
+      "MAIL",
+      "FAIL",
+      "FALL",
+      "TALL",
+      "TALK"
+    ]
+  },
+  {
+    "start": "FEED",
+    "target": "ROAD",
+    "par": 6,
+    "solution": [
+      "FEED",
+      "SEED",
+      "SEND",
+      "LEND",
+      "LEAD",
+      "READ",
+      "ROAD"
+    ]
+  },
+  {
+    "start": "LOST",
+    "target": "THAT",
+    "par": 4,
+    "solution": [
+      "LOST",
+      "COST",
+      "COAT",
+      "CHAT",
+      "THAT"
+    ]
+  },
+  {
+    "start": "WIND",
+    "target": "WORK",
+    "par": 4,
+    "solution": [
+      "WIND",
+      "WINE",
+      "WIRE",
+      "WORE",
+      "WORK"
+    ]
+  },
+  {
+    "start": "HIRE",
+    "target": "ROOT",
+    "par": 6,
+    "solution": [
+      "HIRE",
+      "FIRE",
+      "FIRM",
+      "FORM",
+      "FORT",
+      "FOOT",
+      "ROOT"
+    ]
+  },
+  {
+    "start": "TERM",
+    "target": "WEAK",
+    "par": 4,
+    "solution": [
+      "TERM",
+      "TEAM",
+      "TEAR",
+      "WEAR",
+      "WEAK"
+    ]
+  },
+  {
+    "start": "FOOD",
+    "target": "PAST",
+    "par": 5,
+    "solution": [
+      "FOOD",
+      "FORD",
+      "FORT",
+      "PORT",
+      "PART",
+      "PAST"
+    ]
+  },
+  {
+    "start": "HAND",
+    "target": "REAR",
+    "par": 5,
+    "solution": [
+      "HAND",
+      "LAND",
+      "LEND",
+      "LEAD",
+      "READ",
+      "REAR"
+    ]
+  },
+  {
+    "start": "GATE",
+    "target": "ROLE",
+    "par": 5,
+    "solution": [
+      "GATE",
+      "GAME",
+      "SAME",
+      "SALE",
+      "SOLE",
+      "ROLE"
+    ]
+  },
+  {
+    "start": "NEAR",
+    "target": "WALL",
+    "par": 6,
+    "solution": [
+      "NEAR",
+      "BEAR",
+      "BEAT",
+      "BELT",
+      "BELL",
+      "BALL",
+      "WALL"
+    ]
+  },
+  {
+    "start": "PEAK",
+    "target": "SEEK",
+    "par": 3,
+    "solution": [
+      "PEAK",
+      "WEAK",
+      "WEEK",
+      "SEEK"
+    ]
+  },
+  {
+    "start": "CALL",
+    "target": "WIRE",
+    "par": 5,
+    "solution": [
+      "CALL",
+      "FALL",
+      "FILL",
+      "FILE",
+      "FIRE",
+      "WIRE"
+    ]
+  },
+  {
+    "start": "COST",
+    "target": "TOLL",
+    "par": 5,
+    "solution": [
+      "COST",
+      "COAT",
+      "COAL",
+      "COOL",
+      "TOOL",
+      "TOLL"
+    ]
+  },
+  {
+    "start": "FILM",
+    "target": "LEFT",
+    "par": 6,
+    "solution": [
+      "FILM",
+      "FILE",
+      "FINE",
+      "LINE",
+      "LIFE",
+      "LIFT",
+      "LEFT"
+    ]
+  },
+  {
+    "start": "FEED",
+    "target": "TAKE",
+    "par": 6,
+    "solution": [
+      "FEED",
+      "FEEL",
+      "FELL",
+      "TELL",
+      "TALL",
+      "TALE",
+      "TAKE"
+    ]
+  },
+  {
+    "start": "CAST",
+    "target": "RACE",
+    "par": 4,
+    "solution": [
+      "CAST",
+      "FAST",
+      "FACT",
+      "FACE",
+      "RACE"
+    ]
+  },
+  {
+    "start": "HALL",
+    "target": "SEND",
+    "par": 6,
+    "solution": [
+      "HALL",
+      "FALL",
+      "FELL",
+      "FEEL",
+      "FEED",
+      "SEED",
+      "SEND"
+    ]
+  },
+  {
+    "start": "BAND",
+    "target": "FULL",
+    "par": 6,
+    "solution": [
+      "BAND",
+      "BANK",
+      "TANK",
+      "TALK",
+      "TALL",
+      "FALL",
+      "FULL"
+    ]
+  },
+  {
+    "start": "FEEL",
+    "target": "TYPE",
+    "par": 6,
+    "solution": [
+      "FEEL",
+      "FELL",
+      "TELL",
+      "TALL",
+      "TALE",
+      "TAPE",
+      "TYPE"
+    ]
+  },
+  {
+    "start": "FINE",
+    "target": "WILD",
+    "par": 3,
+    "solution": [
+      "FINE",
+      "FIND",
+      "WIND",
+      "WILD"
+    ]
+  },
+  {
+    "start": "SIDE",
+    "target": "WALL",
+    "par": 6,
+    "solution": [
+      "SIDE",
+      "WIDE",
+      "WINE",
+      "WIND",
+      "WILD",
+      "WILL",
+      "WALL"
+    ]
+  },
+  {
+    "start": "FORD",
+    "target": "TOLD",
+    "par": 3,
+    "solution": [
+      "FORD",
+      "CORD",
+      "COLD",
+      "TOLD"
+    ]
+  },
+  {
+    "start": "RATE",
+    "target": "SALT",
+    "par": 5,
+    "solution": [
+      "RATE",
+      "GATE",
+      "GAME",
+      "SAME",
+      "SALE",
+      "SALT"
+    ]
+  },
+  {
+    "start": "COPE",
+    "target": "DEAD",
+    "par": 6,
+    "solution": [
+      "COPE",
+      "CORE",
+      "CORD",
+      "LORD",
+      "LOAD",
+      "LEAD",
+      "DEAD"
+    ]
+  },
+  {
+    "start": "MASS",
+    "target": "RACE",
+    "par": 6,
+    "solution": [
+      "MASS",
+      "PASS",
+      "PAST",
+      "FAST",
+      "FACT",
+      "FACE",
+      "RACE"
+    ]
+  },
+  {
+    "start": "SICK",
+    "target": "WINE",
+    "par": 5,
+    "solution": [
+      "SICK",
+      "PICK",
+      "PINK",
+      "LINK",
+      "LINE",
+      "WINE"
+    ]
+  },
+  {
+    "start": "FARM",
+    "target": "WITH",
+    "par": 6,
+    "solution": [
+      "FARM",
+      "FIRM",
+      "FIRE",
+      "WIRE",
+      "WISE",
+      "WISH",
+      "WITH"
+    ]
+  },
+  {
+    "start": "LOSE",
+    "target": "PARK",
+    "par": 5,
+    "solution": [
+      "LOSE",
+      "LOST",
+      "POST",
+      "PAST",
+      "PART",
+      "PARK"
+    ]
+  },
+  {
+    "start": "BEST",
+    "target": "FILE",
+    "par": 5,
+    "solution": [
+      "BEST",
+      "BELT",
+      "BELL",
+      "BILL",
+      "FILL",
+      "FILE"
+    ]
+  },
+  {
+    "start": "COAT",
+    "target": "SOME",
+    "par": 6,
+    "solution": [
+      "COAT",
+      "COST",
+      "CAST",
+      "CASE",
+      "CAME",
+      "SAME",
+      "SOME"
+    ]
+  },
+  {
+    "start": "DEAD",
+    "target": "FOOD",
+    "par": 5,
+    "solution": [
+      "DEAD",
+      "LEAD",
+      "LOAD",
+      "LORD",
+      "FORD",
+      "FOOD"
+    ]
+  },
+  {
+    "start": "BOAT",
+    "target": "WOOD",
+    "par": 4,
+    "solution": [
+      "BOAT",
+      "BOOT",
+      "FOOT",
+      "FOOD",
+      "WOOD"
+    ]
+  },
+  {
+    "start": "LOAD",
+    "target": "SENT",
+    "par": 4,
+    "solution": [
+      "LOAD",
+      "LEAD",
+      "LEND",
+      "SEND",
+      "SENT"
+    ]
+  },
+  {
+    "start": "BILL",
+    "target": "HERE",
+    "par": 5,
+    "solution": [
+      "BILL",
+      "FILL",
+      "FILE",
+      "FIRE",
+      "HIRE",
+      "HERE"
+    ]
+  },
+  {
+    "start": "PULL",
+    "target": "TANK",
+    "par": 5,
+    "solution": [
+      "PULL",
+      "FULL",
+      "FALL",
+      "TALL",
+      "TALK",
+      "TANK"
+    ]
+  },
+  {
+    "start": "EASE",
+    "target": "WARD",
+    "par": 4,
+    "solution": [
+      "EASE",
+      "CASE",
+      "CARE",
+      "CARD",
+      "WARD"
+    ]
+  },
+  {
+    "start": "CAMP",
+    "target": "FISH",
+    "par": 6,
+    "solution": [
+      "CAMP",
+      "CAME",
+      "CASE",
+      "CASH",
+      "WASH",
+      "WISH",
+      "FISH"
+    ]
+  },
+  {
+    "start": "HEAT",
+    "target": "TALE",
+    "par": 6,
+    "solution": [
+      "HEAT",
+      "BEAT",
+      "BELT",
+      "BELL",
+      "BALL",
+      "TALL",
+      "TALE"
+    ]
+  },
+  {
+    "start": "HANG",
+    "target": "WANT",
+    "par": 6,
+    "solution": [
+      "HANG",
+      "HAND",
+      "SAND",
+      "SEND",
+      "SENT",
+      "WENT",
+      "WANT"
+    ]
+  },
+  {
+    "start": "BASE",
+    "target": "PACK",
+    "par": 6,
+    "solution": [
+      "BASE",
+      "CASE",
+      "CAST",
+      "PAST",
+      "PART",
+      "PARK",
+      "PACK"
+    ]
+  },
+  {
+    "start": "MOVE",
+    "target": "YARD",
+    "par": 5,
+    "solution": [
+      "MOVE",
+      "MORE",
+      "CORE",
+      "CARE",
+      "CARD",
+      "YARD"
+    ]
+  },
+  {
+    "start": "HAND",
+    "target": "WAIT",
+    "par": 6,
+    "solution": [
+      "HAND",
+      "SAND",
+      "SEND",
+      "SENT",
+      "WENT",
+      "WANT",
+      "WAIT"
+    ]
+  },
+  {
+    "start": "BOOK",
+    "target": "COLD",
+    "par": 5,
+    "solution": [
+      "BOOK",
+      "TOOK",
+      "TOOL",
+      "TOLL",
+      "TOLD",
+      "COLD"
+    ]
+  },
+  {
+    "start": "CARE",
+    "target": "MILK",
+    "par": 5,
+    "solution": [
+      "CARE",
+      "CAKE",
+      "MAKE",
+      "MALE",
+      "MILE",
+      "MILK"
+    ]
+  },
+  {
+    "start": "EAST",
+    "target": "FINE",
+    "par": 6,
+    "solution": [
+      "EAST",
+      "LAST",
+      "LIST",
+      "LIFT",
+      "LIFE",
+      "LINE",
+      "FINE"
+    ]
+  },
+  {
+    "start": "BONE",
+    "target": "NICE",
+    "par": 3,
+    "solution": [
+      "BONE",
+      "NONE",
+      "NINE",
+      "NICE"
+    ]
+  },
+  {
+    "start": "WISH",
+    "target": "ZERO",
+    "par": 6,
+    "solution": [
+      "WISH",
+      "WISE",
+      "WIRE",
+      "HIRE",
+      "HERE",
+      "HERO",
+      "ZERO"
+    ]
+  },
+  {
+    "start": "NICE",
+    "target": "SICK",
+    "par": 6,
+    "solution": [
+      "NICE",
+      "RICE",
+      "RACE",
+      "PACE",
+      "PACK",
+      "PICK",
+      "SICK"
+    ]
+  },
+  {
+    "start": "CELL",
+    "target": "LINK",
+    "par": 6,
+    "solution": [
+      "CELL",
+      "FELL",
+      "FILL",
+      "FILE",
+      "FINE",
+      "LINE",
+      "LINK"
+    ]
+  },
+  {
+    "start": "COAL",
+    "target": "FORM",
+    "par": 6,
+    "solution": [
+      "COAL",
+      "COAT",
+      "BOAT",
+      "BOOT",
+      "FOOT",
+      "FORT",
+      "FORM"
+    ]
+  },
+  {
+    "start": "SORT",
+    "target": "WIDE",
+    "par": 6,
+    "solution": [
+      "SORT",
+      "FORT",
+      "FORD",
+      "WORD",
+      "WORE",
+      "WIRE",
+      "WIDE"
+    ]
+  },
+  {
+    "start": "PACK",
+    "target": "SEED",
+    "par": 6,
+    "solution": [
+      "PACK",
+      "BACK",
+      "BANK",
+      "BAND",
+      "SAND",
+      "SEND",
+      "SEED"
+    ]
+  },
+  {
+    "start": "SORT",
+    "target": "WIFE",
+    "par": 6,
+    "solution": [
+      "SORT",
+      "FORT",
+      "FORD",
+      "WORD",
+      "WORE",
+      "WIRE",
+      "WIFE"
+    ]
+  },
+  {
+    "start": "RULE",
+    "target": "WAKE",
+    "par": 6,
+    "solution": [
+      "RULE",
+      "ROLE",
+      "SOLE",
+      "SALE",
+      "MALE",
+      "MAKE",
+      "WAKE"
+    ]
+  },
+  {
+    "start": "BLOW",
+    "target": "STEP",
+    "par": 5,
+    "solution": [
+      "BLOW",
+      "SLOW",
+      "SHOW",
+      "SHOP",
+      "STOP",
+      "STEP"
+    ]
+  },
+  {
+    "start": "BILL",
+    "target": "SALE",
+    "par": 4,
+    "solution": [
+      "BILL",
+      "BALL",
+      "TALL",
+      "TALE",
+      "SALE"
+    ]
+  },
+  {
+    "start": "GOOD",
+    "target": "HOME",
+    "par": 4,
+    "solution": [
+      "GOOD",
+      "GOLD",
+      "HOLD",
+      "HOLE",
+      "HOME"
+    ]
+  },
+  {
+    "start": "NOTE",
+    "target": "SALE",
+    "par": 5,
+    "solution": [
+      "NOTE",
+      "NOSE",
+      "ROSE",
+      "ROLE",
+      "SOLE",
+      "SALE"
+    ]
+  },
+  {
+    "start": "NAME",
+    "target": "PORT",
+    "par": 6,
+    "solution": [
+      "NAME",
+      "CAME",
+      "CASE",
+      "CAST",
+      "PAST",
+      "PART",
+      "PORT"
+    ]
+  },
+  {
+    "start": "BANK",
+    "target": "JAIL",
+    "par": 6,
+    "solution": [
+      "BANK",
+      "TANK",
+      "TALK",
+      "TALL",
+      "FALL",
+      "FAIL",
+      "JAIL"
+    ]
+  },
+  {
+    "start": "REAR",
+    "target": "WORD",
+    "par": 5,
+    "solution": [
+      "REAR",
+      "READ",
+      "LEAD",
+      "LOAD",
+      "LORD",
+      "WORD"
+    ]
+  },
+  {
+    "start": "TALL",
+    "target": "WARM",
+    "par": 6,
+    "solution": [
+      "TALL",
+      "FALL",
+      "FILL",
+      "FILM",
+      "FIRM",
+      "FARM",
+      "WARM"
+    ]
+  },
+  {
+    "start": "BALL",
+    "target": "LIVE",
+    "par": 5,
+    "solution": [
+      "BALL",
+      "FALL",
+      "FILL",
+      "FILE",
+      "FIVE",
+      "LIVE"
+    ]
+  },
+  {
+    "start": "VOTE",
+    "target": "WERE",
+    "par": 6,
+    "solution": [
+      "VOTE",
+      "NOTE",
+      "NONE",
+      "NINE",
+      "WINE",
+      "WIRE",
+      "WERE"
+    ]
+  },
+  {
+    "start": "LAID",
+    "target": "NOTE",
+    "par": 6,
+    "solution": [
+      "LAID",
+      "LAND",
+      "BAND",
+      "BOND",
+      "BONE",
+      "NONE",
+      "NOTE"
+    ]
+  },
+  {
+    "start": "LORD",
+    "target": "TALK",
+    "par": 6,
+    "solution": [
+      "LORD",
+      "CORD",
+      "COLD",
+      "TOLD",
+      "TOLL",
+      "TALL",
+      "TALK"
+    ]
+  },
+  {
+    "start": "HIRE",
+    "target": "SIZE",
+    "par": 4,
+    "solution": [
+      "HIRE",
+      "WIRE",
+      "WIDE",
+      "SIDE",
+      "SIZE"
+    ]
+  },
+  {
+    "start": "PAID",
+    "target": "WAGE",
+    "par": 6,
+    "solution": [
+      "PAID",
+      "LAID",
+      "LAND",
+      "LANE",
+      "LAKE",
+      "WAKE",
+      "WAGE"
+    ]
+  },
+  {
+    "start": "CAME",
+    "target": "RATE",
+    "par": 3,
+    "solution": [
+      "CAME",
+      "GAME",
+      "GATE",
+      "RATE"
+    ]
+  },
+  {
+    "start": "CORD",
+    "target": "SAVE",
+    "par": 5,
+    "solution": [
+      "CORD",
+      "CARD",
+      "CARE",
+      "CAME",
+      "SAME",
+      "SAVE"
+    ]
+  },
+  {
+    "start": "BEEN",
+    "target": "REAR",
+    "par": 3,
+    "solution": [
+      "BEEN",
+      "BEER",
+      "BEAR",
+      "REAR"
+    ]
+  },
+  {
+    "start": "GAME",
+    "target": "LIFE",
+    "par": 4,
+    "solution": [
+      "GAME",
+      "GAVE",
+      "GIVE",
+      "LIVE",
+      "LIFE"
+    ]
+  },
+  {
+    "start": "LUCK",
+    "target": "SICK",
+    "par": 4,
+    "solution": [
+      "LUCK",
+      "LACK",
+      "PACK",
+      "PICK",
+      "SICK"
+    ]
+  },
+  {
+    "start": "CAKE",
+    "target": "VAST",
+    "par": 3,
+    "solution": [
+      "CAKE",
+      "CASE",
+      "CAST",
+      "VAST"
+    ]
+  },
+  {
+    "start": "GAME",
+    "target": "SAND",
+    "par": 5,
+    "solution": [
+      "GAME",
+      "GATE",
+      "LATE",
+      "LANE",
+      "LAND",
+      "SAND"
+    ]
+  },
+  {
+    "start": "LOSE",
+    "target": "WHAT",
+    "par": 5,
+    "solution": [
+      "LOSE",
+      "LOST",
+      "COST",
+      "COAT",
+      "CHAT",
+      "WHAT"
+    ]
+  },
+  {
+    "start": "POOR",
+    "target": "TOLD",
+    "par": 4,
+    "solution": [
+      "POOR",
+      "POOL",
+      "TOOL",
+      "TOLL",
+      "TOLD"
+    ]
+  },
+  {
+    "start": "PAID",
+    "target": "SELL",
+    "par": 6,
+    "solution": [
+      "PAID",
+      "PAIR",
+      "FAIR",
+      "FAIL",
+      "FALL",
+      "FELL",
+      "SELL"
+    ]
+  },
+  {
+    "start": "FACE",
+    "target": "TOOK",
+    "par": 6,
+    "solution": [
+      "FACE",
+      "PACE",
+      "PACK",
+      "LACK",
+      "LOCK",
+      "LOOK",
+      "TOOK"
+    ]
+  },
+  {
+    "start": "HARM",
+    "target": "LAID",
+    "par": 4,
+    "solution": [
+      "HARM",
+      "HARD",
+      "HAND",
+      "LAND",
+      "LAID"
+    ]
+  },
+  {
+    "start": "BOOT",
+    "target": "SOFT",
+    "par": 4,
+    "solution": [
+      "BOOT",
+      "FOOT",
+      "FORT",
+      "SORT",
+      "SOFT"
+    ]
+  },
+  {
+    "start": "FORT",
+    "target": "HOLY",
+    "par": 5,
+    "solution": [
+      "FORT",
+      "FORD",
+      "CORD",
+      "COLD",
+      "HOLD",
+      "HOLY"
+    ]
+  },
+  {
+    "start": "HOME",
+    "target": "WIDE",
+    "par": 5,
+    "solution": [
+      "HOME",
+      "COME",
+      "CORE",
+      "WORE",
+      "WIRE",
+      "WIDE"
+    ]
+  },
+  {
+    "start": "ROAD",
+    "target": "WEEK",
+    "par": 5,
+    "solution": [
+      "ROAD",
+      "READ",
+      "REAR",
+      "WEAR",
+      "WEAK",
+      "WEEK"
+    ]
+  },
+  {
+    "start": "PASS",
+    "target": "SORT",
+    "par": 4,
+    "solution": [
+      "PASS",
+      "PAST",
+      "PART",
+      "PORT",
+      "SORT"
+    ]
+  },
+  {
+    "start": "MIND",
+    "target": "WISH",
+    "par": 4,
+    "solution": [
+      "MIND",
+      "WIND",
+      "WINE",
+      "WISE",
+      "WISH"
+    ]
+  },
+  {
+    "start": "MIND",
+    "target": "RATE",
+    "par": 5,
+    "solution": [
+      "MIND",
+      "MINE",
+      "LINE",
+      "LANE",
+      "LATE",
+      "RATE"
+    ]
+  },
+  {
+    "start": "LIKE",
+    "target": "PARK",
+    "par": 6,
+    "solution": [
+      "LIKE",
+      "LINE",
+      "LINK",
+      "PINK",
+      "PICK",
+      "PACK",
+      "PARK"
+    ]
+  },
+  {
+    "start": "CAMP",
+    "target": "GATE",
+    "par": 3,
+    "solution": [
+      "CAMP",
+      "CAME",
+      "GAME",
+      "GATE"
+    ]
+  },
+  {
+    "start": "REAL",
+    "target": "TALL",
+    "par": 6,
+    "solution": [
+      "REAL",
+      "READ",
+      "HEAD",
+      "HELD",
+      "HELL",
+      "TELL",
+      "TALL"
+    ]
+  },
+  {
+    "start": "MEAN",
+    "target": "TOLD",
+    "par": 6,
+    "solution": [
+      "MEAN",
+      "MEAT",
+      "HEAT",
+      "HEAD",
+      "HELD",
+      "HOLD",
+      "TOLD"
+    ]
+  },
+  {
+    "start": "FILE",
+    "target": "TAPE",
+    "par": 4,
+    "solution": [
+      "FILE",
+      "MILE",
+      "MALE",
+      "TALE",
+      "TAPE"
+    ]
+  },
+  {
+    "start": "BONE",
+    "target": "PAIR",
+    "par": 6,
+    "solution": [
+      "BONE",
+      "BOND",
+      "BAND",
+      "LAND",
+      "LAID",
+      "PAID",
+      "PAIR"
+    ]
+  },
+  {
+    "start": "LATE",
+    "target": "MALE",
+    "par": 3,
+    "solution": [
+      "LATE",
+      "LAKE",
+      "MAKE",
+      "MALE"
+    ]
+  },
+  {
+    "start": "CORE",
+    "target": "MIND",
+    "par": 5,
+    "solution": [
+      "CORE",
+      "WORE",
+      "WIRE",
+      "WINE",
+      "MINE",
+      "MIND"
+    ]
+  },
+  {
+    "start": "HAND",
+    "target": "LIVE",
+    "par": 4,
+    "solution": [
+      "HAND",
+      "LAND",
+      "LANE",
+      "LINE",
+      "LIVE"
+    ]
+  },
+  {
+    "start": "LINK",
+    "target": "TONE",
+    "par": 4,
+    "solution": [
+      "LINK",
+      "LINE",
+      "NINE",
+      "NONE",
+      "TONE"
+    ]
+  },
+  {
+    "start": "WITH",
+    "target": "WORK",
+    "par": 5,
+    "solution": [
+      "WITH",
+      "WISH",
+      "WISE",
+      "WIRE",
+      "WORE",
+      "WORK"
+    ]
+  },
+  {
+    "start": "FLOW",
+    "target": "STEP",
+    "par": 5,
+    "solution": [
+      "FLOW",
+      "SLOW",
+      "SHOW",
+      "SHOP",
+      "STOP",
+      "STEP"
+    ]
+  },
+  {
+    "start": "HATE",
+    "target": "YARD",
+    "par": 6,
+    "solution": [
+      "HATE",
+      "GATE",
+      "GAME",
+      "CAME",
+      "CARE",
+      "CARD",
+      "YARD"
+    ]
+  },
+  {
+    "start": "COOK",
+    "target": "HEAT",
+    "par": 5,
+    "solution": [
+      "COOK",
+      "BOOK",
+      "BOOT",
+      "BOAT",
+      "BEAT",
+      "HEAT"
+    ]
+  },
+  {
+    "start": "TALE",
+    "target": "WARD",
+    "par": 5,
+    "solution": [
+      "TALE",
+      "TAKE",
+      "CAKE",
+      "CARE",
+      "CARD",
+      "WARD"
+    ]
+  },
+  {
+    "start": "BEER",
+    "target": "GOAL",
+    "par": 6,
+    "solution": [
+      "BEER",
+      "BEAR",
+      "BEAT",
+      "BOAT",
+      "COAT",
+      "COAL",
+      "GOAL"
+    ]
+  },
+  {
+    "start": "DEAR",
+    "target": "WORD",
+    "par": 5,
+    "solution": [
+      "DEAR",
+      "DEAD",
+      "LEAD",
+      "LOAD",
+      "LORD",
+      "WORD"
+    ]
+  },
+  {
+    "start": "FORT",
+    "target": "PACK",
+    "par": 4,
+    "solution": [
+      "FORT",
+      "PORT",
+      "PART",
+      "PARK",
+      "PACK"
+    ]
+  },
+  {
+    "start": "PAIN",
+    "target": "RENT",
+    "par": 6,
+    "solution": [
+      "PAIN",
+      "PAID",
+      "SAID",
+      "SAND",
+      "SEND",
+      "SENT",
+      "RENT"
+    ]
+  },
+  {
+    "start": "LIVE",
+    "target": "RULE",
+    "par": 5,
+    "solution": [
+      "LIVE",
+      "LOVE",
+      "LOSE",
+      "ROSE",
+      "ROLE",
+      "RULE"
+    ]
+  },
+  {
+    "start": "FELL",
+    "target": "WILD",
+    "par": 3,
+    "solution": [
+      "FELL",
+      "WELL",
+      "WILL",
+      "WILD"
+    ]
+  },
+  {
+    "start": "HELP",
+    "target": "WIRE",
+    "par": 6,
+    "solution": [
+      "HELP",
+      "HELL",
+      "FELL",
+      "FILL",
+      "FILE",
+      "FIRE",
+      "WIRE"
+    ]
+  },
+  {
+    "start": "BONE",
+    "target": "GAVE",
+    "par": 6,
+    "solution": [
+      "BONE",
+      "NONE",
+      "NINE",
+      "FINE",
+      "FIVE",
+      "GIVE",
+      "GAVE"
+    ]
+  },
+  {
+    "start": "LAKE",
+    "target": "TASK",
+    "par": 4,
+    "solution": [
+      "LAKE",
+      "TAKE",
+      "TALE",
+      "TALK",
+      "TASK"
+    ]
+  },
+  {
+    "start": "PAID",
+    "target": "WIND",
+    "par": 6,
+    "solution": [
+      "PAID",
+      "LAID",
+      "LAND",
+      "LANE",
+      "LINE",
+      "WINE",
+      "WIND"
+    ]
+  },
+  {
+    "start": "COME",
+    "target": "GATE",
+    "par": 3,
+    "solution": [
+      "COME",
+      "CAME",
+      "GAME",
+      "GATE"
+    ]
+  },
+  {
+    "start": "BELL",
+    "target": "FARM",
+    "par": 5,
+    "solution": [
+      "BELL",
+      "BILL",
+      "FILL",
+      "FILM",
+      "FIRM",
+      "FARM"
+    ]
+  },
+  {
+    "start": "BOAT",
+    "target": "SORT",
+    "par": 4,
+    "solution": [
+      "BOAT",
+      "BOOT",
+      "FOOT",
+      "FORT",
+      "SORT"
+    ]
+  },
+  {
+    "start": "CALL",
+    "target": "LAND",
+    "par": 6,
+    "solution": [
+      "CALL",
+      "TALL",
+      "TALE",
+      "TAKE",
+      "LAKE",
+      "LANE",
+      "LAND"
+    ]
+  },
+  {
+    "start": "NEED",
+    "target": "TELL",
+    "par": 4,
+    "solution": [
+      "NEED",
+      "FEED",
+      "FEEL",
+      "FELL",
+      "TELL"
+    ]
+  },
+  {
+    "start": "GATE",
+    "target": "SAFE",
+    "par": 3,
+    "solution": [
+      "GATE",
+      "GAME",
+      "SAME",
+      "SAFE"
+    ]
+  },
+  {
+    "start": "FLOW",
+    "target": "KNOW",
+    "par": 3,
+    "solution": [
+      "FLOW",
+      "SLOW",
+      "SNOW",
+      "KNOW"
+    ]
+  },
+  {
+    "start": "FOOD",
+    "target": "TALL",
+    "par": 5,
+    "solution": [
+      "FOOD",
+      "GOOD",
+      "GOLD",
+      "TOLD",
+      "TOLL",
+      "TALL"
+    ]
+  },
+  {
+    "start": "GIVE",
+    "target": "POST",
+    "par": 5,
+    "solution": [
+      "GIVE",
+      "LIVE",
+      "LOVE",
+      "LOSE",
+      "LOST",
+      "POST"
+    ]
+  },
+  {
+    "start": "HARD",
+    "target": "HAVE",
+    "par": 6,
+    "solution": [
+      "HARD",
+      "CARD",
+      "CARE",
+      "CAKE",
+      "WAKE",
+      "WAVE",
+      "HAVE"
+    ]
+  },
+  {
+    "start": "GOLD",
+    "target": "MEAT",
+    "par": 5,
+    "solution": [
+      "GOLD",
+      "HOLD",
+      "HELD",
+      "HEAD",
+      "HEAT",
+      "MEAT"
+    ]
+  },
+  {
+    "start": "CELL",
+    "target": "ROSE",
+    "par": 6,
+    "solution": [
+      "CELL",
+      "HELL",
+      "HELD",
+      "HOLD",
+      "HOLE",
+      "ROLE",
+      "ROSE"
+    ]
+  },
+  {
+    "start": "FELT",
+    "target": "LAKE",
+    "par": 6,
+    "solution": [
+      "FELT",
+      "FELL",
+      "TELL",
+      "TALL",
+      "TALE",
+      "TAKE",
+      "LAKE"
+    ]
+  },
+  {
+    "start": "FULL",
+    "target": "LEAD",
+    "par": 5,
+    "solution": [
+      "FULL",
+      "FELL",
+      "HELL",
+      "HELD",
+      "HEAD",
+      "LEAD"
+    ]
+  },
+  {
+    "start": "TALE",
+    "target": "WORK",
+    "par": 6,
+    "solution": [
+      "TALE",
+      "MALE",
+      "MADE",
+      "MODE",
+      "MORE",
+      "WORE",
+      "WORK"
+    ]
+  },
+  {
+    "start": "ROAD",
+    "target": "WARD",
+    "par": 4,
+    "solution": [
+      "ROAD",
+      "LOAD",
+      "LORD",
+      "WORD",
+      "WARD"
+    ]
+  },
+  {
+    "start": "LINE",
+    "target": "WISH",
+    "par": 3,
+    "solution": [
+      "LINE",
+      "WINE",
+      "WISE",
+      "WISH"
+    ]
+  },
+  {
+    "start": "DEAD",
+    "target": "WEAK",
+    "par": 3,
+    "solution": [
+      "DEAD",
+      "DEAR",
+      "WEAR",
+      "WEAK"
+    ]
+  },
+  {
+    "start": "PARK",
+    "target": "TASK",
+    "par": 5,
+    "solution": [
+      "PARK",
+      "PACK",
+      "BACK",
+      "BANK",
+      "TANK",
+      "TASK"
+    ]
+  },
+  {
+    "start": "FATE",
+    "target": "MOVE",
+    "par": 6,
+    "solution": [
+      "FATE",
+      "GATE",
+      "GAVE",
+      "GIVE",
+      "LIVE",
+      "LOVE",
+      "MOVE"
+    ]
+  },
+  {
+    "start": "BALL",
+    "target": "WENT",
+    "par": 5,
+    "solution": [
+      "BALL",
+      "BELL",
+      "BELT",
+      "BEST",
+      "WEST",
+      "WENT"
+    ]
+  },
+  {
+    "start": "FORD",
+    "target": "KIND",
+    "par": 6,
+    "solution": [
+      "FORD",
+      "WORD",
+      "WORE",
+      "WIRE",
+      "WINE",
+      "WIND",
+      "KIND"
+    ]
+  },
+  {
+    "start": "LIFE",
+    "target": "MORE",
+    "par": 4,
+    "solution": [
+      "LIFE",
+      "WIFE",
+      "WIRE",
+      "WORE",
+      "MORE"
+    ]
+  },
+  {
+    "start": "MEAL",
+    "target": "WEEK",
+    "par": 5,
+    "solution": [
+      "MEAL",
+      "DEAL",
+      "DEAR",
+      "WEAR",
+      "WEAK",
+      "WEEK"
+    ]
+  },
+  {
+    "start": "MIND",
+    "target": "SOME",
+    "par": 6,
+    "solution": [
+      "MIND",
+      "MINE",
+      "MILE",
+      "MALE",
+      "SALE",
+      "SAME",
+      "SOME"
+    ]
+  },
+  {
+    "start": "CASE",
+    "target": "WITH",
+    "par": 4,
+    "solution": [
+      "CASE",
+      "CASH",
+      "WASH",
+      "WISH",
+      "WITH"
+    ]
+  },
+  {
+    "start": "DATE",
+    "target": "WAGE",
+    "par": 4,
+    "solution": [
+      "DATE",
+      "GATE",
+      "GAVE",
+      "WAVE",
+      "WAGE"
+    ]
+  },
+  {
+    "start": "CARE",
+    "target": "HAND",
+    "par": 3,
+    "solution": [
+      "CARE",
+      "CARD",
+      "HARD",
+      "HAND"
+    ]
+  },
+  {
+    "start": "FORM",
+    "target": "WOOD",
+    "par": 3,
+    "solution": [
+      "FORM",
+      "FORD",
+      "WORD",
+      "WOOD"
+    ]
+  },
+  {
+    "start": "GAME",
+    "target": "LACK",
+    "par": 6,
+    "solution": [
+      "GAME",
+      "GATE",
+      "FATE",
+      "FACE",
+      "PACE",
+      "PACK",
+      "LACK"
+    ]
+  },
+  {
+    "start": "BANK",
+    "target": "ZONE",
+    "par": 4,
+    "solution": [
+      "BANK",
+      "BAND",
+      "BOND",
+      "BONE",
+      "ZONE"
+    ]
+  },
+  {
+    "start": "FILE",
+    "target": "WALK",
+    "par": 4,
+    "solution": [
+      "FILE",
+      "FILL",
+      "WILL",
+      "WALL",
+      "WALK"
+    ]
+  },
+  {
+    "start": "CAST",
+    "target": "TEST",
+    "par": 6,
+    "solution": [
+      "CAST",
+      "COST",
+      "COAT",
+      "BOAT",
+      "BEAT",
+      "BEST",
+      "TEST"
+    ]
+  },
+  {
+    "start": "SEAT",
+    "target": "THAT",
+    "par": 5,
+    "solution": [
+      "SEAT",
+      "BEAT",
+      "BOAT",
+      "COAT",
+      "CHAT",
+      "THAT"
+    ]
+  },
+  {
+    "start": "CAKE",
+    "target": "HOST",
+    "par": 4,
+    "solution": [
+      "CAKE",
+      "CASE",
+      "CAST",
+      "COST",
+      "HOST"
+    ]
+  },
+  {
+    "start": "COAT",
+    "target": "SEND",
+    "par": 5,
+    "solution": [
+      "COAT",
+      "BOAT",
+      "BEAT",
+      "SEAT",
+      "SENT",
+      "SEND"
+    ]
+  },
+  {
+    "start": "BEAR",
+    "target": "TOLD",
+    "par": 5,
+    "solution": [
+      "BEAR",
+      "HEAR",
+      "HEAD",
+      "HELD",
+      "HOLD",
+      "TOLD"
+    ]
+  },
+  {
+    "start": "LEAD",
+    "target": "TONE",
+    "par": 6,
+    "solution": [
+      "LEAD",
+      "LEND",
+      "LAND",
+      "BAND",
+      "BOND",
+      "BONE",
+      "TONE"
+    ]
+  },
+  {
+    "start": "CODE",
+    "target": "WIFE",
+    "par": 4,
+    "solution": [
+      "CODE",
+      "CORE",
+      "WORE",
+      "WIRE",
+      "WIFE"
+    ]
+  },
+  {
+    "start": "FATE",
+    "target": "LOVE",
+    "par": 5,
+    "solution": [
+      "FATE",
+      "GATE",
+      "GAVE",
+      "GIVE",
+      "LIVE",
+      "LOVE"
+    ]
+  },
+  {
+    "start": "FEAR",
+    "target": "LOAN",
+    "par": 5,
+    "solution": [
+      "FEAR",
+      "DEAR",
+      "DEAD",
+      "LEAD",
+      "LOAD",
+      "LOAN"
+    ]
+  },
+  {
+    "start": "HILL",
+    "target": "POOR",
+    "par": 6,
+    "solution": [
+      "HILL",
+      "HALL",
+      "TALL",
+      "TOLL",
+      "TOOL",
+      "POOL",
+      "POOR"
+    ]
+  },
+  {
+    "start": "COLD",
+    "target": "COPE",
+    "par": 3,
+    "solution": [
+      "COLD",
+      "CORD",
+      "CORE",
+      "COPE"
+    ]
+  },
+  {
+    "start": "FUEL",
+    "target": "SEND",
+    "par": 4,
+    "solution": [
+      "FUEL",
+      "FEEL",
+      "FEED",
+      "SEED",
+      "SEND"
+    ]
+  },
+  {
+    "start": "BEEN",
+    "target": "PEAK",
+    "par": 5,
+    "solution": [
+      "BEEN",
+      "SEEN",
+      "SEEK",
+      "WEEK",
+      "WEAK",
+      "PEAK"
+    ]
+  },
+  {
+    "start": "LIST",
+    "target": "SOFT",
+    "par": 5,
+    "solution": [
+      "LIST",
+      "LOST",
+      "POST",
+      "PORT",
+      "SORT",
+      "SOFT"
+    ]
+  },
+  {
+    "start": "LANE",
+    "target": "WALL",
+    "par": 5,
+    "solution": [
+      "LANE",
+      "LAKE",
+      "TAKE",
+      "TALE",
+      "TALL",
+      "WALL"
+    ]
+  },
+  {
+    "start": "TEAR",
+    "target": "THAT",
+    "par": 6,
+    "solution": [
+      "TEAR",
+      "BEAR",
+      "BEAT",
+      "BOAT",
+      "COAT",
+      "CHAT",
+      "THAT"
+    ]
+  },
+  {
+    "start": "CARD",
+    "target": "TOLL",
+    "par": 4,
+    "solution": [
+      "CARD",
+      "CORD",
+      "COLD",
+      "TOLD",
+      "TOLL"
+    ]
+  },
+  {
+    "start": "FELL",
+    "target": "SEND",
+    "par": 4,
+    "solution": [
+      "FELL",
+      "FEEL",
+      "FEED",
+      "SEED",
+      "SEND"
+    ]
+  },
+  {
+    "start": "MOVE",
+    "target": "PART",
+    "par": 6,
+    "solution": [
+      "MOVE",
+      "LOVE",
+      "LOSE",
+      "LOST",
+      "POST",
+      "PAST",
+      "PART"
+    ]
+  },
+  {
+    "start": "GAVE",
+    "target": "RULE",
+    "par": 5,
+    "solution": [
+      "GAVE",
+      "SAVE",
+      "SALE",
+      "SOLE",
+      "ROLE",
+      "RULE"
+    ]
+  },
+  {
+    "start": "TANK",
+    "target": "TELL",
+    "par": 3,
+    "solution": [
+      "TANK",
+      "TALK",
+      "TALL",
+      "TELL"
+    ]
+  },
+  {
+    "start": "BELT",
+    "target": "WEAR",
+    "par": 3,
+    "solution": [
+      "BELT",
+      "BEAT",
+      "BEAR",
+      "WEAR"
+    ]
+  },
+  {
+    "start": "BELL",
+    "target": "SALT",
+    "par": 5,
+    "solution": [
+      "BELL",
+      "BALL",
+      "TALL",
+      "TALE",
+      "SALE",
+      "SALT"
+    ]
+  },
+  {
+    "start": "GEAR",
+    "target": "ROOM",
+    "par": 6,
+    "solution": [
+      "GEAR",
+      "BEAR",
+      "BEAT",
+      "BOAT",
+      "BOOT",
+      "BOOM",
+      "ROOM"
+    ]
+  },
+  {
+    "start": "COME",
+    "target": "NONE",
+    "par": 6,
+    "solution": [
+      "COME",
+      "CORE",
+      "WORE",
+      "WIRE",
+      "WINE",
+      "NINE",
+      "NONE"
+    ]
+  },
+  {
+    "start": "GOLD",
+    "target": "LOST",
+    "par": 6,
+    "solution": [
+      "GOLD",
+      "HOLD",
+      "HOLE",
+      "ROLE",
+      "ROSE",
+      "LOSE",
+      "LOST"
+    ]
+  },
+  {
+    "start": "LAND",
+    "target": "TONE",
+    "par": 4,
+    "solution": [
+      "LAND",
+      "BAND",
+      "BOND",
+      "BONE",
+      "TONE"
+    ]
+  },
+  {
+    "start": "PART",
+    "target": "WITH",
+    "par": 6,
+    "solution": [
+      "PART",
+      "PAST",
+      "CAST",
+      "CASH",
+      "WASH",
+      "WISH",
+      "WITH"
+    ]
+  },
+  {
+    "start": "COLD",
+    "target": "TEND",
+    "par": 6,
+    "solution": [
+      "COLD",
+      "HOLD",
+      "HELD",
+      "HEAD",
+      "LEAD",
+      "LEND",
+      "TEND"
+    ]
+  },
+  {
+    "start": "CARD",
+    "target": "DATE",
+    "par": 5,
+    "solution": [
+      "CARD",
+      "CARE",
+      "CAKE",
+      "LAKE",
+      "LATE",
+      "DATE"
+    ]
+  },
+  {
+    "start": "COAL",
+    "target": "LEFT",
+    "par": 6,
+    "solution": [
+      "COAL",
+      "COAT",
+      "COST",
+      "LOST",
+      "LIST",
+      "LIFT",
+      "LEFT"
+    ]
+  },
+  {
+    "start": "FORM",
+    "target": "LIFE",
+    "par": 5,
+    "solution": [
+      "FORM",
+      "FIRM",
+      "FIRE",
+      "FINE",
+      "LINE",
+      "LIFE"
+    ]
+  },
+  {
+    "start": "MEET",
+    "target": "TELL",
+    "par": 4,
+    "solution": [
+      "MEET",
+      "FEET",
+      "FEEL",
+      "FELL",
+      "TELL"
+    ]
+  },
+  {
+    "start": "HEAT",
+    "target": "SEEK",
+    "par": 5,
+    "solution": [
+      "HEAT",
+      "SEAT",
+      "SENT",
+      "SEND",
+      "SEED",
+      "SEEK"
+    ]
+  },
+  {
+    "start": "DEAL",
+    "target": "TOLL",
+    "par": 6,
+    "solution": [
+      "DEAL",
+      "DEAD",
+      "HEAD",
+      "HELD",
+      "HOLD",
+      "TOLD",
+      "TOLL"
+    ]
+  },
+  {
+    "start": "BOOT",
+    "target": "EAST",
+    "par": 5,
+    "solution": [
+      "BOOT",
+      "BOAT",
+      "COAT",
+      "COST",
+      "CAST",
+      "EAST"
+    ]
+  },
+  {
+    "start": "SAME",
+    "target": "WELL",
+    "par": 5,
+    "solution": [
+      "SAME",
+      "SALE",
+      "TALE",
+      "TALL",
+      "WALL",
+      "WELL"
+    ]
+  },
+  {
+    "start": "LATE",
+    "target": "WILL",
+    "par": 6,
+    "solution": [
+      "LATE",
+      "LAKE",
+      "TAKE",
+      "TALE",
+      "TALL",
+      "WALL",
+      "WILL"
+    ]
+  },
+  {
+    "start": "HATE",
+    "target": "HEAD",
+    "par": 6,
+    "solution": [
+      "HATE",
+      "LATE",
+      "LANE",
+      "LAND",
+      "LEND",
+      "LEAD",
+      "HEAD"
+    ]
+  },
+  {
+    "start": "CASE",
+    "target": "FOOT",
+    "par": 6,
+    "solution": [
+      "CASE",
+      "CARE",
+      "CARD",
+      "CORD",
+      "FORD",
+      "FOOD",
+      "FOOT"
+    ]
+  },
+  {
+    "start": "COPY",
+    "target": "HEAD",
+    "par": 6,
+    "solution": [
+      "COPY",
+      "COPE",
+      "HOPE",
+      "HOLE",
+      "HOLD",
+      "HELD",
+      "HEAD"
+    ]
+  },
+  {
+    "start": "LEND",
+    "target": "RATE",
+    "par": 4,
+    "solution": [
+      "LEND",
+      "LAND",
+      "LANE",
+      "LATE",
+      "RATE"
+    ]
+  }
+]

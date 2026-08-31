@@ -1,14 +1,13 @@
 {
   "name": "clue-morning",
-  "version": "2.6.0",
+  "version": "2.6.2",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "test": "node test.mjs",
-    "rebuild:content": "node tools/rebuild_content.mjs",
-    "postinstall": "node tools/prepare_runtime.mjs"
+    "rebuild:content": "node tools/rebuild_content.mjs"
   },
   "devDependencies": {
     "wrangler": "^4.68.0"

@@ -1,0 +1,3287 @@
+[
+  {
+    "length": 5,
+    "answerIndex": 32,
+    "groupsIndex": 11,
+    "trailIndex": 3,
+    "linkIndex": 13,
+    "stepsIndex": 0,
+    "deepCutIndex": 0
+  },
+  {
+    "length": 6,
+    "answerIndex": 24,
+    "groupsIndex": 4,
+    "trailIndex": 1,
+    "linkIndex": 0,
+    "stepsIndex": 1,
+    "deepCutIndex": 1
+  },
+  {
+    "length": 8,
+    "answerIndex": 0,
+    "groupsIndex": 9,
+    "trailIndex": 2,
+    "linkIndex": 7,
+    "stepsIndex": 2,
+    "deepCutIndex": 2
+  },
+  {
+    "length": 9,
+    "answerIndex": 17,
+    "groupsIndex": 2,
+    "trailIndex": 3,
+    "linkIndex": 14,
+    "stepsIndex": 3,
+    "deepCutIndex": 3
+  },
+  {
+    "length": 5,
+    "answerIndex": 18,
+    "groupsIndex": 7,
+    "trailIndex": 4,
+    "linkIndex": 1,
+    "stepsIndex": 4,
+    "deepCutIndex": 4
+  },
+  {
+    "length": 6,
+    "answerIndex": 10,
+    "groupsIndex": 0,
+    "trailIndex": 5,
+    "linkIndex": 8,
+    "stepsIndex": 5,
+    "deepCutIndex": 5
+  },
+  {
+    "length": 7,
+    "answerIndex": 11,
+    "groupsIndex": 5,
+    "trailIndex": 6,
+    "linkIndex": 15,
+    "stepsIndex": 6,
+    "deepCutIndex": 6
+  },
+  {
+    "length": 9,
+    "answerIndex": 3,
+    "groupsIndex": 10,
+    "trailIndex": 7,
+    "linkIndex": 2,
+    "stepsIndex": 7,
+    "deepCutIndex": 7
+  },
+  {
+    "length": 5,
+    "answerIndex": 4,
+    "groupsIndex": 3,
+    "trailIndex": 8,
+    "linkIndex": 9,
+    "stepsIndex": 8,
+    "deepCutIndex": 8
+  },
+  {
+    "length": 5,
+    "answerIndex": 41,
+    "groupsIndex": 8,
+    "trailIndex": 9,
+    "linkIndex": 16,
+    "stepsIndex": 9,
+    "deepCutIndex": 9
+  },
+  {
+    "length": 6,
+    "answerIndex": 33,
+    "groupsIndex": 1,
+    "trailIndex": 10,
+    "linkIndex": 3,
+    "stepsIndex": 10,
+    "deepCutIndex": 10
+  },
+  {
+    "length": 8,
+    "answerIndex": 9,
+    "groupsIndex": 6,
+    "trailIndex": 11,
+    "linkIndex": 10,
+    "stepsIndex": 11,
+    "deepCutIndex": 11
+  },
+  {
+    "length": 10,
+    "answerIndex": 8,
+    "groupsIndex": 11,
+    "trailIndex": 12,
+    "linkIndex": 17,
+    "stepsIndex": 12,
+    "deepCutIndex": 12
+  },
+  {
+    "length": 5,
+    "answerIndex": 27,
+    "groupsIndex": 4,
+    "trailIndex": 13,
+    "linkIndex": 4,
+    "stepsIndex": 13,
+    "deepCutIndex": 13
+  },
+  {
+    "length": 6,
+    "answerIndex": 19,
+    "groupsIndex": 9,
+    "trailIndex": 14,
+    "linkIndex": 11,
+    "stepsIndex": 14,
+    "deepCutIndex": 14
+  },
+  {
+    "length": 7,
+    "answerIndex": 20,
+    "groupsIndex": 2,
+    "trailIndex": 15,
+    "linkIndex": 18,
+    "stepsIndex": 15,
+    "deepCutIndex": 15
+  },
+  {
+    "length": 9,
+    "answerIndex": 12,
+    "groupsIndex": 7,
+    "trailIndex": 16,
+    "linkIndex": 5,
+    "stepsIndex": 16,
+    "deepCutIndex": 16
+  },
+  {
+    "length": 5,
+    "answerIndex": 13,
+    "groupsIndex": 0,
+    "trailIndex": 17,
+    "linkIndex": 12,
+    "stepsIndex": 17,
+    "deepCutIndex": 17
+  },
+  {
+    "length": 6,
+    "answerIndex": 5,
+    "groupsIndex": 5,
+    "trailIndex": 18,
+    "linkIndex": 19,
+    "stepsIndex": 18,
+    "deepCutIndex": 18
+  },
+  {
+    "length": 7,
+    "answerIndex": 6,
+    "groupsIndex": 10,
+    "trailIndex": 19,
+    "linkIndex": 6,
+    "stepsIndex": 19,
+    "deepCutIndex": 19
+  },
+  {
+    "length": 8,
+    "answerIndex": 18,
+    "groupsIndex": 3,
+    "trailIndex": 20,
+    "linkIndex": 13,
+    "stepsIndex": 20,
+    "deepCutIndex": 20
+  },
+  {
+    "length": 10,
+    "answerIndex": 17,
+    "groupsIndex": 8,
+    "trailIndex": 21,
+    "linkIndex": 0,
+    "stepsIndex": 21,
+    "deepCutIndex": 21
+  },
+  {
+    "length": 5,
+    "answerIndex": 36,
+    "groupsIndex": 1,
+    "trailIndex": 22,
+    "linkIndex": 7,
+    "stepsIndex": 22,
+    "deepCutIndex": 22
+  },
+  {
+    "length": 6,
+    "answerIndex": 28,
+    "groupsIndex": 6,
+    "trailIndex": 23,
+    "linkIndex": 14,
+    "stepsIndex": 23,
+    "deepCutIndex": 23
+  },
+  {
+    "length": 8,
+    "answerIndex": 4,
+    "groupsIndex": 11,
+    "trailIndex": 24,
+    "linkIndex": 1,
+    "stepsIndex": 24,
+    "deepCutIndex": 24
+  },
+  {
+    "length": 10,
+    "answerIndex": 3,
+    "groupsIndex": 4,
+    "trailIndex": 25,
+    "linkIndex": 8,
+    "stepsIndex": 25,
+    "deepCutIndex": 25
+  },
+  {
+    "length": 5,
+    "answerIndex": 22,
+    "groupsIndex": 9,
+    "trailIndex": 26,
+    "linkIndex": 15,
+    "stepsIndex": 26,
+    "deepCutIndex": 26
+  },
+  {
+    "length": 6,
+    "answerIndex": 14,
+    "groupsIndex": 2,
+    "trailIndex": 27,
+    "linkIndex": 2,
+    "stepsIndex": 27,
+    "deepCutIndex": 27
+  },
+  {
+    "length": 7,
+    "answerIndex": 15,
+    "groupsIndex": 7,
+    "trailIndex": 28,
+    "linkIndex": 9,
+    "stepsIndex": 28,
+    "deepCutIndex": 28
+  },
+  {
+    "length": 9,
+    "answerIndex": 7,
+    "groupsIndex": 0,
+    "trailIndex": 29,
+    "linkIndex": 16,
+    "stepsIndex": 29,
+    "deepCutIndex": 29
+  },
+  {
+    "length": 5,
+    "answerIndex": 8,
+    "groupsIndex": 5,
+    "trailIndex": 30,
+    "linkIndex": 3,
+    "stepsIndex": 30,
+    "deepCutIndex": 30
+  },
+  {
+    "length": 6,
+    "answerIndex": 0,
+    "groupsIndex": 10,
+    "trailIndex": 31,
+    "linkIndex": 10,
+    "stepsIndex": 31,
+    "deepCutIndex": 31
+  },
+  {
+    "length": 7,
+    "answerIndex": 1,
+    "groupsIndex": 3,
+    "trailIndex": 32,
+    "linkIndex": 17,
+    "stepsIndex": 32,
+    "deepCutIndex": 32
+  },
+  {
+    "length": 8,
+    "answerIndex": 13,
+    "groupsIndex": 8,
+    "trailIndex": 33,
+    "linkIndex": 4,
+    "stepsIndex": 33,
+    "deepCutIndex": 33
+  },
+  {
+    "length": 10,
+    "answerIndex": 12,
+    "groupsIndex": 1,
+    "trailIndex": 34,
+    "linkIndex": 11,
+    "stepsIndex": 34,
+    "deepCutIndex": 34
+  },
+  {
+    "length": 5,
+    "answerIndex": 31,
+    "groupsIndex": 6,
+    "trailIndex": 35,
+    "linkIndex": 18,
+    "stepsIndex": 35,
+    "deepCutIndex": 35
+  },
+  {
+    "length": 6,
+    "answerIndex": 23,
+    "groupsIndex": 11,
+    "trailIndex": 36,
+    "linkIndex": 5,
+    "stepsIndex": 36,
+    "deepCutIndex": 36
+  },
+  {
+    "length": 7,
+    "answerIndex": 24,
+    "groupsIndex": 4,
+    "trailIndex": 37,
+    "linkIndex": 12,
+    "stepsIndex": 37,
+    "deepCutIndex": 37
+  },
+  {
+    "length": 9,
+    "answerIndex": 16,
+    "groupsIndex": 9,
+    "trailIndex": 38,
+    "linkIndex": 19,
+    "stepsIndex": 38,
+    "deepCutIndex": 38
+  },
+  {
+    "length": 5,
+    "answerIndex": 17,
+    "groupsIndex": 2,
+    "trailIndex": 39,
+    "linkIndex": 6,
+    "stepsIndex": 39,
+    "deepCutIndex": 39
+  },
+  {
+    "length": 6,
+    "answerIndex": 9,
+    "groupsIndex": 7,
+    "trailIndex": 40,
+    "linkIndex": 13,
+    "stepsIndex": 40,
+    "deepCutIndex": 40
+  },
+  {
+    "length": 7,
+    "answerIndex": 10,
+    "groupsIndex": 0,
+    "trailIndex": 41,
+    "linkIndex": 0,
+    "stepsIndex": 41,
+    "deepCutIndex": 41
+  },
+  {
+    "length": 9,
+    "answerIndex": 2,
+    "groupsIndex": 5,
+    "trailIndex": 42,
+    "linkIndex": 7,
+    "stepsIndex": 42,
+    "deepCutIndex": 42
+  },
+  {
+    "length": 5,
+    "answerIndex": 3,
+    "groupsIndex": 10,
+    "trailIndex": 43,
+    "linkIndex": 14,
+    "stepsIndex": 43,
+    "deepCutIndex": 43
+  },
+  {
+    "length": 5,
+    "answerIndex": 40,
+    "groupsIndex": 3,
+    "trailIndex": 44,
+    "linkIndex": 1,
+    "stepsIndex": 44,
+    "deepCutIndex": 44
+  },
+  {
+    "length": 6,
+    "answerIndex": 32,
+    "groupsIndex": 8,
+    "trailIndex": 45,
+    "linkIndex": 8,
+    "stepsIndex": 45,
+    "deepCutIndex": 45
+  },
+  {
+    "length": 8,
+    "answerIndex": 8,
+    "groupsIndex": 1,
+    "trailIndex": 46,
+    "linkIndex": 15,
+    "stepsIndex": 46,
+    "deepCutIndex": 46
+  },
+  {
+    "length": 10,
+    "answerIndex": 7,
+    "groupsIndex": 6,
+    "trailIndex": 47,
+    "linkIndex": 2,
+    "stepsIndex": 47,
+    "deepCutIndex": 47
+  },
+  {
+    "length": 5,
+    "answerIndex": 26,
+    "groupsIndex": 11,
+    "trailIndex": 48,
+    "linkIndex": 9,
+    "stepsIndex": 48,
+    "deepCutIndex": 48
+  },
+  {
+    "length": 6,
+    "answerIndex": 18,
+    "groupsIndex": 4,
+    "trailIndex": 49,
+    "linkIndex": 16,
+    "stepsIndex": 49,
+    "deepCutIndex": 49
+  },
+  {
+    "length": 7,
+    "answerIndex": 19,
+    "groupsIndex": 9,
+    "trailIndex": 50,
+    "linkIndex": 3,
+    "stepsIndex": 50,
+    "deepCutIndex": 50
+  },
+  {
+    "length": 9,
+    "answerIndex": 11,
+    "groupsIndex": 2,
+    "trailIndex": 51,
+    "linkIndex": 10,
+    "stepsIndex": 51,
+    "deepCutIndex": 51
+  },
+  {
+    "length": 5,
+    "answerIndex": 12,
+    "groupsIndex": 7,
+    "trailIndex": 52,
+    "linkIndex": 17,
+    "stepsIndex": 52,
+    "deepCutIndex": 52
+  },
+  {
+    "length": 6,
+    "answerIndex": 4,
+    "groupsIndex": 0,
+    "trailIndex": 53,
+    "linkIndex": 4,
+    "stepsIndex": 53,
+    "deepCutIndex": 53
+  },
+  {
+    "length": 7,
+    "answerIndex": 5,
+    "groupsIndex": 5,
+    "trailIndex": 54,
+    "linkIndex": 11,
+    "stepsIndex": 54,
+    "deepCutIndex": 54
+  },
+  {
+    "length": 8,
+    "answerIndex": 17,
+    "groupsIndex": 10,
+    "trailIndex": 55,
+    "linkIndex": 18,
+    "stepsIndex": 55,
+    "deepCutIndex": 55
+  },
+  {
+    "length": 10,
+    "answerIndex": 16,
+    "groupsIndex": 3,
+    "trailIndex": 56,
+    "linkIndex": 5,
+    "stepsIndex": 56,
+    "deepCutIndex": 56
+  },
+  {
+    "length": 5,
+    "answerIndex": 35,
+    "groupsIndex": 8,
+    "trailIndex": 57,
+    "linkIndex": 12,
+    "stepsIndex": 57,
+    "deepCutIndex": 57
+  },
+  {
+    "length": 6,
+    "answerIndex": 27,
+    "groupsIndex": 1,
+    "trailIndex": 58,
+    "linkIndex": 19,
+    "stepsIndex": 58,
+    "deepCutIndex": 58
+  },
+  {
+    "length": 8,
+    "answerIndex": 3,
+    "groupsIndex": 6,
+    "trailIndex": 59,
+    "linkIndex": 6,
+    "stepsIndex": 59,
+    "deepCutIndex": 59
+  },
+  {
+    "length": 10,
+    "answerIndex": 2,
+    "groupsIndex": 11,
+    "trailIndex": 60,
+    "linkIndex": 13,
+    "stepsIndex": 60,
+    "deepCutIndex": 60
+  },
+  {
+    "length": 5,
+    "answerIndex": 21,
+    "groupsIndex": 4,
+    "trailIndex": 61,
+    "linkIndex": 0,
+    "stepsIndex": 61,
+    "deepCutIndex": 61
+  },
+  {
+    "length": 6,
+    "answerIndex": 13,
+    "groupsIndex": 9,
+    "trailIndex": 62,
+    "linkIndex": 7,
+    "stepsIndex": 62,
+    "deepCutIndex": 62
+  },
+  {
+    "length": 7,
+    "answerIndex": 14,
+    "groupsIndex": 2,
+    "trailIndex": 63,
+    "linkIndex": 14,
+    "stepsIndex": 63,
+    "deepCutIndex": 63
+  },
+  {
+    "length": 9,
+    "answerIndex": 6,
+    "groupsIndex": 7,
+    "trailIndex": 64,
+    "linkIndex": 1,
+    "stepsIndex": 64,
+    "deepCutIndex": 64
+  },
+  {
+    "length": 5,
+    "answerIndex": 7,
+    "groupsIndex": 0,
+    "trailIndex": 65,
+    "linkIndex": 8,
+    "stepsIndex": 65,
+    "deepCutIndex": 65
+  },
+  {
+    "length": 5,
+    "answerIndex": 44,
+    "groupsIndex": 5,
+    "trailIndex": 66,
+    "linkIndex": 15,
+    "stepsIndex": 66,
+    "deepCutIndex": 66
+  },
+  {
+    "length": 7,
+    "answerIndex": 0,
+    "groupsIndex": 10,
+    "trailIndex": 67,
+    "linkIndex": 2,
+    "stepsIndex": 67,
+    "deepCutIndex": 67
+  },
+  {
+    "length": 8,
+    "answerIndex": 12,
+    "groupsIndex": 3,
+    "trailIndex": 68,
+    "linkIndex": 9,
+    "stepsIndex": 68,
+    "deepCutIndex": 68
+  },
+  {
+    "length": 10,
+    "answerIndex": 11,
+    "groupsIndex": 8,
+    "trailIndex": 69,
+    "linkIndex": 16,
+    "stepsIndex": 69,
+    "deepCutIndex": 69
+  },
+  {
+    "length": 5,
+    "answerIndex": 30,
+    "groupsIndex": 1,
+    "trailIndex": 70,
+    "linkIndex": 3,
+    "stepsIndex": 70,
+    "deepCutIndex": 70
+  },
+  {
+    "length": 6,
+    "answerIndex": 22,
+    "groupsIndex": 6,
+    "trailIndex": 71,
+    "linkIndex": 10,
+    "stepsIndex": 71,
+    "deepCutIndex": 71
+  },
+  {
+    "length": 7,
+    "answerIndex": 23,
+    "groupsIndex": 11,
+    "trailIndex": 72,
+    "linkIndex": 17,
+    "stepsIndex": 72,
+    "deepCutIndex": 72
+  },
+  {
+    "length": 9,
+    "answerIndex": 15,
+    "groupsIndex": 4,
+    "trailIndex": 73,
+    "linkIndex": 4,
+    "stepsIndex": 73,
+    "deepCutIndex": 73
+  },
+  {
+    "length": 5,
+    "answerIndex": 16,
+    "groupsIndex": 9,
+    "trailIndex": 74,
+    "linkIndex": 11,
+    "stepsIndex": 74,
+    "deepCutIndex": 74
+  },
+  {
+    "length": 6,
+    "answerIndex": 8,
+    "groupsIndex": 2,
+    "trailIndex": 75,
+    "linkIndex": 18,
+    "stepsIndex": 75,
+    "deepCutIndex": 75
+  },
+  {
+    "length": 7,
+    "answerIndex": 9,
+    "groupsIndex": 7,
+    "trailIndex": 76,
+    "linkIndex": 5,
+    "stepsIndex": 76,
+    "deepCutIndex": 76
+  },
+  {
+    "length": 9,
+    "answerIndex": 1,
+    "groupsIndex": 0,
+    "trailIndex": 77,
+    "linkIndex": 12,
+    "stepsIndex": 77,
+    "deepCutIndex": 77
+  },
+  {
+    "length": 5,
+    "answerIndex": 2,
+    "groupsIndex": 5,
+    "trailIndex": 78,
+    "linkIndex": 19,
+    "stepsIndex": 78,
+    "deepCutIndex": 78
+  },
+  {
+    "length": 5,
+    "answerIndex": 39,
+    "groupsIndex": 10,
+    "trailIndex": 79,
+    "linkIndex": 6,
+    "stepsIndex": 79,
+    "deepCutIndex": 79
+  },
+  {
+    "length": 6,
+    "answerIndex": 31,
+    "groupsIndex": 3,
+    "trailIndex": 80,
+    "linkIndex": 13,
+    "stepsIndex": 80,
+    "deepCutIndex": 80
+  },
+  {
+    "length": 8,
+    "answerIndex": 7,
+    "groupsIndex": 8,
+    "trailIndex": 81,
+    "linkIndex": 0,
+    "stepsIndex": 81,
+    "deepCutIndex": 81
+  },
+  {
+    "length": 10,
+    "answerIndex": 6,
+    "groupsIndex": 1,
+    "trailIndex": 82,
+    "linkIndex": 7,
+    "stepsIndex": 82,
+    "deepCutIndex": 82
+  },
+  {
+    "length": 5,
+    "answerIndex": 25,
+    "groupsIndex": 6,
+    "trailIndex": 83,
+    "linkIndex": 14,
+    "stepsIndex": 83,
+    "deepCutIndex": 83
+  },
+  {
+    "length": 6,
+    "answerIndex": 17,
+    "groupsIndex": 11,
+    "trailIndex": 84,
+    "linkIndex": 1,
+    "stepsIndex": 84,
+    "deepCutIndex": 84
+  },
+  {
+    "length": 7,
+    "answerIndex": 18,
+    "groupsIndex": 4,
+    "trailIndex": 85,
+    "linkIndex": 8,
+    "stepsIndex": 85,
+    "deepCutIndex": 85
+  },
+  {
+    "length": 9,
+    "answerIndex": 10,
+    "groupsIndex": 9,
+    "trailIndex": 86,
+    "linkIndex": 15,
+    "stepsIndex": 86,
+    "deepCutIndex": 86
+  },
+  {
+    "length": 5,
+    "answerIndex": 11,
+    "groupsIndex": 2,
+    "trailIndex": 87,
+    "linkIndex": 2,
+    "stepsIndex": 87,
+    "deepCutIndex": 87
+  },
+  {
+    "length": 6,
+    "answerIndex": 3,
+    "groupsIndex": 7,
+    "trailIndex": 88,
+    "linkIndex": 9,
+    "stepsIndex": 88,
+    "deepCutIndex": 88
+  },
+  {
+    "length": 7,
+    "answerIndex": 4,
+    "groupsIndex": 0,
+    "trailIndex": 89,
+    "linkIndex": 16,
+    "stepsIndex": 89,
+    "deepCutIndex": 89
+  },
+  {
+    "length": 8,
+    "answerIndex": 16,
+    "groupsIndex": 5,
+    "trailIndex": 90,
+    "linkIndex": 3,
+    "stepsIndex": 90,
+    "deepCutIndex": 90
+  },
+  {
+    "length": 10,
+    "answerIndex": 15,
+    "groupsIndex": 10,
+    "trailIndex": 91,
+    "linkIndex": 10,
+    "stepsIndex": 91,
+    "deepCutIndex": 91
+  },
+  {
+    "length": 5,
+    "answerIndex": 34,
+    "groupsIndex": 3,
+    "trailIndex": 92,
+    "linkIndex": 17,
+    "stepsIndex": 92,
+    "deepCutIndex": 92
+  },
+  {
+    "length": 6,
+    "answerIndex": 26,
+    "groupsIndex": 8,
+    "trailIndex": 93,
+    "linkIndex": 4,
+    "stepsIndex": 93,
+    "deepCutIndex": 93
+  },
+  {
+    "length": 8,
+    "answerIndex": 2,
+    "groupsIndex": 1,
+    "trailIndex": 94,
+    "linkIndex": 11,
+    "stepsIndex": 94,
+    "deepCutIndex": 94
+  },
+  {
+    "length": 10,
+    "answerIndex": 1,
+    "groupsIndex": 6,
+    "trailIndex": 95,
+    "linkIndex": 18,
+    "stepsIndex": 95,
+    "deepCutIndex": 95
+  },
+  {
+    "length": 5,
+    "answerIndex": 20,
+    "groupsIndex": 11,
+    "trailIndex": 96,
+    "linkIndex": 5,
+    "stepsIndex": 96,
+    "deepCutIndex": 96
+  },
+  {
+    "length": 6,
+    "answerIndex": 12,
+    "groupsIndex": 4,
+    "trailIndex": 97,
+    "linkIndex": 12,
+    "stepsIndex": 97,
+    "deepCutIndex": 97
+  },
+  {
+    "length": 7,
+    "answerIndex": 13,
+    "groupsIndex": 9,
+    "trailIndex": 98,
+    "linkIndex": 19,
+    "stepsIndex": 98,
+    "deepCutIndex": 98
+  },
+  {
+    "length": 9,
+    "answerIndex": 5,
+    "groupsIndex": 2,
+    "trailIndex": 99,
+    "linkIndex": 6,
+    "stepsIndex": 99,
+    "deepCutIndex": 99
+  },
+  {
+    "length": 5,
+    "answerIndex": 6,
+    "groupsIndex": 7,
+    "trailIndex": 100,
+    "linkIndex": 13,
+    "stepsIndex": 100,
+    "deepCutIndex": 100
+  },
+  {
+    "length": 5,
+    "answerIndex": 43,
+    "groupsIndex": 0,
+    "trailIndex": 101,
+    "linkIndex": 0,
+    "stepsIndex": 101,
+    "deepCutIndex": 101
+  },
+  {
+    "length": 6,
+    "answerIndex": 35,
+    "groupsIndex": 5,
+    "trailIndex": 102,
+    "linkIndex": 7,
+    "stepsIndex": 102,
+    "deepCutIndex": 102
+  },
+  {
+    "length": 8,
+    "answerIndex": 11,
+    "groupsIndex": 10,
+    "trailIndex": 103,
+    "linkIndex": 14,
+    "stepsIndex": 103,
+    "deepCutIndex": 103
+  },
+  {
+    "length": 10,
+    "answerIndex": 10,
+    "groupsIndex": 3,
+    "trailIndex": 104,
+    "linkIndex": 1,
+    "stepsIndex": 104,
+    "deepCutIndex": 104
+  },
+  {
+    "length": 5,
+    "answerIndex": 29,
+    "groupsIndex": 8,
+    "trailIndex": 105,
+    "linkIndex": 8,
+    "stepsIndex": 105,
+    "deepCutIndex": 105
+  },
+  {
+    "length": 6,
+    "answerIndex": 21,
+    "groupsIndex": 1,
+    "trailIndex": 106,
+    "linkIndex": 15,
+    "stepsIndex": 106,
+    "deepCutIndex": 106
+  },
+  {
+    "length": 7,
+    "answerIndex": 22,
+    "groupsIndex": 6,
+    "trailIndex": 107,
+    "linkIndex": 2,
+    "stepsIndex": 107,
+    "deepCutIndex": 107
+  },
+  {
+    "length": 9,
+    "answerIndex": 14,
+    "groupsIndex": 11,
+    "trailIndex": 108,
+    "linkIndex": 9,
+    "stepsIndex": 108,
+    "deepCutIndex": 108
+  },
+  {
+    "length": 5,
+    "answerIndex": 15,
+    "groupsIndex": 4,
+    "trailIndex": 109,
+    "linkIndex": 16,
+    "stepsIndex": 109,
+    "deepCutIndex": 109
+  },
+  {
+    "length": 6,
+    "answerIndex": 7,
+    "groupsIndex": 9,
+    "trailIndex": 110,
+    "linkIndex": 3,
+    "stepsIndex": 110,
+    "deepCutIndex": 110
+  },
+  {
+    "length": 7,
+    "answerIndex": 8,
+    "groupsIndex": 2,
+    "trailIndex": 111,
+    "linkIndex": 10,
+    "stepsIndex": 111,
+    "deepCutIndex": 111
+  },
+  {
+    "length": 9,
+    "answerIndex": 0,
+    "groupsIndex": 7,
+    "trailIndex": 112,
+    "linkIndex": 17,
+    "stepsIndex": 112,
+    "deepCutIndex": 112
+  },
+  {
+    "length": 5,
+    "answerIndex": 1,
+    "groupsIndex": 0,
+    "trailIndex": 113,
+    "linkIndex": 4,
+    "stepsIndex": 113,
+    "deepCutIndex": 113
+  },
+  {
+    "length": 5,
+    "answerIndex": 38,
+    "groupsIndex": 5,
+    "trailIndex": 114,
+    "linkIndex": 11,
+    "stepsIndex": 114,
+    "deepCutIndex": 114
+  },
+  {
+    "length": 6,
+    "answerIndex": 30,
+    "groupsIndex": 10,
+    "trailIndex": 115,
+    "linkIndex": 18,
+    "stepsIndex": 115,
+    "deepCutIndex": 115
+  },
+  {
+    "length": 8,
+    "answerIndex": 6,
+    "groupsIndex": 3,
+    "trailIndex": 116,
+    "linkIndex": 5,
+    "stepsIndex": 116,
+    "deepCutIndex": 116
+  },
+  {
+    "length": 10,
+    "answerIndex": 5,
+    "groupsIndex": 8,
+    "trailIndex": 117,
+    "linkIndex": 12,
+    "stepsIndex": 117,
+    "deepCutIndex": 117
+  },
+  {
+    "length": 5,
+    "answerIndex": 24,
+    "groupsIndex": 1,
+    "trailIndex": 118,
+    "linkIndex": 19,
+    "stepsIndex": 118,
+    "deepCutIndex": 118
+  },
+  {
+    "length": 6,
+    "answerIndex": 16,
+    "groupsIndex": 6,
+    "trailIndex": 119,
+    "linkIndex": 6,
+    "stepsIndex": 119,
+    "deepCutIndex": 119
+  },
+  {
+    "length": 7,
+    "answerIndex": 17,
+    "groupsIndex": 11,
+    "trailIndex": 120,
+    "linkIndex": 13,
+    "stepsIndex": 120,
+    "deepCutIndex": 120
+  },
+  {
+    "length": 9,
+    "answerIndex": 9,
+    "groupsIndex": 4,
+    "trailIndex": 121,
+    "linkIndex": 0,
+    "stepsIndex": 121,
+    "deepCutIndex": 121
+  },
+  {
+    "length": 5,
+    "answerIndex": 10,
+    "groupsIndex": 9,
+    "trailIndex": 122,
+    "linkIndex": 7,
+    "stepsIndex": 122,
+    "deepCutIndex": 122
+  },
+  {
+    "length": 6,
+    "answerIndex": 2,
+    "groupsIndex": 2,
+    "trailIndex": 123,
+    "linkIndex": 14,
+    "stepsIndex": 123,
+    "deepCutIndex": 123
+  },
+  {
+    "length": 7,
+    "answerIndex": 3,
+    "groupsIndex": 7,
+    "trailIndex": 124,
+    "linkIndex": 1,
+    "stepsIndex": 124,
+    "deepCutIndex": 124
+  },
+  {
+    "length": 8,
+    "answerIndex": 15,
+    "groupsIndex": 0,
+    "trailIndex": 125,
+    "linkIndex": 8,
+    "stepsIndex": 125,
+    "deepCutIndex": 125
+  },
+  {
+    "length": 10,
+    "answerIndex": 14,
+    "groupsIndex": 5,
+    "trailIndex": 126,
+    "linkIndex": 15,
+    "stepsIndex": 126,
+    "deepCutIndex": 126
+  },
+  {
+    "length": 5,
+    "answerIndex": 33,
+    "groupsIndex": 10,
+    "trailIndex": 127,
+    "linkIndex": 2,
+    "stepsIndex": 127,
+    "deepCutIndex": 127
+  },
+  {
+    "length": 6,
+    "answerIndex": 25,
+    "groupsIndex": 3,
+    "trailIndex": 128,
+    "linkIndex": 9,
+    "stepsIndex": 128,
+    "deepCutIndex": 128
+  },
+  {
+    "length": 8,
+    "answerIndex": 1,
+    "groupsIndex": 8,
+    "trailIndex": 129,
+    "linkIndex": 16,
+    "stepsIndex": 129,
+    "deepCutIndex": 129
+  },
+  {
+    "length": 10,
+    "answerIndex": 0,
+    "groupsIndex": 1,
+    "trailIndex": 130,
+    "linkIndex": 3,
+    "stepsIndex": 130,
+    "deepCutIndex": 130
+  },
+  {
+    "length": 5,
+    "answerIndex": 19,
+    "groupsIndex": 6,
+    "trailIndex": 131,
+    "linkIndex": 10,
+    "stepsIndex": 131,
+    "deepCutIndex": 131
+  },
+  {
+    "length": 6,
+    "answerIndex": 11,
+    "groupsIndex": 11,
+    "trailIndex": 132,
+    "linkIndex": 17,
+    "stepsIndex": 132,
+    "deepCutIndex": 132
+  },
+  {
+    "length": 7,
+    "answerIndex": 12,
+    "groupsIndex": 4,
+    "trailIndex": 133,
+    "linkIndex": 4,
+    "stepsIndex": 133,
+    "deepCutIndex": 133
+  },
+  {
+    "length": 9,
+    "answerIndex": 4,
+    "groupsIndex": 9,
+    "trailIndex": 134,
+    "linkIndex": 11,
+    "stepsIndex": 134,
+    "deepCutIndex": 134
+  },
+  {
+    "length": 5,
+    "answerIndex": 5,
+    "groupsIndex": 2,
+    "trailIndex": 135,
+    "linkIndex": 18,
+    "stepsIndex": 135,
+    "deepCutIndex": 135
+  },
+  {
+    "length": 5,
+    "answerIndex": 42,
+    "groupsIndex": 7,
+    "trailIndex": 136,
+    "linkIndex": 5,
+    "stepsIndex": 136,
+    "deepCutIndex": 136
+  },
+  {
+    "length": 6,
+    "answerIndex": 34,
+    "groupsIndex": 0,
+    "trailIndex": 137,
+    "linkIndex": 12,
+    "stepsIndex": 137,
+    "deepCutIndex": 137
+  },
+  {
+    "length": 8,
+    "answerIndex": 10,
+    "groupsIndex": 5,
+    "trailIndex": 138,
+    "linkIndex": 19,
+    "stepsIndex": 138,
+    "deepCutIndex": 138
+  },
+  {
+    "length": 10,
+    "answerIndex": 9,
+    "groupsIndex": 10,
+    "trailIndex": 139,
+    "linkIndex": 6,
+    "stepsIndex": 139,
+    "deepCutIndex": 139
+  },
+  {
+    "length": 5,
+    "answerIndex": 28,
+    "groupsIndex": 3,
+    "trailIndex": 140,
+    "linkIndex": 13,
+    "stepsIndex": 140,
+    "deepCutIndex": 140
+  },
+  {
+    "length": 6,
+    "answerIndex": 20,
+    "groupsIndex": 8,
+    "trailIndex": 141,
+    "linkIndex": 0,
+    "stepsIndex": 141,
+    "deepCutIndex": 141
+  },
+  {
+    "length": 7,
+    "answerIndex": 21,
+    "groupsIndex": 1,
+    "trailIndex": 142,
+    "linkIndex": 7,
+    "stepsIndex": 142,
+    "deepCutIndex": 142
+  },
+  {
+    "length": 9,
+    "answerIndex": 13,
+    "groupsIndex": 6,
+    "trailIndex": 143,
+    "linkIndex": 14,
+    "stepsIndex": 143,
+    "deepCutIndex": 143
+  },
+  {
+    "length": 5,
+    "answerIndex": 14,
+    "groupsIndex": 11,
+    "trailIndex": 144,
+    "linkIndex": 1,
+    "stepsIndex": 144,
+    "deepCutIndex": 144
+  },
+  {
+    "length": 6,
+    "answerIndex": 6,
+    "groupsIndex": 4,
+    "trailIndex": 145,
+    "linkIndex": 8,
+    "stepsIndex": 145,
+    "deepCutIndex": 145
+  },
+  {
+    "length": 7,
+    "answerIndex": 7,
+    "groupsIndex": 9,
+    "trailIndex": 146,
+    "linkIndex": 15,
+    "stepsIndex": 146,
+    "deepCutIndex": 146
+  },
+  {
+    "length": 8,
+    "answerIndex": 19,
+    "groupsIndex": 2,
+    "trailIndex": 147,
+    "linkIndex": 2,
+    "stepsIndex": 147,
+    "deepCutIndex": 147
+  },
+  {
+    "length": 5,
+    "answerIndex": 0,
+    "groupsIndex": 7,
+    "trailIndex": 148,
+    "linkIndex": 9,
+    "stepsIndex": 148,
+    "deepCutIndex": 148
+  },
+  {
+    "length": 5,
+    "answerIndex": 37,
+    "groupsIndex": 0,
+    "trailIndex": 149,
+    "linkIndex": 16,
+    "stepsIndex": 149,
+    "deepCutIndex": 149
+  },
+  {
+    "length": 6,
+    "answerIndex": 29,
+    "groupsIndex": 5,
+    "trailIndex": 150,
+    "linkIndex": 3,
+    "stepsIndex": 150,
+    "deepCutIndex": 150
+  },
+  {
+    "length": 8,
+    "answerIndex": 5,
+    "groupsIndex": 10,
+    "trailIndex": 151,
+    "linkIndex": 10,
+    "stepsIndex": 151,
+    "deepCutIndex": 151
+  },
+  {
+    "length": 10,
+    "answerIndex": 4,
+    "groupsIndex": 3,
+    "trailIndex": 152,
+    "linkIndex": 17,
+    "stepsIndex": 152,
+    "deepCutIndex": 152
+  },
+  {
+    "length": 5,
+    "answerIndex": 23,
+    "groupsIndex": 8,
+    "trailIndex": 153,
+    "linkIndex": 4,
+    "stepsIndex": 153,
+    "deepCutIndex": 153
+  },
+  {
+    "length": 6,
+    "answerIndex": 15,
+    "groupsIndex": 1,
+    "trailIndex": 154,
+    "linkIndex": 11,
+    "stepsIndex": 154,
+    "deepCutIndex": 154
+  },
+  {
+    "length": 7,
+    "answerIndex": 16,
+    "groupsIndex": 6,
+    "trailIndex": 155,
+    "linkIndex": 18,
+    "stepsIndex": 155,
+    "deepCutIndex": 155
+  },
+  {
+    "length": 9,
+    "answerIndex": 8,
+    "groupsIndex": 11,
+    "trailIndex": 156,
+    "linkIndex": 5,
+    "stepsIndex": 156,
+    "deepCutIndex": 156
+  },
+  {
+    "length": 5,
+    "answerIndex": 9,
+    "groupsIndex": 4,
+    "trailIndex": 157,
+    "linkIndex": 12,
+    "stepsIndex": 157,
+    "deepCutIndex": 157
+  },
+  {
+    "length": 6,
+    "answerIndex": 1,
+    "groupsIndex": 9,
+    "trailIndex": 158,
+    "linkIndex": 19,
+    "stepsIndex": 158,
+    "deepCutIndex": 158
+  },
+  {
+    "length": 7,
+    "answerIndex": 2,
+    "groupsIndex": 2,
+    "trailIndex": 159,
+    "linkIndex": 6,
+    "stepsIndex": 159,
+    "deepCutIndex": 159
+  },
+  {
+    "length": 8,
+    "answerIndex": 14,
+    "groupsIndex": 7,
+    "trailIndex": 160,
+    "linkIndex": 13,
+    "stepsIndex": 160,
+    "deepCutIndex": 160
+  },
+  {
+    "length": 10,
+    "answerIndex": 13,
+    "groupsIndex": 0,
+    "trailIndex": 161,
+    "linkIndex": 0,
+    "stepsIndex": 161,
+    "deepCutIndex": 161
+  },
+  {
+    "length": 5,
+    "answerIndex": 32,
+    "groupsIndex": 5,
+    "trailIndex": 162,
+    "linkIndex": 7,
+    "stepsIndex": 162,
+    "deepCutIndex": 162
+  },
+  {
+    "length": 6,
+    "answerIndex": 24,
+    "groupsIndex": 10,
+    "trailIndex": 163,
+    "linkIndex": 14,
+    "stepsIndex": 163,
+    "deepCutIndex": 163
+  },
+  {
+    "length": 8,
+    "answerIndex": 0,
+    "groupsIndex": 3,
+    "trailIndex": 164,
+    "linkIndex": 1,
+    "stepsIndex": 164,
+    "deepCutIndex": 164
+  },
+  {
+    "length": 9,
+    "answerIndex": 17,
+    "groupsIndex": 8,
+    "trailIndex": 165,
+    "linkIndex": 8,
+    "stepsIndex": 165,
+    "deepCutIndex": 165
+  },
+  {
+    "length": 5,
+    "answerIndex": 18,
+    "groupsIndex": 1,
+    "trailIndex": 166,
+    "linkIndex": 15,
+    "stepsIndex": 166,
+    "deepCutIndex": 166
+  },
+  {
+    "length": 6,
+    "answerIndex": 10,
+    "groupsIndex": 6,
+    "trailIndex": 167,
+    "linkIndex": 2,
+    "stepsIndex": 167,
+    "deepCutIndex": 167
+  },
+  {
+    "length": 7,
+    "answerIndex": 11,
+    "groupsIndex": 11,
+    "trailIndex": 168,
+    "linkIndex": 9,
+    "stepsIndex": 168,
+    "deepCutIndex": 168
+  },
+  {
+    "length": 9,
+    "answerIndex": 3,
+    "groupsIndex": 4,
+    "trailIndex": 169,
+    "linkIndex": 16,
+    "stepsIndex": 169,
+    "deepCutIndex": 169
+  },
+  {
+    "length": 5,
+    "answerIndex": 4,
+    "groupsIndex": 9,
+    "trailIndex": 170,
+    "linkIndex": 3,
+    "stepsIndex": 170,
+    "deepCutIndex": 170
+  },
+  {
+    "length": 5,
+    "answerIndex": 41,
+    "groupsIndex": 2,
+    "trailIndex": 171,
+    "linkIndex": 10,
+    "stepsIndex": 171,
+    "deepCutIndex": 171
+  },
+  {
+    "length": 6,
+    "answerIndex": 33,
+    "groupsIndex": 7,
+    "trailIndex": 172,
+    "linkIndex": 17,
+    "stepsIndex": 172,
+    "deepCutIndex": 172
+  },
+  {
+    "length": 8,
+    "answerIndex": 9,
+    "groupsIndex": 0,
+    "trailIndex": 173,
+    "linkIndex": 4,
+    "stepsIndex": 173,
+    "deepCutIndex": 173
+  },
+  {
+    "length": 10,
+    "answerIndex": 8,
+    "groupsIndex": 5,
+    "trailIndex": 174,
+    "linkIndex": 11,
+    "stepsIndex": 174,
+    "deepCutIndex": 174
+  },
+  {
+    "length": 5,
+    "answerIndex": 27,
+    "groupsIndex": 10,
+    "trailIndex": 175,
+    "linkIndex": 18,
+    "stepsIndex": 175,
+    "deepCutIndex": 175
+  },
+  {
+    "length": 6,
+    "answerIndex": 19,
+    "groupsIndex": 3,
+    "trailIndex": 176,
+    "linkIndex": 5,
+    "stepsIndex": 176,
+    "deepCutIndex": 176
+  },
+  {
+    "length": 7,
+    "answerIndex": 20,
+    "groupsIndex": 8,
+    "trailIndex": 177,
+    "linkIndex": 12,
+    "stepsIndex": 177,
+    "deepCutIndex": 177
+  },
+  {
+    "length": 9,
+    "answerIndex": 12,
+    "groupsIndex": 1,
+    "trailIndex": 178,
+    "linkIndex": 19,
+    "stepsIndex": 178,
+    "deepCutIndex": 178
+  },
+  {
+    "length": 5,
+    "answerIndex": 13,
+    "groupsIndex": 6,
+    "trailIndex": 179,
+    "linkIndex": 6,
+    "stepsIndex": 179,
+    "deepCutIndex": 179
+  },
+  {
+    "length": 6,
+    "answerIndex": 5,
+    "groupsIndex": 11,
+    "trailIndex": 180,
+    "linkIndex": 13,
+    "stepsIndex": 180,
+    "deepCutIndex": 180
+  },
+  {
+    "length": 7,
+    "answerIndex": 6,
+    "groupsIndex": 4,
+    "trailIndex": 181,
+    "linkIndex": 0,
+    "stepsIndex": 181,
+    "deepCutIndex": 181
+  },
+  {
+    "length": 8,
+    "answerIndex": 18,
+    "groupsIndex": 9,
+    "trailIndex": 182,
+    "linkIndex": 7,
+    "stepsIndex": 182,
+    "deepCutIndex": 182
+  },
+  {
+    "length": 10,
+    "answerIndex": 17,
+    "groupsIndex": 2,
+    "trailIndex": 183,
+    "linkIndex": 14,
+    "stepsIndex": 183,
+    "deepCutIndex": 183
+  },
+  {
+    "length": 5,
+    "answerIndex": 36,
+    "groupsIndex": 7,
+    "trailIndex": 184,
+    "linkIndex": 1,
+    "stepsIndex": 184,
+    "deepCutIndex": 184
+  },
+  {
+    "length": 6,
+    "answerIndex": 28,
+    "groupsIndex": 0,
+    "trailIndex": 185,
+    "linkIndex": 8,
+    "stepsIndex": 185,
+    "deepCutIndex": 185
+  },
+  {
+    "length": 8,
+    "answerIndex": 4,
+    "groupsIndex": 5,
+    "trailIndex": 186,
+    "linkIndex": 15,
+    "stepsIndex": 186,
+    "deepCutIndex": 186
+  },
+  {
+    "length": 10,
+    "answerIndex": 3,
+    "groupsIndex": 10,
+    "trailIndex": 187,
+    "linkIndex": 2,
+    "stepsIndex": 187,
+    "deepCutIndex": 187
+  },
+  {
+    "length": 5,
+    "answerIndex": 22,
+    "groupsIndex": 3,
+    "trailIndex": 188,
+    "linkIndex": 9,
+    "stepsIndex": 188,
+    "deepCutIndex": 188
+  },
+  {
+    "length": 6,
+    "answerIndex": 14,
+    "groupsIndex": 8,
+    "trailIndex": 189,
+    "linkIndex": 16,
+    "stepsIndex": 189,
+    "deepCutIndex": 189
+  },
+  {
+    "length": 7,
+    "answerIndex": 15,
+    "groupsIndex": 1,
+    "trailIndex": 190,
+    "linkIndex": 3,
+    "stepsIndex": 190,
+    "deepCutIndex": 190
+  },
+  {
+    "length": 9,
+    "answerIndex": 7,
+    "groupsIndex": 6,
+    "trailIndex": 191,
+    "linkIndex": 10,
+    "stepsIndex": 191,
+    "deepCutIndex": 191
+  },
+  {
+    "length": 5,
+    "answerIndex": 8,
+    "groupsIndex": 11,
+    "trailIndex": 192,
+    "linkIndex": 17,
+    "stepsIndex": 192,
+    "deepCutIndex": 192
+  },
+  {
+    "length": 6,
+    "answerIndex": 0,
+    "groupsIndex": 4,
+    "trailIndex": 193,
+    "linkIndex": 4,
+    "stepsIndex": 193,
+    "deepCutIndex": 193
+  },
+  {
+    "length": 7,
+    "answerIndex": 1,
+    "groupsIndex": 9,
+    "trailIndex": 194,
+    "linkIndex": 11,
+    "stepsIndex": 194,
+    "deepCutIndex": 194
+  },
+  {
+    "length": 8,
+    "answerIndex": 13,
+    "groupsIndex": 2,
+    "trailIndex": 195,
+    "linkIndex": 18,
+    "stepsIndex": 195,
+    "deepCutIndex": 195
+  },
+  {
+    "length": 10,
+    "answerIndex": 12,
+    "groupsIndex": 7,
+    "trailIndex": 196,
+    "linkIndex": 5,
+    "stepsIndex": 196,
+    "deepCutIndex": 196
+  },
+  {
+    "length": 5,
+    "answerIndex": 31,
+    "groupsIndex": 0,
+    "trailIndex": 197,
+    "linkIndex": 12,
+    "stepsIndex": 197,
+    "deepCutIndex": 197
+  },
+  {
+    "length": 6,
+    "answerIndex": 23,
+    "groupsIndex": 5,
+    "trailIndex": 198,
+    "linkIndex": 19,
+    "stepsIndex": 198,
+    "deepCutIndex": 198
+  },
+  {
+    "length": 7,
+    "answerIndex": 24,
+    "groupsIndex": 10,
+    "trailIndex": 199,
+    "linkIndex": 6,
+    "stepsIndex": 199,
+    "deepCutIndex": 199
+  },
+  {
+    "length": 9,
+    "answerIndex": 16,
+    "groupsIndex": 3,
+    "trailIndex": 200,
+    "linkIndex": 13,
+    "stepsIndex": 200,
+    "deepCutIndex": 200
+  },
+  {
+    "length": 5,
+    "answerIndex": 17,
+    "groupsIndex": 8,
+    "trailIndex": 201,
+    "linkIndex": 0,
+    "stepsIndex": 201,
+    "deepCutIndex": 201
+  },
+  {
+    "length": 6,
+    "answerIndex": 9,
+    "groupsIndex": 1,
+    "trailIndex": 202,
+    "linkIndex": 7,
+    "stepsIndex": 202,
+    "deepCutIndex": 202
+  },
+  {
+    "length": 7,
+    "answerIndex": 10,
+    "groupsIndex": 6,
+    "trailIndex": 203,
+    "linkIndex": 14,
+    "stepsIndex": 203,
+    "deepCutIndex": 203
+  },
+  {
+    "length": 9,
+    "answerIndex": 2,
+    "groupsIndex": 11,
+    "trailIndex": 204,
+    "linkIndex": 1,
+    "stepsIndex": 204,
+    "deepCutIndex": 204
+  },
+  {
+    "length": 5,
+    "answerIndex": 3,
+    "groupsIndex": 4,
+    "trailIndex": 205,
+    "linkIndex": 8,
+    "stepsIndex": 205,
+    "deepCutIndex": 205
+  },
+  {
+    "length": 5,
+    "answerIndex": 40,
+    "groupsIndex": 9,
+    "trailIndex": 206,
+    "linkIndex": 15,
+    "stepsIndex": 206,
+    "deepCutIndex": 206
+  },
+  {
+    "length": 6,
+    "answerIndex": 32,
+    "groupsIndex": 2,
+    "trailIndex": 207,
+    "linkIndex": 2,
+    "stepsIndex": 207,
+    "deepCutIndex": 207
+  },
+  {
+    "length": 8,
+    "answerIndex": 8,
+    "groupsIndex": 7,
+    "trailIndex": 208,
+    "linkIndex": 9,
+    "stepsIndex": 208,
+    "deepCutIndex": 208
+  },
+  {
+    "length": 10,
+    "answerIndex": 7,
+    "groupsIndex": 0,
+    "trailIndex": 209,
+    "linkIndex": 16,
+    "stepsIndex": 209,
+    "deepCutIndex": 209
+  },
+  {
+    "length": 5,
+    "answerIndex": 26,
+    "groupsIndex": 5,
+    "trailIndex": 210,
+    "linkIndex": 3,
+    "stepsIndex": 210,
+    "deepCutIndex": 210
+  },
+  {
+    "length": 6,
+    "answerIndex": 18,
+    "groupsIndex": 10,
+    "trailIndex": 211,
+    "linkIndex": 10,
+    "stepsIndex": 211,
+    "deepCutIndex": 211
+  },
+  {
+    "length": 7,
+    "answerIndex": 19,
+    "groupsIndex": 3,
+    "trailIndex": 212,
+    "linkIndex": 17,
+    "stepsIndex": 212,
+    "deepCutIndex": 212
+  },
+  {
+    "length": 9,
+    "answerIndex": 11,
+    "groupsIndex": 8,
+    "trailIndex": 213,
+    "linkIndex": 4,
+    "stepsIndex": 213,
+    "deepCutIndex": 213
+  },
+  {
+    "length": 5,
+    "answerIndex": 12,
+    "groupsIndex": 1,
+    "trailIndex": 214,
+    "linkIndex": 11,
+    "stepsIndex": 214,
+    "deepCutIndex": 214
+  },
+  {
+    "length": 6,
+    "answerIndex": 4,
+    "groupsIndex": 6,
+    "trailIndex": 215,
+    "linkIndex": 18,
+    "stepsIndex": 215,
+    "deepCutIndex": 215
+  },
+  {
+    "length": 7,
+    "answerIndex": 5,
+    "groupsIndex": 11,
+    "trailIndex": 216,
+    "linkIndex": 5,
+    "stepsIndex": 216,
+    "deepCutIndex": 216
+  },
+  {
+    "length": 8,
+    "answerIndex": 17,
+    "groupsIndex": 4,
+    "trailIndex": 217,
+    "linkIndex": 12,
+    "stepsIndex": 217,
+    "deepCutIndex": 217
+  },
+  {
+    "length": 10,
+    "answerIndex": 16,
+    "groupsIndex": 9,
+    "trailIndex": 218,
+    "linkIndex": 19,
+    "stepsIndex": 218,
+    "deepCutIndex": 218
+  },
+  {
+    "length": 5,
+    "answerIndex": 35,
+    "groupsIndex": 2,
+    "trailIndex": 219,
+    "linkIndex": 6,
+    "stepsIndex": 219,
+    "deepCutIndex": 219
+  },
+  {
+    "length": 6,
+    "answerIndex": 27,
+    "groupsIndex": 7,
+    "trailIndex": 220,
+    "linkIndex": 13,
+    "stepsIndex": 220,
+    "deepCutIndex": 220
+  },
+  {
+    "length": 8,
+    "answerIndex": 3,
+    "groupsIndex": 0,
+    "trailIndex": 221,
+    "linkIndex": 0,
+    "stepsIndex": 221,
+    "deepCutIndex": 221
+  },
+  {
+    "length": 10,
+    "answerIndex": 2,
+    "groupsIndex": 5,
+    "trailIndex": 222,
+    "linkIndex": 7,
+    "stepsIndex": 222,
+    "deepCutIndex": 222
+  },
+  {
+    "length": 5,
+    "answerIndex": 21,
+    "groupsIndex": 10,
+    "trailIndex": 223,
+    "linkIndex": 14,
+    "stepsIndex": 223,
+    "deepCutIndex": 223
+  },
+  {
+    "length": 6,
+    "answerIndex": 13,
+    "groupsIndex": 3,
+    "trailIndex": 224,
+    "linkIndex": 1,
+    "stepsIndex": 224,
+    "deepCutIndex": 224
+  },
+  {
+    "length": 7,
+    "answerIndex": 14,
+    "groupsIndex": 8,
+    "trailIndex": 225,
+    "linkIndex": 8,
+    "stepsIndex": 225,
+    "deepCutIndex": 225
+  },
+  {
+    "length": 9,
+    "answerIndex": 6,
+    "groupsIndex": 1,
+    "trailIndex": 226,
+    "linkIndex": 15,
+    "stepsIndex": 226,
+    "deepCutIndex": 226
+  },
+  {
+    "length": 5,
+    "answerIndex": 7,
+    "groupsIndex": 6,
+    "trailIndex": 227,
+    "linkIndex": 2,
+    "stepsIndex": 227,
+    "deepCutIndex": 227
+  },
+  {
+    "length": 5,
+    "answerIndex": 44,
+    "groupsIndex": 11,
+    "trailIndex": 228,
+    "linkIndex": 9,
+    "stepsIndex": 228,
+    "deepCutIndex": 228
+  },
+  {
+    "length": 7,
+    "answerIndex": 0,
+    "groupsIndex": 4,
+    "trailIndex": 229,
+    "linkIndex": 16,
+    "stepsIndex": 229,
+    "deepCutIndex": 229
+  },
+  {
+    "length": 8,
+    "answerIndex": 12,
+    "groupsIndex": 9,
+    "trailIndex": 230,
+    "linkIndex": 3,
+    "stepsIndex": 230,
+    "deepCutIndex": 230
+  },
+  {
+    "length": 10,
+    "answerIndex": 11,
+    "groupsIndex": 2,
+    "trailIndex": 231,
+    "linkIndex": 10,
+    "stepsIndex": 231,
+    "deepCutIndex": 231
+  },
+  {
+    "length": 5,
+    "answerIndex": 30,
+    "groupsIndex": 7,
+    "trailIndex": 232,
+    "linkIndex": 17,
+    "stepsIndex": 232,
+    "deepCutIndex": 232
+  },
+  {
+    "length": 6,
+    "answerIndex": 22,
+    "groupsIndex": 0,
+    "trailIndex": 233,
+    "linkIndex": 4,
+    "stepsIndex": 233,
+    "deepCutIndex": 233
+  },
+  {
+    "length": 7,
+    "answerIndex": 23,
+    "groupsIndex": 5,
+    "trailIndex": 234,
+    "linkIndex": 11,
+    "stepsIndex": 234,
+    "deepCutIndex": 234
+  },
+  {
+    "length": 9,
+    "answerIndex": 15,
+    "groupsIndex": 10,
+    "trailIndex": 235,
+    "linkIndex": 18,
+    "stepsIndex": 235,
+    "deepCutIndex": 235
+  },
+  {
+    "length": 5,
+    "answerIndex": 16,
+    "groupsIndex": 3,
+    "trailIndex": 236,
+    "linkIndex": 5,
+    "stepsIndex": 236,
+    "deepCutIndex": 236
+  },
+  {
+    "length": 6,
+    "answerIndex": 8,
+    "groupsIndex": 8,
+    "trailIndex": 237,
+    "linkIndex": 12,
+    "stepsIndex": 237,
+    "deepCutIndex": 237
+  },
+  {
+    "length": 7,
+    "answerIndex": 9,
+    "groupsIndex": 1,
+    "trailIndex": 238,
+    "linkIndex": 19,
+    "stepsIndex": 238,
+    "deepCutIndex": 238
+  },
+  {
+    "length": 9,
+    "answerIndex": 1,
+    "groupsIndex": 6,
+    "trailIndex": 239,
+    "linkIndex": 6,
+    "stepsIndex": 239,
+    "deepCutIndex": 239
+  },
+  {
+    "length": 5,
+    "answerIndex": 2,
+    "groupsIndex": 11,
+    "trailIndex": 240,
+    "linkIndex": 13,
+    "stepsIndex": 240,
+    "deepCutIndex": 240
+  },
+  {
+    "length": 5,
+    "answerIndex": 39,
+    "groupsIndex": 4,
+    "trailIndex": 241,
+    "linkIndex": 0,
+    "stepsIndex": 241,
+    "deepCutIndex": 241
+  },
+  {
+    "length": 6,
+    "answerIndex": 31,
+    "groupsIndex": 9,
+    "trailIndex": 242,
+    "linkIndex": 7,
+    "stepsIndex": 242,
+    "deepCutIndex": 242
+  },
+  {
+    "length": 8,
+    "answerIndex": 7,
+    "groupsIndex": 2,
+    "trailIndex": 243,
+    "linkIndex": 14,
+    "stepsIndex": 243,
+    "deepCutIndex": 243
+  },
+  {
+    "length": 10,
+    "answerIndex": 6,
+    "groupsIndex": 7,
+    "trailIndex": 244,
+    "linkIndex": 1,
+    "stepsIndex": 244,
+    "deepCutIndex": 244
+  },
+  {
+    "length": 5,
+    "answerIndex": 25,
+    "groupsIndex": 0,
+    "trailIndex": 245,
+    "linkIndex": 8,
+    "stepsIndex": 245,
+    "deepCutIndex": 245
+  },
+  {
+    "length": 6,
+    "answerIndex": 17,
+    "groupsIndex": 5,
+    "trailIndex": 246,
+    "linkIndex": 15,
+    "stepsIndex": 246,
+    "deepCutIndex": 246
+  },
+  {
+    "length": 7,
+    "answerIndex": 18,
+    "groupsIndex": 10,
+    "trailIndex": 247,
+    "linkIndex": 2,
+    "stepsIndex": 247,
+    "deepCutIndex": 247
+  },
+  {
+    "length": 9,
+    "answerIndex": 10,
+    "groupsIndex": 3,
+    "trailIndex": 248,
+    "linkIndex": 9,
+    "stepsIndex": 248,
+    "deepCutIndex": 248
+  },
+  {
+    "length": 5,
+    "answerIndex": 11,
+    "groupsIndex": 8,
+    "trailIndex": 249,
+    "linkIndex": 16,
+    "stepsIndex": 249,
+    "deepCutIndex": 249
+  },
+  {
+    "length": 6,
+    "answerIndex": 3,
+    "groupsIndex": 1,
+    "trailIndex": 250,
+    "linkIndex": 3,
+    "stepsIndex": 250,
+    "deepCutIndex": 250
+  },
+  {
+    "length": 7,
+    "answerIndex": 4,
+    "groupsIndex": 6,
+    "trailIndex": 251,
+    "linkIndex": 10,
+    "stepsIndex": 251,
+    "deepCutIndex": 251
+  },
+  {
+    "length": 8,
+    "answerIndex": 16,
+    "groupsIndex": 11,
+    "trailIndex": 252,
+    "linkIndex": 17,
+    "stepsIndex": 252,
+    "deepCutIndex": 252
+  },
+  {
+    "length": 10,
+    "answerIndex": 15,
+    "groupsIndex": 4,
+    "trailIndex": 253,
+    "linkIndex": 4,
+    "stepsIndex": 253,
+    "deepCutIndex": 253
+  },
+  {
+    "length": 5,
+    "answerIndex": 34,
+    "groupsIndex": 9,
+    "trailIndex": 254,
+    "linkIndex": 11,
+    "stepsIndex": 254,
+    "deepCutIndex": 254
+  },
+  {
+    "length": 6,
+    "answerIndex": 26,
+    "groupsIndex": 2,
+    "trailIndex": 255,
+    "linkIndex": 18,
+    "stepsIndex": 255,
+    "deepCutIndex": 255
+  },
+  {
+    "length": 8,
+    "answerIndex": 2,
+    "groupsIndex": 7,
+    "trailIndex": 256,
+    "linkIndex": 5,
+    "stepsIndex": 256,
+    "deepCutIndex": 256
+  },
+  {
+    "length": 10,
+    "answerIndex": 1,
+    "groupsIndex": 0,
+    "trailIndex": 257,
+    "linkIndex": 12,
+    "stepsIndex": 257,
+    "deepCutIndex": 257
+  },
+  {
+    "length": 5,
+    "answerIndex": 20,
+    "groupsIndex": 5,
+    "trailIndex": 258,
+    "linkIndex": 19,
+    "stepsIndex": 258,
+    "deepCutIndex": 258
+  },
+  {
+    "length": 6,
+    "answerIndex": 12,
+    "groupsIndex": 10,
+    "trailIndex": 259,
+    "linkIndex": 6,
+    "stepsIndex": 259,
+    "deepCutIndex": 259
+  },
+  {
+    "length": 7,
+    "answerIndex": 13,
+    "groupsIndex": 3,
+    "trailIndex": 260,
+    "linkIndex": 13,
+    "stepsIndex": 260,
+    "deepCutIndex": 260
+  },
+  {
+    "length": 9,
+    "answerIndex": 5,
+    "groupsIndex": 8,
+    "trailIndex": 261,
+    "linkIndex": 0,
+    "stepsIndex": 261,
+    "deepCutIndex": 261
+  },
+  {
+    "length": 5,
+    "answerIndex": 6,
+    "groupsIndex": 1,
+    "trailIndex": 262,
+    "linkIndex": 7,
+    "stepsIndex": 262,
+    "deepCutIndex": 262
+  },
+  {
+    "length": 5,
+    "answerIndex": 43,
+    "groupsIndex": 6,
+    "trailIndex": 263,
+    "linkIndex": 14,
+    "stepsIndex": 263,
+    "deepCutIndex": 263
+  },
+  {
+    "length": 6,
+    "answerIndex": 35,
+    "groupsIndex": 11,
+    "trailIndex": 264,
+    "linkIndex": 1,
+    "stepsIndex": 264,
+    "deepCutIndex": 264
+  },
+  {
+    "length": 8,
+    "answerIndex": 11,
+    "groupsIndex": 4,
+    "trailIndex": 265,
+    "linkIndex": 8,
+    "stepsIndex": 265,
+    "deepCutIndex": 265
+  },
+  {
+    "length": 10,
+    "answerIndex": 10,
+    "groupsIndex": 9,
+    "trailIndex": 266,
+    "linkIndex": 15,
+    "stepsIndex": 266,
+    "deepCutIndex": 266
+  },
+  {
+    "length": 5,
+    "answerIndex": 29,
+    "groupsIndex": 2,
+    "trailIndex": 267,
+    "linkIndex": 2,
+    "stepsIndex": 267,
+    "deepCutIndex": 267
+  },
+  {
+    "length": 6,
+    "answerIndex": 21,
+    "groupsIndex": 7,
+    "trailIndex": 268,
+    "linkIndex": 9,
+    "stepsIndex": 268,
+    "deepCutIndex": 268
+  },
+  {
+    "length": 7,
+    "answerIndex": 22,
+    "groupsIndex": 0,
+    "trailIndex": 269,
+    "linkIndex": 16,
+    "stepsIndex": 269,
+    "deepCutIndex": 269
+  },
+  {
+    "length": 9,
+    "answerIndex": 14,
+    "groupsIndex": 5,
+    "trailIndex": 270,
+    "linkIndex": 3,
+    "stepsIndex": 270,
+    "deepCutIndex": 270
+  },
+  {
+    "length": 5,
+    "answerIndex": 15,
+    "groupsIndex": 10,
+    "trailIndex": 271,
+    "linkIndex": 10,
+    "stepsIndex": 271,
+    "deepCutIndex": 271
+  },
+  {
+    "length": 6,
+    "answerIndex": 7,
+    "groupsIndex": 3,
+    "trailIndex": 272,
+    "linkIndex": 17,
+    "stepsIndex": 272,
+    "deepCutIndex": 272
+  },
+  {
+    "length": 7,
+    "answerIndex": 8,
+    "groupsIndex": 8,
+    "trailIndex": 273,
+    "linkIndex": 4,
+    "stepsIndex": 273,
+    "deepCutIndex": 273
+  },
+  {
+    "length": 9,
+    "answerIndex": 0,
+    "groupsIndex": 1,
+    "trailIndex": 274,
+    "linkIndex": 11,
+    "stepsIndex": 274,
+    "deepCutIndex": 274
+  },
+  {
+    "length": 5,
+    "answerIndex": 1,
+    "groupsIndex": 6,
+    "trailIndex": 275,
+    "linkIndex": 18,
+    "stepsIndex": 275,
+    "deepCutIndex": 275
+  },
+  {
+    "length": 5,
+    "answerIndex": 38,
+    "groupsIndex": 11,
+    "trailIndex": 276,
+    "linkIndex": 5,
+    "stepsIndex": 276,
+    "deepCutIndex": 276
+  },
+  {
+    "length": 6,
+    "answerIndex": 30,
+    "groupsIndex": 4,
+    "trailIndex": 277,
+    "linkIndex": 12,
+    "stepsIndex": 277,
+    "deepCutIndex": 277
+  },
+  {
+    "length": 8,
+    "answerIndex": 6,
+    "groupsIndex": 9,
+    "trailIndex": 278,
+    "linkIndex": 19,
+    "stepsIndex": 278,
+    "deepCutIndex": 278
+  },
+  {
+    "length": 10,
+    "answerIndex": 5,
+    "groupsIndex": 2,
+    "trailIndex": 279,
+    "linkIndex": 6,
+    "stepsIndex": 279,
+    "deepCutIndex": 279
+  },
+  {
+    "length": 5,
+    "answerIndex": 24,
+    "groupsIndex": 7,
+    "trailIndex": 280,
+    "linkIndex": 13,
+    "stepsIndex": 280,
+    "deepCutIndex": 280
+  },
+  {
+    "length": 6,
+    "answerIndex": 16,
+    "groupsIndex": 0,
+    "trailIndex": 281,
+    "linkIndex": 0,
+    "stepsIndex": 281,
+    "deepCutIndex": 281
+  },
+  {
+    "length": 7,
+    "answerIndex": 17,
+    "groupsIndex": 5,
+    "trailIndex": 282,
+    "linkIndex": 7,
+    "stepsIndex": 282,
+    "deepCutIndex": 282
+  },
+  {
+    "length": 9,
+    "answerIndex": 9,
+    "groupsIndex": 10,
+    "trailIndex": 283,
+    "linkIndex": 14,
+    "stepsIndex": 283,
+    "deepCutIndex": 283
+  },
+  {
+    "length": 5,
+    "answerIndex": 10,
+    "groupsIndex": 3,
+    "trailIndex": 284,
+    "linkIndex": 1,
+    "stepsIndex": 284,
+    "deepCutIndex": 284
+  },
+  {
+    "length": 6,
+    "answerIndex": 2,
+    "groupsIndex": 8,
+    "trailIndex": 285,
+    "linkIndex": 8,
+    "stepsIndex": 285,
+    "deepCutIndex": 285
+  },
+  {
+    "length": 7,
+    "answerIndex": 3,
+    "groupsIndex": 1,
+    "trailIndex": 286,
+    "linkIndex": 15,
+    "stepsIndex": 286,
+    "deepCutIndex": 286
+  },
+  {
+    "length": 8,
+    "answerIndex": 15,
+    "groupsIndex": 6,
+    "trailIndex": 287,
+    "linkIndex": 2,
+    "stepsIndex": 287,
+    "deepCutIndex": 287
+  },
+  {
+    "length": 10,
+    "answerIndex": 14,
+    "groupsIndex": 11,
+    "trailIndex": 288,
+    "linkIndex": 9,
+    "stepsIndex": 288,
+    "deepCutIndex": 288
+  },
+  {
+    "length": 5,
+    "answerIndex": 33,
+    "groupsIndex": 4,
+    "trailIndex": 289,
+    "linkIndex": 16,
+    "stepsIndex": 289,
+    "deepCutIndex": 289
+  },
+  {
+    "length": 6,
+    "answerIndex": 25,
+    "groupsIndex": 9,
+    "trailIndex": 290,
+    "linkIndex": 3,
+    "stepsIndex": 290,
+    "deepCutIndex": 290
+  },
+  {
+    "length": 8,
+    "answerIndex": 1,
+    "groupsIndex": 2,
+    "trailIndex": 291,
+    "linkIndex": 10,
+    "stepsIndex": 291,
+    "deepCutIndex": 291
+  },
+  {
+    "length": 10,
+    "answerIndex": 0,
+    "groupsIndex": 7,
+    "trailIndex": 292,
+    "linkIndex": 17,
+    "stepsIndex": 292,
+    "deepCutIndex": 292
+  },
+  {
+    "length": 5,
+    "answerIndex": 19,
+    "groupsIndex": 0,
+    "trailIndex": 293,
+    "linkIndex": 4,
+    "stepsIndex": 293,
+    "deepCutIndex": 293
+  },
+  {
+    "length": 6,
+    "answerIndex": 11,
+    "groupsIndex": 5,
+    "trailIndex": 294,
+    "linkIndex": 11,
+    "stepsIndex": 294,
+    "deepCutIndex": 294
+  },
+  {
+    "length": 7,
+    "answerIndex": 12,
+    "groupsIndex": 10,
+    "trailIndex": 295,
+    "linkIndex": 18,
+    "stepsIndex": 295,
+    "deepCutIndex": 295
+  },
+  {
+    "length": 9,
+    "answerIndex": 4,
+    "groupsIndex": 3,
+    "trailIndex": 296,
+    "linkIndex": 5,
+    "stepsIndex": 296,
+    "deepCutIndex": 296
+  },
+  {
+    "length": 5,
+    "answerIndex": 5,
+    "groupsIndex": 8,
+    "trailIndex": 297,
+    "linkIndex": 12,
+    "stepsIndex": 297,
+    "deepCutIndex": 297
+  },
+  {
+    "length": 5,
+    "answerIndex": 42,
+    "groupsIndex": 1,
+    "trailIndex": 298,
+    "linkIndex": 19,
+    "stepsIndex": 298,
+    "deepCutIndex": 298
+  },
+  {
+    "length": 6,
+    "answerIndex": 34,
+    "groupsIndex": 6,
+    "trailIndex": 299,
+    "linkIndex": 6,
+    "stepsIndex": 299,
+    "deepCutIndex": 299
+  },
+  {
+    "length": 8,
+    "answerIndex": 10,
+    "groupsIndex": 11,
+    "trailIndex": 300,
+    "linkIndex": 13,
+    "stepsIndex": 300,
+    "deepCutIndex": 300
+  },
+  {
+    "length": 10,
+    "answerIndex": 9,
+    "groupsIndex": 4,
+    "trailIndex": 301,
+    "linkIndex": 0,
+    "stepsIndex": 301,
+    "deepCutIndex": 301
+  },
+  {
+    "length": 5,
+    "answerIndex": 28,
+    "groupsIndex": 9,
+    "trailIndex": 302,
+    "linkIndex": 7,
+    "stepsIndex": 302,
+    "deepCutIndex": 302
+  },
+  {
+    "length": 6,
+    "answerIndex": 20,
+    "groupsIndex": 2,
+    "trailIndex": 303,
+    "linkIndex": 14,
+    "stepsIndex": 303,
+    "deepCutIndex": 303
+  },
+  {
+    "length": 7,
+    "answerIndex": 21,
+    "groupsIndex": 7,
+    "trailIndex": 304,
+    "linkIndex": 1,
+    "stepsIndex": 304,
+    "deepCutIndex": 304
+  },
+  {
+    "length": 9,
+    "answerIndex": 13,
+    "groupsIndex": 0,
+    "trailIndex": 305,
+    "linkIndex": 8,
+    "stepsIndex": 305,
+    "deepCutIndex": 305
+  },
+  {
+    "length": 5,
+    "answerIndex": 14,
+    "groupsIndex": 5,
+    "trailIndex": 306,
+    "linkIndex": 15,
+    "stepsIndex": 306,
+    "deepCutIndex": 306
+  },
+  {
+    "length": 6,
+    "answerIndex": 6,
+    "groupsIndex": 10,
+    "trailIndex": 307,
+    "linkIndex": 2,
+    "stepsIndex": 307,
+    "deepCutIndex": 307
+  },
+  {
+    "length": 7,
+    "answerIndex": 7,
+    "groupsIndex": 3,
+    "trailIndex": 308,
+    "linkIndex": 9,
+    "stepsIndex": 308,
+    "deepCutIndex": 308
+  },
+  {
+    "length": 8,
+    "answerIndex": 19,
+    "groupsIndex": 8,
+    "trailIndex": 309,
+    "linkIndex": 16,
+    "stepsIndex": 309,
+    "deepCutIndex": 309
+  },
+  {
+    "length": 5,
+    "answerIndex": 0,
+    "groupsIndex": 1,
+    "trailIndex": 310,
+    "linkIndex": 3,
+    "stepsIndex": 310,
+    "deepCutIndex": 310
+  },
+  {
+    "length": 5,
+    "answerIndex": 37,
+    "groupsIndex": 6,
+    "trailIndex": 311,
+    "linkIndex": 10,
+    "stepsIndex": 311,
+    "deepCutIndex": 311
+  },
+  {
+    "length": 6,
+    "answerIndex": 29,
+    "groupsIndex": 11,
+    "trailIndex": 312,
+    "linkIndex": 17,
+    "stepsIndex": 312,
+    "deepCutIndex": 312
+  },
+  {
+    "length": 8,
+    "answerIndex": 5,
+    "groupsIndex": 4,
+    "trailIndex": 313,
+    "linkIndex": 4,
+    "stepsIndex": 313,
+    "deepCutIndex": 313
+  },
+  {
+    "length": 10,
+    "answerIndex": 4,
+    "groupsIndex": 9,
+    "trailIndex": 314,
+    "linkIndex": 11,
+    "stepsIndex": 314,
+    "deepCutIndex": 314
+  },
+  {
+    "length": 5,
+    "answerIndex": 23,
+    "groupsIndex": 2,
+    "trailIndex": 315,
+    "linkIndex": 18,
+    "stepsIndex": 315,
+    "deepCutIndex": 315
+  },
+  {
+    "length": 6,
+    "answerIndex": 15,
+    "groupsIndex": 7,
+    "trailIndex": 316,
+    "linkIndex": 5,
+    "stepsIndex": 316,
+    "deepCutIndex": 316
+  },
+  {
+    "length": 7,
+    "answerIndex": 16,
+    "groupsIndex": 0,
+    "trailIndex": 317,
+    "linkIndex": 12,
+    "stepsIndex": 317,
+    "deepCutIndex": 317
+  },
+  {
+    "length": 9,
+    "answerIndex": 8,
+    "groupsIndex": 5,
+    "trailIndex": 318,
+    "linkIndex": 19,
+    "stepsIndex": 318,
+    "deepCutIndex": 318
+  },
+  {
+    "length": 5,
+    "answerIndex": 9,
+    "groupsIndex": 10,
+    "trailIndex": 319,
+    "linkIndex": 6,
+    "stepsIndex": 319,
+    "deepCutIndex": 319
+  },
+  {
+    "length": 6,
+    "answerIndex": 1,
+    "groupsIndex": 3,
+    "trailIndex": 320,
+    "linkIndex": 13,
+    "stepsIndex": 320,
+    "deepCutIndex": 320
+  },
+  {
+    "length": 7,
+    "answerIndex": 2,
+    "groupsIndex": 8,
+    "trailIndex": 321,
+    "linkIndex": 0,
+    "stepsIndex": 321,
+    "deepCutIndex": 321
+  },
+  {
+    "length": 8,
+    "answerIndex": 14,
+    "groupsIndex": 1,
+    "trailIndex": 322,
+    "linkIndex": 7,
+    "stepsIndex": 322,
+    "deepCutIndex": 322
+  },
+  {
+    "length": 10,
+    "answerIndex": 13,
+    "groupsIndex": 6,
+    "trailIndex": 323,
+    "linkIndex": 14,
+    "stepsIndex": 323,
+    "deepCutIndex": 323
+  },
+  {
+    "length": 5,
+    "answerIndex": 32,
+    "groupsIndex": 11,
+    "trailIndex": 324,
+    "linkIndex": 1,
+    "stepsIndex": 324,
+    "deepCutIndex": 324
+  },
+  {
+    "length": 6,
+    "answerIndex": 24,
+    "groupsIndex": 4,
+    "trailIndex": 325,
+    "linkIndex": 8,
+    "stepsIndex": 325,
+    "deepCutIndex": 325
+  },
+  {
+    "length": 8,
+    "answerIndex": 0,
+    "groupsIndex": 9,
+    "trailIndex": 326,
+    "linkIndex": 15,
+    "stepsIndex": 326,
+    "deepCutIndex": 326
+  },
+  {
+    "length": 9,
+    "answerIndex": 17,
+    "groupsIndex": 2,
+    "trailIndex": 327,
+    "linkIndex": 2,
+    "stepsIndex": 327,
+    "deepCutIndex": 327
+  },
+  {
+    "length": 5,
+    "answerIndex": 18,
+    "groupsIndex": 7,
+    "trailIndex": 328,
+    "linkIndex": 9,
+    "stepsIndex": 328,
+    "deepCutIndex": 328
+  },
+  {
+    "length": 6,
+    "answerIndex": 10,
+    "groupsIndex": 0,
+    "trailIndex": 329,
+    "linkIndex": 16,
+    "stepsIndex": 329,
+    "deepCutIndex": 329
+  },
+  {
+    "length": 7,
+    "answerIndex": 11,
+    "groupsIndex": 5,
+    "trailIndex": 330,
+    "linkIndex": 3,
+    "stepsIndex": 330,
+    "deepCutIndex": 330
+  },
+  {
+    "length": 9,
+    "answerIndex": 3,
+    "groupsIndex": 10,
+    "trailIndex": 331,
+    "linkIndex": 10,
+    "stepsIndex": 331,
+    "deepCutIndex": 331
+  },
+  {
+    "length": 5,
+    "answerIndex": 4,
+    "groupsIndex": 3,
+    "trailIndex": 332,
+    "linkIndex": 17,
+    "stepsIndex": 332,
+    "deepCutIndex": 332
+  },
+  {
+    "length": 5,
+    "answerIndex": 41,
+    "groupsIndex": 8,
+    "trailIndex": 333,
+    "linkIndex": 4,
+    "stepsIndex": 333,
+    "deepCutIndex": 333
+  },
+  {
+    "length": 6,
+    "answerIndex": 33,
+    "groupsIndex": 1,
+    "trailIndex": 334,
+    "linkIndex": 11,
+    "stepsIndex": 334,
+    "deepCutIndex": 334
+  },
+  {
+    "length": 8,
+    "answerIndex": 9,
+    "groupsIndex": 6,
+    "trailIndex": 335,
+    "linkIndex": 18,
+    "stepsIndex": 335,
+    "deepCutIndex": 335
+  },
+  {
+    "length": 10,
+    "answerIndex": 8,
+    "groupsIndex": 11,
+    "trailIndex": 336,
+    "linkIndex": 5,
+    "stepsIndex": 336,
+    "deepCutIndex": 336
+  },
+  {
+    "length": 5,
+    "answerIndex": 27,
+    "groupsIndex": 4,
+    "trailIndex": 337,
+    "linkIndex": 12,
+    "stepsIndex": 337,
+    "deepCutIndex": 337
+  },
+  {
+    "length": 6,
+    "answerIndex": 19,
+    "groupsIndex": 9,
+    "trailIndex": 338,
+    "linkIndex": 19,
+    "stepsIndex": 338,
+    "deepCutIndex": 338
+  },
+  {
+    "length": 7,
+    "answerIndex": 20,
+    "groupsIndex": 2,
+    "trailIndex": 339,
+    "linkIndex": 6,
+    "stepsIndex": 339,
+    "deepCutIndex": 339
+  },
+  {
+    "length": 9,
+    "answerIndex": 12,
+    "groupsIndex": 7,
+    "trailIndex": 340,
+    "linkIndex": 13,
+    "stepsIndex": 340,
+    "deepCutIndex": 340
+  },
+  {
+    "length": 5,
+    "answerIndex": 13,
+    "groupsIndex": 0,
+    "trailIndex": 341,
+    "linkIndex": 0,
+    "stepsIndex": 341,
+    "deepCutIndex": 341
+  },
+  {
+    "length": 6,
+    "answerIndex": 5,
+    "groupsIndex": 5,
+    "trailIndex": 342,
+    "linkIndex": 7,
+    "stepsIndex": 342,
+    "deepCutIndex": 342
+  },
+  {
+    "length": 7,
+    "answerIndex": 6,
+    "groupsIndex": 10,
+    "trailIndex": 343,
+    "linkIndex": 14,
+    "stepsIndex": 343,
+    "deepCutIndex": 343
+  },
+  {
+    "length": 8,
+    "answerIndex": 18,
+    "groupsIndex": 3,
+    "trailIndex": 344,
+    "linkIndex": 1,
+    "stepsIndex": 344,
+    "deepCutIndex": 344
+  },
+  {
+    "length": 10,
+    "answerIndex": 17,
+    "groupsIndex": 8,
+    "trailIndex": 345,
+    "linkIndex": 8,
+    "stepsIndex": 345,
+    "deepCutIndex": 345
+  },
+  {
+    "length": 5,
+    "answerIndex": 36,
+    "groupsIndex": 1,
+    "trailIndex": 346,
+    "linkIndex": 15,
+    "stepsIndex": 346,
+    "deepCutIndex": 346
+  },
+  {
+    "length": 6,
+    "answerIndex": 28,
+    "groupsIndex": 6,
+    "trailIndex": 347,
+    "linkIndex": 2,
+    "stepsIndex": 347,
+    "deepCutIndex": 347
+  },
+  {
+    "length": 8,
+    "answerIndex": 4,
+    "groupsIndex": 11,
+    "trailIndex": 348,
+    "linkIndex": 9,
+    "stepsIndex": 348,
+    "deepCutIndex": 348
+  },
+  {
+    "length": 10,
+    "answerIndex": 3,
+    "groupsIndex": 4,
+    "trailIndex": 349,
+    "linkIndex": 16,
+    "stepsIndex": 349,
+    "deepCutIndex": 349
+  },
+  {
+    "length": 5,
+    "answerIndex": 22,
+    "groupsIndex": 9,
+    "trailIndex": 350,
+    "linkIndex": 3,
+    "stepsIndex": 350,
+    "deepCutIndex": 350
+  },
+  {
+    "length": 6,
+    "answerIndex": 14,
+    "groupsIndex": 2,
+    "trailIndex": 351,
+    "linkIndex": 10,
+    "stepsIndex": 351,
+    "deepCutIndex": 351
+  },
+  {
+    "length": 7,
+    "answerIndex": 15,
+    "groupsIndex": 7,
+    "trailIndex": 352,
+    "linkIndex": 17,
+    "stepsIndex": 352,
+    "deepCutIndex": 352
+  },
+  {
+    "length": 9,
+    "answerIndex": 7,
+    "groupsIndex": 0,
+    "trailIndex": 353,
+    "linkIndex": 4,
+    "stepsIndex": 353,
+    "deepCutIndex": 353
+  },
+  {
+    "length": 5,
+    "answerIndex": 8,
+    "groupsIndex": 5,
+    "trailIndex": 354,
+    "linkIndex": 11,
+    "stepsIndex": 354,
+    "deepCutIndex": 354
+  },
+  {
+    "length": 6,
+    "answerIndex": 0,
+    "groupsIndex": 10,
+    "trailIndex": 355,
+    "linkIndex": 18,
+    "stepsIndex": 355,
+    "deepCutIndex": 355
+  },
+  {
+    "length": 7,
+    "answerIndex": 1,
+    "groupsIndex": 3,
+    "trailIndex": 356,
+    "linkIndex": 5,
+    "stepsIndex": 356,
+    "deepCutIndex": 356
+  },
+  {
+    "length": 8,
+    "answerIndex": 13,
+    "groupsIndex": 8,
+    "trailIndex": 357,
+    "linkIndex": 12,
+    "stepsIndex": 357,
+    "deepCutIndex": 357
+  },
+  {
+    "length": 10,
+    "answerIndex": 12,
+    "groupsIndex": 1,
+    "trailIndex": 358,
+    "linkIndex": 19,
+    "stepsIndex": 358,
+    "deepCutIndex": 358
+  },
+  {
+    "length": 5,
+    "answerIndex": 31,
+    "groupsIndex": 6,
+    "trailIndex": 359,
+    "linkIndex": 6,
+    "stepsIndex": 359,
+    "deepCutIndex": 359
+  },
+  {
+    "length": 6,
+    "answerIndex": 23,
+    "groupsIndex": 11,
+    "trailIndex": 360,
+    "linkIndex": 13,
+    "stepsIndex": 360,
+    "deepCutIndex": 360
+  },
+  {
+    "length": 7,
+    "answerIndex": 24,
+    "groupsIndex": 4,
+    "trailIndex": 361,
+    "linkIndex": 0,
+    "stepsIndex": 361,
+    "deepCutIndex": 361
+  },
+  {
+    "length": 9,
+    "answerIndex": 16,
+    "groupsIndex": 9,
+    "trailIndex": 362,
+    "linkIndex": 7,
+    "stepsIndex": 362,
+    "deepCutIndex": 362
+  },
+  {
+    "length": 5,
+    "answerIndex": 17,
+    "groupsIndex": 2,
+    "trailIndex": 363,
+    "linkIndex": 14,
+    "stepsIndex": 363,
+    "deepCutIndex": 363
+  },
+  {
+    "length": 6,
+    "answerIndex": 9,
+    "groupsIndex": 7,
+    "trailIndex": 364,
+    "linkIndex": 1,
+    "stepsIndex": 364,
+    "deepCutIndex": 364
+  }
+]

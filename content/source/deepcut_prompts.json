@@ -1,0 +1,6363 @@
+[
+  {
+    "id": "us_state",
+    "prompt": "Name a U.S. state.",
+    "answers": [
+      {
+        "name": "California"
+      },
+      {
+        "name": "Texas"
+      },
+      {
+        "name": "Florida"
+      },
+      {
+        "name": "New York"
+      },
+      {
+        "name": "Hawaii"
+      },
+      {
+        "name": "Alaska"
+      },
+      {
+        "name": "Washington"
+      },
+      {
+        "name": "Colorado"
+      },
+      {
+        "name": "Nevada"
+      },
+      {
+        "name": "Arizona"
+      },
+      {
+        "name": "Georgia"
+      },
+      {
+        "name": "Illinois"
+      },
+      {
+        "name": "Ohio"
+      },
+      {
+        "name": "Pennsylvania"
+      },
+      {
+        "name": "Massachusetts"
+      },
+      {
+        "name": "New Jersey"
+      },
+      {
+        "name": "Virginia"
+      },
+      {
+        "name": "North Carolina"
+      },
+      {
+        "name": "Michigan"
+      },
+      {
+        "name": "Tennessee"
+      },
+      {
+        "name": "Alabama"
+      },
+      {
+        "name": "Arkansas"
+      },
+      {
+        "name": "Connecticut"
+      },
+      {
+        "name": "Delaware"
+      },
+      {
+        "name": "Idaho"
+      },
+      {
+        "name": "Indiana"
+      },
+      {
+        "name": "Iowa"
+      },
+      {
+        "name": "Kansas"
+      },
+      {
+        "name": "Kentucky"
+      },
+      {
+        "name": "Louisiana"
+      },
+      {
+        "name": "Maine"
+      },
+      {
+        "name": "Maryland"
+      },
+      {
+        "name": "Minnesota"
+      },
+      {
+        "name": "Mississippi"
+      },
+      {
+        "name": "Missouri"
+      },
+      {
+        "name": "Montana"
+      },
+      {
+        "name": "Nebraska"
+      },
+      {
+        "name": "New Hampshire"
+      },
+      {
+        "name": "New Mexico"
+      },
+      {
+        "name": "North Dakota"
+      },
+      {
+        "name": "Oklahoma"
+      },
+      {
+        "name": "Oregon"
+      },
+      {
+        "name": "Rhode Island"
+      },
+      {
+        "name": "South Carolina"
+      },
+      {
+        "name": "South Dakota"
+      },
+      {
+        "name": "Utah"
+      },
+      {
+        "name": "Vermont"
+      },
+      {
+        "name": "West Virginia"
+      },
+      {
+        "name": "Wisconsin"
+      },
+      {
+        "name": "Wyoming"
+      }
+    ]
+  },
+  {
+    "id": "country",
+    "prompt": "Name a country.",
+    "answers": [
+      {
+        "name": "United States",
+        "aliases": [
+          "USA",
+          "US",
+          "America"
+        ]
+      },
+      {
+        "name": "Canada"
+      },
+      {
+        "name": "Mexico"
+      },
+      {
+        "name": "United Kingdom",
+        "aliases": [
+          "UK",
+          "Britain",
+          "Great Britain"
+        ]
+      },
+      {
+        "name": "France"
+      },
+      {
+        "name": "Germany"
+      },
+      {
+        "name": "Italy"
+      },
+      {
+        "name": "Spain"
+      },
+      {
+        "name": "Japan"
+      },
+      {
+        "name": "China"
+      },
+      {
+        "name": "India"
+      },
+      {
+        "name": "Brazil"
+      },
+      {
+        "name": "Australia"
+      },
+      {
+        "name": "Russia",
+        "aliases": [
+          "Russian Federation"
+        ]
+      },
+      {
+        "name": "South Korea",
+        "aliases": [
+          "Korea Republic",
+          "Republic of Korea"
+        ]
+      },
+      {
+        "name": "North Korea",
+        "aliases": [
+          "DPRK",
+          "Democratic Peoples Republic of Korea"
+        ]
+      },
+      {
+        "name": "Ireland"
+      },
+      {
+        "name": "Greece"
+      },
+      {
+        "name": "Egypt"
+      },
+      {
+        "name": "South Africa"
+      },
+      {
+        "name": "Argentina"
+      },
+      {
+        "name": "New Zealand"
+      },
+      {
+        "name": "Sweden"
+      },
+      {
+        "name": "Norway"
+      },
+      {
+        "name": "Switzerland"
+      },
+      {
+        "name": "Netherlands",
+        "aliases": [
+          "Holland"
+        ]
+      },
+      {
+        "name": "Portugal"
+      },
+      {
+        "name": "Poland"
+      },
+      {
+        "name": "Ukraine"
+      },
+      {
+        "name": "Turkey",
+        "aliases": [
+          "Turkiye"
+        ]
+      },
+      {
+        "name": "Afghanistan"
+      },
+      {
+        "name": "Albania"
+      },
+      {
+        "name": "Algeria"
+      },
+      {
+        "name": "Andorra"
+      },
+      {
+        "name": "Angola"
+      },
+      {
+        "name": "Antigua and Barbuda"
+      },
+      {
+        "name": "Armenia"
+      },
+      {
+        "name": "Austria"
+      },
+      {
+        "name": "Azerbaijan"
+      },
+      {
+        "name": "Bahamas"
+      },
+      {
+        "name": "Bahrain"
+      },
+      {
+        "name": "Bangladesh"
+      },
+      {
+        "name": "Barbados"
+      },
+      {
+        "name": "Belarus"
+      },
+      {
+        "name": "Belgium"
+      },
+      {
+        "name": "Belize"
+      },
+      {
+        "name": "Benin"
+      },
+      {
+        "name": "Bhutan"
+      },
+      {
+        "name": "Bolivia"
+      },
+      {
+        "name": "Bosnia and Herzegovina"
+      },
+      {
+        "name": "Botswana"
+      },
+      {
+        "name": "Brunei"
+      },
+      {
+        "name": "Bulgaria"
+      },
+      {
+        "name": "Burkina Faso"
+      },
+      {
+        "name": "Burundi"
+      },
+      {
+        "name": "Cabo Verde",
+        "aliases": [
+          "Cape Verde"
+        ]
+      },
+      {
+        "name": "Cambodia"
+      },
+      {
+        "name": "Cameroon"
+      },
+      {
+        "name": "Central African Republic"
+      },
+      {
+        "name": "Chad"
+      },
+      {
+        "name": "Chile"
+      },
+      {
+        "name": "Colombia"
+      },
+      {
+        "name": "Comoros"
+      },
+      {
+        "name": "Costa Rica"
+      },
+      {
+        "name": "Croatia"
+      },
+      {
+        "name": "Cuba"
+      },
+      {
+        "name": "Cyprus"
+      },
+      {
+        "name": "Czechia",
+        "aliases": [
+          "Czech Republic"
+        ]
+      },
+      {
+        "name": "Democratic Republic of the Congo",
+        "aliases": [
+          "DR Congo",
+          "DRC",
+          "Congo-Kinshasa",
+          "Democratic Republic Congo"
+        ]
+      },
+      {
+        "name": "Denmark"
+      },
+      {
+        "name": "Djibouti"
+      },
+      {
+        "name": "Dominica"
+      },
+      {
+        "name": "Dominican Republic"
+      },
+      {
+        "name": "Ecuador"
+      },
+      {
+        "name": "El Salvador"
+      },
+      {
+        "name": "Equatorial Guinea"
+      },
+      {
+        "name": "Eritrea"
+      },
+      {
+        "name": "Estonia"
+      },
+      {
+        "name": "Eswatini"
+      },
+      {
+        "name": "Ethiopia"
+      },
+      {
+        "name": "Fiji"
+      },
+      {
+        "name": "Finland"
+      },
+      {
+        "name": "Gabon"
+      },
+      {
+        "name": "Gambia"
+      },
+      {
+        "name": "Georgia"
+      },
+      {
+        "name": "Ghana"
+      },
+      {
+        "name": "Grenada"
+      },
+      {
+        "name": "Guatemala"
+      },
+      {
+        "name": "Guinea"
+      },
+      {
+        "name": "Guinea-Bissau"
+      },
+      {
+        "name": "Guyana"
+      },
+      {
+        "name": "Haiti"
+      },
+      {
+        "name": "Honduras"
+      },
+      {
+        "name": "Hungary"
+      },
+      {
+        "name": "Iceland"
+      },
+      {
+        "name": "Indonesia"
+      },
+      {
+        "name": "Iran"
+      },
+      {
+        "name": "Iraq"
+      },
+      {
+        "name": "Israel"
+      },
+      {
+        "name": "Ivory Coast",
+        "aliases": [
+          "Côte d’Ivoire"
+        ]
+      },
+      {
+        "name": "Jamaica"
+      },
+      {
+        "name": "Jordan"
+      },
+      {
+        "name": "Kazakhstan"
+      },
+      {
+        "name": "Kenya"
+      },
+      {
+        "name": "Kiribati"
+      },
+      {
+        "name": "Kuwait"
+      },
+      {
+        "name": "Kyrgyzstan"
+      },
+      {
+        "name": "Laos"
+      },
+      {
+        "name": "Latvia"
+      },
+      {
+        "name": "Lebanon"
+      },
+      {
+        "name": "Lesotho"
+      },
+      {
+        "name": "Liberia"
+      },
+      {
+        "name": "Libya"
+      },
+      {
+        "name": "Liechtenstein"
+      },
+      {
+        "name": "Lithuania"
+      },
+      {
+        "name": "Luxembourg"
+      },
+      {
+        "name": "Madagascar"
+      },
+      {
+        "name": "Malawi"
+      },
+      {
+        "name": "Malaysia"
+      },
+      {
+        "name": "Maldives"
+      },
+      {
+        "name": "Mali"
+      },
+      {
+        "name": "Malta"
+      },
+      {
+        "name": "Marshall Islands"
+      },
+      {
+        "name": "Mauritania"
+      },
+      {
+        "name": "Mauritius"
+      },
+      {
+        "name": "Micronesia"
+      },
+      {
+        "name": "Moldova"
+      },
+      {
+        "name": "Monaco"
+      },
+      {
+        "name": "Mongolia"
+      },
+      {
+        "name": "Montenegro"
+      },
+      {
+        "name": "Morocco"
+      },
+      {
+        "name": "Mozambique"
+      },
+      {
+        "name": "Myanmar",
+        "aliases": [
+          "Burma"
+        ]
+      },
+      {
+        "name": "Namibia"
+      },
+      {
+        "name": "Nauru"
+      },
+      {
+        "name": "Nepal"
+      },
+      {
+        "name": "Nicaragua"
+      },
+      {
+        "name": "Niger"
+      },
+      {
+        "name": "Nigeria"
+      },
+      {
+        "name": "North Macedonia"
+      },
+      {
+        "name": "Oman"
+      },
+      {
+        "name": "Pakistan"
+      },
+      {
+        "name": "Palau"
+      },
+      {
+        "name": "Palestine",
+        "aliases": [
+          "State of Palestine"
+        ]
+      },
+      {
+        "name": "Panama"
+      },
+      {
+        "name": "Papua New Guinea"
+      },
+      {
+        "name": "Paraguay"
+      },
+      {
+        "name": "Peru"
+      },
+      {
+        "name": "Philippines"
+      },
+      {
+        "name": "Qatar"
+      },
+      {
+        "name": "Republic of the Congo",
+        "aliases": [
+          "Congo Republic",
+          "Congo-Brazzaville",
+          "Republic Congo"
+        ]
+      },
+      {
+        "name": "Romania"
+      },
+      {
+        "name": "Rwanda"
+      },
+      {
+        "name": "Saint Kitts and Nevis"
+      },
+      {
+        "name": "Saint Lucia"
+      },
+      {
+        "name": "Saint Vincent and the Grenadines"
+      },
+      {
+        "name": "Samoa"
+      },
+      {
+        "name": "San Marino"
+      },
+      {
+        "name": "Sao Tome and Principe"
+      },
+      {
+        "name": "Saudi Arabia"
+      },
+      {
+        "name": "Senegal"
+      },
+      {
+        "name": "Serbia"
+      },
+      {
+        "name": "Seychelles"
+      },
+      {
+        "name": "Sierra Leone"
+      },
+      {
+        "name": "Singapore"
+      },
+      {
+        "name": "Slovakia"
+      },
+      {
+        "name": "Slovenia"
+      },
+      {
+        "name": "Solomon Islands"
+      },
+      {
+        "name": "Somalia"
+      },
+      {
+        "name": "South Sudan"
+      },
+      {
+        "name": "Sri Lanka"
+      },
+      {
+        "name": "Sudan"
+      },
+      {
+        "name": "Suriname"
+      },
+      {
+        "name": "Syria"
+      },
+      {
+        "name": "Taiwan"
+      },
+      {
+        "name": "Tajikistan"
+      },
+      {
+        "name": "Tanzania"
+      },
+      {
+        "name": "Thailand"
+      },
+      {
+        "name": "Timor-Leste",
+        "aliases": [
+          "East Timor"
+        ]
+      },
+      {
+        "name": "Togo"
+      },
+      {
+        "name": "Tonga"
+      },
+      {
+        "name": "Trinidad and Tobago"
+      },
+      {
+        "name": "Tunisia"
+      },
+      {
+        "name": "Turkmenistan"
+      },
+      {
+        "name": "Tuvalu"
+      },
+      {
+        "name": "Uganda"
+      },
+      {
+        "name": "United Arab Emirates",
+        "aliases": [
+          "UAE"
+        ]
+      },
+      {
+        "name": "Uruguay"
+      },
+      {
+        "name": "Uzbekistan"
+      },
+      {
+        "name": "Vanuatu"
+      },
+      {
+        "name": "Vatican City",
+        "aliases": [
+          "Vatican",
+          "Holy See"
+        ]
+      },
+      {
+        "name": "Venezuela"
+      },
+      {
+        "name": "Vietnam"
+      },
+      {
+        "name": "Yemen"
+      },
+      {
+        "name": "Zambia"
+      },
+      {
+        "name": "Zimbabwe"
+      }
+    ]
+  },
+  {
+    "id": "element",
+    "prompt": "Name a chemical element.",
+    "answers": [
+      {
+        "name": "Oxygen"
+      },
+      {
+        "name": "Hydrogen"
+      },
+      {
+        "name": "Carbon"
+      },
+      {
+        "name": "Gold"
+      },
+      {
+        "name": "Iron"
+      },
+      {
+        "name": "Silver"
+      },
+      {
+        "name": "Helium"
+      },
+      {
+        "name": "Nitrogen"
+      },
+      {
+        "name": "Calcium"
+      },
+      {
+        "name": "Sodium"
+      },
+      {
+        "name": "Copper"
+      },
+      {
+        "name": "Aluminum",
+        "aliases": [
+          "Aluminium"
+        ]
+      },
+      {
+        "name": "Silicon"
+      },
+      {
+        "name": "Chlorine"
+      },
+      {
+        "name": "Potassium"
+      },
+      {
+        "name": "Mercury"
+      },
+      {
+        "name": "Lead"
+      },
+      {
+        "name": "Uranium"
+      },
+      {
+        "name": "Neon"
+      },
+      {
+        "name": "Magnesium"
+      },
+      {
+        "name": "Actinium"
+      },
+      {
+        "name": "Americium"
+      },
+      {
+        "name": "Antimony"
+      },
+      {
+        "name": "Argon"
+      },
+      {
+        "name": "Arsenic"
+      },
+      {
+        "name": "Astatine"
+      },
+      {
+        "name": "Barium"
+      },
+      {
+        "name": "Berkelium"
+      },
+      {
+        "name": "Beryllium"
+      },
+      {
+        "name": "Bismuth"
+      },
+      {
+        "name": "Bohrium"
+      },
+      {
+        "name": "Boron"
+      },
+      {
+        "name": "Bromine"
+      },
+      {
+        "name": "Cadmium"
+      },
+      {
+        "name": "Caesium",
+        "aliases": [
+          "Cesium"
+        ]
+      },
+      {
+        "name": "Californium"
+      },
+      {
+        "name": "Cerium"
+      },
+      {
+        "name": "Chromium"
+      },
+      {
+        "name": "Cobalt"
+      },
+      {
+        "name": "Copernicium"
+      },
+      {
+        "name": "Curium"
+      },
+      {
+        "name": "Darmstadtium"
+      },
+      {
+        "name": "Dubnium"
+      },
+      {
+        "name": "Dysprosium"
+      },
+      {
+        "name": "Einsteinium"
+      },
+      {
+        "name": "Erbium"
+      },
+      {
+        "name": "Europium"
+      },
+      {
+        "name": "Fermium"
+      },
+      {
+        "name": "Flerovium"
+      },
+      {
+        "name": "Fluorine"
+      },
+      {
+        "name": "Francium"
+      },
+      {
+        "name": "Gadolinium"
+      },
+      {
+        "name": "Gallium"
+      },
+      {
+        "name": "Germanium"
+      },
+      {
+        "name": "Hafnium"
+      },
+      {
+        "name": "Hassium"
+      },
+      {
+        "name": "Holmium"
+      },
+      {
+        "name": "Indium"
+      },
+      {
+        "name": "Iodine"
+      },
+      {
+        "name": "Iridium"
+      },
+      {
+        "name": "Krypton"
+      },
+      {
+        "name": "Lanthanum"
+      },
+      {
+        "name": "Lawrencium"
+      },
+      {
+        "name": "Lithium"
+      },
+      {
+        "name": "Livermorium"
+      },
+      {
+        "name": "Lutetium"
+      },
+      {
+        "name": "Manganese"
+      },
+      {
+        "name": "Meitnerium"
+      },
+      {
+        "name": "Mendelevium"
+      },
+      {
+        "name": "Molybdenum"
+      },
+      {
+        "name": "Moscovium"
+      },
+      {
+        "name": "Neodymium"
+      },
+      {
+        "name": "Neptunium"
+      },
+      {
+        "name": "Nickel"
+      },
+      {
+        "name": "Nihonium"
+      },
+      {
+        "name": "Niobium"
+      },
+      {
+        "name": "Nobelium"
+      },
+      {
+        "name": "Oganesson"
+      },
+      {
+        "name": "Osmium"
+      },
+      {
+        "name": "Palladium"
+      },
+      {
+        "name": "Phosphorus"
+      },
+      {
+        "name": "Platinum"
+      },
+      {
+        "name": "Plutonium"
+      },
+      {
+        "name": "Polonium"
+      },
+      {
+        "name": "Praseodymium"
+      },
+      {
+        "name": "Promethium"
+      },
+      {
+        "name": "Protactinium"
+      },
+      {
+        "name": "Radium"
+      },
+      {
+        "name": "Radon"
+      },
+      {
+        "name": "Rhenium"
+      },
+      {
+        "name": "Rhodium"
+      },
+      {
+        "name": "Roentgenium"
+      },
+      {
+        "name": "Rubidium"
+      },
+      {
+        "name": "Ruthenium"
+      },
+      {
+        "name": "Rutherfordium"
+      },
+      {
+        "name": "Samarium"
+      },
+      {
+        "name": "Scandium"
+      },
+      {
+        "name": "Seaborgium"
+      },
+      {
+        "name": "Selenium"
+      },
+      {
+        "name": "Strontium"
+      },
+      {
+        "name": "Sulfur"
+      },
+      {
+        "name": "Tantalum"
+      },
+      {
+        "name": "Technetium"
+      },
+      {
+        "name": "Tellurium"
+      },
+      {
+        "name": "Tennessine"
+      },
+      {
+        "name": "Terbium"
+      },
+      {
+        "name": "Thallium"
+      },
+      {
+        "name": "Thorium"
+      },
+      {
+        "name": "Thulium"
+      },
+      {
+        "name": "Tin"
+      },
+      {
+        "name": "Titanium"
+      },
+      {
+        "name": "Tungsten"
+      },
+      {
+        "name": "Vanadium"
+      },
+      {
+        "name": "Xenon"
+      },
+      {
+        "name": "Ytterbium"
+      },
+      {
+        "name": "Yttrium"
+      },
+      {
+        "name": "Zinc"
+      },
+      {
+        "name": "Zirconium"
+      }
+    ]
+  },
+  {
+    "id": "state_capital",
+    "prompt": "Name a U.S. state capital.",
+    "answers": [
+      {
+        "name": "Austin"
+      },
+      {
+        "name": "Sacramento"
+      },
+      {
+        "name": "Albany"
+      },
+      {
+        "name": "Boston"
+      },
+      {
+        "name": "Honolulu"
+      },
+      {
+        "name": "Phoenix"
+      },
+      {
+        "name": "Denver"
+      },
+      {
+        "name": "Atlanta"
+      },
+      {
+        "name": "Nashville"
+      },
+      {
+        "name": "Columbus"
+      },
+      {
+        "name": "Harrisburg"
+      },
+      {
+        "name": "Richmond"
+      },
+      {
+        "name": "Raleigh"
+      },
+      {
+        "name": "Lansing"
+      },
+      {
+        "name": "Montgomery"
+      },
+      {
+        "name": "Juneau"
+      },
+      {
+        "name": "Little Rock"
+      },
+      {
+        "name": "Hartford"
+      },
+      {
+        "name": "Dover"
+      },
+      {
+        "name": "Tallahassee"
+      },
+      {
+        "name": "Boise"
+      },
+      {
+        "name": "Springfield"
+      },
+      {
+        "name": "Indianapolis"
+      },
+      {
+        "name": "Des Moines"
+      },
+      {
+        "name": "Topeka"
+      },
+      {
+        "name": "Frankfort"
+      },
+      {
+        "name": "Baton Rouge"
+      },
+      {
+        "name": "Augusta"
+      },
+      {
+        "name": "Annapolis"
+      },
+      {
+        "name": "Saint Paul",
+        "aliases": [
+          "St Paul"
+        ]
+      },
+      {
+        "name": "Jackson"
+      },
+      {
+        "name": "Jefferson City"
+      },
+      {
+        "name": "Helena"
+      },
+      {
+        "name": "Lincoln"
+      },
+      {
+        "name": "Carson City"
+      },
+      {
+        "name": "Concord"
+      },
+      {
+        "name": "Trenton"
+      },
+      {
+        "name": "Santa Fe"
+      },
+      {
+        "name": "Bismarck"
+      },
+      {
+        "name": "Oklahoma City"
+      },
+      {
+        "name": "Salem"
+      },
+      {
+        "name": "Providence"
+      },
+      {
+        "name": "Columbia"
+      },
+      {
+        "name": "Pierre"
+      },
+      {
+        "name": "Salt Lake City"
+      },
+      {
+        "name": "Montpelier"
+      },
+      {
+        "name": "Olympia"
+      },
+      {
+        "name": "Charleston"
+      },
+      {
+        "name": "Madison"
+      },
+      {
+        "name": "Cheyenne"
+      }
+    ]
+  },
+  {
+    "id": "president",
+    "prompt": "Name a U.S. president.",
+    "answers": [
+      {
+        "name": "George Washington"
+      },
+      {
+        "name": "Abraham Lincoln"
+      },
+      {
+        "name": "John F. Kennedy"
+      },
+      {
+        "name": "Barack Obama"
+      },
+      {
+        "name": "Donald Trump"
+      },
+      {
+        "name": "Joe Biden"
+      },
+      {
+        "name": "Theodore Roosevelt"
+      },
+      {
+        "name": "Franklin D. Roosevelt"
+      },
+      {
+        "name": "Thomas Jefferson"
+      },
+      {
+        "name": "Ronald Reagan"
+      },
+      {
+        "name": "Richard Nixon"
+      },
+      {
+        "name": "Jimmy Carter"
+      },
+      {
+        "name": "Bill Clinton"
+      },
+      {
+        "name": "George W. Bush"
+      },
+      {
+        "name": "George H. W. Bush"
+      },
+      {
+        "name": "John Adams"
+      },
+      {
+        "name": "James Madison"
+      },
+      {
+        "name": "James Monroe"
+      },
+      {
+        "name": "John Quincy Adams"
+      },
+      {
+        "name": "Andrew Jackson"
+      },
+      {
+        "name": "Martin Van Buren"
+      },
+      {
+        "name": "William Henry Harrison"
+      },
+      {
+        "name": "John Tyler"
+      },
+      {
+        "name": "James K. Polk"
+      },
+      {
+        "name": "Zachary Taylor"
+      },
+      {
+        "name": "Millard Fillmore"
+      },
+      {
+        "name": "Franklin Pierce"
+      },
+      {
+        "name": "James Buchanan"
+      },
+      {
+        "name": "Andrew Johnson"
+      },
+      {
+        "name": "Ulysses S. Grant"
+      },
+      {
+        "name": "Rutherford B. Hayes"
+      },
+      {
+        "name": "James A. Garfield"
+      },
+      {
+        "name": "Chester A. Arthur"
+      },
+      {
+        "name": "Grover Cleveland"
+      },
+      {
+        "name": "Benjamin Harrison"
+      },
+      {
+        "name": "William McKinley"
+      },
+      {
+        "name": "William Howard Taft"
+      },
+      {
+        "name": "Woodrow Wilson"
+      },
+      {
+        "name": "Warren G. Harding"
+      },
+      {
+        "name": "Calvin Coolidge"
+      },
+      {
+        "name": "Herbert Hoover"
+      },
+      {
+        "name": "Harry S. Truman"
+      },
+      {
+        "name": "Dwight D. Eisenhower"
+      },
+      {
+        "name": "Lyndon B. Johnson"
+      },
+      {
+        "name": "Gerald Ford"
+      }
+    ]
+  },
+  {
+    "id": "constellation",
+    "prompt": "Name a modern constellation.",
+    "answers": [
+      {
+        "name": "Orion"
+      },
+      {
+        "name": "Ursa Major"
+      },
+      {
+        "name": "Ursa Minor"
+      },
+      {
+        "name": "Cassiopeia"
+      },
+      {
+        "name": "Scorpius"
+      },
+      {
+        "name": "Leo"
+      },
+      {
+        "name": "Leo Minor"
+      },
+      {
+        "name": "Gemini"
+      },
+      {
+        "name": "Taurus"
+      },
+      {
+        "name": "Sagittarius"
+      },
+      {
+        "name": "Aquarius"
+      },
+      {
+        "name": "Pisces"
+      },
+      {
+        "name": "Aries"
+      },
+      {
+        "name": "Libra"
+      },
+      {
+        "name": "Virgo"
+      },
+      {
+        "name": "Cancer"
+      },
+      {
+        "name": "Capricornus"
+      },
+      {
+        "name": "Andromeda"
+      },
+      {
+        "name": "Antlia"
+      },
+      {
+        "name": "Apus"
+      },
+      {
+        "name": "Aquila"
+      },
+      {
+        "name": "Ara"
+      },
+      {
+        "name": "Auriga"
+      },
+      {
+        "name": "Bootes"
+      },
+      {
+        "name": "Caelum"
+      },
+      {
+        "name": "Camelopardalis"
+      },
+      {
+        "name": "Canes Venatici"
+      },
+      {
+        "name": "Canis Major"
+      },
+      {
+        "name": "Canis Minor"
+      },
+      {
+        "name": "Carina"
+      },
+      {
+        "name": "Centaurus"
+      },
+      {
+        "name": "Cepheus"
+      },
+      {
+        "name": "Cetus"
+      },
+      {
+        "name": "Chamaeleon"
+      },
+      {
+        "name": "Circinus"
+      },
+      {
+        "name": "Columba"
+      },
+      {
+        "name": "Coma Berenices"
+      },
+      {
+        "name": "Corona Australis"
+      },
+      {
+        "name": "Corona Borealis"
+      },
+      {
+        "name": "Corvus"
+      },
+      {
+        "name": "Crater"
+      },
+      {
+        "name": "Crux"
+      },
+      {
+        "name": "Cygnus"
+      },
+      {
+        "name": "Delphinus"
+      },
+      {
+        "name": "Dorado"
+      },
+      {
+        "name": "Draco"
+      },
+      {
+        "name": "Equuleus"
+      },
+      {
+        "name": "Eridanus"
+      },
+      {
+        "name": "Fornax"
+      },
+      {
+        "name": "Grus"
+      },
+      {
+        "name": "Hercules"
+      },
+      {
+        "name": "Horologium"
+      },
+      {
+        "name": "Hydra"
+      },
+      {
+        "name": "Hydrus"
+      },
+      {
+        "name": "Indus"
+      },
+      {
+        "name": "Lacerta"
+      },
+      {
+        "name": "Lepus"
+      },
+      {
+        "name": "Lupus"
+      },
+      {
+        "name": "Lynx"
+      },
+      {
+        "name": "Lyra"
+      },
+      {
+        "name": "Mensa"
+      },
+      {
+        "name": "Microscopium"
+      },
+      {
+        "name": "Monoceros"
+      },
+      {
+        "name": "Musca"
+      },
+      {
+        "name": "Norma"
+      },
+      {
+        "name": "Octans"
+      },
+      {
+        "name": "Ophiuchus"
+      },
+      {
+        "name": "Pavo"
+      },
+      {
+        "name": "Pegasus"
+      },
+      {
+        "name": "Perseus"
+      },
+      {
+        "name": "Phoenix"
+      },
+      {
+        "name": "Pictor"
+      },
+      {
+        "name": "Piscis Austrinus"
+      },
+      {
+        "name": "Puppis"
+      },
+      {
+        "name": "Pyxis"
+      },
+      {
+        "name": "Reticulum"
+      },
+      {
+        "name": "Sagitta"
+      },
+      {
+        "name": "Sculptor"
+      },
+      {
+        "name": "Scutum"
+      },
+      {
+        "name": "Serpens"
+      },
+      {
+        "name": "Sextans"
+      },
+      {
+        "name": "Telescopium"
+      },
+      {
+        "name": "Triangulum"
+      },
+      {
+        "name": "Triangulum Australe"
+      },
+      {
+        "name": "Tucana"
+      },
+      {
+        "name": "Vela"
+      },
+      {
+        "name": "Volans"
+      },
+      {
+        "name": "Vulpecula"
+      }
+    ]
+  },
+  {
+    "id": "shakespeare_play",
+    "prompt": "Name a Shakespeare play.",
+    "answers": [
+      {
+        "name": "Hamlet"
+      },
+      {
+        "name": "Macbeth"
+      },
+      {
+        "name": "Romeo and Juliet"
+      },
+      {
+        "name": "Othello"
+      },
+      {
+        "name": "King Lear"
+      },
+      {
+        "name": "A Midsummer Night’s Dream"
+      },
+      {
+        "name": "The Tempest"
+      },
+      {
+        "name": "Julius Caesar"
+      },
+      {
+        "name": "Twelfth Night"
+      },
+      {
+        "name": "Much Ado About Nothing"
+      },
+      {
+        "name": "The Merchant of Venice"
+      },
+      {
+        "name": "Henry V"
+      },
+      {
+        "name": "Richard III"
+      },
+      {
+        "name": "As You Like It"
+      },
+      {
+        "name": "The Taming of the Shrew"
+      },
+      {
+        "name": "Measure for Measure"
+      },
+      {
+        "name": "The Comedy of Errors"
+      },
+      {
+        "name": "Love’s Labour’s Lost"
+      },
+      {
+        "name": "The Winter’s Tale"
+      },
+      {
+        "name": "Coriolanus"
+      },
+      {
+        "name": "Antony and Cleopatra"
+      },
+      {
+        "name": "Titus Andronicus"
+      },
+      {
+        "name": "Timon of Athens"
+      },
+      {
+        "name": "Troilus and Cressida"
+      },
+      {
+        "name": "All’s Well That Ends Well"
+      },
+      {
+        "name": "Cymbeline"
+      },
+      {
+        "name": "Pericles"
+      },
+      {
+        "name": "The Two Gentlemen of Verona"
+      },
+      {
+        "name": "The Merry Wives of Windsor"
+      },
+      {
+        "name": "Henry IV Part 1"
+      },
+      {
+        "name": "Henry IV Part 2"
+      },
+      {
+        "name": "Henry VI Part 1"
+      },
+      {
+        "name": "Henry VI Part 2"
+      },
+      {
+        "name": "Henry VI Part 3"
+      },
+      {
+        "name": "Henry VIII"
+      },
+      {
+        "name": "Richard II"
+      },
+      {
+        "name": "King John"
+      },
+      {
+        "name": "Two Noble Kinsmen"
+      }
+    ]
+  },
+  {
+    "id": "south_america",
+    "prompt": "Name a country in South America.",
+    "answers": [
+      {
+        "name": "Brazil"
+      },
+      {
+        "name": "Argentina"
+      },
+      {
+        "name": "Colombia"
+      },
+      {
+        "name": "Chile"
+      },
+      {
+        "name": "Peru"
+      },
+      {
+        "name": "Bolivia"
+      },
+      {
+        "name": "Ecuador"
+      },
+      {
+        "name": "Guyana"
+      },
+      {
+        "name": "Paraguay"
+      },
+      {
+        "name": "Suriname"
+      },
+      {
+        "name": "Uruguay"
+      },
+      {
+        "name": "Venezuela"
+      }
+    ]
+  },
+  {
+    "id": "europe",
+    "prompt": "Name a country in Europe.",
+    "answers": [
+      {
+        "name": "United Kingdom"
+      },
+      {
+        "name": "France"
+      },
+      {
+        "name": "Germany"
+      },
+      {
+        "name": "Italy"
+      },
+      {
+        "name": "Spain"
+      },
+      {
+        "name": "Ireland"
+      },
+      {
+        "name": "Greece"
+      },
+      {
+        "name": "Sweden"
+      },
+      {
+        "name": "Norway"
+      },
+      {
+        "name": "Switzerland"
+      },
+      {
+        "name": "Netherlands"
+      },
+      {
+        "name": "Portugal"
+      },
+      {
+        "name": "Poland"
+      },
+      {
+        "name": "Ukraine"
+      },
+      {
+        "name": "Austria"
+      },
+      {
+        "name": "Belgium"
+      },
+      {
+        "name": "Denmark"
+      },
+      {
+        "name": "Finland"
+      },
+      {
+        "name": "Albania"
+      },
+      {
+        "name": "Andorra"
+      },
+      {
+        "name": "Belarus"
+      },
+      {
+        "name": "Bosnia and Herzegovina"
+      },
+      {
+        "name": "Bulgaria"
+      },
+      {
+        "name": "Croatia"
+      },
+      {
+        "name": "Cyprus"
+      },
+      {
+        "name": "Czechia",
+        "aliases": [
+          "Czech Republic"
+        ]
+      },
+      {
+        "name": "Estonia"
+      },
+      {
+        "name": "Hungary"
+      },
+      {
+        "name": "Iceland"
+      },
+      {
+        "name": "Latvia"
+      },
+      {
+        "name": "Liechtenstein"
+      },
+      {
+        "name": "Lithuania"
+      },
+      {
+        "name": "Luxembourg"
+      },
+      {
+        "name": "Malta"
+      },
+      {
+        "name": "Moldova"
+      },
+      {
+        "name": "Monaco"
+      },
+      {
+        "name": "Montenegro"
+      },
+      {
+        "name": "North Macedonia"
+      },
+      {
+        "name": "Romania"
+      },
+      {
+        "name": "San Marino"
+      },
+      {
+        "name": "Serbia"
+      },
+      {
+        "name": "Slovakia"
+      },
+      {
+        "name": "Slovenia"
+      },
+      {
+        "name": "Vatican City",
+        "aliases": [
+          "Vatican",
+          "Holy See"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "africa",
+    "prompt": "Name a country in Africa.",
+    "answers": [
+      {
+        "name": "Egypt"
+      },
+      {
+        "name": "South Africa"
+      },
+      {
+        "name": "Nigeria"
+      },
+      {
+        "name": "Kenya"
+      },
+      {
+        "name": "Morocco"
+      },
+      {
+        "name": "Ghana"
+      },
+      {
+        "name": "Ethiopia"
+      },
+      {
+        "name": "Tanzania"
+      },
+      {
+        "name": "Uganda"
+      },
+      {
+        "name": "Algeria"
+      },
+      {
+        "name": "Tunisia"
+      },
+      {
+        "name": "Angola"
+      },
+      {
+        "name": "Benin"
+      },
+      {
+        "name": "Botswana"
+      },
+      {
+        "name": "Burkina Faso"
+      },
+      {
+        "name": "Burundi"
+      },
+      {
+        "name": "Cabo Verde",
+        "aliases": [
+          "Cape Verde"
+        ]
+      },
+      {
+        "name": "Cameroon"
+      },
+      {
+        "name": "Central African Republic"
+      },
+      {
+        "name": "Chad"
+      },
+      {
+        "name": "Comoros"
+      },
+      {
+        "name": "Democratic Republic of the Congo",
+        "aliases": [
+          "DR Congo",
+          "DRC",
+          "Congo-Kinshasa",
+          "Democratic Republic Congo"
+        ]
+      },
+      {
+        "name": "Djibouti"
+      },
+      {
+        "name": "Equatorial Guinea"
+      },
+      {
+        "name": "Eritrea"
+      },
+      {
+        "name": "Eswatini"
+      },
+      {
+        "name": "Gabon"
+      },
+      {
+        "name": "Gambia"
+      },
+      {
+        "name": "Guinea"
+      },
+      {
+        "name": "Guinea-Bissau"
+      },
+      {
+        "name": "Ivory Coast",
+        "aliases": [
+          "Côte d’Ivoire"
+        ]
+      },
+      {
+        "name": "Lesotho"
+      },
+      {
+        "name": "Liberia"
+      },
+      {
+        "name": "Libya"
+      },
+      {
+        "name": "Madagascar"
+      },
+      {
+        "name": "Malawi"
+      },
+      {
+        "name": "Mali"
+      },
+      {
+        "name": "Mauritania"
+      },
+      {
+        "name": "Mauritius"
+      },
+      {
+        "name": "Mozambique"
+      },
+      {
+        "name": "Namibia"
+      },
+      {
+        "name": "Niger"
+      },
+      {
+        "name": "Republic of the Congo",
+        "aliases": [
+          "Congo Republic",
+          "Congo-Brazzaville",
+          "Republic Congo"
+        ]
+      },
+      {
+        "name": "Rwanda"
+      },
+      {
+        "name": "Sao Tome and Principe"
+      },
+      {
+        "name": "Senegal"
+      },
+      {
+        "name": "Seychelles"
+      },
+      {
+        "name": "Sierra Leone"
+      },
+      {
+        "name": "Somalia"
+      },
+      {
+        "name": "South Sudan"
+      },
+      {
+        "name": "Sudan"
+      },
+      {
+        "name": "Togo"
+      },
+      {
+        "name": "Zambia"
+      },
+      {
+        "name": "Zimbabwe"
+      }
+    ]
+  },
+  {
+    "id": "asia",
+    "prompt": "Name a country in Asia.",
+    "answers": [
+      {
+        "name": "China"
+      },
+      {
+        "name": "Japan"
+      },
+      {
+        "name": "India"
+      },
+      {
+        "name": "South Korea"
+      },
+      {
+        "name": "North Korea"
+      },
+      {
+        "name": "Thailand"
+      },
+      {
+        "name": "Vietnam"
+      },
+      {
+        "name": "Philippines"
+      },
+      {
+        "name": "Indonesia"
+      },
+      {
+        "name": "Singapore"
+      },
+      {
+        "name": "Malaysia"
+      },
+      {
+        "name": "Pakistan"
+      },
+      {
+        "name": "Saudi Arabia"
+      },
+      {
+        "name": "Israel"
+      },
+      {
+        "name": "Iran"
+      },
+      {
+        "name": "Iraq"
+      },
+      {
+        "name": "United Arab Emirates",
+        "aliases": [
+          "UAE"
+        ]
+      },
+      {
+        "name": "Afghanistan"
+      },
+      {
+        "name": "Armenia"
+      },
+      {
+        "name": "Azerbaijan"
+      },
+      {
+        "name": "Bahrain"
+      },
+      {
+        "name": "Bangladesh"
+      },
+      {
+        "name": "Bhutan"
+      },
+      {
+        "name": "Brunei"
+      },
+      {
+        "name": "Cambodia"
+      },
+      {
+        "name": "Cyprus"
+      },
+      {
+        "name": "Georgia"
+      },
+      {
+        "name": "Jordan"
+      },
+      {
+        "name": "Kazakhstan"
+      },
+      {
+        "name": "Kuwait"
+      },
+      {
+        "name": "Kyrgyzstan"
+      },
+      {
+        "name": "Laos"
+      },
+      {
+        "name": "Lebanon"
+      },
+      {
+        "name": "Maldives"
+      },
+      {
+        "name": "Mongolia"
+      },
+      {
+        "name": "Myanmar",
+        "aliases": [
+          "Burma"
+        ]
+      },
+      {
+        "name": "Nepal"
+      },
+      {
+        "name": "Oman"
+      },
+      {
+        "name": "Qatar"
+      },
+      {
+        "name": "Sri Lanka"
+      },
+      {
+        "name": "Syria"
+      },
+      {
+        "name": "Taiwan"
+      },
+      {
+        "name": "Tajikistan"
+      },
+      {
+        "name": "Timor-Leste",
+        "aliases": [
+          "East Timor"
+        ]
+      },
+      {
+        "name": "Turkey"
+      },
+      {
+        "name": "Turkmenistan"
+      },
+      {
+        "name": "Uzbekistan"
+      },
+      {
+        "name": "Yemen"
+      }
+    ]
+  },
+  {
+    "id": "canada",
+    "prompt": "Name a Canadian province or territory.",
+    "answers": [
+      {
+        "name": "Ontario"
+      },
+      {
+        "name": "Quebec"
+      },
+      {
+        "name": "British Columbia"
+      },
+      {
+        "name": "Alberta"
+      },
+      {
+        "name": "Manitoba"
+      },
+      {
+        "name": "Saskatchewan"
+      },
+      {
+        "name": "Nova Scotia"
+      },
+      {
+        "name": "New Brunswick"
+      },
+      {
+        "name": "Newfoundland and Labrador"
+      },
+      {
+        "name": "Prince Edward Island"
+      },
+      {
+        "name": "Northwest Territories"
+      },
+      {
+        "name": "Yukon"
+      },
+      {
+        "name": "Nunavut"
+      }
+    ]
+  },
+  {
+    "id": "zodiac",
+    "prompt": "Name a Western zodiac sign.",
+    "answers": [
+      {
+        "name": "Aries"
+      },
+      {
+        "name": "Leo"
+      },
+      {
+        "name": "Scorpio"
+      },
+      {
+        "name": "Gemini"
+      },
+      {
+        "name": "Taurus"
+      },
+      {
+        "name": "Cancer"
+      },
+      {
+        "name": "Virgo"
+      },
+      {
+        "name": "Libra"
+      },
+      {
+        "name": "Sagittarius"
+      },
+      {
+        "name": "Capricorn"
+      },
+      {
+        "name": "Aquarius"
+      },
+      {
+        "name": "Pisces"
+      }
+    ]
+  },
+  {
+    "id": "greek",
+    "prompt": "Name a letter of the Greek alphabet.",
+    "answers": [
+      {
+        "name": "Alpha"
+      },
+      {
+        "name": "Beta"
+      },
+      {
+        "name": "Gamma"
+      },
+      {
+        "name": "Delta"
+      },
+      {
+        "name": "Omega"
+      },
+      {
+        "name": "Sigma"
+      },
+      {
+        "name": "Pi"
+      },
+      {
+        "name": "Theta"
+      },
+      {
+        "name": "Epsilon"
+      },
+      {
+        "name": "Zeta"
+      },
+      {
+        "name": "Eta"
+      },
+      {
+        "name": "Iota"
+      },
+      {
+        "name": "Kappa"
+      },
+      {
+        "name": "Lambda"
+      },
+      {
+        "name": "Mu"
+      },
+      {
+        "name": "Nu"
+      },
+      {
+        "name": "Xi"
+      },
+      {
+        "name": "Omicron"
+      },
+      {
+        "name": "Rho"
+      },
+      {
+        "name": "Tau"
+      },
+      {
+        "name": "Upsilon"
+      },
+      {
+        "name": "Phi"
+      },
+      {
+        "name": "Chi"
+      },
+      {
+        "name": "Psi"
+      }
+    ]
+  },
+  {
+    "id": "nato",
+    "prompt": "Name a NATO phonetic alphabet code word.",
+    "answers": [
+      {
+        "name": "Alpha"
+      },
+      {
+        "name": "Bravo"
+      },
+      {
+        "name": "Charlie"
+      },
+      {
+        "name": "Delta"
+      },
+      {
+        "name": "Echo"
+      },
+      {
+        "name": "Foxtrot"
+      },
+      {
+        "name": "Golf"
+      },
+      {
+        "name": "Hotel"
+      },
+      {
+        "name": "India"
+      },
+      {
+        "name": "Juliett"
+      },
+      {
+        "name": "Kilo"
+      },
+      {
+        "name": "Lima"
+      },
+      {
+        "name": "Mike"
+      },
+      {
+        "name": "November"
+      },
+      {
+        "name": "Oscar"
+      },
+      {
+        "name": "Papa"
+      },
+      {
+        "name": "Quebec"
+      },
+      {
+        "name": "Romeo"
+      },
+      {
+        "name": "Sierra"
+      },
+      {
+        "name": "Tango"
+      },
+      {
+        "name": "Uniform"
+      },
+      {
+        "name": "Victor"
+      },
+      {
+        "name": "Whiskey"
+      },
+      {
+        "name": "X-ray"
+      },
+      {
+        "name": "Yankee"
+      },
+      {
+        "name": "Zulu"
+      }
+    ]
+  },
+  {
+    "id": "planets",
+    "prompt": "Name a planet in the Solar System.",
+    "answers": [
+      {
+        "name": "Earth"
+      },
+      {
+        "name": "Mars"
+      },
+      {
+        "name": "Jupiter"
+      },
+      {
+        "name": "Saturn"
+      },
+      {
+        "name": "Venus"
+      },
+      {
+        "name": "Mercury"
+      },
+      {
+        "name": "Neptune"
+      },
+      {
+        "name": "Uranus"
+      }
+    ]
+  },
+  {
+    "id": "dwarf",
+    "prompt": "Name an IAU-recognized dwarf planet.",
+    "answers": [
+      {
+        "name": "Pluto"
+      },
+      {
+        "name": "Ceres"
+      },
+      {
+        "name": "Eris"
+      },
+      {
+        "name": "Haumea"
+      },
+      {
+        "name": "Makemake"
+      }
+    ]
+  },
+  {
+    "id": "greatlakes",
+    "prompt": "Name one of the Great Lakes.",
+    "answers": [
+      {
+        "name": "Lake Michigan"
+      },
+      {
+        "name": "Lake Superior"
+      },
+      {
+        "name": "Lake Erie"
+      },
+      {
+        "name": "Lake Ontario"
+      },
+      {
+        "name": "Lake Huron"
+      }
+    ]
+  },
+  {
+    "id": "continents",
+    "prompt": "Name a continent.",
+    "answers": [
+      {
+        "name": "North America"
+      },
+      {
+        "name": "Europe"
+      },
+      {
+        "name": "Asia"
+      },
+      {
+        "name": "Africa"
+      },
+      {
+        "name": "South America"
+      },
+      {
+        "name": "Australia"
+      },
+      {
+        "name": "Antarctica"
+      }
+    ]
+  },
+  {
+    "id": "oceans",
+    "prompt": "Name one of Earth’s five oceans.",
+    "answers": [
+      {
+        "name": "Atlantic Ocean"
+      },
+      {
+        "name": "Pacific Ocean"
+      },
+      {
+        "name": "Indian Ocean"
+      },
+      {
+        "name": "Arctic Ocean"
+      },
+      {
+        "name": "Southern Ocean"
+      }
+    ]
+  },
+  {
+    "id": "g7",
+    "prompt": "Name a G7 country.",
+    "answers": [
+      {
+        "name": "United States"
+      },
+      {
+        "name": "Canada"
+      },
+      {
+        "name": "United Kingdom"
+      },
+      {
+        "name": "France"
+      },
+      {
+        "name": "Germany"
+      },
+      {
+        "name": "Italy"
+      },
+      {
+        "name": "Japan"
+      }
+    ]
+  },
+  {
+    "id": "unsc",
+    "prompt": "Name a permanent member of the UN Security Council.",
+    "answers": [
+      {
+        "name": "United States"
+      },
+      {
+        "name": "United Kingdom"
+      },
+      {
+        "name": "France"
+      },
+      {
+        "name": "China"
+      },
+      {
+        "name": "Russia"
+      }
+    ]
+  },
+  {
+    "id": "unlangs",
+    "prompt": "Name an official language of the United Nations.",
+    "answers": [
+      {
+        "name": "English"
+      },
+      {
+        "name": "Spanish"
+      },
+      {
+        "name": "French"
+      },
+      {
+        "name": "Chinese"
+      },
+      {
+        "name": "Arabic"
+      },
+      {
+        "name": "Russian"
+      }
+    ]
+  },
+  {
+    "id": "nobel",
+    "prompt": "Name a Nobel Prize category.",
+    "answers": [
+      {
+        "name": "Peace"
+      },
+      {
+        "name": "Literature"
+      },
+      {
+        "name": "Physics"
+      },
+      {
+        "name": "Chemistry"
+      },
+      {
+        "name": "Physiology or Medicine"
+      },
+      {
+        "name": "Economic Sciences"
+      }
+    ]
+  },
+  {
+    "id": "military",
+    "prompt": "Name a branch of the U.S. Armed Forces.",
+    "answers": [
+      {
+        "name": "Army"
+      },
+      {
+        "name": "Navy"
+      },
+      {
+        "name": "Marine Corps"
+      },
+      {
+        "name": "Air Force"
+      },
+      {
+        "name": "Coast Guard"
+      },
+      {
+        "name": "Space Force"
+      }
+    ]
+  },
+  {
+    "id": "chess",
+    "prompt": "Name a type of chess piece.",
+    "answers": [
+      {
+        "name": "Queen"
+      },
+      {
+        "name": "King"
+      },
+      {
+        "name": "Knight"
+      },
+      {
+        "name": "Bishop"
+      },
+      {
+        "name": "Rook"
+      },
+      {
+        "name": "Pawn"
+      }
+    ]
+  },
+  {
+    "id": "cardsuits",
+    "prompt": "Name a standard playing-card suit.",
+    "answers": [
+      {
+        "name": "Spades"
+      },
+      {
+        "name": "Hearts"
+      },
+      {
+        "name": "Diamonds"
+      },
+      {
+        "name": "Clubs"
+      }
+    ]
+  },
+  {
+    "id": "cardranks",
+    "prompt": "Name a standard playing-card rank.",
+    "answers": [
+      {
+        "name": "Ace"
+      },
+      {
+        "name": "King"
+      },
+      {
+        "name": "Queen"
+      },
+      {
+        "name": "Jack"
+      },
+      {
+        "name": "Ten"
+      },
+      {
+        "name": "Nine"
+      },
+      {
+        "name": "Eight"
+      },
+      {
+        "name": "Seven"
+      },
+      {
+        "name": "Six"
+      },
+      {
+        "name": "Five"
+      },
+      {
+        "name": "Four"
+      },
+      {
+        "name": "Three"
+      },
+      {
+        "name": "Two"
+      }
+    ]
+  },
+  {
+    "id": "baseball",
+    "prompt": "Name a standard baseball fielding position.",
+    "answers": [
+      {
+        "name": "Pitcher"
+      },
+      {
+        "name": "Catcher"
+      },
+      {
+        "name": "Shortstop"
+      },
+      {
+        "name": "First Base"
+      },
+      {
+        "name": "Second Base"
+      },
+      {
+        "name": "Third Base"
+      },
+      {
+        "name": "Center Field"
+      },
+      {
+        "name": "Left Field"
+      },
+      {
+        "name": "Right Field"
+      }
+    ]
+  },
+  {
+    "id": "rainbow",
+    "prompt": "Name a traditional rainbow color.",
+    "answers": [
+      {
+        "name": "Red"
+      },
+      {
+        "name": "Blue"
+      },
+      {
+        "name": "Green"
+      },
+      {
+        "name": "Violet"
+      },
+      {
+        "name": "Orange"
+      },
+      {
+        "name": "Yellow"
+      },
+      {
+        "name": "Indigo"
+      }
+    ]
+  },
+  {
+    "id": "months",
+    "prompt": "Name a month of the year.",
+    "answers": [
+      {
+        "name": "January"
+      },
+      {
+        "name": "December"
+      },
+      {
+        "name": "July"
+      },
+      {
+        "name": "October"
+      },
+      {
+        "name": "June"
+      },
+      {
+        "name": "August"
+      },
+      {
+        "name": "September"
+      },
+      {
+        "name": "February"
+      },
+      {
+        "name": "March"
+      },
+      {
+        "name": "April"
+      },
+      {
+        "name": "May"
+      },
+      {
+        "name": "November"
+      }
+    ]
+  },
+  {
+    "id": "chinesezodiac",
+    "prompt": "Name an animal in the Chinese zodiac.",
+    "answers": [
+      {
+        "name": "Dragon"
+      },
+      {
+        "name": "Tiger"
+      },
+      {
+        "name": "Rat"
+      },
+      {
+        "name": "Rabbit"
+      },
+      {
+        "name": "Snake"
+      },
+      {
+        "name": "Horse"
+      },
+      {
+        "name": "Ox"
+      },
+      {
+        "name": "Goat"
+      },
+      {
+        "name": "Monkey"
+      },
+      {
+        "name": "Rooster"
+      },
+      {
+        "name": "Dog"
+      },
+      {
+        "name": "Pig"
+      }
+    ]
+  },
+  {
+    "id": "si",
+    "prompt": "Name an SI base unit.",
+    "answers": [
+      {
+        "name": "Meter"
+      },
+      {
+        "name": "Second"
+      },
+      {
+        "name": "Kilogram"
+      },
+      {
+        "name": "Ampere"
+      },
+      {
+        "name": "Kelvin"
+      },
+      {
+        "name": "Mole"
+      },
+      {
+        "name": "Candela"
+      }
+    ]
+  },
+  {
+    "id": "apollo",
+    "prompt": "Name an Apollo mission that landed astronauts on the Moon.",
+    "answers": [
+      {
+        "name": "Apollo 11"
+      },
+      {
+        "name": "Apollo 12"
+      },
+      {
+        "name": "Apollo 14"
+      },
+      {
+        "name": "Apollo 15"
+      },
+      {
+        "name": "Apollo 16"
+      },
+      {
+        "name": "Apollo 17"
+      }
+    ]
+  },
+  {
+    "id": "ivy",
+    "prompt": "Name an Ivy League university.",
+    "answers": [
+      {
+        "name": "Harvard"
+      },
+      {
+        "name": "Yale"
+      },
+      {
+        "name": "Princeton"
+      },
+      {
+        "name": "Columbia"
+      },
+      {
+        "name": "Cornell"
+      },
+      {
+        "name": "Brown"
+      },
+      {
+        "name": "Dartmouth"
+      },
+      {
+        "name": "University of Pennsylvania",
+        "aliases": [
+          "Penn",
+          "UPenn"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "eu",
+    "prompt": "Name a member state of the European Union.",
+    "answers": [
+      {
+        "name": "France"
+      },
+      {
+        "name": "Germany"
+      },
+      {
+        "name": "Italy"
+      },
+      {
+        "name": "Spain"
+      },
+      {
+        "name": "Ireland"
+      },
+      {
+        "name": "Greece"
+      },
+      {
+        "name": "Sweden"
+      },
+      {
+        "name": "Netherlands"
+      },
+      {
+        "name": "Portugal"
+      },
+      {
+        "name": "Poland"
+      },
+      {
+        "name": "Austria"
+      },
+      {
+        "name": "Belgium"
+      },
+      {
+        "name": "Denmark"
+      },
+      {
+        "name": "Finland"
+      },
+      {
+        "name": "Bulgaria"
+      },
+      {
+        "name": "Croatia"
+      },
+      {
+        "name": "Cyprus"
+      },
+      {
+        "name": "Czechia",
+        "aliases": [
+          "Czech Republic"
+        ]
+      },
+      {
+        "name": "Estonia"
+      },
+      {
+        "name": "Hungary"
+      },
+      {
+        "name": "Latvia"
+      },
+      {
+        "name": "Lithuania"
+      },
+      {
+        "name": "Luxembourg"
+      },
+      {
+        "name": "Malta"
+      },
+      {
+        "name": "Romania"
+      },
+      {
+        "name": "Slovakia"
+      },
+      {
+        "name": "Slovenia"
+      }
+    ]
+  },
+  {
+    "id": "state_initial_a",
+    "prompt": "Name a U.S. state beginning with A.",
+    "answers": [
+      {
+        "name": "Alaska"
+      },
+      {
+        "name": "Arizona"
+      },
+      {
+        "name": "Alabama"
+      },
+      {
+        "name": "Arkansas"
+      }
+    ]
+  },
+  {
+    "id": "state_initial_i",
+    "prompt": "Name a U.S. state beginning with I.",
+    "answers": [
+      {
+        "name": "Illinois"
+      },
+      {
+        "name": "Idaho"
+      },
+      {
+        "name": "Indiana"
+      },
+      {
+        "name": "Iowa"
+      }
+    ]
+  },
+  {
+    "id": "state_initial_m",
+    "prompt": "Name a U.S. state beginning with M.",
+    "answers": [
+      {
+        "name": "Massachusetts"
+      },
+      {
+        "name": "Michigan"
+      },
+      {
+        "name": "Maine"
+      },
+      {
+        "name": "Maryland"
+      },
+      {
+        "name": "Minnesota"
+      },
+      {
+        "name": "Mississippi"
+      },
+      {
+        "name": "Missouri"
+      },
+      {
+        "name": "Montana"
+      }
+    ]
+  },
+  {
+    "id": "state_initial_n",
+    "prompt": "Name a U.S. state beginning with N.",
+    "answers": [
+      {
+        "name": "New York"
+      },
+      {
+        "name": "Nevada"
+      },
+      {
+        "name": "New Jersey"
+      },
+      {
+        "name": "North Carolina"
+      },
+      {
+        "name": "Nebraska"
+      },
+      {
+        "name": "New Hampshire"
+      },
+      {
+        "name": "New Mexico"
+      },
+      {
+        "name": "North Dakota"
+      }
+    ]
+  },
+  {
+    "id": "state_initial_w",
+    "prompt": "Name a U.S. state beginning with W.",
+    "answers": [
+      {
+        "name": "Washington"
+      },
+      {
+        "name": "West Virginia"
+      },
+      {
+        "name": "Wisconsin"
+      },
+      {
+        "name": "Wyoming"
+      }
+    ]
+  },
+  {
+    "id": "country_initial_a",
+    "prompt": "Name a country beginning with A.",
+    "answers": [
+      {
+        "name": "Australia"
+      },
+      {
+        "name": "Argentina"
+      },
+      {
+        "name": "Afghanistan"
+      },
+      {
+        "name": "Albania"
+      },
+      {
+        "name": "Algeria"
+      },
+      {
+        "name": "Andorra"
+      },
+      {
+        "name": "Angola"
+      },
+      {
+        "name": "Antigua and Barbuda"
+      },
+      {
+        "name": "Armenia"
+      },
+      {
+        "name": "Austria"
+      },
+      {
+        "name": "Azerbaijan"
+      }
+    ]
+  },
+  {
+    "id": "country_initial_b",
+    "prompt": "Name a country beginning with B.",
+    "answers": [
+      {
+        "name": "Brazil"
+      },
+      {
+        "name": "Bahamas"
+      },
+      {
+        "name": "Bahrain"
+      },
+      {
+        "name": "Bangladesh"
+      },
+      {
+        "name": "Barbados"
+      },
+      {
+        "name": "Belarus"
+      },
+      {
+        "name": "Belgium"
+      },
+      {
+        "name": "Belize"
+      },
+      {
+        "name": "Benin"
+      },
+      {
+        "name": "Bhutan"
+      },
+      {
+        "name": "Bolivia"
+      },
+      {
+        "name": "Bosnia and Herzegovina"
+      },
+      {
+        "name": "Botswana"
+      },
+      {
+        "name": "Brunei"
+      },
+      {
+        "name": "Bulgaria"
+      },
+      {
+        "name": "Burkina Faso"
+      },
+      {
+        "name": "Burundi"
+      }
+    ]
+  },
+  {
+    "id": "country_initial_c",
+    "prompt": "Name a country beginning with C.",
+    "answers": [
+      {
+        "name": "Canada"
+      },
+      {
+        "name": "China"
+      },
+      {
+        "name": "Cabo Verde",
+        "aliases": [
+          "Cape Verde"
+        ]
+      },
+      {
+        "name": "Cambodia"
+      },
+      {
+        "name": "Cameroon"
+      },
+      {
+        "name": "Central African Republic"
+      },
+      {
+        "name": "Chad"
+      },
+      {
+        "name": "Chile"
+      },
+      {
+        "name": "Colombia"
+      },
+      {
+        "name": "Comoros"
+      },
+      {
+        "name": "Costa Rica"
+      },
+      {
+        "name": "Croatia"
+      },
+      {
+        "name": "Cuba"
+      },
+      {
+        "name": "Cyprus"
+      },
+      {
+        "name": "Czechia",
+        "aliases": [
+          "Czech Republic"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "country_initial_d",
+    "prompt": "Name a country beginning with D.",
+    "answers": [
+      {
+        "name": "Democratic Republic of the Congo",
+        "aliases": [
+          "DR Congo",
+          "DRC",
+          "Congo-Kinshasa",
+          "Democratic Republic Congo"
+        ]
+      },
+      {
+        "name": "Denmark"
+      },
+      {
+        "name": "Djibouti"
+      },
+      {
+        "name": "Dominica"
+      },
+      {
+        "name": "Dominican Republic"
+      }
+    ]
+  },
+  {
+    "id": "country_initial_e",
+    "prompt": "Name a country beginning with E.",
+    "answers": [
+      {
+        "name": "Egypt"
+      },
+      {
+        "name": "Ecuador"
+      },
+      {
+        "name": "El Salvador"
+      },
+      {
+        "name": "Equatorial Guinea"
+      },
+      {
+        "name": "Eritrea"
+      },
+      {
+        "name": "Estonia"
+      },
+      {
+        "name": "Eswatini"
+      },
+      {
+        "name": "Ethiopia"
+      }
+    ]
+  },
+  {
+    "id": "country_initial_g",
+    "prompt": "Name a country beginning with G.",
+    "answers": [
+      {
+        "name": "Germany"
+      },
+      {
+        "name": "Greece"
+      },
+      {
+        "name": "Gabon"
+      },
+      {
+        "name": "Gambia"
+      },
+      {
+        "name": "Georgia"
+      },
+      {
+        "name": "Ghana"
+      },
+      {
+        "name": "Grenada"
+      },
+      {
+        "name": "Guatemala"
+      },
+      {
+        "name": "Guinea"
+      },
+      {
+        "name": "Guinea-Bissau"
+      },
+      {
+        "name": "Guyana"
+      }
+    ]
+  },
+  {
+    "id": "country_initial_i",
+    "prompt": "Name a country beginning with I.",
+    "answers": [
+      {
+        "name": "Italy"
+      },
+      {
+        "name": "India"
+      },
+      {
+        "name": "Ireland"
+      },
+      {
+        "name": "Iceland"
+      },
+      {
+        "name": "Indonesia"
+      },
+      {
+        "name": "Iran"
+      },
+      {
+        "name": "Iraq"
+      },
+      {
+        "name": "Israel"
+      },
+      {
+        "name": "Ivory Coast",
+        "aliases": [
+          "Côte d’Ivoire"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "country_initial_k",
+    "prompt": "Name a country beginning with K.",
+    "answers": [
+      {
+        "name": "Kazakhstan"
+      },
+      {
+        "name": "Kenya"
+      },
+      {
+        "name": "Kiribati"
+      },
+      {
+        "name": "Kuwait"
+      },
+      {
+        "name": "Kyrgyzstan"
+      }
+    ]
+  },
+  {
+    "id": "country_initial_l",
+    "prompt": "Name a country beginning with L.",
+    "answers": [
+      {
+        "name": "Laos"
+      },
+      {
+        "name": "Latvia"
+      },
+      {
+        "name": "Lebanon"
+      },
+      {
+        "name": "Lesotho"
+      },
+      {
+        "name": "Liberia"
+      },
+      {
+        "name": "Libya"
+      },
+      {
+        "name": "Liechtenstein"
+      },
+      {
+        "name": "Lithuania"
+      },
+      {
+        "name": "Luxembourg"
+      }
+    ]
+  },
+  {
+    "id": "country_initial_m",
+    "prompt": "Name a country beginning with M.",
+    "answers": [
+      {
+        "name": "Mexico"
+      },
+      {
+        "name": "Madagascar"
+      },
+      {
+        "name": "Malawi"
+      },
+      {
+        "name": "Malaysia"
+      },
+      {
+        "name": "Maldives"
+      },
+      {
+        "name": "Mali"
+      },
+      {
+        "name": "Malta"
+      },
+      {
+        "name": "Marshall Islands"
+      },
+      {
+        "name": "Mauritania"
+      },
+      {
+        "name": "Mauritius"
+      },
+      {
+        "name": "Micronesia"
+      },
+      {
+        "name": "Moldova"
+      },
+      {
+        "name": "Monaco"
+      },
+      {
+        "name": "Mongolia"
+      },
+      {
+        "name": "Montenegro"
+      },
+      {
+        "name": "Morocco"
+      },
+      {
+        "name": "Mozambique"
+      },
+      {
+        "name": "Myanmar",
+        "aliases": [
+          "Burma"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "country_initial_n",
+    "prompt": "Name a country beginning with N.",
+    "answers": [
+      {
+        "name": "North Korea",
+        "aliases": [
+          "DPRK",
+          "Democratic Peoples Republic of Korea"
+        ]
+      },
+      {
+        "name": "New Zealand"
+      },
+      {
+        "name": "Norway"
+      },
+      {
+        "name": "Netherlands",
+        "aliases": [
+          "Holland"
+        ]
+      },
+      {
+        "name": "Namibia"
+      },
+      {
+        "name": "Nauru"
+      },
+      {
+        "name": "Nepal"
+      },
+      {
+        "name": "Nicaragua"
+      },
+      {
+        "name": "Niger"
+      },
+      {
+        "name": "Nigeria"
+      },
+      {
+        "name": "North Macedonia"
+      }
+    ]
+  },
+  {
+    "id": "country_initial_p",
+    "prompt": "Name a country beginning with P.",
+    "answers": [
+      {
+        "name": "Portugal"
+      },
+      {
+        "name": "Poland"
+      },
+      {
+        "name": "Pakistan"
+      },
+      {
+        "name": "Palau"
+      },
+      {
+        "name": "Palestine",
+        "aliases": [
+          "State of Palestine"
+        ]
+      },
+      {
+        "name": "Panama"
+      },
+      {
+        "name": "Papua New Guinea"
+      },
+      {
+        "name": "Paraguay"
+      },
+      {
+        "name": "Peru"
+      },
+      {
+        "name": "Philippines"
+      }
+    ]
+  },
+  {
+    "id": "country_initial_r",
+    "prompt": "Name a country beginning with R.",
+    "answers": [
+      {
+        "name": "Russia",
+        "aliases": [
+          "Russian Federation"
+        ]
+      },
+      {
+        "name": "Republic of the Congo",
+        "aliases": [
+          "Congo Republic",
+          "Congo-Brazzaville",
+          "Republic Congo"
+        ]
+      },
+      {
+        "name": "Romania"
+      },
+      {
+        "name": "Rwanda"
+      }
+    ]
+  },
+  {
+    "id": "country_initial_s",
+    "prompt": "Name a country beginning with S.",
+    "answers": [
+      {
+        "name": "Spain"
+      },
+      {
+        "name": "South Korea",
+        "aliases": [
+          "Korea Republic",
+          "Republic of Korea"
+        ]
+      },
+      {
+        "name": "South Africa"
+      },
+      {
+        "name": "Sweden"
+      },
+      {
+        "name": "Switzerland"
+      },
+      {
+        "name": "Saint Kitts and Nevis"
+      },
+      {
+        "name": "Saint Lucia"
+      },
+      {
+        "name": "Saint Vincent and the Grenadines"
+      },
+      {
+        "name": "Samoa"
+      },
+      {
+        "name": "San Marino"
+      },
+      {
+        "name": "Sao Tome and Principe"
+      },
+      {
+        "name": "Saudi Arabia"
+      },
+      {
+        "name": "Senegal"
+      },
+      {
+        "name": "Serbia"
+      },
+      {
+        "name": "Seychelles"
+      },
+      {
+        "name": "Sierra Leone"
+      },
+      {
+        "name": "Singapore"
+      },
+      {
+        "name": "Slovakia"
+      },
+      {
+        "name": "Slovenia"
+      },
+      {
+        "name": "Solomon Islands"
+      },
+      {
+        "name": "Somalia"
+      },
+      {
+        "name": "South Sudan"
+      },
+      {
+        "name": "Sri Lanka"
+      },
+      {
+        "name": "Sudan"
+      },
+      {
+        "name": "Suriname"
+      },
+      {
+        "name": "Syria"
+      }
+    ]
+  },
+  {
+    "id": "country_initial_t",
+    "prompt": "Name a country beginning with T.",
+    "answers": [
+      {
+        "name": "Turkey",
+        "aliases": [
+          "Turkiye"
+        ]
+      },
+      {
+        "name": "Taiwan"
+      },
+      {
+        "name": "Tajikistan"
+      },
+      {
+        "name": "Tanzania"
+      },
+      {
+        "name": "Thailand"
+      },
+      {
+        "name": "Timor-Leste",
+        "aliases": [
+          "East Timor"
+        ]
+      },
+      {
+        "name": "Togo"
+      },
+      {
+        "name": "Tonga"
+      },
+      {
+        "name": "Trinidad and Tobago"
+      },
+      {
+        "name": "Tunisia"
+      },
+      {
+        "name": "Turkmenistan"
+      },
+      {
+        "name": "Tuvalu"
+      }
+    ]
+  },
+  {
+    "id": "country_initial_u",
+    "prompt": "Name a country beginning with U.",
+    "answers": [
+      {
+        "name": "United States",
+        "aliases": [
+          "USA",
+          "US",
+          "America"
+        ]
+      },
+      {
+        "name": "United Kingdom",
+        "aliases": [
+          "UK",
+          "Britain",
+          "Great Britain"
+        ]
+      },
+      {
+        "name": "Ukraine"
+      },
+      {
+        "name": "Uganda"
+      },
+      {
+        "name": "United Arab Emirates",
+        "aliases": [
+          "UAE"
+        ]
+      },
+      {
+        "name": "Uruguay"
+      },
+      {
+        "name": "Uzbekistan"
+      }
+    ]
+  },
+  {
+    "id": "country_initial_v",
+    "prompt": "Name a country beginning with V.",
+    "answers": [
+      {
+        "name": "Vanuatu"
+      },
+      {
+        "name": "Vatican City",
+        "aliases": [
+          "Vatican",
+          "Holy See"
+        ]
+      },
+      {
+        "name": "Venezuela"
+      },
+      {
+        "name": "Vietnam"
+      }
+    ]
+  },
+  {
+    "id": "element_initial_a",
+    "prompt": "Name a chemical element beginning with A.",
+    "answers": [
+      {
+        "name": "Aluminum",
+        "aliases": [
+          "Aluminium"
+        ]
+      },
+      {
+        "name": "Actinium"
+      },
+      {
+        "name": "Americium"
+      },
+      {
+        "name": "Antimony"
+      },
+      {
+        "name": "Argon"
+      },
+      {
+        "name": "Arsenic"
+      },
+      {
+        "name": "Astatine"
+      }
+    ]
+  },
+  {
+    "id": "element_initial_b",
+    "prompt": "Name a chemical element beginning with B.",
+    "answers": [
+      {
+        "name": "Barium"
+      },
+      {
+        "name": "Berkelium"
+      },
+      {
+        "name": "Beryllium"
+      },
+      {
+        "name": "Bismuth"
+      },
+      {
+        "name": "Bohrium"
+      },
+      {
+        "name": "Boron"
+      },
+      {
+        "name": "Bromine"
+      }
+    ]
+  },
+  {
+    "id": "element_initial_c",
+    "prompt": "Name a chemical element beginning with C.",
+    "answers": [
+      {
+        "name": "Carbon"
+      },
+      {
+        "name": "Calcium"
+      },
+      {
+        "name": "Copper"
+      },
+      {
+        "name": "Chlorine"
+      },
+      {
+        "name": "Cadmium"
+      },
+      {
+        "name": "Caesium",
+        "aliases": [
+          "Cesium"
+        ]
+      },
+      {
+        "name": "Californium"
+      },
+      {
+        "name": "Cerium"
+      },
+      {
+        "name": "Chromium"
+      },
+      {
+        "name": "Cobalt"
+      },
+      {
+        "name": "Copernicium"
+      },
+      {
+        "name": "Curium"
+      }
+    ]
+  },
+  {
+    "id": "element_initial_f",
+    "prompt": "Name a chemical element beginning with F.",
+    "answers": [
+      {
+        "name": "Fermium"
+      },
+      {
+        "name": "Flerovium"
+      },
+      {
+        "name": "Fluorine"
+      },
+      {
+        "name": "Francium"
+      }
+    ]
+  },
+  {
+    "id": "element_initial_g",
+    "prompt": "Name a chemical element beginning with G.",
+    "answers": [
+      {
+        "name": "Gold"
+      },
+      {
+        "name": "Gadolinium"
+      },
+      {
+        "name": "Gallium"
+      },
+      {
+        "name": "Germanium"
+      }
+    ]
+  },
+  {
+    "id": "element_initial_h",
+    "prompt": "Name a chemical element beginning with H.",
+    "answers": [
+      {
+        "name": "Hydrogen"
+      },
+      {
+        "name": "Helium"
+      },
+      {
+        "name": "Hafnium"
+      },
+      {
+        "name": "Hassium"
+      },
+      {
+        "name": "Holmium"
+      }
+    ]
+  },
+  {
+    "id": "element_initial_i",
+    "prompt": "Name a chemical element beginning with I.",
+    "answers": [
+      {
+        "name": "Iron"
+      },
+      {
+        "name": "Indium"
+      },
+      {
+        "name": "Iodine"
+      },
+      {
+        "name": "Iridium"
+      }
+    ]
+  },
+  {
+    "id": "element_initial_l",
+    "prompt": "Name a chemical element beginning with L.",
+    "answers": [
+      {
+        "name": "Lead"
+      },
+      {
+        "name": "Lanthanum"
+      },
+      {
+        "name": "Lawrencium"
+      },
+      {
+        "name": "Lithium"
+      },
+      {
+        "name": "Livermorium"
+      },
+      {
+        "name": "Lutetium"
+      }
+    ]
+  },
+  {
+    "id": "element_initial_m",
+    "prompt": "Name a chemical element beginning with M.",
+    "answers": [
+      {
+        "name": "Mercury"
+      },
+      {
+        "name": "Magnesium"
+      },
+      {
+        "name": "Manganese"
+      },
+      {
+        "name": "Meitnerium"
+      },
+      {
+        "name": "Mendelevium"
+      },
+      {
+        "name": "Molybdenum"
+      },
+      {
+        "name": "Moscovium"
+      }
+    ]
+  },
+  {
+    "id": "element_initial_n",
+    "prompt": "Name a chemical element beginning with N.",
+    "answers": [
+      {
+        "name": "Nitrogen"
+      },
+      {
+        "name": "Neon"
+      },
+      {
+        "name": "Neodymium"
+      },
+      {
+        "name": "Neptunium"
+      },
+      {
+        "name": "Nickel"
+      },
+      {
+        "name": "Nihonium"
+      },
+      {
+        "name": "Niobium"
+      },
+      {
+        "name": "Nobelium"
+      }
+    ]
+  },
+  {
+    "id": "element_initial_p",
+    "prompt": "Name a chemical element beginning with P.",
+    "answers": [
+      {
+        "name": "Potassium"
+      },
+      {
+        "name": "Palladium"
+      },
+      {
+        "name": "Phosphorus"
+      },
+      {
+        "name": "Platinum"
+      },
+      {
+        "name": "Plutonium"
+      },
+      {
+        "name": "Polonium"
+      },
+      {
+        "name": "Praseodymium"
+      },
+      {
+        "name": "Promethium"
+      },
+      {
+        "name": "Protactinium"
+      }
+    ]
+  },
+  {
+    "id": "element_initial_r",
+    "prompt": "Name a chemical element beginning with R.",
+    "answers": [
+      {
+        "name": "Radium"
+      },
+      {
+        "name": "Radon"
+      },
+      {
+        "name": "Rhenium"
+      },
+      {
+        "name": "Rhodium"
+      },
+      {
+        "name": "Roentgenium"
+      },
+      {
+        "name": "Rubidium"
+      },
+      {
+        "name": "Ruthenium"
+      },
+      {
+        "name": "Rutherfordium"
+      }
+    ]
+  },
+  {
+    "id": "element_initial_s",
+    "prompt": "Name a chemical element beginning with S.",
+    "answers": [
+      {
+        "name": "Silver"
+      },
+      {
+        "name": "Sodium"
+      },
+      {
+        "name": "Silicon"
+      },
+      {
+        "name": "Samarium"
+      },
+      {
+        "name": "Scandium"
+      },
+      {
+        "name": "Seaborgium"
+      },
+      {
+        "name": "Selenium"
+      },
+      {
+        "name": "Strontium"
+      },
+      {
+        "name": "Sulfur"
+      }
+    ]
+  },
+  {
+    "id": "element_initial_t",
+    "prompt": "Name a chemical element beginning with T.",
+    "answers": [
+      {
+        "name": "Tantalum"
+      },
+      {
+        "name": "Technetium"
+      },
+      {
+        "name": "Tellurium"
+      },
+      {
+        "name": "Tennessine"
+      },
+      {
+        "name": "Terbium"
+      },
+      {
+        "name": "Thallium"
+      },
+      {
+        "name": "Thorium"
+      },
+      {
+        "name": "Thulium"
+      },
+      {
+        "name": "Tin"
+      },
+      {
+        "name": "Titanium"
+      },
+      {
+        "name": "Tungsten"
+      }
+    ]
+  },
+  {
+    "id": "capital_initial_a",
+    "prompt": "Name a U.S. state capital beginning with A.",
+    "answers": [
+      {
+        "name": "Austin"
+      },
+      {
+        "name": "Albany"
+      },
+      {
+        "name": "Atlanta"
+      },
+      {
+        "name": "Augusta"
+      },
+      {
+        "name": "Annapolis"
+      }
+    ]
+  },
+  {
+    "id": "capital_initial_b",
+    "prompt": "Name a U.S. state capital beginning with B.",
+    "answers": [
+      {
+        "name": "Boston"
+      },
+      {
+        "name": "Boise"
+      },
+      {
+        "name": "Baton Rouge"
+      },
+      {
+        "name": "Bismarck"
+      }
+    ]
+  },
+  {
+    "id": "capital_initial_c",
+    "prompt": "Name a U.S. state capital beginning with C.",
+    "answers": [
+      {
+        "name": "Columbus"
+      },
+      {
+        "name": "Carson City"
+      },
+      {
+        "name": "Concord"
+      },
+      {
+        "name": "Columbia"
+      },
+      {
+        "name": "Charleston"
+      },
+      {
+        "name": "Cheyenne"
+      }
+    ]
+  },
+  {
+    "id": "capital_initial_h",
+    "prompt": "Name a U.S. state capital beginning with H.",
+    "answers": [
+      {
+        "name": "Honolulu"
+      },
+      {
+        "name": "Harrisburg"
+      },
+      {
+        "name": "Hartford"
+      },
+      {
+        "name": "Helena"
+      }
+    ]
+  },
+  {
+    "id": "capital_initial_s",
+    "prompt": "Name a U.S. state capital beginning with S.",
+    "answers": [
+      {
+        "name": "Sacramento"
+      },
+      {
+        "name": "Springfield"
+      },
+      {
+        "name": "Saint Paul",
+        "aliases": [
+          "St Paul"
+        ]
+      },
+      {
+        "name": "Santa Fe"
+      },
+      {
+        "name": "Salem"
+      },
+      {
+        "name": "Salt Lake City"
+      }
+    ]
+  },
+  {
+    "id": "constellation_initial_a",
+    "prompt": "Name a constellation beginning with A.",
+    "answers": [
+      {
+        "name": "Aquarius"
+      },
+      {
+        "name": "Aries"
+      },
+      {
+        "name": "Andromeda"
+      },
+      {
+        "name": "Antlia"
+      },
+      {
+        "name": "Apus"
+      },
+      {
+        "name": "Aquila"
+      },
+      {
+        "name": "Ara"
+      },
+      {
+        "name": "Auriga"
+      }
+    ]
+  },
+  {
+    "id": "constellation_initial_c",
+    "prompt": "Name a constellation beginning with C.",
+    "answers": [
+      {
+        "name": "Cassiopeia"
+      },
+      {
+        "name": "Cancer"
+      },
+      {
+        "name": "Capricornus"
+      },
+      {
+        "name": "Caelum"
+      },
+      {
+        "name": "Camelopardalis"
+      },
+      {
+        "name": "Canes Venatici"
+      },
+      {
+        "name": "Canis Major"
+      },
+      {
+        "name": "Canis Minor"
+      },
+      {
+        "name": "Carina"
+      },
+      {
+        "name": "Centaurus"
+      },
+      {
+        "name": "Cepheus"
+      },
+      {
+        "name": "Cetus"
+      },
+      {
+        "name": "Chamaeleon"
+      },
+      {
+        "name": "Circinus"
+      },
+      {
+        "name": "Columba"
+      },
+      {
+        "name": "Coma Berenices"
+      },
+      {
+        "name": "Corona Australis"
+      },
+      {
+        "name": "Corona Borealis"
+      },
+      {
+        "name": "Corvus"
+      },
+      {
+        "name": "Crater"
+      },
+      {
+        "name": "Crux"
+      },
+      {
+        "name": "Cygnus"
+      }
+    ]
+  },
+  {
+    "id": "constellation_initial_h",
+    "prompt": "Name a constellation beginning with H.",
+    "answers": [
+      {
+        "name": "Hercules"
+      },
+      {
+        "name": "Horologium"
+      },
+      {
+        "name": "Hydra"
+      },
+      {
+        "name": "Hydrus"
+      }
+    ]
+  },
+  {
+    "id": "constellation_initial_l",
+    "prompt": "Name a constellation beginning with L.",
+    "answers": [
+      {
+        "name": "Leo"
+      },
+      {
+        "name": "Leo Minor"
+      },
+      {
+        "name": "Libra"
+      },
+      {
+        "name": "Lacerta"
+      },
+      {
+        "name": "Lepus"
+      },
+      {
+        "name": "Lupus"
+      },
+      {
+        "name": "Lynx"
+      },
+      {
+        "name": "Lyra"
+      }
+    ]
+  },
+  {
+    "id": "constellation_initial_m",
+    "prompt": "Name a constellation beginning with M.",
+    "answers": [
+      {
+        "name": "Mensa"
+      },
+      {
+        "name": "Microscopium"
+      },
+      {
+        "name": "Monoceros"
+      },
+      {
+        "name": "Musca"
+      }
+    ]
+  },
+  {
+    "id": "constellation_initial_p",
+    "prompt": "Name a constellation beginning with P.",
+    "answers": [
+      {
+        "name": "Pisces"
+      },
+      {
+        "name": "Pavo"
+      },
+      {
+        "name": "Pegasus"
+      },
+      {
+        "name": "Perseus"
+      },
+      {
+        "name": "Phoenix"
+      },
+      {
+        "name": "Pictor"
+      },
+      {
+        "name": "Piscis Austrinus"
+      },
+      {
+        "name": "Puppis"
+      },
+      {
+        "name": "Pyxis"
+      }
+    ]
+  },
+  {
+    "id": "constellation_initial_s",
+    "prompt": "Name a constellation beginning with S.",
+    "answers": [
+      {
+        "name": "Scorpius"
+      },
+      {
+        "name": "Sagittarius"
+      },
+      {
+        "name": "Sagitta"
+      },
+      {
+        "name": "Sculptor"
+      },
+      {
+        "name": "Scutum"
+      },
+      {
+        "name": "Serpens"
+      },
+      {
+        "name": "Sextans"
+      }
+    ]
+  },
+  {
+    "id": "constellation_initial_t",
+    "prompt": "Name a constellation beginning with T.",
+    "answers": [
+      {
+        "name": "Taurus"
+      },
+      {
+        "name": "Telescopium"
+      },
+      {
+        "name": "Triangulum"
+      },
+      {
+        "name": "Triangulum Australe"
+      },
+      {
+        "name": "Tucana"
+      }
+    ]
+  },
+  {
+    "id": "constellation_initial_v",
+    "prompt": "Name a constellation beginning with V.",
+    "answers": [
+      {
+        "name": "Virgo"
+      },
+      {
+        "name": "Vela"
+      },
+      {
+        "name": "Volans"
+      },
+      {
+        "name": "Vulpecula"
+      }
+    ]
+  },
+  {
+    "id": "play_initial_a",
+    "prompt": "Name a Shakespeare play beginning with A.",
+    "answers": [
+      {
+        "name": "A Midsummer Night’s Dream"
+      },
+      {
+        "name": "As You Like It"
+      },
+      {
+        "name": "Antony and Cleopatra"
+      },
+      {
+        "name": "All’s Well That Ends Well"
+      }
+    ]
+  },
+  {
+    "id": "play_initial_h",
+    "prompt": "Name a Shakespeare play beginning with H.",
+    "answers": [
+      {
+        "name": "Hamlet"
+      },
+      {
+        "name": "Henry V"
+      },
+      {
+        "name": "Henry IV Part 1"
+      },
+      {
+        "name": "Henry IV Part 2"
+      },
+      {
+        "name": "Henry VI Part 1"
+      },
+      {
+        "name": "Henry VI Part 2"
+      },
+      {
+        "name": "Henry VI Part 3"
+      },
+      {
+        "name": "Henry VIII"
+      }
+    ]
+  },
+  {
+    "id": "play_initial_t",
+    "prompt": "Name a Shakespeare play beginning with T.",
+    "answers": [
+      {
+        "name": "The Tempest"
+      },
+      {
+        "name": "Twelfth Night"
+      },
+      {
+        "name": "The Merchant of Venice"
+      },
+      {
+        "name": "The Taming of the Shrew"
+      },
+      {
+        "name": "The Comedy of Errors"
+      },
+      {
+        "name": "The Winter’s Tale"
+      },
+      {
+        "name": "Titus Andronicus"
+      },
+      {
+        "name": "Timon of Athens"
+      },
+      {
+        "name": "Troilus and Cressida"
+      },
+      {
+        "name": "The Two Gentlemen of Verona"
+      },
+      {
+        "name": "The Merry Wives of Windsor"
+      },
+      {
+        "name": "Two Noble Kinsmen"
+      }
+    ]
+  },
+  {
+    "id": "country_range_abcd",
+    "prompt": "Name a country beginning with a letter from A–D.",
+    "answers": [
+      {
+        "name": "Canada"
+      },
+      {
+        "name": "China"
+      },
+      {
+        "name": "Brazil"
+      },
+      {
+        "name": "Australia"
+      },
+      {
+        "name": "Argentina"
+      },
+      {
+        "name": "Afghanistan"
+      },
+      {
+        "name": "Albania"
+      },
+      {
+        "name": "Algeria"
+      },
+      {
+        "name": "Andorra"
+      },
+      {
+        "name": "Angola"
+      },
+      {
+        "name": "Antigua and Barbuda"
+      },
+      {
+        "name": "Armenia"
+      },
+      {
+        "name": "Austria"
+      },
+      {
+        "name": "Azerbaijan"
+      },
+      {
+        "name": "Bahamas"
+      },
+      {
+        "name": "Bahrain"
+      },
+      {
+        "name": "Bangladesh"
+      },
+      {
+        "name": "Barbados"
+      },
+      {
+        "name": "Belarus"
+      },
+      {
+        "name": "Belgium"
+      },
+      {
+        "name": "Belize"
+      },
+      {
+        "name": "Benin"
+      },
+      {
+        "name": "Bhutan"
+      },
+      {
+        "name": "Bolivia"
+      },
+      {
+        "name": "Bosnia and Herzegovina"
+      },
+      {
+        "name": "Botswana"
+      },
+      {
+        "name": "Brunei"
+      },
+      {
+        "name": "Bulgaria"
+      },
+      {
+        "name": "Burkina Faso"
+      },
+      {
+        "name": "Burundi"
+      },
+      {
+        "name": "Cabo Verde",
+        "aliases": [
+          "Cape Verde"
+        ]
+      },
+      {
+        "name": "Cambodia"
+      },
+      {
+        "name": "Cameroon"
+      },
+      {
+        "name": "Central African Republic"
+      },
+      {
+        "name": "Chad"
+      },
+      {
+        "name": "Chile"
+      },
+      {
+        "name": "Colombia"
+      },
+      {
+        "name": "Comoros"
+      },
+      {
+        "name": "Costa Rica"
+      },
+      {
+        "name": "Croatia"
+      },
+      {
+        "name": "Cuba"
+      },
+      {
+        "name": "Cyprus"
+      },
+      {
+        "name": "Czechia",
+        "aliases": [
+          "Czech Republic"
+        ]
+      },
+      {
+        "name": "Democratic Republic of the Congo",
+        "aliases": [
+          "DR Congo",
+          "DRC",
+          "Congo-Kinshasa",
+          "Democratic Republic Congo"
+        ]
+      },
+      {
+        "name": "Denmark"
+      },
+      {
+        "name": "Djibouti"
+      },
+      {
+        "name": "Dominica"
+      },
+      {
+        "name": "Dominican Republic"
+      }
+    ]
+  },
+  {
+    "id": "country_range_efgh",
+    "prompt": "Name a country beginning with a letter from E–H.",
+    "answers": [
+      {
+        "name": "France"
+      },
+      {
+        "name": "Germany"
+      },
+      {
+        "name": "Greece"
+      },
+      {
+        "name": "Egypt"
+      },
+      {
+        "name": "Ecuador"
+      },
+      {
+        "name": "El Salvador"
+      },
+      {
+        "name": "Equatorial Guinea"
+      },
+      {
+        "name": "Eritrea"
+      },
+      {
+        "name": "Estonia"
+      },
+      {
+        "name": "Eswatini"
+      },
+      {
+        "name": "Ethiopia"
+      },
+      {
+        "name": "Fiji"
+      },
+      {
+        "name": "Finland"
+      },
+      {
+        "name": "Gabon"
+      },
+      {
+        "name": "Gambia"
+      },
+      {
+        "name": "Georgia"
+      },
+      {
+        "name": "Ghana"
+      },
+      {
+        "name": "Grenada"
+      },
+      {
+        "name": "Guatemala"
+      },
+      {
+        "name": "Guinea"
+      },
+      {
+        "name": "Guinea-Bissau"
+      },
+      {
+        "name": "Guyana"
+      },
+      {
+        "name": "Haiti"
+      },
+      {
+        "name": "Honduras"
+      },
+      {
+        "name": "Hungary"
+      }
+    ]
+  },
+  {
+    "id": "country_range_ijkl",
+    "prompt": "Name a country beginning with a letter from I–L.",
+    "answers": [
+      {
+        "name": "Italy"
+      },
+      {
+        "name": "Japan"
+      },
+      {
+        "name": "India"
+      },
+      {
+        "name": "Ireland"
+      },
+      {
+        "name": "Iceland"
+      },
+      {
+        "name": "Indonesia"
+      },
+      {
+        "name": "Iran"
+      },
+      {
+        "name": "Iraq"
+      },
+      {
+        "name": "Israel"
+      },
+      {
+        "name": "Ivory Coast",
+        "aliases": [
+          "Côte d’Ivoire"
+        ]
+      },
+      {
+        "name": "Jamaica"
+      },
+      {
+        "name": "Jordan"
+      },
+      {
+        "name": "Kazakhstan"
+      },
+      {
+        "name": "Kenya"
+      },
+      {
+        "name": "Kiribati"
+      },
+      {
+        "name": "Kuwait"
+      },
+      {
+        "name": "Kyrgyzstan"
+      },
+      {
+        "name": "Laos"
+      },
+      {
+        "name": "Latvia"
+      },
+      {
+        "name": "Lebanon"
+      },
+      {
+        "name": "Lesotho"
+      },
+      {
+        "name": "Liberia"
+      },
+      {
+        "name": "Libya"
+      },
+      {
+        "name": "Liechtenstein"
+      },
+      {
+        "name": "Lithuania"
+      },
+      {
+        "name": "Luxembourg"
+      }
+    ]
+  },
+  {
+    "id": "country_range_mnop",
+    "prompt": "Name a country beginning with a letter from M–P.",
+    "answers": [
+      {
+        "name": "Mexico"
+      },
+      {
+        "name": "North Korea",
+        "aliases": [
+          "DPRK",
+          "Democratic Peoples Republic of Korea"
+        ]
+      },
+      {
+        "name": "New Zealand"
+      },
+      {
+        "name": "Norway"
+      },
+      {
+        "name": "Netherlands",
+        "aliases": [
+          "Holland"
+        ]
+      },
+      {
+        "name": "Portugal"
+      },
+      {
+        "name": "Poland"
+      },
+      {
+        "name": "Madagascar"
+      },
+      {
+        "name": "Malawi"
+      },
+      {
+        "name": "Malaysia"
+      },
+      {
+        "name": "Maldives"
+      },
+      {
+        "name": "Mali"
+      },
+      {
+        "name": "Malta"
+      },
+      {
+        "name": "Marshall Islands"
+      },
+      {
+        "name": "Mauritania"
+      },
+      {
+        "name": "Mauritius"
+      },
+      {
+        "name": "Micronesia"
+      },
+      {
+        "name": "Moldova"
+      },
+      {
+        "name": "Monaco"
+      },
+      {
+        "name": "Mongolia"
+      },
+      {
+        "name": "Montenegro"
+      },
+      {
+        "name": "Morocco"
+      },
+      {
+        "name": "Mozambique"
+      },
+      {
+        "name": "Myanmar",
+        "aliases": [
+          "Burma"
+        ]
+      },
+      {
+        "name": "Namibia"
+      },
+      {
+        "name": "Nauru"
+      },
+      {
+        "name": "Nepal"
+      },
+      {
+        "name": "Nicaragua"
+      },
+      {
+        "name": "Niger"
+      },
+      {
+        "name": "Nigeria"
+      },
+      {
+        "name": "North Macedonia"
+      },
+      {
+        "name": "Oman"
+      },
+      {
+        "name": "Pakistan"
+      },
+      {
+        "name": "Palau"
+      },
+      {
+        "name": "Palestine",
+        "aliases": [
+          "State of Palestine"
+        ]
+      },
+      {
+        "name": "Panama"
+      },
+      {
+        "name": "Papua New Guinea"
+      },
+      {
+        "name": "Paraguay"
+      },
+      {
+        "name": "Peru"
+      },
+      {
+        "name": "Philippines"
+      }
+    ]
+  },
+  {
+    "id": "country_range_qrst",
+    "prompt": "Name a country beginning with a letter from Q–T.",
+    "answers": [
+      {
+        "name": "Spain"
+      },
+      {
+        "name": "Russia",
+        "aliases": [
+          "Russian Federation"
+        ]
+      },
+      {
+        "name": "South Korea",
+        "aliases": [
+          "Korea Republic",
+          "Republic of Korea"
+        ]
+      },
+      {
+        "name": "South Africa"
+      },
+      {
+        "name": "Sweden"
+      },
+      {
+        "name": "Switzerland"
+      },
+      {
+        "name": "Turkey",
+        "aliases": [
+          "Turkiye"
+        ]
+      },
+      {
+        "name": "Qatar"
+      },
+      {
+        "name": "Republic of the Congo",
+        "aliases": [
+          "Congo Republic",
+          "Congo-Brazzaville",
+          "Republic Congo"
+        ]
+      },
+      {
+        "name": "Romania"
+      },
+      {
+        "name": "Rwanda"
+      },
+      {
+        "name": "Saint Kitts and Nevis"
+      },
+      {
+        "name": "Saint Lucia"
+      },
+      {
+        "name": "Saint Vincent and the Grenadines"
+      },
+      {
+        "name": "Samoa"
+      },
+      {
+        "name": "San Marino"
+      },
+      {
+        "name": "Sao Tome and Principe"
+      },
+      {
+        "name": "Saudi Arabia"
+      },
+      {
+        "name": "Senegal"
+      },
+      {
+        "name": "Serbia"
+      },
+      {
+        "name": "Seychelles"
+      },
+      {
+        "name": "Sierra Leone"
+      },
+      {
+        "name": "Singapore"
+      },
+      {
+        "name": "Slovakia"
+      },
+      {
+        "name": "Slovenia"
+      },
+      {
+        "name": "Solomon Islands"
+      },
+      {
+        "name": "Somalia"
+      },
+      {
+        "name": "South Sudan"
+      },
+      {
+        "name": "Sri Lanka"
+      },
+      {
+        "name": "Sudan"
+      },
+      {
+        "name": "Suriname"
+      },
+      {
+        "name": "Syria"
+      },
+      {
+        "name": "Taiwan"
+      },
+      {
+        "name": "Tajikistan"
+      },
+      {
+        "name": "Tanzania"
+      },
+      {
+        "name": "Thailand"
+      },
+      {
+        "name": "Timor-Leste",
+        "aliases": [
+          "East Timor"
+        ]
+      },
+      {
+        "name": "Togo"
+      },
+      {
+        "name": "Tonga"
+      },
+      {
+        "name": "Trinidad and Tobago"
+      },
+      {
+        "name": "Tunisia"
+      },
+      {
+        "name": "Turkmenistan"
+      },
+      {
+        "name": "Tuvalu"
+      }
+    ]
+  },
+  {
+    "id": "country_range_uvwxyz",
+    "prompt": "Name a country beginning with a letter from U–Z.",
+    "answers": [
+      {
+        "name": "United States",
+        "aliases": [
+          "USA",
+          "US",
+          "America"
+        ]
+      },
+      {
+        "name": "United Kingdom",
+        "aliases": [
+          "UK",
+          "Britain",
+          "Great Britain"
+        ]
+      },
+      {
+        "name": "Ukraine"
+      },
+      {
+        "name": "Uganda"
+      },
+      {
+        "name": "United Arab Emirates",
+        "aliases": [
+          "UAE"
+        ]
+      },
+      {
+        "name": "Uruguay"
+      },
+      {
+        "name": "Uzbekistan"
+      },
+      {
+        "name": "Vanuatu"
+      },
+      {
+        "name": "Vatican City",
+        "aliases": [
+          "Vatican",
+          "Holy See"
+        ]
+      },
+      {
+        "name": "Venezuela"
+      },
+      {
+        "name": "Vietnam"
+      },
+      {
+        "name": "Yemen"
+      },
+      {
+        "name": "Zambia"
+      },
+      {
+        "name": "Zimbabwe"
+      }
+    ]
+  },
+  {
+    "id": "element_range_abcd",
+    "prompt": "Name a chemical element beginning with a letter from A–D.",
+    "answers": [
+      {
+        "name": "Carbon"
+      },
+      {
+        "name": "Calcium"
+      },
+      {
+        "name": "Copper"
+      },
+      {
+        "name": "Aluminum",
+        "aliases": [
+          "Aluminium"
+        ]
+      },
+      {
+        "name": "Chlorine"
+      },
+      {
+        "name": "Actinium"
+      },
+      {
+        "name": "Americium"
+      },
+      {
+        "name": "Antimony"
+      },
+      {
+        "name": "Argon"
+      },
+      {
+        "name": "Arsenic"
+      },
+      {
+        "name": "Astatine"
+      },
+      {
+        "name": "Barium"
+      },
+      {
+        "name": "Berkelium"
+      },
+      {
+        "name": "Beryllium"
+      },
+      {
+        "name": "Bismuth"
+      },
+      {
+        "name": "Bohrium"
+      },
+      {
+        "name": "Boron"
+      },
+      {
+        "name": "Bromine"
+      },
+      {
+        "name": "Cadmium"
+      },
+      {
+        "name": "Caesium",
+        "aliases": [
+          "Cesium"
+        ]
+      },
+      {
+        "name": "Californium"
+      },
+      {
+        "name": "Cerium"
+      },
+      {
+        "name": "Chromium"
+      },
+      {
+        "name": "Cobalt"
+      },
+      {
+        "name": "Copernicium"
+      },
+      {
+        "name": "Curium"
+      },
+      {
+        "name": "Darmstadtium"
+      },
+      {
+        "name": "Dubnium"
+      },
+      {
+        "name": "Dysprosium"
+      }
+    ]
+  },
+  {
+    "id": "element_range_efgh",
+    "prompt": "Name a chemical element beginning with a letter from E–H.",
+    "answers": [
+      {
+        "name": "Hydrogen"
+      },
+      {
+        "name": "Gold"
+      },
+      {
+        "name": "Helium"
+      },
+      {
+        "name": "Einsteinium"
+      },
+      {
+        "name": "Erbium"
+      },
+      {
+        "name": "Europium"
+      },
+      {
+        "name": "Fermium"
+      },
+      {
+        "name": "Flerovium"
+      },
+      {
+        "name": "Fluorine"
+      },
+      {
+        "name": "Francium"
+      },
+      {
+        "name": "Gadolinium"
+      },
+      {
+        "name": "Gallium"
+      },
+      {
+        "name": "Germanium"
+      },
+      {
+        "name": "Hafnium"
+      },
+      {
+        "name": "Hassium"
+      },
+      {
+        "name": "Holmium"
+      }
+    ]
+  },
+  {
+    "id": "element_range_ijkl",
+    "prompt": "Name a chemical element beginning with a letter from I–L.",
+    "answers": [
+      {
+        "name": "Iron"
+      },
+      {
+        "name": "Lead"
+      },
+      {
+        "name": "Indium"
+      },
+      {
+        "name": "Iodine"
+      },
+      {
+        "name": "Iridium"
+      },
+      {
+        "name": "Krypton"
+      },
+      {
+        "name": "Lanthanum"
+      },
+      {
+        "name": "Lawrencium"
+      },
+      {
+        "name": "Lithium"
+      },
+      {
+        "name": "Livermorium"
+      },
+      {
+        "name": "Lutetium"
+      }
+    ]
+  },
+  {
+    "id": "element_range_mnop",
+    "prompt": "Name a chemical element beginning with a letter from M–P.",
+    "answers": [
+      {
+        "name": "Oxygen"
+      },
+      {
+        "name": "Nitrogen"
+      },
+      {
+        "name": "Potassium"
+      },
+      {
+        "name": "Mercury"
+      },
+      {
+        "name": "Neon"
+      },
+      {
+        "name": "Magnesium"
+      },
+      {
+        "name": "Manganese"
+      },
+      {
+        "name": "Meitnerium"
+      },
+      {
+        "name": "Mendelevium"
+      },
+      {
+        "name": "Molybdenum"
+      },
+      {
+        "name": "Moscovium"
+      },
+      {
+        "name": "Neodymium"
+      },
+      {
+        "name": "Neptunium"
+      },
+      {
+        "name": "Nickel"
+      },
+      {
+        "name": "Nihonium"
+      },
+      {
+        "name": "Niobium"
+      },
+      {
+        "name": "Nobelium"
+      },
+      {
+        "name": "Oganesson"
+      },
+      {
+        "name": "Osmium"
+      },
+      {
+        "name": "Palladium"
+      },
+      {
+        "name": "Phosphorus"
+      },
+      {
+        "name": "Platinum"
+      },
+      {
+        "name": "Plutonium"
+      },
+      {
+        "name": "Polonium"
+      },
+      {
+        "name": "Praseodymium"
+      },
+      {
+        "name": "Promethium"
+      },
+      {
+        "name": "Protactinium"
+      }
+    ]
+  },
+  {
+    "id": "element_range_qrst",
+    "prompt": "Name a chemical element beginning with a letter from Q–T.",
+    "answers": [
+      {
+        "name": "Silver"
+      },
+      {
+        "name": "Sodium"
+      },
+      {
+        "name": "Silicon"
+      },
+      {
+        "name": "Radium"
+      },
+      {
+        "name": "Radon"
+      },
+      {
+        "name": "Rhenium"
+      },
+      {
+        "name": "Rhodium"
+      },
+      {
+        "name": "Roentgenium"
+      },
+      {
+        "name": "Rubidium"
+      },
+      {
+        "name": "Ruthenium"
+      },
+      {
+        "name": "Rutherfordium"
+      },
+      {
+        "name": "Samarium"
+      },
+      {
+        "name": "Scandium"
+      },
+      {
+        "name": "Seaborgium"
+      },
+      {
+        "name": "Selenium"
+      },
+      {
+        "name": "Strontium"
+      },
+      {
+        "name": "Sulfur"
+      },
+      {
+        "name": "Tantalum"
+      },
+      {
+        "name": "Technetium"
+      },
+      {
+        "name": "Tellurium"
+      },
+      {
+        "name": "Tennessine"
+      },
+      {
+        "name": "Terbium"
+      },
+      {
+        "name": "Thallium"
+      },
+      {
+        "name": "Thorium"
+      },
+      {
+        "name": "Thulium"
+      },
+      {
+        "name": "Tin"
+      },
+      {
+        "name": "Titanium"
+      },
+      {
+        "name": "Tungsten"
+      }
+    ]
+  },
+  {
+    "id": "element_range_uvwxyz",
+    "prompt": "Name a chemical element beginning with a letter from U–Z.",
+    "answers": [
+      {
+        "name": "Uranium"
+      },
+      {
+        "name": "Vanadium"
+      },
+      {
+        "name": "Xenon"
+      },
+      {
+        "name": "Ytterbium"
+      },
+      {
+        "name": "Yttrium"
+      },
+      {
+        "name": "Zinc"
+      },
+      {
+        "name": "Zirconium"
+      }
+    ]
+  },
+  {
+    "id": "constellation_range_abcd",
+    "prompt": "Name a constellation beginning with a letter from A–D.",
+    "answers": [
+      {
+        "name": "Cassiopeia"
+      },
+      {
+        "name": "Aquarius"
+      },
+      {
+        "name": "Aries"
+      },
+      {
+        "name": "Cancer"
+      },
+      {
+        "name": "Capricornus"
+      },
+      {
+        "name": "Andromeda"
+      },
+      {
+        "name": "Antlia"
+      },
+      {
+        "name": "Apus"
+      },
+      {
+        "name": "Aquila"
+      },
+      {
+        "name": "Ara"
+      },
+      {
+        "name": "Auriga"
+      },
+      {
+        "name": "Bootes"
+      },
+      {
+        "name": "Caelum"
+      },
+      {
+        "name": "Camelopardalis"
+      },
+      {
+        "name": "Canes Venatici"
+      },
+      {
+        "name": "Canis Major"
+      },
+      {
+        "name": "Canis Minor"
+      },
+      {
+        "name": "Carina"
+      },
+      {
+        "name": "Centaurus"
+      },
+      {
+        "name": "Cepheus"
+      },
+      {
+        "name": "Cetus"
+      },
+      {
+        "name": "Chamaeleon"
+      },
+      {
+        "name": "Circinus"
+      },
+      {
+        "name": "Columba"
+      },
+      {
+        "name": "Coma Berenices"
+      },
+      {
+        "name": "Corona Australis"
+      },
+      {
+        "name": "Corona Borealis"
+      },
+      {
+        "name": "Corvus"
+      },
+      {
+        "name": "Crater"
+      },
+      {
+        "name": "Crux"
+      },
+      {
+        "name": "Cygnus"
+      },
+      {
+        "name": "Delphinus"
+      },
+      {
+        "name": "Dorado"
+      },
+      {
+        "name": "Draco"
+      }
+    ]
+  },
+  {
+    "id": "constellation_range_efgh",
+    "prompt": "Name a constellation beginning with a letter from E–H.",
+    "answers": [
+      {
+        "name": "Gemini"
+      },
+      {
+        "name": "Equuleus"
+      },
+      {
+        "name": "Eridanus"
+      },
+      {
+        "name": "Fornax"
+      },
+      {
+        "name": "Grus"
+      },
+      {
+        "name": "Hercules"
+      },
+      {
+        "name": "Horologium"
+      },
+      {
+        "name": "Hydra"
+      },
+      {
+        "name": "Hydrus"
+      }
+    ]
+  },
+  {
+    "id": "constellation_range_ijkl",
+    "prompt": "Name a constellation beginning with a letter from I–L.",
+    "answers": [
+      {
+        "name": "Leo"
+      },
+      {
+        "name": "Leo Minor"
+      },
+      {
+        "name": "Libra"
+      },
+      {
+        "name": "Indus"
+      },
+      {
+        "name": "Lacerta"
+      },
+      {
+        "name": "Lepus"
+      },
+      {
+        "name": "Lupus"
+      },
+      {
+        "name": "Lynx"
+      },
+      {
+        "name": "Lyra"
+      }
+    ]
+  },
+  {
+    "id": "constellation_range_mnop",
+    "prompt": "Name a constellation beginning with a letter from M–P.",
+    "answers": [
+      {
+        "name": "Orion"
+      },
+      {
+        "name": "Pisces"
+      },
+      {
+        "name": "Mensa"
+      },
+      {
+        "name": "Microscopium"
+      },
+      {
+        "name": "Monoceros"
+      },
+      {
+        "name": "Musca"
+      },
+      {
+        "name": "Norma"
+      },
+      {
+        "name": "Octans"
+      },
+      {
+        "name": "Ophiuchus"
+      },
+      {
+        "name": "Pavo"
+      },
+      {
+        "name": "Pegasus"
+      },
+      {
+        "name": "Perseus"
+      },
+      {
+        "name": "Phoenix"
+      },
+      {
+        "name": "Pictor"
+      },
+      {
+        "name": "Piscis Austrinus"
+      },
+      {
+        "name": "Puppis"
+      },
+      {
+        "name": "Pyxis"
+      }
+    ]
+  },
+  {
+    "id": "constellation_range_qrst",
+    "prompt": "Name a constellation beginning with a letter from Q–T.",
+    "answers": [
+      {
+        "name": "Scorpius"
+      },
+      {
+        "name": "Taurus"
+      },
+      {
+        "name": "Sagittarius"
+      },
+      {
+        "name": "Reticulum"
+      },
+      {
+        "name": "Sagitta"
+      },
+      {
+        "name": "Sculptor"
+      },
+      {
+        "name": "Scutum"
+      },
+      {
+        "name": "Serpens"
+      },
+      {
+        "name": "Sextans"
+      },
+      {
+        "name": "Telescopium"
+      },
+      {
+        "name": "Triangulum"
+      },
+      {
+        "name": "Triangulum Australe"
+      },
+      {
+        "name": "Tucana"
+      }
+    ]
+  },
+  {
+    "id": "constellation_range_uvwxyz",
+    "prompt": "Name a constellation beginning with a letter from U–Z.",
+    "answers": [
+      {
+        "name": "Ursa Major"
+      },
+      {
+        "name": "Ursa Minor"
+      },
+      {
+        "name": "Virgo"
+      },
+      {
+        "name": "Vela"
+      },
+      {
+        "name": "Volans"
+      },
+      {
+        "name": "Vulpecula"
+      }
+    ]
+  }
+]
