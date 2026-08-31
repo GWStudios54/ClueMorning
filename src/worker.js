@@ -6,6 +6,10 @@ const TRAIL_SECONDS = 150;
 const STEPS_MAX_MOVES = 8;
 const DEEP_CUT_SECONDS = 25;
 const DEEP_CUT_ROUNDS = 8;
+const UNLIMITED_CODE_HASHES = new Set([
+  "6e7b0e8def91ddfc8136c9e036487e04a9a2164717a77ed2cd1418981ac6d7e8",
+  "741846523c467810a0c20f82a530eae0f372d0fd95f0101eb6e400d7c8815e00"
+]);
 const WORD_STEPS_SET = new Set(WORD_STEPS_DICTIONARY);
 const GROUP_SET_DIFFICULTY = ["Tricky","Easy","Easy","Medium","Medium","Hard","Medium","Hard","Tricky","Hard","Medium","Hard"];
 const GROUP_DIFFICULTY_ORDER = [
@@ -95,6 +99,17 @@ function trailPathValid(word,grid){
   return false;
 }
 async function bodyJson(request){try{return await request.json()}catch{return {}}}
+function normalizeAccessCode(v){return String(v||"").trim().toUpperCase().replace(/\s+/g,"")}
+async function sha256Hex(v){
+  const bytes=new TextEncoder().encode(String(v));
+  const digest=await crypto.subtle.digest("SHA-256",bytes);
+  return [...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,"0")).join("");
+}
+async function validUnlimitedCode(v){
+  const code=normalizeAccessCode(v);
+  if(!/^CMU-[A-Z]-[A-Z0-9]{20}$/.test(code))return false;
+  return UNLIMITED_CODE_HASHES.has(await sha256Hex(code));
+}
 
 function trailDictionaryWord(word, trail){
   const w=normalizeWord(word);
@@ -209,9 +224,14 @@ async function leaderboardApi(request,env,date,path){
 async function api(request,env){
   const url=new URL(request.url), path=url.pathname;
   const date=allowedDate(request); if(!date) return json({error:"Invalid date."},400);
+  if(request.method==="POST" && (path==="/api/unlimited/status"||path==="/api/unlimited/claim")){
+    const b=await bodyJson(request),active=await validUnlimitedCode(b.code);
+    if(path==="/api/unlimited/claim"&&!active)return json({ok:false,active:false,error:"That Unlimited access code is not valid."},403);
+    return json({ok:true,active,tier:active?"unlimited":"free"});
+  }
   if(path==="/api/leaderboard"||path==="/api/leaderboard/submit"||path==="/api/leaderboard/name") return leaderboardApi(request,env,date,path);
   const p=pickDaily(date);
-  if(request.method==="GET" && path==="/api/health") return json({ok:true,service:"clue-morning",version:"2.6.3",date:pacificDateKey(),leaderboard:Boolean(env.DB),trailBoards:TRAIL_PUZZLES.length,wordSteps:WORD_STEPS_PUZZLES.length,deepCutPrompts:DEEP_CUT_PROMPTS.length,deepCutDailySets:DEEP_CUT_PUZZLES.length,yearPackStart:YEAR_PACK_START,yearPackDays:YEAR_PACK.length});
+  if(request.method==="GET" && path==="/api/health") return json({ok:true,service:"clue-morning",version:"2.6.4",date:pacificDateKey(),leaderboard:Boolean(env.DB),trailBoards:TRAIL_PUZZLES.length,wordSteps:WORD_STEPS_PUZZLES.length,deepCutPrompts:DEEP_CUT_PROMPTS.length,deepCutDailySets:DEEP_CUT_PUZZLES.length,yearPackStart:YEAR_PACK_START,yearPackDays:YEAR_PACK.length});
   if(request.method==="GET" && path==="/api/daily"){
     const shuffled=shuffle(p.groups.flatMap(g=>g.words),mulberry32(p.gseed+33));
     return json({

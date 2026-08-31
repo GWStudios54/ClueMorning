@@ -54,6 +54,7 @@ assert.equal(YEAR_PACK.length,365);
 assert.equal(YEAR_PACK_START,'2026-08-30');
 assert.equal(new Set(YEAR_PACK.map(x=>`${x.length}:${x.answerIndex}:${x.groupsIndex}:${x.trailIndex}:${x.linkIndex}:${x.stepsIndex}:${x.deepCutIndex}`)).size,365);
 for(const f of ['./content/source/trail_seeds.json','./content/source/steps_common_words.txt','./content/source/deepcut_prompts.json','./tools/rebuild_content.mjs','./public/robots.txt','./public/sitemap.xml','./public/about/index.html','./public/games/word-steps/index.html','./public/games/deep-cut/index.html'])assert.equal(fs.existsSync(f),true,`Missing ${f}`);
+const appSource=fs.readFileSync('./public/app.js','utf8');assert.ok(appSource.includes("QWERTYUIOPASDFGHJKLZXCVBNM"),'Letter Grid keyboard should use QWERTY order');assert.ok(appSource.includes('Keep guessing — the clock is still running.'),'Deep Cut invalid guesses should preserve the active prompt');
 
 const p=pickDaily('2026-08-30');
 const p2=pickDaily('2026-08-31');
@@ -62,6 +63,7 @@ assert.ok(p.answer);assert.equal(p.groups.length,4);assert.equal(p.trail.grid.le
 const env={ASSETS:{fetch:()=>new Response('asset')}};
 let r=await worker.fetch(new Request('https://x.test/api/daily?date=2026-08-30'),env);assert.equal(r.status,200);let j=await r.json();
 assert.equal('answer' in j.letter,false);assert.equal('solutions' in j.groups,false);assert.equal('longest' in j.trail,false);assert.equal('answer' in j.link,false);assert.equal('solution' in j.steps,false);assert.equal(j.groups.words.length,16);assert.ok(['Easy','Medium','Hard','Tricky'].includes(j.groups.difficulty));assert.equal(j.steps.start.length,4);assert.equal(j.steps.target.length,4);assert.equal(j.deepcut.prompts.length,8);assert.equal('answers' in j.deepcut.prompts[0],false);assert.equal(j.deepcut.seconds,25);assert.equal(j.leaderboard.enabled,false);
+r=await worker.fetch(new Request('https://x.test/api/unlimited/status',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({code:'CMU-X-NOTAREALACCESSCODE00'})}),env);assert.equal(r.status,200);j=await r.json();assert.equal(j.active,false);
 
 r=await worker.fetch(new Request('https://x.test/api/letter/guess?date=2026-08-30',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({guess:'ZZZZZ',attempt:6})}),env);
 if(p.length===5){j=await r.json();assert.ok('answer' in j)}

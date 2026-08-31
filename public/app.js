@@ -4,6 +4,7 @@ const PLAYER_KEY="clue-morning-player-id";
 const NAME_KEY="clue-morning-leader-name";
 const THEME_KEY="clue-morning-theme";
 const LAST_VISIT_KEY="clue-morning-last-visit-local-date";
+const UNLIMITED_KEY="clue-morning-unlimited-access-code";
 const THEMES={paper:{name:"Morning Paper",color:"#f7f1e5"},bloom:{name:"Dawn Bloom",color:"#fff5f3"},blue:{name:"Blue Hour",color:"#f3f7fa"},hearth:{name:"Hearth",color:"#fff5e8"},lavender:{name:"Lavender Haze",color:"#faf7ff"}};
 function loadState(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{}}catch{return {}}}
 function saveState(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
@@ -94,7 +95,7 @@ function letterScore(won,attempt,elapsed,best){let raw=best;if(won){raw+=750+Mat
 function renderKeyboard(){
   const ranks={gray:1,yellow:2,green:3},grades={};
   for(const g of day.letter.guesses){for(let i=0;i<g.word.length;i++){const ch=g.word[i],grade=g.feedback[i];if(!grades[ch]||ranks[grade]>ranks[grades[ch]])grades[ch]=grade}}
-  const el=$('#keyboard');el.innerHTML='';for(const ch of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'){const k=document.createElement('div');k.className=`key ${grades[ch]||''}`;k.textContent=ch;el.appendChild(k)}
+  const el=$('#keyboard');el.innerHTML='';for(const ch of 'QWERTYUIOPASDFGHJKLZXCVBNM'){const k=document.createElement('div');k.className=`key ${grades[ch]||''}`;k.textContent=ch;el.appendChild(k)}
 }
 function letterDraft(){
   const input=$('#guessInput');
@@ -276,7 +277,17 @@ async function timeoutDeepCut(){const s=day.deepcut;if(deepCutBusy||!s.started||
 $('#deepCutStart').addEventListener('click',()=>{const s=day.deepcut;if(s.done)return;s.started=true;s.deadline=Date.now()+daily.deepcut.seconds*1000;$('#deepCutMessage').className='message';$('#deepCutMessage').textContent='Think past the first obvious answer.';renderDeepCut();armDeepCutTimer();$('#deepCutInput').focus()});
 $('#deepCutForm').addEventListener('submit',async e=>{
   e.preventDefault();const s=day.deepcut;if(deepCutBusy||!s.started||s.done)return;const prompt=deepCutPrompt(),input=$('#deepCutInput'),answer=input.value.trim();if(!answer){$('#deepCutMessage').className='message bad';$('#deepCutMessage').textContent='Type one answer before you submit.';return}deepCutBusy=true;input.disabled=true;
-  try{const r=await api('/api/deepcut/check',{promptId:prompt.id,answer});const item={promptId:prompt.id,prompt:prompt.prompt,answer:r.canonical||answer,accepted:!!r.accepted,tier:r.tier||'MISS',score:Number(r.score||0)};s.answers.push(item);s.score+=item.score;s.round++;input.value='';const msg=$('#deepCutMessage');if(item.accepted){msg.className='message good';msg.textContent=`${item.tier}: ${item.answer} — +${item.score}` }else{msg.className='message bad';msg.textContent=`${answer} wasn't accepted for that category.`}if(s.round>=daily.deepcut.rounds){deepCutBusy=false;finishDeepCut();return}s.deadline=Date.now()+daily.deepcut.seconds*1000;deepCutBusy=false;renderDeepCut();$('#deepCutInput').focus()}catch(err){deepCutBusy=false;input.disabled=false;$('#deepCutMessage').className='message bad';$('#deepCutMessage').textContent=err.message}
+  try{
+    const r=await api('/api/deepcut/check',{promptId:prompt.id,answer}),msg=$('#deepCutMessage');
+    if(!r.accepted){
+      input.value='';deepCutBusy=false;input.disabled=false;msg.className='message bad';msg.textContent=`${answer} wasn't accepted. Keep guessing — the clock is still running.`;
+      if(remainingDeepCut()<=0){void timeoutDeepCut();return}input.focus();return;
+    }
+    const item={promptId:prompt.id,prompt:prompt.prompt,answer:r.canonical||answer,accepted:true,tier:r.tier||'COMMON',score:Number(r.score||0)};
+    s.answers.push(item);s.score+=item.score;s.round++;input.value='';msg.className='message good';msg.textContent=`${item.tier}: ${item.answer} — +${item.score}`;
+    if(s.round>=daily.deepcut.rounds){deepCutBusy=false;finishDeepCut();return}
+    s.deadline=Date.now()+daily.deepcut.seconds*1000;deepCutBusy=false;renderDeepCut();$('#deepCutInput').focus();
+  }catch(err){deepCutBusy=false;input.disabled=false;$('#deepCutMessage').className='message bad';$('#deepCutMessage').textContent=err.message}
 });
 
 // Leaderboard
@@ -313,6 +324,28 @@ updateLeaderboardIdentity();
 $('#saveLeaderName').addEventListener('click',async()=>{const name=$('#leaderName').value.trim().replace(/\s+/g,' ').slice(0,20);if(!name){$('#leaderMessage').className='message bad';$('#leaderMessage').textContent='Choose a leaderboard name first.';return}localStorage.setItem(NAME_KEY,name);updateLeaderboardIdentity();const msg=$('#leaderMessage');msg.className='message good';msg.textContent=`Saved as ${name}.`;try{if(daily?.leaderboard?.enabled)await api('/api/leaderboard/name',{playerId:getPlayerId(),name})}catch(err){msg.className='message bad';msg.textContent=`Name saved on this device, but the leaderboard update failed: ${err.message}`;return}if(allDone())void maybeAutoPostLeaderboard(true);else if($('#leaders')?.classList.contains('active'))loadLeaderboard()});
 $('#refreshLeaders').addEventListener('click',loadLeaderboard);$$('.leader-toggle').forEach(b=>b.addEventListener('click',()=>{leaderScope=b.dataset.board;$$('.leader-toggle').forEach(x=>x.classList.toggle('active',x===b));loadLeaderboard()}));
 
+// Unlimited entitlement
+function unlimitedCode(){try{return localStorage.getItem(UNLIMITED_KEY)||''}catch{return ''}}
+function renderUnlimitedAccess(active=false){
+  const form=$('#unlimitedForm'),status=$('#unlimitedStatus'),input=$('#unlimitedCode'),badge=$('#unlimitedBadge');
+  if(form)form.hidden=active;if(input&&!active&&document.activeElement!==input)input.value='';
+  if(status){status.className=`message ${active?'good':''}`;status.textContent=active?'Unlimited is unlocked on this device. The full Unlimited game picker is coming next.':'Enter an access code once to unlock Unlimited on this device.'}
+  if(badge){badge.hidden=!active;badge.textContent=active?'UNLIMITED ACTIVE':''}
+}
+async function refreshUnlimitedAccess(){
+  const code=unlimitedCode();if(!code){renderUnlimitedAccess(false);return false}
+  try{const r=await api('/api/unlimited/status',{code});if(r.active){renderUnlimitedAccess(true);return true}}catch{}
+  try{localStorage.removeItem(UNLIMITED_KEY)}catch{}renderUnlimitedAccess(false);return false;
+}
+$('#unlimitedForm')?.addEventListener('submit',async e=>{
+  e.preventDefault();const input=$('#unlimitedCode'),code=input.value.trim().toUpperCase().replace(/\s+/g,'');if(!code)return;
+  const button=$('#unlimitedForm button');button.disabled=true;
+  try{const r=await api('/api/unlimited/claim',{code});if(!r.active)throw new Error('That Unlimited access code is not valid.');localStorage.setItem(UNLIMITED_KEY,code);input.value='';renderUnlimitedAccess(true)}
+  catch(err){const status=$('#unlimitedStatus');status.className='message bad';status.textContent=err.message}
+  finally{button.disabled=false}
+});
+void refreshUnlimitedAccess();
+
 // Archive + help
 function renderArchive(){
   const el=$('#archiveList'),rows=Object.entries(state.days).filter(([,v])=>Object.values(v).some(x=>x?.done)).sort((a,b)=>b[0].localeCompare(a[0]));el.innerHTML='';if(!rows.length){el.innerHTML='<div class="empty-state">Finish a puzzle and your first day will appear here.</div>';return}
@@ -324,7 +357,7 @@ const help={
   trail:'<h2>Letter Trail</h2><p>Trace any dictionary English word of at least three letters by tapping or smoothly dragging toward touching tiles. Horizontal, vertical, and diagonal moves count; a tile cannot repeat inside one word. Drag back one tile to correct a path. Every valid word scores.</p>',
   link:'<h2>Triple Link</h2><p>One word makes a familiar phrase or compound with all three clues. You get three guesses. If you miss, the answer and all three completed links are revealed.</p>',
   steps:'<h2>Word Steps</h2><p>Start with one four-letter word and reach the target by changing exactly one letter at a time. Every intermediate step must be a recognized word. You can undo moves; solve within eight moves for points.</p>',
-  deepcut:'<h2>Deep Cut</h2><p>Eight quick open-answer trivia prompts. You get 25 seconds for each one and one answer per prompt. Correct answers score from 30 to 100 points: familiar answers score less, while less-obvious valid answers score more.</p>'
+  deepcut:'<h2>Deep Cut</h2><p>Eight quick open-answer trivia prompts. You get 25 seconds for each one. Invalid guesses do not end the prompt, so keep trying until you find a valid answer or time runs out. Correct answers score from 30 to 100 points: familiar answers score less, while less-obvious valid answers score more.</p>'
 };
 $$('[data-help]').forEach(b=>b.addEventListener('click',()=>{$('#helpContent').innerHTML=help[b.dataset.help];$('#helpDialog').showModal()}));
 
