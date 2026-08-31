@@ -1,0 +1,65 @@
+name: Import Clue Morning Patch
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ClueMorningPatch_*.zip'
+      - 'ClueMorningPatch*.zip'
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Find patch ZIP
+        id: zip
+        shell: bash
+        run: |
+          set -euo pipefail
+          ZIP="$(find . -maxdepth 1 -type f \( -name 'ClueMorningPatch_*.zip' -o -name 'ClueMorningPatch*.zip' \) | head -n 1)"
+          if [ -z "$ZIP" ]; then
+            echo 'No Clue Morning patch ZIP found.'
+            exit 0
+          fi
+          echo "path=${ZIP#./}" >> "$GITHUB_OUTPUT"
+
+      - name: Overlay patch files
+        if: steps.zip.outputs.path != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          ZIP="${{ steps.zip.outputs.path }}"
+          TMP="$(mktemp -d)"
+          unzip -q "$ZIP" -d "$TMP"
+          rsync -a "$TMP/" ./
+          rm -f "$ZIP"
+
+      - name: Test patched source
+        if: steps.zip.outputs.path != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-package-lock
+          npm test
+          rm -rf node_modules
+
+      - name: Commit patched source
+        if: steps.zip.outputs.path != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'Nothing changed.'
+            exit 0
+          fi
+          git commit -m 'Polish Trail, Groups, and Letter Grid'
+          git push
