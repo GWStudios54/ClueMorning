@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
-import worker,{pickDaily,evaluateGuess,trailPathValid,trailDictionaryWord,wordStepsDictionaryWord,differsByOne,deepCutResult,safeName,scoreParts} from './src/worker.js';
+import worker,{pickDaily,evaluateGuess,trailPathValid,trailDictionaryWord,wordStepsDictionaryWord,differsByOne,deepCutResult,safeName,scoreParts,unlimitedPuzzle,unlimitedGroupBoard,unlimitedStepsPuzzle,UNLIMITED_COUNTS} from './src/worker.js';
 import {TRAIL_PUZZLES,WORD_STEPS_PUZZLES,DEEP_CUT_PROMPTS,DEEP_CUT_PUZZLES,YEAR_PACK,YEAR_PACK_START} from './src/puzzles.js';
 
 for(const p of TRAIL_PUZZLES){
@@ -52,16 +52,21 @@ assert.equal(WORD_STEPS_PUZZLES.length,365);
 assert.equal(DEEP_CUT_PUZZLES.length,365);
 assert.equal(YEAR_PACK.length,365);
 assert.equal(YEAR_PACK_START,'2026-08-30');
+assert.equal(UNLIMITED_COUNTS.letter,5000);assert.equal(UNLIMITED_COUNTS.trail,10000);assert.equal(UNLIMITED_COUNTS.steps,5000);assert.ok(UNLIMITED_COUNTS.link>=80);assert.equal(UNLIMITED_COUNTS.groups,5000);assert.equal(UNLIMITED_COUNTS.deepcut,5000);
+for(const slot of [0,1,10,499,2048,4999]){const b=unlimitedGroupBoard(slot);assert.equal(b.groups.length,4);assert.equal(new Set(b.words.map(x=>x.replace(/[^A-Z0-9]/g,''))).size,16)}
+for(const slot of [0,5,77,999,4999]){const p=unlimitedStepsPuzzle(slot);assert.equal(p.solution[0],p.start);assert.equal(p.solution.at(-1),p.target);for(let i=1;i<p.solution.length;i++)assert.equal(differsByOne(p.solution[i-1],p.solution[i]),true)}
+for(const game of ['letter','groups','link','steps','deepcut'])assert.ok(unlimitedPuzzle(game,0)?.public?.[game]);
 assert.equal(new Set(YEAR_PACK.map(x=>`${x.length}:${x.answerIndex}:${x.groupsIndex}:${x.trailIndex}:${x.linkIndex}:${x.stepsIndex}:${x.deepCutIndex}`)).size,365);
 for(const f of ['./content/source/trail_seeds.json','./content/source/steps_common_words.txt','./content/source/deepcut_prompts.json','./tools/rebuild_content.mjs','./public/robots.txt','./public/sitemap.xml','./public/about/index.html','./public/games/word-steps/index.html','./public/games/deep-cut/index.html'])assert.equal(fs.existsSync(f),true,`Missing ${f}`);
-const appSource=fs.readFileSync('./public/app.js','utf8');assert.ok(appSource.includes("QWERTYUIOPASDFGHJKLZXCVBNM"),'Letter Grid keyboard should use QWERTY order');assert.ok(appSource.includes('Keep guessing — the clock is still running.'),'Deep Cut invalid guesses should preserve the active prompt');
+const appSource=fs.readFileSync('./public/app.js','utf8');assert.ok(appSource.includes("QWERTYUIOPASDFGHJKLZXCVBNM"),'Letter Grid keyboard should use QWERTY order');assert.ok(appSource.includes('Keep guessing — the clock is still running.'),'Deep Cut invalid guesses should preserve the active prompt');assert.ok(appSource.includes('startUnlimitedGame'),'Unlimited library UI should be wired');
 
 const p=pickDaily('2026-08-30');
 const p2=pickDaily('2026-08-31');
 assert.notDeepEqual([p.length,p.answer,p.groups[0].name,p.trail.longest,p.link.answer,p.steps.start,p.steps.target,p.deepcut.prompts.map(x=>x.id).join('|')],[p2.length,p2.answer,p2.groups[0].name,p2.trail.longest,p2.link.answer,p2.steps.start,p2.steps.target,p2.deepcut.prompts.map(x=>x.id).join('|')]);
 assert.ok(p.answer);assert.equal(p.groups.length,4);assert.equal(p.trail.grid.length,16);assert.equal(p.trail.longest.length,16);assert.equal(p.link.clues.length,3);assert.equal(p.steps.solution.length,p.steps.par+1);assert.equal(p.deepcut.prompts.length,8);
 const env={ASSETS:{fetch:()=>new Response('asset')}};
-let r=await worker.fetch(new Request('https://x.test/api/daily?date=2026-08-30'),env);assert.equal(r.status,200);let j=await r.json();
+let r=await worker.fetch(new Request('https://x.test/api/health'),env);assert.equal(r.status,200);let j=await r.json();assert.equal(j.version,'2.7.0');assert.equal(j.unlimited.trail,10000);
+r=await worker.fetch(new Request('https://x.test/api/daily?date=2026-08-30'),env);assert.equal(r.status,200);j=await r.json();
 assert.equal('answer' in j.letter,false);assert.equal('solutions' in j.groups,false);assert.equal('longest' in j.trail,false);assert.equal('answer' in j.link,false);assert.equal('solution' in j.steps,false);assert.equal(j.groups.words.length,16);assert.ok(['Easy','Medium','Hard','Tricky'].includes(j.groups.difficulty));assert.equal(j.steps.start.length,4);assert.equal(j.steps.target.length,4);assert.equal(j.deepcut.prompts.length,8);assert.equal('answers' in j.deepcut.prompts[0],false);assert.equal(j.deepcut.seconds,25);assert.equal(j.leaderboard.enabled,false);
 r=await worker.fetch(new Request('https://x.test/api/unlimited/status',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({code:'CMU-X-NOTAREALACCESSCODE00'})}),env);assert.equal(r.status,200);j=await r.json();assert.equal(j.active,false);
 

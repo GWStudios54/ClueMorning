@@ -5,10 +5,14 @@ const NAME_KEY="clue-morning-leader-name";
 const THEME_KEY="clue-morning-theme";
 const LAST_VISIT_KEY="clue-morning-last-visit-local-date";
 const UNLIMITED_KEY="clue-morning-unlimited-access-code";
+const UNLIMITED_HISTORY_KEY="clue-morning-unlimited-history-v1";
 const THEMES={paper:{name:"Morning Paper",color:"#f7f1e5"},bloom:{name:"Dawn Bloom",color:"#fff5f3"},blue:{name:"Blue Hour",color:"#f3f7fa"},hearth:{name:"Hearth",color:"#fff5e8"},lavender:{name:"Lavender Haze",color:"#faf7ff"}};
 function loadState(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{}}catch{return {}}}
 function saveState(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
 function api(path,body=null){
+  if(unlimitedSession&&body&&/^\/api\/(letter|groups|trail|link|steps|deepcut)\//.test(path)){
+    path=path.replace('/api/','/api/unlimited/');body={...body,code:unlimitedCode(),slot:unlimitedSession.slot,game:unlimitedSession.game};
+  }
   const opt=body?{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body)}:{};
   return fetch(path,opt).then(async r=>{const j=await r.json();if(!r.ok)throw new Error(j.error||"Request failed");return j});
 }
@@ -43,6 +47,7 @@ updateDayGreeting();
 
 let state=loadState();state.days??={};
 let daily=null,day=null,currentDateKey=null,letterTimer=null,trailTick=null,deepCutTick=null,deepCutBusy=false,trailPath=[],trailDragging=false,trailPointerId=null,leaderScope="daily",leaderAutoPosting=false;
+let dailyRoot=null,dayRoot=null,currentDateRoot=null,unlimitedSession=null,unlimitedActive=false,unlimitedCounts={};
 const DAILY_GAMES=["letter","groups","trail","link","steps","deepcut"];
 
 function getPlayerId(){
@@ -56,11 +61,13 @@ function statusMarkup(done){return `${svg(done?"i-check":"i-play")}${done?"DONE"
 function setStatus(id,done){const el=$(id);el.classList.toggle("done",done);el.innerHTML=statusMarkup(done)}
 
 function selectTab(id){
+  if(unlimitedSession&&id!==unlimitedSession.game&&id!=="unlimited")restoreDailyContext();
   $$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
   $$(".panel").forEach(p=>p.classList.toggle("active",p.id===id));
   window.scrollTo({top:0,behavior:"smooth"});
   if(id==="archive")renderArchive();
   if(id==="leaders")loadLeaderboard();
+  if(id==="unlimited")renderUnlimitedLibrary();
 }
 $$('.tab').forEach(b=>b.addEventListener('click',()=>selectTab(b.dataset.tab)));
 $$('[data-open]').forEach(b=>b.addEventListener('click',()=>selectTab(b.dataset.open)));
@@ -81,6 +88,7 @@ function updateStreak(){
 }
 function updateHome(){
   if(!day)return;
+  if(unlimitedSession)return;
   const scores={letter:day.letter?.score||0,groups:day.groups?.score||0,trail:day.trail?.score||0,link:day.link?.score||0,steps:day.steps?.score||0,deepcut:day.deepcut?.score||0};
   $('#homeLetterScore').textContent=scores.letter.toLocaleString();$('#homeGroupScore').textContent=scores.groups.toLocaleString();$('#homeTrailScore').textContent=scores.trail.toLocaleString();$('#homeLinkScore').textContent=scores.link.toLocaleString();$('#homeStepsScore').textContent=scores.steps.toLocaleString();$('#homeDeepCutScore').textContent=scores.deepcut.toLocaleString();
   $('#homeTotalScore').textContent=totalScore().toLocaleString();$('#todayTotal').textContent=totalScore().toLocaleString();
@@ -117,7 +125,7 @@ function renderLetter(){
   const s=day.letter,input=$('#guessInput');
   input.disabled=s.done;renderLetterBoard();
   $('#guessCount').textContent=`${s.guesses.length}/6`;$('#letterScore').textContent=s.score.toLocaleString();renderKeyboard();
-  if(s.done){$('#timer').textContent=fmtTime(s.elapsed||0);const msg=$('#letterMessage');msg.className=`message ${s.won?'good':'bad'}`;msg.innerHTML=s.won?`Solved — ${s.score.toLocaleString()} points.`:`No solve today.${s.answer?`<div class="solution-note">The word was <strong>${s.answer}</strong>.</div>`:''}`}
+  if(s.done){$('#timer').textContent=fmtTime(s.elapsed||0);const msg=$('#letterMessage');msg.className=`message ${s.won?'good':'bad'}`;msg.innerHTML=s.won?`Solved — ${s.score.toLocaleString()} points.`:`No solve.${s.answer?`<div class="solution-note">The word was <strong>${s.answer}</strong>.</div>`:''}`}
   updateHome();
 }
 $('#guessInput').addEventListener('input',e=>{
@@ -232,7 +240,7 @@ $('#trailSubmit').addEventListener('click',async()=>{
 // Triple Link
 function renderLink(){
   const s=day.link;$('#linkClues').innerHTML=daily.link.clues.map(c=>`<div class="link-clue">${c}</div>`).join('');$('#linkGuesses').textContent=`${s.guesses}/3`;$('#linkScore').textContent=s.score.toLocaleString();$('#linkStatus').textContent=s.done?(s.won?'SOLVED':'MISSED'):'OPEN';$('#linkInput').disabled=s.done;$('#linkForm button').disabled=s.done;
-  if(s.done&&!s.won&&s.answer){const msg=$('#linkMessage');msg.className='message bad';msg.innerHTML=`No more guesses today.<div class="solution-note"><strong>${s.answer}</strong> — ${s.note||''}</div>`}
+  if(s.done&&!s.won&&s.answer){const msg=$('#linkMessage');msg.className='message bad';msg.innerHTML=`No more guesses.<div class="solution-note"><strong>${s.answer}</strong> — ${s.note||''}</div>`}
   updateHome();
 }
 $('#linkForm').addEventListener('submit',async e=>{
@@ -268,7 +276,7 @@ function renderDeepCut(){
   const history=$('#deepCutHistory');history.innerHTML='';
   for(const a of s.answers){const row=document.createElement('div');row.className='deepcut-result';const badge=a.accepted?(a.tier||'ACCEPTED'):(a.timedOut?'TIME':'MISS');row.innerHTML=`<div><span class="deepcut-tier ${String(badge).toLowerCase()}">${escapeHtml(badge)}</span><strong>${escapeHtml(a.answer||'No answer')}</strong><small>${escapeHtml(a.prompt||'')}</small></div><b>+${Number(a.score||0)}</b>`;history.appendChild(row)}
   const input=$('#deepCutInput'),button=$('#deepCutForm button');input.disabled=!s.started||s.done||deepCutBusy;button.disabled=input.disabled;
-  if(s.done){$('#deepCutDoneScore').textContent=(s.score||0).toLocaleString();const msg=$('#deepCutMessage');msg.className='message good';msg.textContent=`Daily Deep Cut complete — ${s.score.toLocaleString()} points.`}
+  if(s.done){$('#deepCutDoneScore').textContent=(s.score||0).toLocaleString();const msg=$('#deepCutMessage');msg.className='message good';msg.textContent=`${unlimitedSession?'Unlimited':'Daily'} Deep Cut complete — ${s.score.toLocaleString()} points.`}
   updateHome();
 }
 function armDeepCutTimer(){clearInterval(deepCutTick);deepCutTick=setInterval(()=>{const s=day?.deepcut;if(!s?.started||s.done){clearInterval(deepCutTick);return}const left=remainingDeepCut();$('#deepCutTimer').textContent=fmtTime(left);if(left<=0)void timeoutDeepCut()},250)}
@@ -324,26 +332,81 @@ updateLeaderboardIdentity();
 $('#saveLeaderName').addEventListener('click',async()=>{const name=$('#leaderName').value.trim().replace(/\s+/g,' ').slice(0,20);if(!name){$('#leaderMessage').className='message bad';$('#leaderMessage').textContent='Choose a leaderboard name first.';return}localStorage.setItem(NAME_KEY,name);updateLeaderboardIdentity();const msg=$('#leaderMessage');msg.className='message good';msg.textContent=`Saved as ${name}.`;try{if(daily?.leaderboard?.enabled)await api('/api/leaderboard/name',{playerId:getPlayerId(),name})}catch(err){msg.className='message bad';msg.textContent=`Name saved on this device, but the leaderboard update failed: ${err.message}`;return}if(allDone())void maybeAutoPostLeaderboard(true);else if($('#leaders')?.classList.contains('active'))loadLeaderboard()});
 $('#refreshLeaders').addEventListener('click',loadLeaderboard);$$('.leader-toggle').forEach(b=>b.addEventListener('click',()=>{leaderScope=b.dataset.board;$$('.leader-toggle').forEach(x=>x.classList.toggle('active',x===b));loadLeaderboard()}));
 
-// Unlimited entitlement
+// Unlimited entitlement + library
 function unlimitedCode(){try{return localStorage.getItem(UNLIMITED_KEY)||''}catch{return ''}}
+function unlimitedHistory(){try{return JSON.parse(localStorage.getItem(UNLIMITED_HISTORY_KEY))||{}}catch{return {}}}
+function saveUnlimitedHistory(v){try{localStorage.setItem(UNLIMITED_HISTORY_KEY,JSON.stringify(v))}catch{}}
+function nextUnlimitedSlot(game,count){
+  count=Math.max(1,Number(count)||1);const history=unlimitedHistory();let seen=Array.isArray(history[game])?history[game].filter(n=>Number.isInteger(n)&&n>=0&&n<count):[];
+  if(seen.length>=count)seen=[];const used=new Set(seen);let slot=0;
+  if(crypto.getRandomValues){const a=new Uint32Array(1);for(let i=0;i<64;i++){crypto.getRandomValues(a);slot=a[0]%count;if(!used.has(slot))break}}
+  else{for(let i=0;i<64;i++){slot=Math.floor(Math.random()*count);if(!used.has(slot))break}}
+  return {slot,commit(){seen.push(slot);history[game]=seen.slice(-count);saveUnlimitedHistory(history)}};
+}
+function stopPuzzleTimers(){clearInterval(letterTimer);clearInterval(trailTick);clearInterval(deepCutTick);letterTimer=trailTick=deepCutTick=null;deepCutBusy=false;trailDragging=false;trailPointerId=null;trailPath=[]}
+function clearPuzzleMessages(){for(const id of ['#letterMessage','#groupMessage','#trailMessage','#linkMessage','#stepsMessage','#deepCutMessage']){const el=$(id);if(el){el.className='message';el.textContent=''}}for(const id of ['#guessInput','#linkInput','#stepsInput','#deepCutInput']){const el=$(id);if(el)el.value=''}}
 function renderUnlimitedAccess(active=false){
-  const form=$('#unlimitedForm'),status=$('#unlimitedStatus'),input=$('#unlimitedCode'),badge=$('#unlimitedBadge');
-  if(form)form.hidden=active;if(input&&!active&&document.activeElement!==input)input.value='';
-  if(status){status.className=`message ${active?'good':''}`;status.textContent=active?'Unlimited is unlocked on this device. The full Unlimited game picker is coming next.':'Enter an access code once to unlock Unlimited on this device.'}
+  unlimitedActive=active;const form=$('#unlimitedForm'),status=$('#unlimitedStatus'),input=$('#unlimitedCode'),badge=$('#unlimitedBadge'),open=$('#openUnlimitedButton'),tab=$('#unlimitedTab');
+  if(form)form.hidden=active;if(input&&!active&&document.activeElement!==input)input.value='';if(open)open.hidden=!active;if(tab)tab.hidden=!active;
+  if(status){status.className=`message ${active?'good':''}`;status.textContent=active?'Unlimited is ready on this device. Your daily set stays untouched while you play from the library.':'Use a private access code once and this browser will remember it.'}
   if(badge){badge.hidden=!active;badge.textContent=active?'UNLIMITED ACTIVE':''}
+  renderUnlimitedLibrary();
 }
 async function refreshUnlimitedAccess(){
   const code=unlimitedCode();if(!code){renderUnlimitedAccess(false);return false}
-  try{const r=await api('/api/unlimited/status',{code});if(r.active){renderUnlimitedAccess(true);return true}}catch{}
+  try{const r=await api('/api/unlimited/status',{code});if(r.active){unlimitedCounts=r.counts||{};renderUnlimitedAccess(true);return true}}catch{}
   try{localStorage.removeItem(UNLIMITED_KEY)}catch{}renderUnlimitedAccess(false);return false;
 }
 $('#unlimitedForm')?.addEventListener('submit',async e=>{
   e.preventDefault();const input=$('#unlimitedCode'),code=input.value.trim().toUpperCase().replace(/\s+/g,'');if(!code)return;
   const button=$('#unlimitedForm button');button.disabled=true;
-  try{const r=await api('/api/unlimited/claim',{code});if(!r.active)throw new Error('That Unlimited access code is not valid.');localStorage.setItem(UNLIMITED_KEY,code);input.value='';renderUnlimitedAccess(true)}
+  try{const r=await api('/api/unlimited/claim',{code});if(!r.active)throw new Error('That Unlimited access code is not valid.');localStorage.setItem(UNLIMITED_KEY,code);unlimitedCounts=r.counts||{};input.value='';renderUnlimitedAccess(true);selectTab('unlimited')}
   catch(err){const status=$('#unlimitedStatus');status.className='message bad';status.textContent=err.message}
   finally{button.disabled=false}
 });
+function formatLibraryCount(n,label='puzzles'){n=Number(n)||0;return `${n.toLocaleString()} ${label}`}
+function renderUnlimitedLibrary(){
+  const gate=$('#unlimitedLibraryGate'),grid=$('#unlimitedLibraryGrid');if(!gate||!grid)return;
+  gate.hidden=unlimitedActive;grid.hidden=!unlimitedActive;
+  const copy={letter:['unlimitedLetterCount','words'],groups:['unlimitedGroupsCount','boards'],trail:['unlimitedTrailCount','boards'],link:['unlimitedLinkCount','links'],steps:['unlimitedStepsCount','ladders'],deepcut:['unlimitedDeepCutCount','sets']};
+  for(const [game,[id,label]] of Object.entries(copy)){const el=$('#'+id);if(el)el.textContent=formatLibraryCount(unlimitedCounts[game],label)}
+}
+$('#openUnlimitedButton')?.addEventListener('click',()=>selectTab('unlimited'));
+$('#unlimitedGoActivate')?.addEventListener('click',()=>selectTab('archive'));
+function unlimitedGameName(game){return {letter:'Letter Grid',groups:'Four Groups',trail:'Letter Trail',link:'Triple Link',steps:'Word Steps',deepcut:'Deep Cut'}[game]||game}
+function mountUnlimitedBar(game){
+  $$('.unlimited-play-bar').forEach(x=>x.remove());const panel=$('#'+game),head=panel?.querySelector('.panel-head');if(!panel||!head)return;
+  const bar=document.createElement('div');bar.className='ritual-card unlimited-play-bar';bar.innerHTML=`<span class="ritual-dot"></span><div><strong>Unlimited · ${unlimitedGameName(game)} #${unlimitedSession.slot+1}</strong><p>This round is from the reserve library. It does not touch today's set or leaderboard.</p></div><div class="group-actions"><button class="secondary-button" type="button" data-unlimited-new>New puzzle</button><button class="secondary-button" type="button" data-unlimited-back>Library</button></div>`;panel.insertBefore(bar,head);
+  bar.querySelector('[data-unlimited-new]').addEventListener('click',()=>void startUnlimitedGame(game));bar.querySelector('[data-unlimited-back]').addEventListener('click',()=>exitUnlimited(true));
+}
+function resumeDailyTimers(){
+  if(!dayRoot||!dailyRoot)return;
+  if(!dayRoot.letter.done)letterTimer=setInterval(()=>$('#timer').textContent=fmtTime((Date.now()-dayRoot.letter.start)/1000),250);
+  if(dayRoot.trail.started&&!dayRoot.trail.done){if(remainingTrail()<=0)void finishTrail();else trailTick=setInterval(()=>{if(remainingTrail()<=0)void finishTrail();else $('#trailTimer').textContent=fmtTime(remainingTrail())},250)}
+  if(dayRoot.deepcut.started&&!dayRoot.deepcut.done){if(remainingDeepCut()<=0)void timeoutDeepCut();else armDeepCutTimer()}
+}
+function restoreDailyContext(){
+  if(!dailyRoot||!dayRoot)return;stopPuzzleTimers();unlimitedSession=null;daily=dailyRoot;day=dayRoot;currentDateKey=currentDateRoot;$$('.unlimited-play-bar').forEach(x=>x.remove());clearPuzzleMessages();
+  $('#wordLength').textContent=daily.letter.length;$('#letterSubhead').textContent=`Today is ${daily.letter.length} letters. You still only get six guesses.`;$('#guessInput').maxLength=daily.letter.length;
+  renderLetter();renderGroups();renderTrail();renderLink();renderSteps();renderDeepCut();resumeDailyTimers();
+}
+function exitUnlimited(toLibrary=true){restoreDailyContext();selectTab(toLibrary?'unlimited':'today')}
+async function startUnlimitedGame(game){
+  if(!unlimitedActive){selectTab('archive');return}if(!DAILY_GAMES.includes(game))return;
+  if(unlimitedSession)restoreDailyContext();stopPuzzleTimers();clearPuzzleMessages();
+  const count=Number(unlimitedCounts[game])||1,pick=nextUnlimitedSlot(game,count),code=unlimitedCode();
+  try{
+    const r=await api('/api/unlimited/new',{code,game,slot:pick.slot});pick.commit();unlimitedCounts=r.counts||unlimitedCounts;unlimitedSession={game,slot:r.slot,count:r.count};daily={date:'Unlimited',leaderboard:{enabled:false},...r.puzzle};day={};currentDateKey='unlimited';
+    if(game==='letter'){day.letter={guesses:[],score:0,done:false,won:false,start:Date.now(),elapsed:0,answer:''};$('#wordLength').textContent=daily.letter.length;$('#letterSubhead').textContent=`Unlimited challenge · ${daily.letter.length} letters · six guesses.`;$('#guessInput').maxLength=daily.letter.length;renderLetter();letterTimer=setInterval(()=>$('#timer').textContent=fmtTime((Date.now()-day.letter.start)/1000),250)}
+    if(game==='groups'){day.groups={solved:[],mistakes:0,score:0,done:false,selection:[],order:[...daily.groups.words],solutions:null};renderGroups()}
+    if(game==='trail'){const gridKey=daily.trail.grid.join('');day.trail={started:false,done:false,deadline:0,words:[],score:0,best:'',longest:'',gridKey};renderTrail()}
+    if(game==='link'){day.link={guesses:0,score:0,done:false,won:false,answer:'',note:''};renderLink()}
+    if(game==='steps'){day.steps={puzzleKey:`${daily.steps.start}:${daily.steps.target}`,path:[daily.steps.start],score:0,done:false,won:false,solution:[]};renderSteps()}
+    if(game==='deepcut'){day.deepcut={puzzleKey:daily.deepcut.prompts.map(p=>p.id).join('|'),started:false,round:0,answers:[],score:0,done:false,deadline:0};renderDeepCut()}
+    mountUnlimitedBar(game);selectTab(game);renderUnlimitedLibrary();
+  }catch(err){restoreDailyContext();const status=$('#unlimitedLibraryStatus');if(status){status.className='message bad';status.textContent=err.message}selectTab('unlimited')}
+}
+$$('[data-unlimited-game]').forEach(b=>b.addEventListener('click',()=>void startUnlimitedGame(b.dataset.unlimitedGame)));
 void refreshUnlimitedAccess();
 
 // Archive + help
@@ -371,7 +434,7 @@ async function revealExistingFailures(){
 
 async function init(){
   try{
-    daily=await api('/api/daily');currentDateKey=daily.date;state.days[currentDateKey]??={};day=state.days[currentDateKey];
+    daily=await api('/api/daily');currentDateKey=daily.date;state.days[currentDateKey]??={};day=state.days[currentDateKey];dailyRoot=daily;dayRoot=day;currentDateRoot=currentDateKey;
     $('#todayDate').textContent=dateObj(currentDateKey).toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'});$('#letterCardText').textContent=`Today's challenge is ${daily.letter.length} letters. Six guesses.`;
     day.letter??={guesses:[],score:0,done:false,won:false,start:Date.now(),elapsed:0,answer:''};day.groups??={solved:[],mistakes:0,score:0,done:false,selection:[],order:[...daily.groups.words],solutions:null};const trailGridKey=daily.trail.grid.join('');if(!day.trail?.gridKey||day.trail.gridKey!==trailGridKey)day.trail={started:false,done:false,deadline:0,words:[],score:0,best:'',longest:'',gridKey:trailGridKey};day.link??={guesses:0,score:0,done:false,won:false,answer:'',note:''};const stepsKey=`${daily.steps.start}:${daily.steps.target}`;if(!day.steps?.puzzleKey||day.steps.puzzleKey!==stepsKey)day.steps={puzzleKey:stepsKey,path:[daily.steps.start],score:0,done:false,won:false,solution:[]};const deepCutKey=daily.deepcut.prompts.map(p=>p.id).join('|');if(!day.deepcut?.puzzleKey||day.deepcut.puzzleKey!==deepCutKey)day.deepcut={puzzleKey:deepCutKey,started:false,round:0,answers:[],score:0,done:false,deadline:0};
     // Normalize any pre-hotfix guess strings without throwing.

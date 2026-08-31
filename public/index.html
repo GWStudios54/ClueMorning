@@ -105,6 +105,7 @@
     <button class="tab" data-tab="link" type="button"><svg class="icon"><use href="#i-link"/></svg><span>Link</span></button>
     <button class="tab" data-tab="steps" type="button"><svg class="icon"><use href="#i-steps"/></svg><span>Steps</span></button>
     <button class="tab" data-tab="deepcut" type="button"><svg class="icon"><use href="#i-deepcut"/></svg><span>Deep Cut</span></button>
+    <button class="tab" id="unlimitedTab" data-tab="unlimited" type="button" hidden><svg class="icon"><use href="#i-package"/></svg><span>Unlimited</span></button>
     <button class="tab" data-tab="leaders" type="button"><svg class="icon"><use href="#i-trophy"/></svg><span>Leaders</span></button>
     <button class="tab" data-tab="archive" type="button"><svg class="icon"><use href="#i-clock"/></svg><span>Archive</span></button>
   </nav>
@@ -203,8 +204,25 @@
 
   <section id="archive" class="panel">
     <div class="panel-head"><div><span class="game-label">YOUR HISTORY</span><h2>Archive</h2><p>Your score history on this device.</p></div></div><div id="archiveList" class="archive-list"></div>
-    <div class="pack-preview"><span class="game-label">COMING LATER</span><h3>Puzzle Packs</h3><p>Extra themed sets can live here without changing the free daily ritual.</p><button class="secondary-button inverted" type="button" disabled><svg class="icon"><use href="#i-package"/></svg><span>Packs coming later</span></button></div>
-    <div class="pack-preview unlimited-access-card"><span class="game-label">PRIVATE ACCESS</span><h3>Clue Morning Unlimited</h3><p>Activate this device now. Unlimited play itself is the next feature pass.</p><strong id="unlimitedBadge" class="archive-badge" hidden></strong><form id="unlimitedForm" class="guess-form"><input id="unlimitedCode" class="text-input" placeholder="Unlimited access code" autocomplete="off" autocapitalize="characters" spellcheck="false"><button class="secondary-button inverted" type="submit"><svg class="icon"><use href="#i-check"/></svg><span>Activate</span></button></form><div id="unlimitedStatus" class="message">Enter an access code once to unlock Unlimited on this device.</div></div>
+    <div class="pack-preview"><span class="game-label">THEMED COLLECTIONS</span><h3>Puzzle Packs</h3><p>Take Clue Morning somewhere new for a while. Future packs will bundle hand-built sets around themes like movies, sports, history, holidays, and whatever else deserves its own rabbit hole.</p><button class="secondary-button inverted" type="button" disabled><svg class="icon"><use href="#i-package"/></svg><span>Collections are on the way</span></button></div>
+    <div class="pack-preview unlimited-access-card"><span class="game-label">UNLIMITED PLAY</span><h3>Clue Morning Unlimited</h3><p>The morning set is only the first cup. Unlock the reserve library and keep playing Grid, Groups, Trail, Link, Steps, and Deep Cut whenever you feel like one more.</p><strong id="unlimitedBadge" class="archive-badge" hidden></strong><form id="unlimitedForm" class="guess-form"><input id="unlimitedCode" class="text-input" placeholder="Private access code" autocomplete="off" autocapitalize="characters" spellcheck="false"><button class="secondary-button inverted" type="submit"><svg class="icon"><use href="#i-check"/></svg><span>Unlock Unlimited</span></button></form><button id="openUnlimitedButton" class="secondary-button inverted" type="button" hidden><svg class="icon"><use href="#i-play"/></svg><span>Open Unlimited Library</span></button><div id="unlimitedStatus" class="message">Use a private access code once and this browser will remember it.</div></div>
+  </section>
+
+  <section id="unlimited" class="panel">
+    <div class="today-hero"><div><span class="date-kicker">CLUE MORNING UNLIMITED</span><h2>Keep going.</h2><p>The daily set is the ritual. This is the rabbit hole. Pick a game and we’ll deal another puzzle from the reserve library without touching tomorrow’s set.</p></div><div class="daily-total"><span>Mode</span><strong>∞</strong></div></div>
+    <div id="unlimitedLibraryGate" class="start-card"><span class="game-label">PRIVATE LIBRARY</span><h3>Unlimited is locked on this browser.</h3><p>Activate your private access code once, then this library stays ready here.</p><button id="unlimitedGoActivate" class="primary-button" type="button"><svg class="icon"><use href="#i-package"/></svg><span>Go to activation</span></button></div>
+    <div id="unlimitedLibraryGrid" hidden>
+      <div class="game-cards">
+        <button class="game-card" data-unlimited-game="letter" type="button"><div class="game-icon letter-icon"><svg class="icon"><use href="#i-grid"/></svg></div><div class="game-copy"><span class="game-label">UNLIMITED WORD</span><h3>Letter Grid</h3><p id="unlimitedLetterCount">Loading words…</p></div><span class="game-status">PLAY</span></button>
+        <button class="game-card" data-unlimited-game="groups" type="button"><div class="game-icon group-icon"><i></i><i></i><i></i><i></i></div><div class="game-copy"><span class="game-label">UNLIMITED LOGIC</span><h3>Four Groups</h3><p id="unlimitedGroupsCount">Loading boards…</p></div><span class="game-status">PLAY</span></button>
+        <button class="game-card" data-unlimited-game="trail" type="button"><div class="game-icon trail-icon"><svg class="icon"><use href="#i-trail"/></svg></div><div class="game-copy"><span class="game-label">UNLIMITED WORD HUNT</span><h3>Letter Trail</h3><p id="unlimitedTrailCount">Loading boards…</p></div><span class="game-status">PLAY</span></button>
+        <button class="game-card" data-unlimited-game="link" type="button"><div class="game-icon link-icon"><svg class="icon"><use href="#i-link"/></svg></div><div class="game-copy"><span class="game-label">UNLIMITED CLUE</span><h3>Triple Link</h3><p id="unlimitedLinkCount">Loading links…</p></div><span class="game-status">PLAY</span></button>
+        <button class="game-card" data-unlimited-game="steps" type="button"><div class="game-icon steps-icon"><svg class="icon"><use href="#i-steps"/></svg></div><div class="game-copy"><span class="game-label">UNLIMITED WORD PATH</span><h3>Word Steps</h3><p id="unlimitedStepsCount">Loading ladders…</p></div><span class="game-status">PLAY</span></button>
+        <button class="game-card" data-unlimited-game="deepcut" type="button"><div class="game-icon deepcut-icon"><svg class="icon"><use href="#i-deepcut"/></svg></div><div class="game-copy"><span class="game-label">UNLIMITED RARITY TRIVIA</span><h3>Deep Cut</h3><p id="unlimitedDeepCutCount">Loading sets…</p></div><span class="game-status">PLAY</span></button>
+      </div>
+      <div class="ritual-card"><span class="ritual-dot"></span><div><strong>Unlimited stays separate from the daily game.</strong><p>Reserve puzzles do not alter your daily score, streak, archive, leaderboard position, or future daily sets. This browser also remembers what it has served and avoids repeats until a library cycles.</p></div></div>
+      <div id="unlimitedLibraryStatus" class="message"></div>
+    </div>
   </section>
 
   <dialog id="themeDialog" class="theme-dialog">
