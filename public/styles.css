@@ -213,6 +213,8 @@ h3{font-size:1.35rem;margin:.2rem 0;letter-spacing:-.02em}
 .text-input::placeholder{color:color-mix(in srgb,var(--muted) 84%,white)}
 .text-input:focus{outline:3px solid var(--focus);outline-offset:1px}
 .guess-form{display:grid;grid-template-columns:1fr auto;gap:9px}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.letter-guess-form{position:relative;grid-template-columns:minmax(180px,360px);justify-content:center;margin-top:8px}.letter-capture-input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;left:50%;bottom:0}.letter-type-hint{text-align:center;color:var(--muted);font-size:.82rem;font-weight:750;margin:8px 0 2px}.active-guess-row{cursor:text}.active-guess-row .draft-tile{border-color:color-mix(in srgb,var(--ink) 38%,var(--line));background:color-mix(in srgb,var(--input) 88%,white)}.guess-board.typing .active-guess-row .draft-tile{border-color:var(--dark);box-shadow:0 0 0 2px color-mix(in srgb,var(--dark) 12%,transparent),inset 0 1px 0 rgba(255,255,255,.6)}
 
 .guess-board{display:flex;flex-direction:column;gap:6px;margin:18px 0}.guess-row{display:grid;gap:4px;justify-content:center}
 .tile{
@@ -237,9 +239,7 @@ h3{font-size:1.35rem;margin:.2rem 0;letter-spacing:-.02em}
 .word-card.selected{background:linear-gradient(180deg,var(--dark2),var(--dark));color:#fff;border-color:var(--dark)}
 .group-actions{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:8px}
 .solved-groups{display:flex;flex-direction:column;gap:8px}
-.solved-group{padding:12px;border-radius:13px;background:linear-gradient(180deg,color-mix(in srgb,var(--paper2) 74%,white),var(--paper2));text-align:center;border:1px solid color-mix(in srgb,var(--line) 84%,white)}
-.solved-group.revealed{border:1px dashed var(--muted)}
-.solved-group strong{display:block}.solved-group span{font-size:.82rem;color:var(--muted)}
+.solved-group{padding:12px;border-radius:13px;text-align:center;border:1px solid color-mix(in srgb,var(--line) 84%,white);color:#2f2a22}.solved-group.difficulty-easy{background:#f3df88;border-color:#d2b84f}.solved-group.difficulty-medium{background:#a9d18e;border-color:#79aa62}.solved-group.difficulty-hard{background:#91bfe3;border-color:#6398c4}.solved-group.difficulty-tricky{background:#c6a0d8;border-color:#9d73b2}.solved-group.revealed{border-style:dashed}.group-result-head{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}.group-result-head strong{display:block}.group-result-head em{font-style:normal;font-size:.66rem;line-height:1;text-transform:uppercase;letter-spacing:.08em;padding:4px 7px;border-radius:999px;background:rgba(255,255,255,.55);border:1px solid rgba(0,0,0,.08)}.solved-group span{display:block;margin-top:3px;font-size:.82rem;color:#4b4338}
 
 .start-card,.leader-setup,.pack-preview{
   box-shadow:var(--shadow);
@@ -254,7 +254,8 @@ h3{font-size:1.35rem;margin:.2rem 0;letter-spacing:-.02em}
   box-shadow:var(--shadow-soft);transition:transform .1s ease,background .1s ease,border-color .1s ease;
 }
 .trail-cell:hover{transform:translateY(-1px)}
-.trail-cell.selected{background:linear-gradient(180deg,var(--dark2),var(--dark));color:#fff;border-color:var(--dark)}
+.trail-cell.selected{background:linear-gradient(180deg,var(--dark2),var(--dark));color:#fff;border-color:var(--dark);transform:scale(.97)}
+.trail-cell.trail-head{transform:scale(1.035);box-shadow:0 0 0 3px color-mix(in srgb,var(--dark) 18%,transparent),var(--shadow-soft)}
 .trail-actions{display:grid;grid-template-columns:1fr 1.4fr;gap:8px;max-width:440px;margin:auto}
 .found-words{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:16px 0}.found-word{background:var(--green2);color:var(--green);border-radius:999px;padding:6px 10px;font-size:.75rem;font-weight:900;border:1px solid color-mix(in srgb,var(--green) 16%,var(--green2))}
 .link-clues{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0}
@@ -365,3 +366,5 @@ footer{border-top:1px solid color-mix(in srgb,var(--line) 90%,white);display:fle
 
 @media(max-width:760px){.tabs{display:flex}.six-scores{grid-template-columns:repeat(3,1fr)}.six-scores>div:nth-child(3),.six-scores>div:nth-child(6){border-right:0}.six-scores>div:nth-child(n+4):nth-child(-n+6){border-top:1px solid color-mix(in srgb,var(--line) 84%,white)}}
 @media(max-width:540px){.six-scores{grid-template-columns:1fr 1fr}.six-scores>div:nth-child(2n){border-right:0}.six-scores>div:nth-child(n+3):nth-child(-n+6){border-top:1px solid color-mix(in srgb,var(--line) 84%,white)}.steps-goal{grid-template-columns:1fr auto 1fr;padding:14px 10px}.steps-actions{grid-template-columns:1fr}.deepcut-result{align-items:flex-start}.deepcut-result small{white-space:normal}.about-blurb{padding:18px}.footer-links{order:3}}
+
+/* v2.6.3 — Trail drag intent, Four Groups difficulty colors, in-grid Letter Grid typing */

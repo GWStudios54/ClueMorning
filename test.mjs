@@ -61,10 +61,12 @@ assert.notDeepEqual([p.length,p.answer,p.groups[0].name,p.trail.longest,p.link.a
 assert.ok(p.answer);assert.equal(p.groups.length,4);assert.equal(p.trail.grid.length,16);assert.equal(p.trail.longest.length,16);assert.equal(p.link.clues.length,3);assert.equal(p.steps.solution.length,p.steps.par+1);assert.equal(p.deepcut.prompts.length,8);
 const env={ASSETS:{fetch:()=>new Response('asset')}};
 let r=await worker.fetch(new Request('https://x.test/api/daily?date=2026-08-30'),env);assert.equal(r.status,200);let j=await r.json();
-assert.equal('answer' in j.letter,false);assert.equal('solutions' in j.groups,false);assert.equal('longest' in j.trail,false);assert.equal('answer' in j.link,false);assert.equal('solution' in j.steps,false);assert.equal(j.groups.words.length,16);assert.equal(j.steps.start.length,4);assert.equal(j.steps.target.length,4);assert.equal(j.deepcut.prompts.length,8);assert.equal('answers' in j.deepcut.prompts[0],false);assert.equal(j.deepcut.seconds,25);assert.equal(j.leaderboard.enabled,false);
+assert.equal('answer' in j.letter,false);assert.equal('solutions' in j.groups,false);assert.equal('longest' in j.trail,false);assert.equal('answer' in j.link,false);assert.equal('solution' in j.steps,false);assert.equal(j.groups.words.length,16);assert.ok(['Easy','Medium','Hard','Tricky'].includes(j.groups.difficulty));assert.equal(j.steps.start.length,4);assert.equal(j.steps.target.length,4);assert.equal(j.deepcut.prompts.length,8);assert.equal('answers' in j.deepcut.prompts[0],false);assert.equal(j.deepcut.seconds,25);assert.equal(j.leaderboard.enabled,false);
 
 r=await worker.fetch(new Request('https://x.test/api/letter/guess?date=2026-08-30',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({guess:'ZZZZZ',attempt:6})}),env);
 if(p.length===5){j=await r.json();assert.ok('answer' in j)}
+
+r=await worker.fetch(new Request('https://x.test/api/groups/check?date=2026-08-30',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({words:p.groups[0].words,mistakesAfter:1})}),env);assert.equal(r.status,200);j=await r.json();assert.equal(j.match,true);assert.ok(['easy','medium','hard','tricky'].includes(j.difficulty));assert.ok(j.difficultyLabel);
 
 r=await worker.fetch(new Request('https://x.test/api/trail/reveal?date=2026-08-30',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({finished:true})}),env);assert.equal(r.status,200);j=await r.json();assert.equal(j.longest.length,16);
 r=await worker.fetch(new Request('https://x.test/api/leaderboard?scope=daily&date=2026-08-30'),env);assert.equal(r.status,200);j=await r.json();assert.equal(j.enabled,false);

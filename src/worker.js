@@ -7,6 +7,17 @@ const STEPS_MAX_MOVES = 8;
 const DEEP_CUT_SECONDS = 25;
 const DEEP_CUT_ROUNDS = 8;
 const WORD_STEPS_SET = new Set(WORD_STEPS_DICTIONARY);
+const GROUP_SET_DIFFICULTY = ["Tricky","Easy","Easy","Medium","Medium","Hard","Medium","Hard","Tricky","Hard","Medium","Hard"];
+const GROUP_DIFFICULTY_ORDER = [
+  [0,3,2,1],[2,0,3,1],[0,2,1,3],[1,3,0,2],[0,1,3,2],[0,1,3,2],
+  [0,1,3,2],[1,0,3,2],[0,1,3,2],[1,0,2,3],[0,1,3,2],[1,0,3,2]
+];
+const GROUP_LEVELS = [
+  {difficulty:"easy",difficultyLabel:"Easy"},
+  {difficulty:"medium",difficultyLabel:"Medium"},
+  {difficulty:"hard",difficultyLabel:"Hard"},
+  {difficulty:"tricky",difficultyLabel:"Tricky"}
+];
 let leaderboardSchemaReady = false;
 
 function json(data, status=200, headers={}) {
@@ -33,7 +44,7 @@ function pickDailyLegacy(date){
   const length=5+Math.floor(lrnd()*6);
   const answer=WORD_BANK[length][Math.floor(lrnd()*WORD_BANK[length].length)];
   const gseed=hashString(date+"::clue-morning::groups"), grnd=mulberry32(gseed);
-  const groups=GROUP_PUZZLES[Math.floor(grnd()*GROUP_PUZZLES.length)];
+  const groupsIndex=Math.floor(grnd()*GROUP_PUZZLES.length), groups=GROUP_PUZZLES[groupsIndex];
   const tseed=hashString(date+"::clue-morning::trail"), trnd=mulberry32(tseed);
   const trail=TRAIL_PUZZLES[Math.floor(trnd()*Math.min(TRAIL_PUZZLES.length,12))];
   const xseed=hashString(date+"::clue-morning::link"), xrnd=mulberry32(xseed);
@@ -41,7 +52,7 @@ function pickDailyLegacy(date){
   const steps=WORD_STEPS_PUZZLES[Math.floor(mulberry32(hashString(date+"::clue-morning::steps"))()*WORD_STEPS_PUZZLES.length)];
   const deepCutIndices=DEEP_CUT_PUZZLES[Math.floor(mulberry32(hashString(date+"::clue-morning::deep-cut"))()*DEEP_CUT_PUZZLES.length)];
   const deepcut={prompts:deepCutIndices.map(i=>DEEP_CUT_PROMPTS[i])};
-  return {date,length,answer,groups,gseed,trail,link,steps,deepcut};
+  return {date,length,answer,groups,groupsIndex,gseed,trail,link,steps,deepcut};
 }
 function pickDaily(date){
   const scheduled=yearPackEntry(date);
@@ -55,7 +66,11 @@ function pickDaily(date){
   const deepCutIndices=DEEP_CUT_PUZZLES[scheduled.deepCutIndex ?? 0];
   const deepcut={prompts:deepCutIndices.map(i=>DEEP_CUT_PROMPTS[i])};
   const gseed=hashString(date+"::clue-morning::groups::scheduled::"+scheduled.groupsIndex);
-  return {date,length,answer,groups,gseed,trail,link,steps,deepcut};
+  return {date,length,answer,groups,groupsIndex:scheduled.groupsIndex,gseed,trail,link,steps,deepcut};
+}
+function groupWithDifficulty(p,index){
+  const group=p.groups[index],order=GROUP_DIFFICULTY_ORDER[p.groupsIndex]||[0,1,2,3],rank=Math.max(0,order.indexOf(index)),meta=GROUP_LEVELS[rank]||GROUP_LEVELS[1];
+  return {...group,...meta};
 }
 function normalizeWord(v){return String(v||"").toUpperCase().replace(/[^A-Z]/g,"")}
 function evaluateGuess(guess,target){
@@ -196,13 +211,13 @@ async function api(request,env){
   const date=allowedDate(request); if(!date) return json({error:"Invalid date."},400);
   if(path==="/api/leaderboard"||path==="/api/leaderboard/submit"||path==="/api/leaderboard/name") return leaderboardApi(request,env,date,path);
   const p=pickDaily(date);
-  if(request.method==="GET" && path==="/api/health") return json({ok:true,service:"clue-morning",version:"2.6.2",date:pacificDateKey(),leaderboard:Boolean(env.DB),trailBoards:TRAIL_PUZZLES.length,wordSteps:WORD_STEPS_PUZZLES.length,deepCutPrompts:DEEP_CUT_PROMPTS.length,deepCutDailySets:DEEP_CUT_PUZZLES.length,yearPackStart:YEAR_PACK_START,yearPackDays:YEAR_PACK.length});
+  if(request.method==="GET" && path==="/api/health") return json({ok:true,service:"clue-morning",version:"2.6.3",date:pacificDateKey(),leaderboard:Boolean(env.DB),trailBoards:TRAIL_PUZZLES.length,wordSteps:WORD_STEPS_PUZZLES.length,deepCutPrompts:DEEP_CUT_PROMPTS.length,deepCutDailySets:DEEP_CUT_PUZZLES.length,yearPackStart:YEAR_PACK_START,yearPackDays:YEAR_PACK.length});
   if(request.method==="GET" && path==="/api/daily"){
     const shuffled=shuffle(p.groups.flatMap(g=>g.words),mulberry32(p.gseed+33));
     return json({
       date,resetTimeZone:TZ,
       letter:{length:p.length,maxGuesses:MAX_GUESSES},
-      groups:{words:shuffled,mistakesAllowed:4},
+      groups:{words:shuffled,mistakesAllowed:4,difficulty:GROUP_SET_DIFFICULTY[p.groupsIndex]||"Medium"},
       trail:{grid:p.trail.grid,minLength:3,seconds:TRAIL_SECONDS},
       link:{clues:p.link.clues,maxGuesses:3},
       steps:{start:p.steps.start,target:p.steps.target,par:p.steps.par,maxMoves:STEPS_MAX_MOVES},
@@ -224,14 +239,14 @@ async function api(request,env){
     const b=await bodyJson(request), selected=Array.isArray(b.words)?b.words.map(normalizeWord):[];
     if(selected.length!==4||new Set(selected).size!==4) return json({ok:false,error:"Choose four different words."},400);
     const key=[...selected].sort().join("|");
-    const match=p.groups.find(g=>[...g.words].sort().join("|")===key);
-    if(match) return json({ok:true,match:true,name:match.name,words:match.words});
+    const matchIndex=p.groups.findIndex(g=>[...g.words].sort().join("|")===key),match=matchIndex>=0?groupWithDifficulty(p,matchIndex):null;
+    if(match) return json({ok:true,match:true,name:match.name,words:match.words,difficulty:match.difficulty,difficultyLabel:match.difficultyLabel});
     const failed=Number(b.mistakesAfter)>=4;
-    return json({ok:true,match:false,...(failed?{solutions:p.groups}:{})});
+    return json({ok:true,match:false,...(failed?{solutions:p.groups.map((_,i)=>groupWithDifficulty(p,i))}:{})});
   }
   if(request.method==="POST" && path==="/api/groups/reveal"){
     const b=await bodyJson(request); if(Number(b.mistakes)<4) return json({error:"Solutions are revealed after four mistakes."},403);
-    return json({ok:true,solutions:p.groups});
+    return json({ok:true,solutions:p.groups.map((_,i)=>groupWithDifficulty(p,i))});
   }
   if(request.method==="POST" && path==="/api/trail/check"){
     const b=await bodyJson(request), word=normalizeWord(b.word);

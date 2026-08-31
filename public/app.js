@@ -41,7 +41,7 @@ applyTheme(activeTheme(),false);
 updateDayGreeting();
 
 let state=loadState();state.days??={};
-let daily=null,day=null,currentDateKey=null,letterTimer=null,trailTick=null,deepCutTick=null,deepCutBusy=false,trailPath=[],trailDragging=false,leaderScope="daily",leaderAutoPosting=false;
+let daily=null,day=null,currentDateKey=null,letterTimer=null,trailTick=null,deepCutTick=null,deepCutBusy=false,trailPath=[],trailDragging=false,trailPointerId=null,leaderScope="daily",leaderAutoPosting=false;
 const DAILY_GAMES=["letter","groups","trail","link","steps","deepcut"];
 
 function getPlayerId(){
@@ -96,45 +96,73 @@ function renderKeyboard(){
   for(const g of day.letter.guesses){for(let i=0;i<g.word.length;i++){const ch=g.word[i],grade=g.feedback[i];if(!grades[ch]||ranks[grade]>ranks[grades[ch]])grades[ch]=grade}}
   const el=$('#keyboard');el.innerHTML='';for(const ch of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'){const k=document.createElement('div');k.className=`key ${grades[ch]||''}`;k.textContent=ch;el.appendChild(k)}
 }
-function renderLetter(){
-  const s=day.letter,board=$('#guessBoard');board.innerHTML='';
+function letterDraft(){
+  const input=$('#guessInput');
+  return (input?.value||'').toUpperCase().replace(/[^A-Z]/g,'').slice(0,daily?.letter?.length||0);
+}
+function renderLetterBoard(){
+  if(!day?.letter||!daily?.letter)return;
+  const s=day.letter,board=$('#guessBoard'),draft=s.done?'':letterDraft();board.innerHTML='';
   for(const g of s.guesses){const row=document.createElement('div');row.className='guess-row';row.style.gridTemplateColumns=`repeat(${daily.letter.length},auto)`;[...g.word].forEach((ch,i)=>{const t=document.createElement('div');t.className=`tile ${g.feedback[i]}`;t.textContent=ch;row.appendChild(t)});board.appendChild(row)}
-  for(let r=s.guesses.length;r<6;r++){const row=document.createElement('div');row.className='guess-row';row.style.gridTemplateColumns=`repeat(${daily.letter.length},auto)`;for(let i=0;i<daily.letter.length;i++){const t=document.createElement('div');t.className='tile';row.appendChild(t)}board.appendChild(row)}
+  for(let r=s.guesses.length;r<6;r++){
+    const row=document.createElement('div');row.className='guess-row'+(!s.done&&r===s.guesses.length?' active-guess-row':'');row.style.gridTemplateColumns=`repeat(${daily.letter.length},auto)`;
+    for(let i=0;i<daily.letter.length;i++){const t=document.createElement('div');const active=!s.done&&r===s.guesses.length;t.className='tile'+(active?' draft-tile':'');if(active&&draft[i])t.textContent=draft[i];row.appendChild(t)}
+    board.appendChild(row);
+  }
+  board.classList.toggle('typing',document.activeElement===$('#guessInput'));
+  const button=$('#guessForm button');if(button)button.disabled=s.done||draft.length!==daily.letter.length;
+}
+function renderLetter(){
+  const s=day.letter,input=$('#guessInput');
+  input.disabled=s.done;renderLetterBoard();
   $('#guessCount').textContent=`${s.guesses.length}/6`;$('#letterScore').textContent=s.score.toLocaleString();renderKeyboard();
-  const input=$('#guessInput'),button=$('#guessForm button');input.disabled=s.done;button.disabled=s.done;
   if(s.done){$('#timer').textContent=fmtTime(s.elapsed||0);const msg=$('#letterMessage');msg.className=`message ${s.won?'good':'bad'}`;msg.innerHTML=s.won?`Solved — ${s.score.toLocaleString()} points.`:`No solve today.${s.answer?`<div class="solution-note">The word was <strong>${s.answer}</strong>.</div>`:''}`}
   updateHome();
 }
+$('#guessInput').addEventListener('input',e=>{
+  const input=e.currentTarget,clean=input.value.toUpperCase().replace(/[^A-Z]/g,'').slice(0,daily?.letter?.length||0);if(input.value!==clean)input.value=clean;renderLetterBoard();
+});
+$('#guessInput').addEventListener('focus',renderLetterBoard);
+$('#guessInput').addEventListener('blur',renderLetterBoard);
+$('#guessBoard').addEventListener('pointerdown',()=>{if(day?.letter&&!day.letter.done)$('#guessInput').focus({preventScroll:true})});
 $('#guessForm').addEventListener('submit',async e=>{
-  e.preventDefault();const s=day.letter;if(s.done)return;const input=$('#guessInput'),guess=input.value.trim().toUpperCase().replace(/[^A-Z]/g,'');
-  if(guess.length!==daily.letter.length){$('#letterMessage').textContent=`Need exactly ${daily.letter.length} letters.`;return}
-  if(s.guesses.some(g=>g.word===guess)){ $('#letterMessage').textContent='You already tried that guess.';return }
+  e.preventDefault();const s=day.letter;if(s.done)return;const input=$('#guessInput'),guess=letterDraft();
+  if(guess.length!==daily.letter.length){$('#letterMessage').textContent=`Need exactly ${daily.letter.length} letters.`;input.focus({preventScroll:true});return}
+  if(s.guesses.some(g=>g.word===guess)){ $('#letterMessage').textContent='You already tried that guess.';input.select();return }
   try{
     const attempt=s.guesses.length+1,r=await api('/api/letter/guess',{guess,attempt});s.guesses.push({word:guess,feedback:r.feedback});input.value='';
     const best=Math.max(...s.guesses.map(g=>letterPartial(g.feedback))),elapsed=(Date.now()-s.start)/1000;
     if(r.solved||s.guesses.length>=6){s.done=true;s.won=r.solved;s.elapsed=elapsed;s.answer=r.answer||s.answer||'';s.score=letterScore(r.solved,s.guesses.length,elapsed,best);clearInterval(letterTimer)}else s.score=letterScore(false,s.guesses.length,elapsed,best);
-    renderLetter();
+    renderLetter();if(!s.done)input.focus({preventScroll:true});
   }catch(err){$('#letterMessage').textContent=err.message}
 });
 
 // Four Groups
 function groupKey(g){return [...g.words].sort().join('|')}
+function groupDifficultyInfo(g){
+  const key=['easy','medium','hard','tricky'].includes(g?.difficulty)?g.difficulty:'medium';
+  const labels={easy:'Easy',medium:'Medium',hard:'Hard',tricky:'Tricky'};return {key,label:g?.difficultyLabel||labels[key]};
+}
+function groupBox(g,revealed=false){
+  const meta=groupDifficultyInfo(g),box=document.createElement('div');box.className=`solved-group difficulty-${meta.key}${revealed?' revealed':''}`;
+  box.innerHTML=`<div class="group-result-head"><strong>${g.name}</strong><em>${meta.label}</em></div><span>${g.words.join(' · ')}</span>`;return box;
+}
 function renderGroups(){
   const s=day.groups,solvedWords=new Set(s.solved.flatMap(x=>x.words)),remaining=s.order.filter(w=>!solvedWords.has(w));
   const solved=$('#solvedGroups');solved.innerHTML='';
-  for(const g of s.solved){const box=document.createElement('div');box.className='solved-group';box.innerHTML=`<strong>${g.name}</strong><span>${g.words.join(' · ')}</span>`;solved.appendChild(box)}
+  for(const g of s.solved)solved.appendChild(groupBox(g));
   if(s.done&&s.solved.length<4&&Array.isArray(s.solutions)){
-    const keys=new Set(s.solved.map(groupKey));for(const g of s.solutions){if(keys.has(groupKey(g)))continue;const box=document.createElement('div');box.className='solved-group revealed';box.innerHTML=`<strong>${g.name}</strong><span>${g.words.join(' · ')}</span>`;solved.appendChild(box)}
+    const keys=new Set(s.solved.map(groupKey));for(const g of s.solutions){if(keys.has(groupKey(g)))continue;solved.appendChild(groupBox(g,true))}
   }
   const grid=$('#groupGrid');grid.innerHTML='';
   if(!s.done){for(const w of remaining){const b=document.createElement('button');b.type='button';b.className='word-card'+(s.selection.includes(w)?' selected':'');b.textContent=w;b.addEventListener('click',()=>{if(s.selection.includes(w))s.selection=s.selection.filter(x=>x!==w);else if(s.selection.length<4)s.selection.push(w);renderGroups()});grid.appendChild(b)}}
-  $('#groupsFound').textContent=`${s.solved.length}/4`;$('#mistakesLeft').textContent=Math.max(0,4-s.mistakes);$('#groupScore').textContent=s.score.toLocaleString();$('#submitGroupBtn').disabled=s.done||s.selection.length!==4;$('#shuffleBtn').disabled=s.done;$('#deselectBtn').disabled=s.done;
-  if(s.done){const msg=$('#groupMessage');msg.className=`message ${s.solved.length===4?'good':'bad'}`;msg.textContent=s.solved.length===4?`All four groups — ${s.score.toLocaleString()} points.`:'Four mistakes. All solutions are shown above.'}
+  $('#groupsFound').textContent=`${s.solved.length}/4`;$('#mistakesLeft').textContent=Math.max(0,4-s.mistakes);$('#groupScore').textContent=s.score.toLocaleString();$('#groupDifficulty').textContent=s.done?(daily.groups.difficulty||'Medium'):'—';$('#submitGroupBtn').disabled=s.done||s.selection.length!==4;$('#shuffleBtn').disabled=s.done;$('#deselectBtn').disabled=s.done;
+  if(s.done){const msg=$('#groupMessage');msg.className=`message ${s.solved.length===4?'good':'bad'}`;const diff=daily.groups.difficulty||'Medium';msg.textContent=s.solved.length===4?`All four groups — ${s.score.toLocaleString()} points. ${diff} set.`:`Four mistakes. All solutions are shown above. ${diff} set.`}
   updateHome();
 }
 $('#submitGroupBtn').addEventListener('click',async()=>{
   const s=day.groups;if(s.selection.length!==4||s.done)return;const mistakesAfter=s.mistakes+1;
-  try{const r=await api('/api/groups/check',{words:s.selection,mistakesAfter});if(r.match){s.solved.push({name:r.name,words:r.words});s.score+=250+Math.max(0,(4-s.mistakes)*25);$('#groupMessage').textContent=r.name;s.selection=[];if(s.solved.length===4)s.done=true}else{s.mistakes++;s.selection=[];$('#groupMessage').textContent='Not a group.';if(s.mistakes>=4){s.done=true;s.solutions=r.solutions||[]}}renderGroups()}catch(err){$('#groupMessage').textContent=err.message}
+  try{const r=await api('/api/groups/check',{words:s.selection,mistakesAfter});if(r.match){s.solved.push({name:r.name,words:r.words,difficulty:r.difficulty,difficultyLabel:r.difficultyLabel});s.score+=250+Math.max(0,(4-s.mistakes)*25);$('#groupMessage').textContent=`${r.name} · ${r.difficultyLabel||''}`.replace(/ · $/,'');s.selection=[];if(s.solved.length===4)s.done=true}else{s.mistakes++;s.selection=[];$('#groupMessage').textContent='Not a group.';if(s.mistakes>=4){s.done=true;s.solutions=r.solutions||[]}}renderGroups()}catch(err){$('#groupMessage').textContent=err.message}
 });
 $('#shuffleBtn').addEventListener('click',()=>{const s=day.groups,solved=new Set(s.solved.flatMap(x=>x.words)),r=s.order.filter(w=>!solved.has(w));for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]]}s.order=[...s.order.filter(w=>solved.has(w)),...r];renderGroups()});
 $('#deselectBtn').addEventListener('click',()=>{day.groups.selection=[];renderGroups()});
@@ -144,11 +172,42 @@ function trailPoints(n){if(n===3)return 100;if(n===4)return 200;if(n===5)return 
 function remainingTrail(){return Math.max(0,Math.ceil((day.trail.deadline-Date.now())/1000))}
 function adjacent(a,b){const ar=Math.floor(a/4),ac=a%4,br=Math.floor(b/4),bc=b%4;return Math.max(Math.abs(ar-br),Math.abs(ac-bc))===1}
 function canExtendTrail(i){return !trailPath.includes(i)&&(!trailPath.length||adjacent(trailPath.at(-1),i))}
-function startTrailSelection(i){trailDragging=true;if(trailPath.length&&canExtendTrail(i))trailPath.push(i);else trailPath=[i];renderTrailGrid()}
-function extendTrailSelection(i){if(!trailDragging||!canExtendTrail(i))return;trailPath.push(i);renderTrailGrid()}
-function stopTrailSelection(){trailDragging=false}
-function renderTrailGrid(){const g=$('#trailGrid');g.innerHTML='';daily.trail.grid.forEach((ch,i)=>{const b=document.createElement('button');b.type='button';b.dataset.index=String(i);b.className='trail-cell'+(trailPath.includes(i)?' selected':'');b.textContent=ch;b.disabled=!day.trail.started||day.trail.done;g.appendChild(b)});$('#trailCurrent').textContent=trailPath.length?trailPath.map(i=>daily.trail.grid[i]).join(''):'Tap or drag across letters'}
-function trailCellAtPoint(x,y){const el=document.elementFromPoint(x,y);return el?.closest?.('.trail-cell')||null}
+function paintTrailSelection(){
+  const grid=$('#trailGrid'),cells=[...grid.querySelectorAll('.trail-cell')];
+  cells.forEach((cell,i)=>{cell.classList.toggle('selected',trailPath.includes(i));cell.classList.toggle('trail-head',i===trailPath.at(-1))});
+  $('#trailCurrent').textContent=trailPath.length?trailPath.map(i=>daily.trail.grid[i]).join(''):'Tap or drag across letters';
+}
+function startTrailSelection(i,pointerId=null){
+  trailDragging=true;trailPointerId=pointerId;
+  if(trailPath.length&&canExtendTrail(i))trailPath.push(i);else trailPath=[i];
+  paintTrailSelection();
+}
+function stopTrailSelection(){trailDragging=false;trailPointerId=null}
+function trailGestureCandidate(x,y){
+  if(!trailPath.length)return null;
+  const cells=[...$('#trailGrid').querySelectorAll('.trail-cell')],current=trailPath.at(-1),from=cells[current];if(!from)return null;
+  const fr=from.getBoundingClientRect(),fx=fr.left+fr.width/2,fy=fr.top+fr.height/2,dx=x-fx,dy=y-fy,travel=Math.hypot(dx,dy);
+  if(travel<Math.min(fr.width,fr.height)*.24)return null;
+  const previous=trailPath.length>1?trailPath.at(-2):null;let best=null;
+  for(let i=0;i<cells.length;i++){
+    if(i!==previous&&(trailPath.includes(i)||!adjacent(current,i)))continue;if(i===previous&&!adjacent(current,i))continue;
+    const r=cells[i].getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,vx=cx-fx,vy=cy-fy,len=Math.hypot(vx,vy);if(!len)continue;
+    const dot=dx*vx+dy*vy,cos=dot/(travel*len),progress=dot/(len*len);
+    if(cos<.72||progress<.34)continue;
+    const centerDistance=Math.hypot(x-cx,y-cy)/len,score=cos*2+Math.min(progress,1.2)-centerDistance*.18;
+    if(!best||score>best.score)best={index:i,score};
+  }
+  return best?.index??null;
+}
+function extendTrailToward(x,y){
+  if(!trailDragging)return;
+  for(let step=0;step<3;step++){
+    const i=trailGestureCandidate(x,y);if(i===null)return;const previous=trailPath.length>1?trailPath.at(-2):null;
+    if(i===previous){trailPath.pop();paintTrailSelection();return}
+    if(!canExtendTrail(i))return;trailPath.push(i);paintTrailSelection();
+  }
+}
+function renderTrailGrid(){const g=$('#trailGrid');g.innerHTML='';daily.trail.grid.forEach((ch,i)=>{const b=document.createElement('button');b.type='button';b.dataset.index=String(i);b.className='trail-cell';b.textContent=ch;b.disabled=!day.trail.started||day.trail.done;g.appendChild(b)});paintTrailSelection()}
 function renderTrail(){
   const s=day.trail;$('#trailFound').textContent=s.words.length;$('#trailScore').textContent=s.score.toLocaleString();$('#trailBest').textContent=s.best||'—';$('#trailIntro').hidden=s.started;$('#trailPlay').hidden=!s.started;$('#trailWords').innerHTML=s.words.map(w=>`<span class="found-word">${w}</span>`).join('');if(s.started&&!s.done)$('#trailTimer').textContent=fmtTime(remainingTrail());
   if(s.done){$('#trailTimer').textContent='0:00';const msg=$('#trailMessage');msg.className='message';msg.innerHTML=`Time — ${s.words.length} words, ${s.score.toLocaleString()} points.${s.longest?`<div class="solution-note">Longest possible word: <strong>${s.longest}</strong> (${s.longest.length})</div>`:''}`}
@@ -156,9 +215,11 @@ function renderTrail(){
 }
 async function finishTrail(){const s=day.trail;if(s.done&&s.longest){renderTrail();return}s.done=true;clearInterval(trailTick);trailPath=[];try{const r=await api('/api/trail/reveal',{finished:true});s.longest=r.longest||''}catch{}renderTrail()}
 $('#trailStart').addEventListener('click',()=>{const s=day.trail;if(s.started)return;s.started=true;s.deadline=Date.now()+daily.trail.seconds*1000;saveState();renderTrail();trailTick=setInterval(()=>{if(remainingTrail()<=0)finishTrail();else $('#trailTimer').textContent=fmtTime(remainingTrail())},250)});
-$('#trailGrid').addEventListener('pointerdown',e=>{const cell=e.target.closest('.trail-cell');if(!cell||!day.trail.started||day.trail.done)return;e.preventDefault();startTrailSelection(Number(cell.dataset.index))});
-$('#trailGrid').addEventListener('pointermove',e=>{if(!trailDragging||!day.trail.started||day.trail.done)return;const cell=trailCellAtPoint(e.clientX,e.clientY);if(!cell||!$('#trailGrid').contains(cell))return;e.preventDefault();extendTrailSelection(Number(cell.dataset.index))});
-window.addEventListener('pointerup',stopTrailSelection);
+$('#trailGrid').addEventListener('pointerdown',e=>{const cell=e.target.closest('.trail-cell');if(!cell||!day.trail.started||day.trail.done)return;e.preventDefault();try{$('#trailGrid').setPointerCapture(e.pointerId)}catch{}startTrailSelection(Number(cell.dataset.index),e.pointerId)});
+$('#trailGrid').addEventListener('pointermove',e=>{if(!trailDragging||!day.trail.started||day.trail.done||(trailPointerId!==null&&e.pointerId!==trailPointerId))return;e.preventDefault();extendTrailToward(e.clientX,e.clientY)});
+$('#trailGrid').addEventListener('pointerup',e=>{if(trailPointerId===e.pointerId){try{$('#trailGrid').releasePointerCapture(e.pointerId)}catch{}stopTrailSelection()}});
+$('#trailGrid').addEventListener('pointercancel',stopTrailSelection);
+window.addEventListener('pointerup',e=>{if(trailDragging&&trailPointerId===e.pointerId)stopTrailSelection()});
 window.addEventListener('pointercancel',stopTrailSelection);
 $('#trailClear').addEventListener('click',()=>{trailPath=[];stopTrailSelection();renderTrailGrid()});
 $('#trailSubmit').addEventListener('click',async()=>{
@@ -259,8 +320,8 @@ function renderArchive(){
 }
 const help={
   letter:'<h2>Letter Grid</h2><p>Guess a 5–10 letter word in six tries. Green is the right letter in the right place; gold is the right letter in the wrong place. Longer words score more. If you miss it, the answer is revealed.</p>',
-  groups:'<h2>Four Groups</h2><p>Select four words with a shared connection. Find all four before making four mistakes. If you run out of mistakes, every remaining solution is revealed.</p>',
-  trail:'<h2>Letter Trail</h2><p>Trace any dictionary English word of at least three letters by tapping or dragging through touching tiles. Horizontal, vertical, and diagonal moves count; a tile cannot repeat inside one word. Every valid word scores. When time expires, Clue Morning reveals only the longest possible word on the board.</p>',
+  groups:'<h2>Four Groups</h2><p>Select four words with a shared connection. Find all four before making four mistakes. Solved groups are color-coded from Easy through Tricky, and the completed board shows its overall set difficulty.</p>',
+  trail:'<h2>Letter Trail</h2><p>Trace any dictionary English word of at least three letters by tapping or smoothly dragging toward touching tiles. Horizontal, vertical, and diagonal moves count; a tile cannot repeat inside one word. Drag back one tile to correct a path. Every valid word scores.</p>',
   link:'<h2>Triple Link</h2><p>One word makes a familiar phrase or compound with all three clues. You get three guesses. If you miss, the answer and all three completed links are revealed.</p>',
   steps:'<h2>Word Steps</h2><p>Start with one four-letter word and reach the target by changing exactly one letter at a time. Every intermediate step must be a recognized word. You can undo moves; solve within eight moves for points.</p>',
   deepcut:'<h2>Deep Cut</h2><p>Eight quick open-answer trivia prompts. You get 25 seconds for each one and one answer per prompt. Correct answers score from 30 to 100 points: familiar answers score less, while less-obvious valid answers score more.</p>'
