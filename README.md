@@ -1,4 +1,4 @@
-# Clue Morning v2.6.2 — Eight-Topic Deep Cut
+# Clue Morning v2.6.3 — Interaction Polish
 
 Clue Morning is a six-game daily word and logic site for `cluemorning.com`. Everyone receives the same official daily set on the Pacific-time schedule.
 
@@ -10,6 +10,12 @@ Clue Morning is a six-game daily word and logic site for `cluemorning.com`. Ever
 - Triple Link — one word completes three clues.
 - Word Steps — four-letter word ladder with a verified shortest path.
 - Deep Cut — eight open-answer trivia prompts, 25 seconds each; less-obvious accepted answers score more.
+
+## v2.6.3 interaction polish
+
+- Letter Trail drag selection is smoother and directional so a finger moving toward a diagonal/adjacent letter is less likely to snap onto a side tile. Dragging back over the prior tile also backs up one letter.
+- Four Groups solved categories now show color-coded difficulty levels (Easy, Medium, Hard, Tricky), and the overall set difficulty is shown after completion.
+- Letter Grid now writes the current typed guess directly into the active row so the player can see exactly how many letters are filled before submitting.
 
 ## Deep Cut
 
@@ -27,7 +33,7 @@ The browser receives only prompt IDs/text. Accepted answer lists stay in the Wor
 
 ## Leaderboard
 
-Daily completion and automatic posting now use all six current games. Existing D1 tables keep the old `lineup_score` column for backward compatibility and add `deepcut_score` automatically.
+Daily completion and automatic posting use all six current games. Existing D1 tables keep the old `lineup_score` column for backward compatibility and add `deepcut_score` automatically.
 
 ## Content rebuild
 
@@ -43,4 +49,4 @@ This rebuilds the 365-day schedule, Trail solutions, Word Steps, Deep Cut daily 
 
 Production deploys from the `main` branch through Cloudflare's native Git integration. The configured build step ensures the D1 leaderboard binding exists, applies `schema.sql`, and runs the test suite before `npx wrangler deploy` publishes the Worker.
 
-After deployment, `/api/health` should report version `2.6.2`, `leaderboard: true`, `wordSteps: 365`, `deepCutPrompts: 107`, and `deepCutDailySets: 365`.
+After deployment, `/api/health` should report version `2.6.3`, `leaderboard: true`, `wordSteps: 365`, `deepCutPrompts: 107`, and `deepCutDailySets: 365`.
