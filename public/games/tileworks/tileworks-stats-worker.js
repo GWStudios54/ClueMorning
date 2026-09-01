@@ -1,4 +1,4 @@
-importScripts('/games/tileworks/tileworks-ai-worker.js');
+importScripts('/games/tileworks/tileworks-ai-worker.js?v=2');
 
 onmessage=async e=>{
   const d=e.data||{};
