@@ -29,11 +29,11 @@
     const count=$('#dailyRunCount');if(!count)return;
     const m=String(count.textContent||'0/8').match(/(\d+)/),done=Math.min(7,Number(m?.[1]||0));
     const desired=`${done}/7`;if(count.textContent!==desired)count.textContent=desired;
-    const fill=$('#dailyRunFill');if(fill)fill.style.width=`${Math.min(100,(done/7)*100)}%`;
-    const final=$('.daily-run-chip[data-run-at="8"]');if(final){final.dataset.runAt='7';const small=final.querySelector('small');if(small)small.textContent='all daily games';final.classList.toggle('earned',done>=7)}
+    const fill=$('#dailyRunFill'),width=`${Math.min(100,(done/7)*100)}%`;if(fill&&fill.style.width!==width)fill.style.width=width;
+    const final=$('.daily-run-chip[data-run-at="8"],.daily-run-chip[data-run-at="7"]');if(final){if(final.dataset.runAt!=='7')final.dataset.runAt='7';const small=final.querySelector('small');if(small&&small.textContent!=='all daily games')small.textContent='all daily games';final.classList.toggle('earned',done>=7)}
     const mid=$('.daily-run-chip[data-run-at="4"]');if(mid)mid.classList.toggle('earned',done>=4);
     const first=$('.daily-run-chip[data-run-at="2"]');if(first)first.classList.toggle('earned',done>=2);
-    const name=$('#dailyRunName');if(name){name.textContent=done>=7?'Super streak complete.':done>=4?'Hot streak. Keep going.':done>=2?'Streak alive.': 'Build your run.'}
+    const name=$('#dailyRunName'),label=done>=7?'Super streak complete.':done>=4?'Hot streak. Keep going.':done>=2?'Streak alive.':'Build your run.';if(name&&name.textContent!==label)name.textContent=label;
   }
 
   function fixCopy(){
