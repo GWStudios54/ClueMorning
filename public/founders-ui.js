@@ -11,18 +11,35 @@
     const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
     for(const n of nodes)if(n.nodeValue.includes(from))n.nodeValue=n.nodeValue.split(from).join(to);
   };
+  const goTileworks=()=>{location.href='/games/tileworks/'};
+  const tileworksNav=()=>{
+    const nav=$('.tabs');
+    if(!nav||nav.querySelector('[data-tileworks-tab]'))return;
+    const b=document.createElement('button');b.type='button';b.className='tab tileworks-nav-tab';b.dataset.tileworksTab='1';b.setAttribute('aria-label','Open Tileworks');
+    b.innerHTML='<span class="tileworks-tab-icon" aria-hidden="true">T<small>4</small></span><span>Tileworks</span>';
+    b.addEventListener('click',goTileworks);
+    const founderTab=$('#unlimitedTab'),leaders=nav.querySelector('[data-tab="leaders"]');
+    nav.insertBefore(b,founderTab||leaders||null);
+  };
+  const homeTileworks=()=>{
+    const grid=$('#today .game-cards');
+    if(!grid||grid.querySelector('[data-tileworks-home]'))return;
+    const b=document.createElement('button');b.type='button';b.className='game-card tileworks-home-card';b.dataset.tileworksHome='1';
+    b.innerHTML='<div class="game-icon tileworks-mark" aria-hidden="true"><span>T</span><small>4</small></div><div class="game-copy"><span class="game-label">FULL WORD BOARD</span><h3>Tileworks</h3><p>Play a full 15×15 match against Aarin, Scarlet, Mia, or Annie.</p></div><span class="game-status">PLAY</span>';
+    b.addEventListener('click',goTileworks);grid.appendChild(b);
+  };
   const tileworksCard=()=>{
     const grid=$('#unlimitedLibraryGrid .game-cards');
     if(!grid||grid.querySelector('[data-founders-tileworks]'))return;
     const b=document.createElement('button');b.type='button';b.className='game-card founders-tileworks-card';b.dataset.foundersTileworks='1';
     b.innerHTML='<div class="game-icon tileworks-mark" aria-hidden="true"><span>T</span><small>4</small></div><div class="game-copy"><span class="game-label">FOUNDERS WORD BOARD</span><h3>Tileworks</h3><p>Classic 15×15 plus every alternate-board pack.</p></div><span class="game-status">PLAY</span>';
-    b.addEventListener('click',()=>location.href='/games/tileworks/');grid.appendChild(b);
+    b.addEventListener('click',goTileworks);grid.appendChild(b);
   };
   const archiveTileworks=()=>{
     const archive=$('#archive');if(!archive||archive.querySelector('[data-tileworks-pack]'))return;
     const card=document.createElement('div');card.className='pack-preview tileworks-pack-preview';card.dataset.tileworksPack='1';
     card.innerHTML='<span class="game-label">WORD BOARD GAME</span><h3>Tileworks</h3><p>Play a full crossword-tile match against Aarin, Scarlet, Mia, or Annie. The standard 15×15 board is the core game; alternate board sizes are content-pack extras and are included with Founders.</p><button class="secondary-button inverted" type="button"><span class="tileworks-button-mark">T</span><span>Play Tileworks</span></button>';
-    card.querySelector('button').addEventListener('click',()=>location.href='/games/tileworks/');
+    card.querySelector('button').addEventListener('click',goTileworks);
     const founderCard=archive.querySelector('.unlimited-access-card');archive.insertBefore(card,founderCard||null);
   };
   const unlimitedPreview=()=>{
@@ -32,7 +49,7 @@
     archive.appendChild(card);
   };
   const rewrite=()=>{
-    addStyle();
+    addStyle();tileworksNav();homeTileworks();
     setText($('#unlimitedTab span'),'Founders');
     const access=$('.unlimited-access-card');
     if(access){
