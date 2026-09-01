@@ -1,5 +1,6 @@
 (()=>{
   const nativeFetch=window.fetch.bind(window);
+  const NativeWorker=window.Worker;
   const TWO_LETTER_URL='/games/tileworks/tileworks-two-letter.txt';
 
   function isTrailLexicon(input){
@@ -25,4 +26,18 @@
       headers:base.headers
     });
   };
+
+  window.Worker=function(input,options){
+    let url=input;
+    try{
+      const parsed=new URL(typeof input==='string'?input:input?.url,window.location.href);
+      if(parsed.pathname==='/games/tileworks/tileworks-ai-worker.js'){
+        parsed.searchParams.set('v','3');
+        url=parsed.href;
+      }
+    }catch{}
+    return new NativeWorker(url,options);
+  };
+  window.Worker.prototype=NativeWorker.prototype;
+  Object.setPrototypeOf(window.Worker,NativeWorker);
 })();
