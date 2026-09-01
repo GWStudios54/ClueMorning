@@ -1,5 +1,9 @@
 .tileworks-mark{position:relative;display:grid;place-items:center;background:linear-gradient(145deg,#ead5aa,#cba56b)!important;color:#3e2e1c!important;border:1px solid rgba(80,55,25,.2)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.65),0 5px 12px rgba(60,40,20,.12)}
 .tileworks-mark span{font:800 2rem/1 Georgia,serif}.tileworks-mark small{position:absolute;right:9px;bottom:7px;font:800 .68rem/1 system-ui,sans-serif}
+.tileworks-tab-icon{position:relative;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:5px;background:linear-gradient(145deg,#ead5aa,#cba56b);color:#3e2e1c;font:800 1rem/1 Georgia,serif;box-shadow:inset 0 1px 0 rgba(255,255,255,.6)}
+.tileworks-tab-icon small{position:absolute;right:2px;bottom:2px;font:800 .43rem/1 system-ui,sans-serif}
 .tileworks-button-mark{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:5px;background:#d7b77f;color:#3f2e1d;font-weight:900;box-shadow:inset 0 1px 0 rgba(255,255,255,.55)}
-.tileworks-pack-preview{border-color:color-mix(in srgb,#cba56b 40%,var(--line));background:linear-gradient(145deg,color-mix(in srgb,var(--paper2) 88%,#d7b77f),var(--paper2))}
+.tileworks-pack-preview{border-color:color-mix(in srgb,#cba56b 40%,var(--line));background:linear-gradient(145deg,#f4ead7,#ead8b8)!important;color:#302a22!important}
+.tileworks-pack-preview .game-label{color:#6c583a!important}.tileworks-pack-preview h3{color:#302a22!important}.tileworks-pack-preview p{color:#5e554b!important}.tileworks-pack-preview .secondary-button.inverted{border-color:#d7bd91!important;background:linear-gradient(180deg,#fffaf0,#ead8b8)!important;color:#302a22!important;opacity:1!important;box-shadow:0 7px 16px rgba(71,51,27,.12),inset 0 1px 0 rgba(255,255,255,.8)!important}
+.tileworks-home-card{border-color:color-mix(in srgb,#cba56b 30%,var(--line))}.tileworks-home-card:hover{border-color:#cba56b}
 .premium-tier-preview{border-style:dashed}.premium-tier-preview h3{display:flex;align-items:center;gap:8px}.premium-tier-preview h3::after{content:'∞';font:700 1.5em/1 Georgia,serif;opacity:.55}
