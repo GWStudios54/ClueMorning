@@ -1,0 +1,21 @@
+/* Last Call — daily push-your-luck knowledge game */
+.lastcall-icon .icon{width:34px;height:34px;color:color-mix(in srgb,var(--sun) 48%,var(--muted));stroke-width:1.7}
+.lastcall-tab-icon{width:1.05em;height:1.05em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.lastcall-table{width:min(760px,100%);margin:18px auto 0;padding:clamp(18px,4vw,28px);border:1px solid color-mix(in srgb,var(--line) 90%,white);border-radius:24px;background:linear-gradient(180deg,color-mix(in srgb,var(--card) 90%,white),var(--card));box-shadow:var(--shadow)}
+.lastcall-category{display:inline-flex;align-items:center;gap:7px;margin-bottom:8px;font-size:.68rem;font-weight:900;letter-spacing:.15em;color:var(--muted)}
+.lastcall-category::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--sun)}
+.lastcall-table h3{font-size:clamp(1.55rem,5vw,2.35rem);line-height:1.05;margin:.1rem 0 .55rem}
+.lastcall-table>p{margin:.2rem 0 0;color:var(--muted);line-height:1.5}
+.lastcall-pot{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin:18px 0 14px;padding:13px 15px;border:1px solid var(--line);border-radius:15px;background:var(--paper2)}
+.lastcall-pot span{display:block;font-size:.67rem;font-weight:900;letter-spacing:.1em;color:var(--muted)}
+.lastcall-pot strong{display:block;font:800 1.85rem/1 Georgia,serif;margin-top:3px}.lastcall-pot small{max-width:280px;color:var(--muted);text-align:right;line-height:1.35}
+.lastcall-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:12px}
+.lastcall-option{min-height:76px;padding:12px 11px;border:1px solid color-mix(in srgb,var(--line) 92%,white);border-radius:14px;background:linear-gradient(180deg,color-mix(in srgb,var(--card) 88%,white),var(--card));color:var(--ink);font-weight:850;line-height:1.2;text-align:center;box-shadow:var(--shadow-soft);transition:transform .12s ease,border-color .12s ease,background .12s ease}
+.lastcall-option:hover:not(:disabled){transform:translateY(-1px);border-color:color-mix(in srgb,var(--sun) 38%,var(--line))}.lastcall-option:disabled{opacity:1;cursor:default}
+.lastcall-option.picked-safe,.lastcall-option.reveal-safe{border-color:color-mix(in srgb,var(--green) 62%,var(--line));background:color-mix(in srgb,var(--green2) 72%,var(--card));color:color-mix(in srgb,var(--green) 78%,var(--ink))}
+.lastcall-option.reveal-fake{opacity:.55;text-decoration:line-through}.lastcall-option.bust{opacity:1;border-color:color-mix(in srgb,var(--danger) 70%,var(--line));background:color-mix(in srgb,var(--danger) 12%,var(--card));color:var(--danger);text-decoration:none;animation:lastcall-bust .24s ease}
+.lastcall-option.picked-safe::after{content:' ✓';font-weight:1000}.lastcall-option.reveal-safe:not(.picked-safe)::after{content:' · SAFE';font-size:.62rem;letter-spacing:.05em}.lastcall-option.reveal-fake::after{content:' · BUST';font-size:.62rem;letter-spacing:.05em}
+.lastcall-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:16px}.lastcall-actions button{min-width:150px}.lastcall-bank-value{font-weight:950}.lastcall-message{width:min(760px,100%);margin:10px auto}.lastcall-risk-note{margin:13px 0 0!important;font-size:.8rem;text-align:center;color:var(--muted)}
+@keyframes lastcall-bust{0%{transform:scale(1)}45%{transform:scale(.97)}100%{transform:scale(1)}}
+@media(max-width:680px){.lastcall-options{grid-template-columns:repeat(2,minmax(0,1fr))}.lastcall-option{min-height:68px;padding:10px 8px;font-size:.88rem}.lastcall-pot{align-items:flex-start}.lastcall-pot small{font-size:.7rem}.lastcall-actions{display:grid;grid-template-columns:1fr}.lastcall-actions button{width:100%}}
+@media(prefers-reduced-motion:reduce){.lastcall-option{transition:none}.lastcall-option.bust{animation:none}}
