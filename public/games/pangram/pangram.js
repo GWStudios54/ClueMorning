@@ -25,10 +25,10 @@ function submitWord(word){
 function reveal(){if(!puzzle)return;revealed=true;dragController.clear();const box=$('#answerList');box.innerHTML='';answers.forEach(word=>{const span=document.createElement('span');span.textContent=`${found.has(word)?'✓ ':'• '}${word}${isPangram(word,puzzle.letters)?' ★':''}`;box.appendChild(span)});box.classList.add('open');$('#revealBtn').textContent='Answers revealed';$('#revealBtn').disabled=true;setMessage(`Board closed. You found ${found.size} of ${answers.length}.`)}
 async function newPuzzle(){
   setMessage('Building a new seven-letter set…');$('#revealBtn').disabled=true;dragController.clear();
-  try{puzzle=await pickPuzzle('pangram',previous);previous=puzzle.anchor;center=puzzle.center;answers=answersFor(puzzle,center);answerSet=new Set(answers);found=new Set();score=0;pangrams=0;revealed=false;$('#answerList').classList.remove('open');$('#answerList').innerHTML='';$('#revealBtn').disabled=false;$('#revealBtn').textContent='Reveal answers';buildWheel();render();setMessage(`Center letter ${center} is required. Drag through letters, then release to submit.`)}catch(err){setMessage(err?.message||'Could not load the word board.','bad')}
+  try{puzzle=await pickPuzzle('pangram',previous);previous=puzzle.anchor;center=puzzle.center;answers=answersFor(puzzle,center);answerSet=new Set(answers);found=new Set();score=0;pangrams=0;revealed=false;$('#answerList').classList.remove('open');$('#answerList').innerHTML='';$('#revealBtn').disabled=false;$('#revealBtn').textContent='Reveal answers';buildWheel();render();setMessage(`Center letter ${center} is required. Tap letters then Submit, or drag and release.`)}catch(err){setMessage(err?.message||'Could not load the word board.','bad')}
 }
 
-const dragController=createDragWheel({wheel:$('#letterWheel'),readout:$('#dragWord'),onSubmit:submitWord,canDrag:()=>!!puzzle&&!revealed});
+const dragController=createDragWheel({wheel:$('#letterWheel'),readout:$('#dragWord'),onSubmit:submitWord,canDrag:()=>!!puzzle&&!revealed,submitButton:$('#tapSubmitBtn'),clearButton:$('#tapClearBtn')});
 $('#shuffleBtn').addEventListener('click',()=>{if(puzzle){buildWheel();dragController.clear()}});
 $('#newBtn').addEventListener('click',newPuzzle);$('#revealBtn').addEventListener('click',reveal);
 newPuzzle();
