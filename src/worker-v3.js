@@ -20,8 +20,14 @@ async function injectFoundersUi(response){
   const type=response.headers.get("content-type")||"";
   if(!type.includes("text/html"))return response;
   let html=await response.text();
+  if(!html.includes("/daily-presentation-fix.css")){
+    html=html.replace("</head>",'<link rel="stylesheet" href="/daily-presentation-fix.css?v=1"></head>');
+  }
   if(!html.includes("/founders-ui.js")){
     html=html.replace("</body>",'<script src="/founders-ui.js" defer></script></body>');
+  }
+  if(!html.includes("/daily-presentation-fix.js")){
+    html=html.replace("</body>",'<script src="/daily-presentation-fix.js?v=1" defer></script></body>');
   }
   const headers=new Headers(response.headers);
   headers.set("Cache-Control","no-store, max-age=0, must-revalidate");
