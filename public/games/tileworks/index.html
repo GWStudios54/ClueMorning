@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f7f1e5">
+  <title>Tileworks — Clue Morning</title>
+  <meta name="description" content="Tileworks is Clue Morning's full crossword tile board game. Play against four AI opponents from Beginner to Grandmaster.">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/games/tileworks/tileworks.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="back" href="/">← Clue Morning</a>
+    <div class="wordmark"><span class="logo-tile">T<small>4</small></span><div><strong>Tileworks</strong><small>Crossword board game</small></div></div>
+    <span id="tierBadge" class="tier-badge">BASE GAME</span>
+  </header>
+
+  <main>
+    <section id="setup" class="setup-card">
+      <div class="setup-copy">
+        <span class="kicker">FULL MATCH</span>
+        <h1>Build the board. Beat the table.</h1>
+        <p>Seven tiles. One shared bag. Premium squares, exchanges, passes, cross-words, rack bonuses, and a real opponent. The standard board is the core game; alternate sizes are content-pack boards.</p>
+      </div>
+
+      <div class="setup-grid">
+        <fieldset>
+          <legend>Opponent</legend>
+          <label class="choice"><input type="radio" name="difficulty" value="beginner"><span><b>Aarin</b><small>Beginner · forgiving vocabulary and plenty of missed opportunities.</small></span></label>
+          <label class="choice"><input type="radio" name="difficulty" value="standard" checked><span><b>Scarlet</b><small>Standard · competent board play and solid rack management.</small></span></label>
+          <label class="choice"><input type="radio" name="difficulty" value="hard"><span><b>Mia</b><small>Hard · aggressive premiums, strong hooks, and very few wasted turns.</small></span></label>
+          <label class="choice danger-choice"><input type="radio" name="difficulty" value="grandmaster"><span><b>Annie</b><small>Grandmaster · exhaustive move search, full dictionary, ruthless rack leave, and no mercy.</small></span></label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Board</legend>
+          <label class="choice"><input type="radio" name="boardSize" value="15" checked><span><b>Standard · 15×15</b><small>The complete core Tileworks match. 100-tile bag.</small></span></label>
+          <label class="choice pack-choice" data-pack-board="11"><input type="radio" name="boardSize" value="11"><span><b>Compact · 11×11</b><small>Alternate Boards Pack · 72-tile bag.</small></span><em>PACK</em></label>
+          <label class="choice pack-choice" data-pack-board="9"><input type="radio" name="boardSize" value="9"><span><b>Pocket · 9×9</b><small>Alternate Boards Pack · 55-tile bag.</small></span><em>PACK</em></label>
+          <label class="choice pack-choice" data-pack-board="19"><input type="radio" name="boardSize" value="19"><span><b>Grand · 19×19</b><small>Alternate Boards Pack · 140-tile bag.</small></span><em>PACK</em></label>
+          <div id="packNote" class="pack-note">Founders automatically own every Tileworks content pack.</div>
+        </fieldset>
+      </div>
+
+      <div id="dictionaryState" class="loading">Loading word library…</div>
+      <div class="setup-actions">
+        <button id="resumeBtn" class="secondary" type="button" hidden>Resume match</button>
+        <button id="startBtn" class="primary" type="button" disabled>Start match</button>
+      </div>
+    </section>
+
+    <section id="game" class="game-shell" hidden>
+      <div class="scorebar">
+        <div class="player-score active-side" id="playerScoreCard"><span>You</span><strong id="playerScore">0</strong><small id="playerRackCount">7 tiles</small></div>
+        <div class="match-center"><span id="turnLabel">Your turn</span><strong id="bagCount">86</strong><small>tiles in bag</small></div>
+        <div class="player-score" id="aiScoreCard"><span id="aiName">Scarlet</span><strong id="aiScore">0</strong><small id="aiLevel">Standard</small></div>
+      </div>
+
+      <div class="board-wrap">
+        <div id="board" class="board" role="grid" aria-label="Tileworks board"></div>
+      </div>
+
+      <div class="rack-zone">
+        <div class="rack-head"><span>Your rack</span><div class="direction"><button id="directionBtn" type="button">Across →</button></div></div>
+        <div id="rack" class="rack" aria-label="Your tile rack"></div>
+      </div>
+
+      <div id="message" class="message">Place a word through the center star.</div>
+      <div id="preview" class="preview" hidden></div>
+
+      <div class="controls">
+        <button id="recallBtn" type="button">Recall</button>
+        <button id="shuffleBtn" type="button">Shuffle rack</button>
+        <button id="exchangeBtn" type="button">Exchange</button>
+        <button id="passBtn" type="button">Pass</button>
+        <button id="playBtn" class="primary" type="button">Play tiles</button>
+      </div>
+
+      <details class="rules">
+        <summary>Rules & scoring</summary>
+        <p>Words read left-to-right or top-to-bottom. The first play must cover the center star; later plays must connect to the board. Newly covered DL/TL squares multiply that tile, and DW/TW squares multiply the word. Using all seven rack tiles in one turn earns a 50-point rack bonus. The match ends when a rack empties after the bag is exhausted, or after six consecutive scoreless turns. Remaining rack values are deducted at the end.</p>
+      </details>
+    </section>
+
+    <dialog id="resultDialog">
+      <div class="result-card"><span class="kicker">MATCH COMPLETE</span><h2 id="resultTitle">You win.</h2><p id="resultText"></p><div class="result-scores"><span>You <b id="resultPlayer">0</b></span><span id="resultAiName">Scarlet <b id="resultAi">0</b></span></div><div class="result-actions"><button id="rematchBtn" class="primary" type="button">Rematch</button><button id="setupBtn" class="secondary" type="button">Change setup</button></div></div>
+    </dialog>
+  </main>
+
+  <script type="module" src="/games/tileworks/tileworks.js"></script>
+</body>
+</html>
