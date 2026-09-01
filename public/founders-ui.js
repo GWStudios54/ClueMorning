@@ -1,5 +1,6 @@
 (()=>{
   const $=s=>document.querySelector(s);
+  const setText=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value};
   const addStyle=()=>{
     if(document.querySelector('link[href="/founders-ui.css"]'))return;
     const l=document.createElement('link');l.rel='stylesheet';l.href='/founders-ui.css';document.head.appendChild(l);
@@ -32,26 +33,26 @@
   };
   const rewrite=()=>{
     addStyle();
-    const tab=$('#unlimitedTab span');if(tab)tab.textContent='Founders';
+    setText($('#unlimitedTab span'),'Founders');
     const access=$('.unlimited-access-card');
     if(access){
-      const label=access.querySelector('.game-label');if(label)label.textContent='FOUNDERS ACCESS';
-      const h=access.querySelector('h3');if(h)h.textContent='Clue Morning Founders';
-      const p=access.querySelector('p');if(p)p.textContent='Permanent legacy access for the people who were here early. Founders get the reserve library, every content pack, alternate game modes and boards, and permanent Founder rewards.';
-      const submit=access.querySelector('#unlimitedForm button span');if(submit)submit.textContent='Unlock Founders';
-      const open=access.querySelector('#openUnlimitedButton span');if(open)open.textContent='Open Founders Library';
+      setText(access.querySelector('.game-label'),'FOUNDERS ACCESS');
+      setText(access.querySelector('h3'),'Clue Morning Founders');
+      setText(access.querySelector('p'),'Permanent legacy access for the people who were here early. Founders get the reserve library, every content pack, alternate game modes and boards, and permanent Founder rewards.');
+      setText(access.querySelector('#unlimitedForm button span'),'Unlock Founders');
+      setText(access.querySelector('#openUnlimitedButton span'),'Open Founders Library');
       replaceText(access,'UNLIMITED ACTIVE','FOUNDERS ACTIVE');replaceText(access,'Unlimited is ready','Founders is ready');
     }
     const panel=$('#unlimited');
     if(panel){
-      const kicker=panel.querySelector('.date-kicker');if(kicker)kicker.textContent='CLUE MORNING FOUNDERS';
-      const title=panel.querySelector('.today-hero h2');if(title)title.textContent='The whole library.';
-      const intro=panel.querySelector('.today-hero p');if(intro)intro.textContent='Founders get permanent access to the reserve library and every content pack we release. Pick a game and keep going without touching tomorrow’s set.';
-      const gateH=panel.querySelector('#unlimitedLibraryGate h3');if(gateH)gateH.textContent='Founders is locked on this browser.';
-      const gateP=panel.querySelector('#unlimitedLibraryGate p');if(gateP)gateP.textContent='Activate your Founder code once, then the complete library stays ready here.';
-      const gateB=panel.querySelector('#unlimitedGoActivate span');if(gateB)gateB.textContent='Go to Founder activation';
-      panel.querySelectorAll('.game-label').forEach(el=>el.textContent=el.textContent.replace(/^UNLIMITED\b/,'FOUNDERS'));
-      const ritual=panel.querySelector('.ritual-card strong');if(ritual)ritual.textContent='Founders play stays separate from the daily game.';
+      setText(panel.querySelector('.date-kicker'),'CLUE MORNING FOUNDERS');
+      setText(panel.querySelector('.today-hero h2'),'The whole library.');
+      setText(panel.querySelector('.today-hero p'),'Founders get permanent access to the reserve library and every content pack we release. Pick a game and keep going without touching tomorrow’s set.');
+      setText(panel.querySelector('#unlimitedLibraryGate h3'),'Founders is locked on this browser.');
+      setText(panel.querySelector('#unlimitedLibraryGate p'),'Activate your Founder code once, then the complete library stays ready here.');
+      setText(panel.querySelector('#unlimitedGoActivate span'),'Go to Founder activation');
+      panel.querySelectorAll('.game-label').forEach(el=>{const next=el.textContent.replace(/^UNLIMITED\b/,'FOUNDERS');if(next!==el.textContent)el.textContent=next});
+      setText(panel.querySelector('.ritual-card strong'),'Founders play stays separate from the daily game.');
       replaceText(panel,'Unlimited','Founders');
       tileworksCard();
     }
