@@ -19,8 +19,9 @@
 
   function dailyGrid(){
     const grid=$('#today .game-cards');if(!grid)return null;grid.classList.add('daily-game-grid');
-    // Keep the eight daily games in a deliberate order regardless of which enhancement script created them.
-    for(const [id] of DAILY){const card=grid.querySelector(selector(id));if(card)grid.appendChild(card)}
+    const ordered=DAILY.map(([id])=>grid.querySelector(selector(id))).filter(Boolean),current=[...grid.children].filter(el=>ordered.includes(el));
+    const alreadyOrdered=current.length===ordered.length&&current.every((el,i)=>el===ordered[i]);
+    if(!alreadyOrdered)for(const card of ordered)grid.appendChild(card);
     return grid;
   }
 
@@ -37,7 +38,7 @@
     if(!section){
       section=document.createElement('section');section.id='morePlaySection';section.className='more-play-section';
       section.innerHTML='<div class="more-play-heading"><div><span>MORE TO PLAY</span><h2>Stay at the table.</h2></div><p>The daily set ends. Tileworks doesn\'t.</p></div><div class="more-play-grid"></div>';
-      const strip=$('#today .score-strip');const ritual=$('#today .ritual-card');
+      const strip=$('#today .score-strip'),ritual=$('#today .ritual-card');
       if(strip)strip.after(section);else if(ritual)ritual.before(section);else $('#today')?.appendChild(section);
     }
     const target=section.querySelector('.more-play-grid');if(target&&tile.parentElement!==target)target.appendChild(tile);
@@ -47,27 +48,19 @@
     const total=$('#today .daily-total');if(!total)return;
     let el=total.querySelector('.hero-complete');if(!el){el=document.createElement('div');el.className='hero-complete';el.innerHTML='<i></i><span>0 of 8 complete</span>';total.appendChild(el)}
     const run=$('#dailyRunCount'),m=String(run?.textContent||'0/8').match(/(\d+)\s*\/\s*(\d+)/),done=Math.max(0,Math.min(8,Number(m?.[1]||0)));
-    const label=el.querySelector('span');if(label)label.textContent=`${done} of 8 complete`;
+    const label=el.querySelector('span'),next=`${done} of 8 complete`;if(label&&label.textContent!==next)label.textContent=next;
   }
 
   function completionStates(){
     const grid=$('#today .game-cards');if(!grid)return;
     for(const [id,name] of DAILY){
       const card=grid.querySelector(selector(id));if(!card)continue;const status=card.querySelector('.game-status');
-      const done=!!status&&(status.classList.contains('done')||/DONE/i.test(status.textContent||''));card.classList.toggle('presentation-complete',done);card.setAttribute('aria-label',`${name}${done?' — complete':''}`);
+      const done=!!status&&(status.classList.contains('done')||/DONE/i.test(status.textContent||''));card.classList.toggle('presentation-complete',done);const label=`${name}${done?' — complete':''}`;if(card.getAttribute('aria-label')!==label)card.setAttribute('aria-label',label);
     }
   }
 
-  function simplifyHeroCopy(){
-    const hero=$('#today .today-hero'),p=hero?.querySelector('p');if(p&&/Eight fresh puzzles are waiting/i.test(p.textContent||''))p.textContent='Eight games. One morning run.';
-  }
-
-  function run(){
-    document.body.classList.add('presentation-pass-v1');decorateNavigation();const grid=dailyGrid();dailyHeading(grid);morePlay();heroProgress();completionStates();simplifyHeroCopy();
-  }
+  function simplifyHeroCopy(){const p=$('#today .today-hero p');if(p&&/Eight fresh puzzles are waiting/i.test(p.textContent||''))p.textContent='Eight games. One morning run.'}
+  function run(){document.body.classList.add('presentation-pass-v1');decorateNavigation();const grid=dailyGrid();dailyHeading(grid);morePlay();heroProgress();completionStates();simplifyHeroCopy()}
   function queue(){if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;run()})}
-  run();
-  const obs=new MutationObserver(queue);obs.observe(document.body,{subtree:true,childList:true,characterData:true});
-  window.addEventListener('clue-lastcall-update',queue);
-  window.addEventListener('storage',queue);
+  run();const obs=new MutationObserver(queue);obs.observe(document.body,{subtree:true,childList:true,characterData:true});window.addEventListener('clue-lastcall-update',queue);window.addEventListener('storage',queue);
 })();
