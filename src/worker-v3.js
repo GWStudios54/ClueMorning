@@ -23,10 +23,12 @@ async function injectFoundersUi(response){
   if(!html.includes("/daily-presentation-fix.css"))html=html.replace("</head>",'<link rel="stylesheet" href="/daily-presentation-fix.css?v=2"></head>');
   if(!html.includes("/last-call.css"))html=html.replace("</head>",'<link rel="stylesheet" href="/last-call.css?v=1"></head>');
   if(!html.includes("/presentation-v1.css"))html=html.replace("</head>",'<link rel="stylesheet" href="/presentation-v1.css?v=1"></head>');
+  if(!html.includes("/social.css"))html=html.replace("</head>",'<link rel="stylesheet" href="/social.css?v=1"></head>');
   if(!html.includes("/founders-ui.js"))html=html.replace("</body>",'<script src="/founders-ui.js" defer></script></body>');
   if(!html.includes("/daily-presentation-fix.js"))html=html.replace("</body>",'<script src="/daily-presentation-fix.js?v=2" defer></script></body>');
   if(!html.includes("/last-call.js"))html=html.replace("</body>",'<script src="/last-call.js?v=1" defer></script></body>');
   if(!html.includes("/presentation-v1.js"))html=html.replace("</body>",'<script src="/presentation-v1.js?v=1" defer></script></body>');
+  if(!html.includes("/social.js"))html=html.replace("</body>",'<script src="/social.js?v=1" defer></script></body>');
   const headers=new Headers(response.headers);headers.set("Cache-Control","no-store, max-age=0, must-revalidate");headers.delete("content-length");return new Response(html,{status:response.status,statusText:response.statusText,headers})
 }
 
