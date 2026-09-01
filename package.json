@@ -1,12 +1,13 @@
 {
   "name": "clue-morning",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "test": "node test.mjs",
+    "test": "node test.mjs && node tools/audit-deep-cut-unlimited.mjs",
+    "audit:deepcut": "node tools/audit-deep-cut-unlimited.mjs",
     "rebuild:content": "node tools/rebuild_content.mjs"
   },
   "devDependencies": {
