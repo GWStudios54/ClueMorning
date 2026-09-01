@@ -12,12 +12,13 @@
 <body>
   <header class="topbar"><a class="back" href="/">← Clue Morning</a><span class="brand">MORE TO PLAY</span></header>
   <main>
-    <section class="hero"><div><span class="kicker">SEVEN LETTER WORD HUNT</span><h1>Pangram</h1><p>Drag through the seven letters to build words. Every word must use the center letter. Use all seven for the pangram bonus.</p></div><div class="hero-stat"><strong id="heroScore">0</strong><span>points</span></div></section>
+    <section class="hero"><div><span class="kicker">SEVEN LETTER WORD HUNT</span><h1>Pangram</h1><p>Tap or drag through the seven letters to build words. Every word must use the center letter. Use all seven for the pangram bonus.</p></div><div class="hero-stat"><strong id="heroScore">0</strong><span>points</span></div></section>
     <section class="game-layout">
       <div class="play-panel">
-        <div id="dragWord" class="drag-word" aria-live="polite">DRAG TO SPELL</div>
-        <div id="letterWheel" class="letter-wheel" aria-label="Drag across letters to spell a word"></div>
-        <div class="drag-hint">Drag across letters · release to submit · letters may be reused</div>
+        <div id="dragWord" class="drag-word" aria-live="polite">TAP OR DRAG</div>
+        <div id="letterWheel" class="letter-wheel" aria-label="Tap or drag across letters to spell a word"></div>
+        <div class="tap-actions"><button id="tapClearBtn" class="secondary compact" type="button" disabled>Clear</button><button id="tapSubmitBtn" class="primary compact" type="button" disabled>Submit</button></div>
+        <div class="drag-hint">Tap letters + Submit · or drag and release · letters may be reused</div>
         <div class="tools"><button id="shuffleBtn" class="secondary" type="button">Shuffle</button><button id="newBtn" class="secondary" type="button">New set</button></div>
         <div id="message" class="message" aria-live="polite">Loading the word board…</div>
       </div>
