@@ -6,14 +6,30 @@ const DEEP_CUT_SECONDS=25;
 const DEEP_CUT_ROUNDS=8;
 const TILE_VALUES={A:1,B:3,C:3,D:2,E:1,F:4,G:2,H:4,I:1,J:8,K:5,L:1,M:3,N:1,O:1,P:3,Q:10,R:1,S:1,T:1,U:1,V:4,W:4,X:8,Y:4,Z:10,"?":0};
 const SITUATIONS=[
-  {id:"stone-star",title:"Crossroads",words:[['STONE',4,2,'H'],['STAR',4,2,'V']],rack:"ELAND?S"},
-  {id:"light-lion",title:"Open Lanes",words:[['LIGHT',4,2,'H'],['LION',4,2,'V']],rack:"STARED?"},
-  {id:"cloud-cold",title:"Weather Front",words:[['CLOUD',4,2,'H'],['COLD',4,2,'V']],rack:"STORMY?"},
-  {id:"train-tree",title:"Junction",words:[['TRAIN',4,2,'H'],['TREE',4,2,'V']],rack:"SALEDR?"},
-  {id:"house-hero",title:"Home Field",words:[['HOUSE',4,2,'H'],['HERO',4,2,'V']],rack:"STARED?"},
-  {id:"water-warm",title:"High Water",words:[['WATER',4,2,'H'],['WARM',4,2,'V']],rack:"STONED?"},
-  {id:"brave-bird",title:"Wing Play",words:[['BRAVE',4,2,'H'],['BIRD',4,2,'V']],rack:"STONER?"},
-  {id:"dream-drop",title:"Late Position",words:[['DREAM',4,2,'H'],['DROP',4,2,'V']],rack:"STALER?"}
+  {id:"stone-star",title:"Crossroads",a:"STONE",b:"STAR",rack:"ELAND?S"},
+  {id:"light-lion",title:"Open Lanes",a:"LIGHT",b:"LION",rack:"STARED?"},
+  {id:"cloud-cold",title:"Weather Front",a:"CLOUD",b:"COLD",rack:"STORMY?"},
+  {id:"train-tree",title:"Junction",a:"TRAIN",b:"TREE",rack:"SALEDR?"},
+  {id:"house-hero",title:"Home Field",a:"HOUSE",b:"HERO",rack:"STARED?"},
+  {id:"water-warm",title:"High Water",a:"WATER",b:"WARM",rack:"STONED?"},
+  {id:"brave-bird",title:"Wing Play",a:"BRAVE",b:"BIRD",rack:"STONER?"},
+  {id:"dream-drop",title:"Late Position",a:"DREAM",b:"DROP",rack:"STALER?"},
+  {id:"pearl-park",title:"Corner Market",a:"PEARL",b:"PARK",rack:"STONES?"},
+  {id:"river-road",title:"River Bend",a:"RIVER",b:"ROAD",rack:"PLANTS?"},
+  {id:"magic-mint",title:"Split Decision",a:"MAGIC",b:"MINT",rack:"STARED?"},
+  {id:"field-fire",title:"Open Field",a:"FIELD",b:"FIRE",rack:"STONER?"},
+  {id:"grape-gold",title:"Gold Line",a:"GRAPE",b:"GOLD",rack:"STARED?"},
+  {id:"chair-camp",title:"Camp Seat",a:"CHAIR",b:"CAMP",rack:"STONER?"},
+  {id:"paper-park",title:"Paper Route",a:"PAPER",b:"PARK",rack:"STONES?"},
+  {id:"night-note",title:"Night Shift",a:"NIGHT",b:"NOTE",rack:"STARED?"},
+  {id:"ocean-only",title:"Edge Water",a:"OCEAN",b:"ONLY",rack:"STARED?"},
+  {id:"smile-star",title:"Bright Spot",a:"SMILE",b:"STAR",rack:"TONERD?"},
+  {id:"table-tree",title:"Table Line",a:"TABLE",b:"TREE",rack:"STONER?"},
+  {id:"world-wine",title:"Wide Open",a:"WORLD",b:"WINE",rack:"STARED?"},
+  {id:"youth-yard",title:"Back Yard",a:"YOUTH",b:"YARD",rack:"STONER?"},
+  {id:"money-moon",title:"Moon Shot",a:"MONEY",b:"MOON",rack:"STARED?"},
+  {id:"shore-soil",title:"Shore Leave",a:"SHORE",b:"SOIL",rack:"TREADS?"},
+  {id:"tiger-town",title:"Town Square",a:"TIGER",b:"TOWN",rack:"STARED?"}
 ];
 let LOCK_CODES=null;
 
@@ -39,9 +55,9 @@ function situationBonuses(size=9){
   put('tw',[[0,0],[0,4],[0,8],[4,0],[4,8],[8,0],[8,4],[8,8]]);put('dw',[[1,1],[1,7],[2,2],[2,6],[6,2],[6,6],[7,1],[7,7]]);put('tl',[[1,4],[4,1],[4,7],[7,4]]);put('dl',[[0,2],[0,6],[2,0],[2,4],[2,8],[4,2],[4,6],[6,0],[6,4],[6,8],[8,2],[8,6]]);return map
 }
 function situationForDate(date){
-  const size=9,t=SITUATIONS[hashString(`situation:${date}`)%SITUATIONS.length],cells=new Map();
-  for(const [word,row,col,dir] of t.words){for(let p=0;p<word.length;p++){const r=row+(dir==='V'?p:0),c=col+(dir==='H'?p:0),i=r*size+c,ch=word[p],prev=cells.get(i);if(prev&&prev!==ch)throw new Error('Situation template conflict.');cells.set(i,ch)}}
-  const board=[...cells].sort((a,b)=>a[0]-b[0]).map(([index,letter])=>({index,letter,value:TILE_VALUES[letter]||0}));const rack=[...t.rack].map(letter=>({letter,value:TILE_VALUES[letter]||0,blank:letter==='?'}));return {id:t.id,title:t.title,size,maxMoves:3,board,rack,bonuses:situationBonuses(size)}
+  const size=9,h=hashString(`situation:${date}`),t=SITUATIONS[h%SITUATIONS.length],row=1+((h>>>8)%3),col=1+((h>>>13)%3),swap=((h>>>18)&1)===1,cells=new Map(),words=swap?[[t.a,row,col,'V'],[t.b,row,col,'H']]:[[t.a,row,col,'H'],[t.b,row,col,'V']];
+  for(const [word,r0,c0,dir] of words){for(let p=0;p<word.length;p++){const r=r0+(dir==='V'?p:0),c=c0+(dir==='H'?p:0),i=r*size+c,ch=word[p],prev=cells.get(i);if(prev&&prev!==ch)throw new Error('Situation template conflict.');cells.set(i,ch)}}
+  const board=[...cells].sort((a,b)=>a[0]-b[0]).map(([index,letter])=>({index,letter,value:TILE_VALUES[letter]||0})),rack=[...t.rack].map(letter=>({letter,value:TILE_VALUES[letter]||0,blank:letter==='?'}));return {id:`${t.id}-${row}${col}-${swap?'v':'h'}`,title:t.title,size,maxMoves:3,board,rack,bonuses:situationBonuses(size)}
 }
 function lockCodes(){if(LOCK_CODES)return LOCK_CODES;const out=[];for(let a=0;a<10;a++)for(let b=0;b<10;b++)if(b!==a)for(let c=0;c<10;c++)if(c!==a&&c!==b)for(let d=0;d<10;d++)if(d!==a&&d!==b&&d!==c)out.push(`${a}${b}${c}${d}`);LOCK_CODES=out;return out}
 function lockFeedback(code,guess){let exact=0,common=0;for(let i=0;i<4;i++){if(code[i]===guess[i])exact++;if(code.includes(guess[i]))common++}return {exact,misplaced:common-exact}}
