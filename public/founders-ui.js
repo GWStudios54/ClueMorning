@@ -23,7 +23,7 @@
   };
   const homeTileworks=()=>{
     const grid=$('#today .game-cards');
-    if(!grid||grid.querySelector('[data-tileworks-home]'))return;
+    if(!grid||document.querySelector('[data-tileworks-home]'))return;
     const b=document.createElement('button');b.type='button';b.className='game-card tileworks-home-card';b.dataset.tileworksHome='1';
     b.innerHTML='<div class="game-icon tileworks-mark" aria-hidden="true"><span>T</span><small>4</small></div><div class="game-copy"><span class="game-label">FULL WORD BOARD</span><h3>Tileworks</h3><p>Play a full 15×15 match against Aarin, Scarlet, Mia, or Annie.</p></div><span class="game-status">PLAY</span>';
     b.addEventListener('click',goTileworks);grid.appendChild(b);
