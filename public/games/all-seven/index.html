@@ -12,12 +12,13 @@
 <body>
   <header class="topbar"><a class="back" href="/">← Clue Morning</a><span class="brand">MORE TO PLAY</span></header>
   <main>
-    <section class="hero"><div><span class="kicker">MASTER THE WHOLE SET</span><h1>All Seven</h1><p>Same seven letters, seven different centers. Find three new words to clear a center. A fresh pangram clears the current center instantly. Words can only be used once for the entire run.</p></div><div class="hero-stat"><strong id="heroScore">0</strong><span>points</span></div></section>
+    <section class="hero"><div><span class="kicker">MASTER THE WHOLE SET</span><h1>All Seven</h1><p>Same seven letters, seven different centers. Drag through letters to make words. Three new words clear a center; a fresh pangram clears it instantly.</p></div><div class="hero-stat"><strong id="heroScore">0</strong><span>points</span></div></section>
     <section class="game-layout">
       <div class="play-panel">
-        <div id="letterWheel" class="letter-wheel" aria-label="Letter wheel"></div>
-        <form id="wordForm" class="word-form"><input id="wordInput" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="19" aria-label="Enter a word" placeholder="TYPE A WORD"><button class="primary" type="submit">Submit</button></form>
-        <div class="tools"><button id="shuffleBtn" class="secondary" type="button">Shuffle</button><button id="clearBtn" class="secondary" type="button">Clear</button><button id="newBtn" class="secondary" type="button">New run</button></div>
+        <div id="dragWord" class="drag-word" aria-live="polite">DRAG TO SPELL</div>
+        <div id="letterWheel" class="letter-wheel" aria-label="Drag across letters to spell a word"></div>
+        <div class="drag-hint">Drag across letters · release to submit · letters may be reused</div>
+        <div class="tools"><button id="shuffleBtn" class="secondary" type="button">Shuffle</button><button id="newBtn" class="secondary" type="button">New run</button></div>
         <div id="message" class="message" aria-live="polite">Loading the word board…</div>
       </div>
       <aside class="side-panel">
