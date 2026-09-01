@@ -12,6 +12,7 @@ export function setWordControlMode(mode){
   return next;
 }
 
+function setText(el,text){if(el&&el.textContent!==text)el.textContent=text}
 function injectStyle(){
   if(document.querySelector('#wordControlStyles'))return;
   const style=document.createElement('style');style.id='wordControlStyles';style.textContent=`
@@ -55,18 +56,20 @@ function mount(){
 }
 
 function syncUi(mode=getWordControlMode()){
-  document.documentElement.dataset.wordControl=mode;
+  if(document.documentElement.dataset.wordControl!==mode)document.documentElement.dataset.wordControl=mode;
   document.querySelectorAll('[data-word-control-choice]').forEach(button=>{
-    const selected=button.dataset.wordControlChoice===mode;button.classList.toggle('active',selected);button.setAttribute('aria-pressed',String(selected));
+    const selected=button.dataset.wordControlChoice===mode;
+    button.classList.toggle('active',selected);
+    if(button.getAttribute('aria-pressed')!==String(selected))button.setAttribute('aria-pressed',String(selected));
   });
   const readout=document.querySelector('#dragWord');
-  if(readout&&!readout.classList.contains('active'))readout.textContent=mode==='tap'?'TAP TO SPELL':'SWIPE TO SPELL';
+  if(readout&&!readout.classList.contains('active'))setText(readout,mode==='tap'?'TAP TO SPELL':'SWIPE TO SPELL');
   const hint=document.querySelector('.drag-hint');
-  if(hint)hint.textContent=mode==='tap'?'Tap letters, then Submit · letters may be reused':'Swipe through letters · release to submit · letters may be reused';
+  setText(hint,mode==='tap'?'Tap letters, then Submit · letters may be reused':'Swipe through letters · release to submit · letters may be reused');
   const trailCurrent=document.querySelector('#trailCurrent');
-  if(trailCurrent&&/^(Tap or drag across letters|Tap letters to spell|Swipe across letters)$/i.test(trailCurrent.textContent.trim()))trailCurrent.textContent=mode==='tap'?'Tap letters to spell':'Swipe across letters';
+  if(trailCurrent&&/^(Tap or drag across letters|Tap letters to spell|Swipe across letters)$/i.test(trailCurrent.textContent.trim()))setText(trailCurrent,mode==='tap'?'Tap letters to spell':'Swipe across letters');
   const situationHint=document.querySelector('#situation .situation-rack-head small');
-  if(situationHint)situationHint.textContent=mode==='tap'?'Tap a tile, then tap a square':'Swipe a tile onto the board';
+  setText(situationHint,mode==='tap'?'Tap a tile, then tap a square':'Swipe a tile onto the board');
 }
 
 let trailGateInstalled=false;
@@ -100,6 +103,10 @@ function installSituationGate(){
   },{capture:true});
 }
 
+function startMounts(){
+  mount();
+  for(const delay of [50,250,750,1500])setTimeout(mount,delay);
+}
+
 window.ClueWordControls={getMode:getWordControlMode,setMode:setWordControlMode};
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
-new MutationObserver(()=>mount()).observe(document.documentElement,{subtree:true,childList:true});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',startMounts,{once:true});else startMounts();
