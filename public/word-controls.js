@@ -28,7 +28,7 @@ function injectStyle(){
 
 function toggleMarkup(scope){
   const wrap=document.createElement('div');wrap.className='word-control-setting';wrap.dataset.wordControlSetting=scope;
-  wrap.innerHTML='<span>Controls</span><div class="word-control-toggle" role="group" aria-label="Word input controls"><button type="button" data-word-control-choice="tap">Tap</button><button type="button" data-word-control-choice="swipe">Swipe</button></div>';
+  wrap.innerHTML='<span>Controls</span><div class="word-control-toggle" role="group" aria-label="Tap or swipe controls"><button type="button" data-word-control-choice="tap">Tap</button><button type="button" data-word-control-choice="swipe">Swipe</button></div>';
   wrap.addEventListener('click',e=>{const button=e.target.closest('[data-word-control-choice]');if(button)setWordControlMode(button.dataset.wordControlChoice)});
   return wrap;
 }
@@ -45,6 +45,12 @@ function mount(){
   if(wheel&&readout&&!document.querySelector('[data-word-control-setting="pangram"]')){
     const control=toggleMarkup('pangram');readout.before(control);
   }
+  const situation=document.querySelector('#situation');
+  if(situation&&!situation.querySelector('[data-word-control-setting="situation"]')){
+    const control=toggleMarkup('situation'),rackZone=situation.querySelector('.situation-rack-zone');
+    if(rackZone)rackZone.before(control);else situation.appendChild(control);
+    installSituationGate();
+  }
   syncUi(getWordControlMode());
 }
 
@@ -58,7 +64,9 @@ function syncUi(mode=getWordControlMode()){
   const hint=document.querySelector('.drag-hint');
   if(hint)hint.textContent=mode==='tap'?'Tap letters, then Submit · letters may be reused':'Swipe through letters · release to submit · letters may be reused';
   const trailCurrent=document.querySelector('#trailCurrent');
-  if(trailCurrent&&!trailCurrent.textContent.trim())trailCurrent.textContent=mode==='tap'?'Tap letters to spell':'Swipe across letters';
+  if(trailCurrent&&/^(Tap or drag across letters|Tap letters to spell|Swipe across letters)$/i.test(trailCurrent.textContent.trim()))trailCurrent.textContent=mode==='tap'?'Tap letters to spell':'Swipe across letters';
+  const situationHint=document.querySelector('#situation .situation-rack-head small');
+  if(situationHint)situationHint.textContent=mode==='tap'?'Tap a tile, then tap a square':'Swipe a tile onto the board';
 }
 
 let trailGateInstalled=false;
@@ -79,5 +87,19 @@ function installTrailGate(){
   window.addEventListener('clue-word-control-change',()=>{document.querySelector('#trailClear')?.click();syncUi()});
 }
 
+let situationGateInstalled=false;
+function installSituationGate(){
+  if(situationGateInstalled)return;const panel=document.querySelector('#situation');if(!panel)return;situationGateInstalled=true;
+  panel.addEventListener('pointerdown',e=>{
+    if(getWordControlMode()!=='tap')return;
+    if(e.target.closest('.situation-rack-tile')||e.target.closest('.situation-cell .situation-tile.pending'))e.stopImmediatePropagation();
+  },{capture:true});
+  panel.addEventListener('click',e=>{
+    if(getWordControlMode()!=='swipe')return;
+    if(e.target.closest('.situation-rack-tile')||e.target.closest('.situation-cell')){e.preventDefault();e.stopImmediatePropagation()}
+  },{capture:true});
+}
+
 window.ClueWordControls={getMode:getWordControlMode,setMode:setWordControlMode};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
+new MutationObserver(()=>mount()).observe(document.documentElement,{subtree:true,childList:true});
