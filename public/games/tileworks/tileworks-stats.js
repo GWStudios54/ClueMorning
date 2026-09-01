@@ -31,7 +31,7 @@
     return score;
   }
   function luckForRack(tiles){return clamp(Math.round(50+leaveQuality(tiles)*1.8),0,100)}
-  function turnToken(snap,tiles){return `${num(playerScore)}:${num(aiScore)}|${snap.board.map(x=>x?.letter||'.').join('')}|${tiles.map(x=>x.letter).join('')}`}
+  function turnToken(snap,tiles){return `${num(playerScore)}:${num(aiScore)}|${snap.board.map(x=>x?.letter||'.').join('')}|${tiles.map(x=>x.letter).sort().join('')}`}
 
   function ensureWorker(){
     if(analysisWorker)return;
