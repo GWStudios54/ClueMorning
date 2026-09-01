@@ -1,4 +1,4 @@
-const CACHE='clue-morning-v2.10.5';
+const CACHE='clue-morning-v2.10.6';
 const ASSETS=['./','index.html','styles.css','styles-base.css','app.js','daily-expansion.css','daily-expansion.js','daily-presentation-fix.css','daily-presentation-fix.js','last-call.css','last-call.js','presentation-v1.css','presentation-v1.js','social.css','social.js','founders-ui.css','founders-ui.js','extra-games.js','word-controls.js','games/pangram-core.js','games/pangram.css','games/pangram/index.html','games/pangram/pangram.js','games/all-seven/index.html','games/all-seven/all-seven.js','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png'];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)))});
 self.addEventListener('activate',e=>e.waitUntil(Promise.all([self.clients.claim(),caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))])));
