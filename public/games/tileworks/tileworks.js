@@ -91,7 +91,7 @@ function tempBoard(){const b=state.board.map(x=>x?{...x}:null);for(const [i,t] o
 function neighborsExisting(i){const [r,c]=rc(i);for(const [dr,dc] of [[1,0],[-1,0],[0,1],[0,-1]]){const rr=r+dr,cc=c+dc;if(inBounds(rr,cc)&&state.board[boardIndex(rr,cc)])return true}return false}
 function readWord(board,r,c,dr,dc){while(inBounds(r-dr,c-dc)&&board[boardIndex(r-dr,c-dc)]){r-=dr;c-=dc}const cells=[];while(inBounds(r,c)&&board[boardIndex(r,c)]){cells.push(boardIndex(r,c));r+=dr;c+=dc}return {cells,word:cells.map(i=>board[i].letter).join('')}}
 function placementDirection(){
-  const cells=[...pending.keys()];if(cells.length>1){const pts=cells.map(rc),sameR=pts.every(x=>x[0]===pts[0][0]),sameC=pts.every(x=>x[1]===pts[0][1]);if(sameR)return'H';if(sameC)return'V';return null}
+  const cells=[...pending.keys()];if(cells.length>1){const pts=cells.map(i=>rc(i)),sameR=pts.every(x=>x[0]===pts[0][0]),sameC=pts.every(x=>x[1]===pts[0][1]);if(sameR)return'H';if(sameC)return'V';return null}
   const i=cells[0],[r,c]=rc(i);if((inBounds(r,c-1)&&state.board[boardIndex(r,c-1)])||(inBounds(r,c+1)&&state.board[boardIndex(r,c+1)]))return'H';if((inBounds(r-1,c)&&state.board[boardIndex(r-1,c)])||(inBounds(r+1,c)&&state.board[boardIndex(r+1,c)]))return'V';return state.direction||'H'
 }
 function scoreWord(cells,board){let sum=0,mult=1;for(const i of cells){const tile=board[i],isNew=pending.has(i);let val=tile.value;if(isNew){const bonus=state.bonuses[i];if(bonus==='dl')val*=2;if(bonus==='tl')val*=3;if(bonus==='dw'||bonus==='start')mult*=2;if(bonus==='tw')mult*=3}sum+=val}return sum*mult}
