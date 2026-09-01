@@ -1,3 +1,5 @@
+import {getWordControlMode} from '/word-controls.js';
+
 const RAW_ANCHORS=[
   'PAINTER','PLASTER','DANCERS','CLIMATE','BOLSTER','GARDENS','ANOTHER','COUNTER','READING','CASTING',
   'DEALING','FLOWERS','MARKETS','PLACING','CRUISED','HOUSING','DETAILS','STORAGE','PLANETS','RETAINS',
@@ -60,11 +62,13 @@ export function createDragWheel({wheel,readout,onSubmit,canDrag=()=>true,maxLeng
   let dragWord='',dragPoints=[],tapWord='',tapTiles=[];
   const threshold=9;
   const line=()=>wheel.querySelector('.drag-polyline');
+  const mode=()=>getWordControlMode();
+  const idleLabel=()=>mode()==='tap'?'TAP TO SPELL':'SWIPE TO SPELL';
   function tileAt(x,y){const node=document.elementFromPoint(x,y);const tile=node?.closest?.('.letter');return tile&&wheel.contains(tile)?tile:null}
   function pointFor(tile){const wr=wheel.getBoundingClientRect(),tr=tile.getBoundingClientRect();return `${tr.left-wr.left+tr.width/2},${tr.top-wr.top+tr.height/2}`}
-  function updateButtons(){if(submitButton)submitButton.disabled=!tapWord;if(clearButton)clearButton.disabled=!tapWord}
-  function paintTap(){if(readout){readout.textContent=tapWord||'TAP OR DRAG';readout.classList.toggle('active',!!tapWord)}updateButtons()}
-  function paintDrag(){const poly=line();if(poly)poly.setAttribute('points',dragPoints.join(' '));if(readout){readout.textContent=dragWord||'TAP OR DRAG';readout.classList.toggle('active',!!dragWord)}}
+  function updateButtons(){if(submitButton)submitButton.disabled=mode()!=='tap'||!tapWord;if(clearButton)clearButton.disabled=mode()!=='tap'||!tapWord}
+  function paintTap(){if(readout){readout.textContent=tapWord||idleLabel();readout.classList.toggle('active',!!tapWord)}updateButtons()}
+  function paintDrag(){const poly=line();if(poly)poly.setAttribute('points',dragPoints.join(' '));if(readout){readout.textContent=dragWord||idleLabel();readout.classList.toggle('active',!!dragWord)}}
   function clearDragVisual(){wheel.querySelectorAll('.letter.drag-hit').forEach(el=>el.classList.remove('drag-hit'));const poly=line();if(poly)poly.setAttribute('points','');dragWord='';dragPoints=[];lastTile=null}
   function clearTap(){wheel.querySelectorAll('.letter.tap-hit').forEach(el=>el.classList.remove('tap-hit'));tapWord='';tapTiles=[];paintTap()}
   function clear(){clearDragVisual();clearTap();dragging=false;pointerActive=false;pointerId=null;downTile=null}
@@ -75,17 +79,20 @@ export function createDragWheel({wheel,readout,onSubmit,canDrag=()=>true,maxLeng
     e.preventDefault();pointerActive=true;pointerId=e.pointerId;dragging=false;downTile=tile;downX=e.clientX;downY=e.clientY;lastTile=null;clearDragVisual();try{wheel.setPointerCapture(pointerId)}catch{}
   }
   function move(e){
-    if(!pointerActive||e.pointerId!==pointerId)return;e.preventDefault();
+    if(!pointerActive||e.pointerId!==pointerId||mode()!=='swipe')return;e.preventDefault();
     if(!dragging&&Math.hypot(e.clientX-downX,e.clientY-downY)>=threshold){dragging=true;clearTap();clearDragVisual();lastTile=downTile;addDrag(downTile)}
     if(!dragging)return;const tile=tileAt(e.clientX,e.clientY);if(tile===lastTile)return;if(!tile){lastTile=null;return}lastTile=tile;addDrag(tile)
   }
   function finish(e,submit=true){
-    if(!pointerActive||e.pointerId!==pointerId)return;e.preventDefault();const wasDragging=dragging,made=dragWord,tapped=downTile;
+    if(!pointerActive||e.pointerId!==pointerId)return;e.preventDefault();const wasDragging=dragging,made=dragWord,tapped=downTile,currentMode=mode();
     pointerActive=false;dragging=false;downTile=null;try{wheel.releasePointerCapture(pointerId)}catch{}pointerId=null;
-    if(wasDragging){clearDragVisual();paintTap();if(submit&&made)onSubmit(made)}else if(submit&&tapped)addTap(tapped)
+    if(currentMode==='swipe'){if(wasDragging){clearDragVisual();paintTap();if(submit&&made)onSubmit(made)}else{clearDragVisual();paintTap()}}
+    else if(submit&&tapped)addTap(tapped)
   }
-  function submitTapped(){if(!canDrag()||!tapWord)return;const made=tapWord;clearTap();onSubmit(made)}
+  function submitTapped(){if(!canDrag()||mode()!=='tap'||!tapWord)return;const made=tapWord;clearTap();onSubmit(made)}
   wheel.addEventListener('pointerdown',start);wheel.addEventListener('pointermove',move);wheel.addEventListener('pointerup',e=>finish(e,true));wheel.addEventListener('pointercancel',e=>finish(e,false));wheel.addEventListener('lostpointercapture',e=>{if(pointerActive&&e.pointerId===pointerId)finish(e,false)});
-  submitButton?.addEventListener('click',submitTapped);clearButton?.addEventListener('click',clearTap);paintTap();
+  submitButton?.addEventListener('click',submitTapped);clearButton?.addEventListener('click',clearTap);
+  window.addEventListener('clue-word-control-change',clear);
+  paintTap();
   return {clear,clearTap,submitTapped,isDragging:()=>dragging,getTapWord:()=>tapWord};
 }
