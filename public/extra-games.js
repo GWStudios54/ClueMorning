@@ -21,7 +21,8 @@
     b.addEventListener('click',()=>{location.href=game.href});return b
   }
   function sync(){
-    style();const home=document.querySelector('#today .game-cards');const more=document.querySelector('#morePlaySection .more-play-grid');const target=more||home;if(!target)return;
+    style();const more=document.querySelector('#morePlaySection .more-play-grid');const home=document.querySelector('#today .game-cards');const target=more||home;if(!target)return;
+    const heading=document.querySelector('#morePlaySection .more-play-heading p');if(heading)heading.textContent="The daily set ends. These don't.";
     for(const game of GAMES){const card=cardFor(game);if(card.parentElement!==target)target.appendChild(card)}
   }
   sync();new MutationObserver(sync).observe(document.body,{subtree:true,childList:true});
