@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f4efe4">
+  <title>Pangram — Clue Morning</title>
+  <meta name="description" content="Pangram is an endless seven-letter word hunt from Clue Morning.">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/games/pangram.css">
+</head>
+<body>
+  <header class="topbar"><a class="back" href="/">← Clue Morning</a><span class="brand">MORE TO PLAY</span></header>
+  <main>
+    <section class="hero"><div><span class="kicker">SEVEN LETTER WORD HUNT</span><h1>Pangram</h1><p>Build words from seven letters. Every word must use the center letter. Find a word that uses all seven and hit the pangram bonus.</p></div><div class="hero-stat"><strong id="heroScore">0</strong><span>points</span></div></section>
+    <section class="game-layout">
+      <div class="play-panel">
+        <div id="letterWheel" class="letter-wheel" aria-label="Letter wheel"></div>
+        <form id="wordForm" class="word-form"><input id="wordInput" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="19" aria-label="Enter a word" placeholder="TYPE A WORD"><button class="primary" type="submit">Submit</button></form>
+        <div class="tools"><button id="shuffleBtn" class="secondary" type="button">Shuffle</button><button id="clearBtn" class="secondary" type="button">Clear</button><button id="newBtn" class="secondary" type="button">New set</button></div>
+        <div id="message" class="message" aria-live="polite">Loading the word board…</div>
+      </div>
+      <aside class="side-panel">
+        <div class="score-row"><div class="score-box"><span>Rank</span><strong id="rank">NEW BOARD</strong></div><div class="score-box"><span>Found</span><strong id="foundCount">0</strong></div><div class="score-box"><span>Pangrams</span><strong id="pangramCount">0</strong></div></div>
+        <div class="progress"><i id="progressBar"></i></div>
+        <div class="found-head"><h2>Your words</h2><span id="foundMeta">0 found</span></div>
+        <div id="foundList" class="found-list"><span class="empty">Your words will stack up here.</span></div>
+        <div class="reveal"><button id="revealBtn" class="secondary" type="button">Reveal answers</button><div id="answerList" class="answer-list"></div></div>
+      </aside>
+    </section>
+  </main>
+  <script type="module" src="/games/pangram/pangram.js"></script>
+</body>
+</html>
