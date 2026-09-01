@@ -35,7 +35,7 @@
 
   function ensureWorker(){
     if(analysisWorker)return;
-    analysisWorker=new Worker('/games/tileworks/tileworks-ai-worker.js');
+    analysisWorker=new Worker('/games/tileworks/tileworks-stats-worker.js');
     analysisWorker.onmessage=e=>{
       const d=e.data||{};if(d.type==='ready'){analysisReady=true;queueSync();return}
       if(d.type==='analysis'){
