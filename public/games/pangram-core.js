@@ -54,3 +54,26 @@ export async function pickPuzzle(mode='pangram',avoid=''){
 
 export function answersFor(data,center){return (data.byCenter?.[center]||[]).slice().sort((a,b)=>a.length-b.length||a.localeCompare(b))}
 export function describeWord(word,letters){return isPangram(word,letters)?'PANGRAM':word.length>=8?'RARE FIND':word.length>=6?'LONG WORD':'WORD'}
+
+export function createDragWheel({wheel,readout,onSubmit,canDrag=()=>true,maxLength=19}){
+  let dragging=false,pointerId=null,word='',lastTile=null,points=[];
+  const line=()=>wheel.querySelector('.drag-polyline');
+  function tileAt(x,y){const node=document.elementFromPoint(x,y);const tile=node?.closest?.('.letter');return tile&&wheel.contains(tile)?tile:null}
+  function pointFor(tile){const wr=wheel.getBoundingClientRect(),tr=tile.getBoundingClientRect();return `${tr.left-wr.left+tr.width/2},${tr.top-wr.top+tr.height/2}`}
+  function paint(){const poly=line();if(poly)poly.setAttribute('points',points.join(' '));if(readout){readout.textContent=word||'DRAG TO SPELL';readout.classList.toggle('active',!!word)}}
+  function clear(){wheel.querySelectorAll('.letter.drag-hit').forEach(el=>el.classList.remove('drag-hit'));const poly=line();if(poly)poly.setAttribute('points','');word='';points=[];lastTile=null;if(readout){readout.textContent='DRAG TO SPELL';readout.classList.remove('active')}}
+  function add(tile){if(!tile||word.length>=maxLength)return;const letter=tile.dataset.letter;if(!letter)return;word+=letter;points.push(pointFor(tile));tile.classList.add('drag-hit');paint()}
+  function start(e){
+    if(!canDrag()||e.button>0)return;const tile=e.target.closest('.letter');if(!tile)return;
+    e.preventDefault();clear();dragging=true;pointerId=e.pointerId;lastTile=tile;try{wheel.setPointerCapture(pointerId)}catch{}add(tile)
+  }
+  function move(e){
+    if(!dragging||e.pointerId!==pointerId)return;e.preventDefault();const tile=tileAt(e.clientX,e.clientY);
+    if(tile===lastTile)return;if(!tile){lastTile=null;return}lastTile=tile;add(tile)
+  }
+  function finish(e,submit=true){
+    if(!dragging||e.pointerId!==pointerId)return;e.preventDefault();const made=word;dragging=false;try{wheel.releasePointerCapture(pointerId)}catch{}pointerId=null;clear();if(submit&&made)onSubmit(made)
+  }
+  wheel.addEventListener('pointerdown',start);wheel.addEventListener('pointermove',move);wheel.addEventListener('pointerup',e=>finish(e,true));wheel.addEventListener('pointercancel',e=>finish(e,false));wheel.addEventListener('lostpointercapture',e=>{if(dragging&&e.pointerId===pointerId)finish(e,false)});
+  return {clear,isDragging:()=>dragging};
+}
