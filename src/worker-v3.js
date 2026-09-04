@@ -178,7 +178,7 @@ async function dailyResponse(response){
   try{const data=await response.clone().json(),date=data.date||pacificDateKey();delete data.lockbox;data.lastcall=publicLastCall(date);data.dailyGames=8;return json(data,response.status)}catch{return response}
 }
 async function healthResponse(response){
-  try{const data=await response.clone().json();data.dailyGames=8;data.lastCallRounds=LAST_CALL_ROUNDS;data.leaderboardBoards=11;delete data.lockbox;return json(data,response.status)}catch{return response}
+  try{const data=await response.clone().json();data.dailyGames=8;data.lastCallRounds=LAST_CALL_ROUNDS;data.leaderboardBoards=13;delete data.lockbox;return json(data,response.status)}catch{return response}
 }
 async function injectFoundersUi(response){
   const type=response.headers.get("content-type")||"";if(!type.includes("text/html"))return response;let html=await response.text();
