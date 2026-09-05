@@ -1,0 +1,1466 @@
+{
+  "cutoverDate": "2026-09-05",
+  "cutoverDay": 6,
+  "minimumCanonicalAnswers": 8,
+  "basePrompts": 107,
+  "qualitySourceFiles": [
+    {
+      "name": "deepcut_quality_domains.json",
+      "prompts": 15
+    },
+    {
+      "name": "deepcut_quality_expansion.json",
+      "prompts": 10
+    },
+    {
+      "name": "deepcut_quality_supplement.json",
+      "prompts": 32
+    }
+  ],
+  "supplementPrompts": 57,
+  "totalPrompts": 164,
+  "eligiblePrompts": 66,
+  "excludedPrompts": 98,
+  "futureDailySets": 359,
+  "uniqueDailySets": 365,
+  "firstCuratedDay": {
+    "date": "2026-09-05",
+    "prompts": [
+      {
+        "index": 135,
+        "id": "quality_fincher_features",
+        "prompt": "Name a feature film directed by David Fincher.",
+        "canonicalAnswers": 12,
+        "source": "deepcut_quality_supplement.json"
+      },
+      {
+        "index": 149,
+        "id": "quality_spain_autonomous_communities",
+        "prompt": "Name one of Spain's 17 autonomous communities.",
+        "canonicalAnswers": 17,
+        "source": "deepcut_quality_supplement.json"
+      },
+      {
+        "index": 121,
+        "id": "quality_mens_world_cup_hosts_2022",
+        "prompt": "Name a country that hosted or co-hosted the men's FIFA World Cup through 2022.",
+        "canonicalAnswers": 18,
+        "source": "deepcut_quality_domains.json"
+      },
+      {
+        "index": 2,
+        "id": "element",
+        "prompt": "Name a chemical element.",
+        "canonicalAnswers": 118,
+        "source": "base"
+      },
+      {
+        "index": 148,
+        "id": "quality_germany_states",
+        "prompt": "Name one of Germany's 16 federal states.",
+        "canonicalAnswers": 16,
+        "source": "deepcut_quality_supplement.json"
+      },
+      {
+        "index": 5,
+        "id": "constellation",
+        "prompt": "Name a modern constellation.",
+        "canonicalAnswers": 88,
+        "source": "base"
+      },
+      {
+        "index": 141,
+        "id": "quality_radiohead_studio",
+        "prompt": "Name a Radiohead studio album.",
+        "canonicalAnswers": 9,
+        "source": "deepcut_quality_supplement.json"
+      },
+      {
+        "index": 154,
+        "id": "quality_twelve_caesars",
+        "prompt": "Name one of Suetonius's Twelve Caesars.",
+        "canonicalAnswers": 12,
+        "source": "deepcut_quality_supplement.json"
+      }
+    ]
+  },
+  "eligible": [
+    {
+      "index": 2,
+      "id": "element",
+      "prompt": "Name a chemical element.",
+      "canonicalAnswers": 118,
+      "source": "base"
+    },
+    {
+      "index": 3,
+      "id": "state_capital",
+      "prompt": "Name a U.S. state capital.",
+      "canonicalAnswers": 50,
+      "source": "base"
+    },
+    {
+      "index": 4,
+      "id": "president",
+      "prompt": "Name a U.S. president.",
+      "canonicalAnswers": 45,
+      "source": "base"
+    },
+    {
+      "index": 5,
+      "id": "constellation",
+      "prompt": "Name a modern constellation.",
+      "canonicalAnswers": 88,
+      "source": "base"
+    },
+    {
+      "index": 6,
+      "id": "shakespeare_play",
+      "prompt": "Name a Shakespeare play.",
+      "canonicalAnswers": 38,
+      "source": "base"
+    },
+    {
+      "index": 7,
+      "id": "south_america",
+      "prompt": "Name a country in South America.",
+      "canonicalAnswers": 12,
+      "source": "base"
+    },
+    {
+      "index": 8,
+      "id": "europe",
+      "prompt": "Name a country in Europe.",
+      "canonicalAnswers": 44,
+      "source": "base"
+    },
+    {
+      "index": 9,
+      "id": "africa",
+      "prompt": "Name a country in Africa.",
+      "canonicalAnswers": 54,
+      "source": "base"
+    },
+    {
+      "index": 10,
+      "id": "asia",
+      "prompt": "Name a country in Asia.",
+      "canonicalAnswers": 48,
+      "source": "base"
+    },
+    {
+      "index": 35,
+      "id": "eu",
+      "prompt": "Name a member state of the European Union.",
+      "canonicalAnswers": 27,
+      "source": "base"
+    },
+    {
+      "index": 107,
+      "id": "quality_scorsese_features",
+      "prompt": "Name a feature film directed by Martin Scorsese.",
+      "canonicalAnswers": 26,
+      "source": "deepcut_quality_domains.json"
+    },
+    {
+      "index": 108,
+      "id": "quality_coen_features",
+      "prompt": "Name a feature film made by Joel and Ethan Coen as the Coen brothers.",
+      "canonicalAnswers": 18,
+      "source": "deepcut_quality_domains.json"
+    },
+    {
+      "index": 109,
+      "id": "quality_metallica_studio",
+      "prompt": "Name a Metallica studio album.",
+      "canonicalAnswers": 11,
+      "source": "deepcut_quality_domains.json"
+    },
+    {
+      "index": 110,
+      "id": "quality_u2_studio",
+      "prompt": "Name a U2 studio album.",
+      "canonicalAnswers": 15,
+      "source": "deepcut_quality_domains.json"
+    },
+    {
+      "index": 111,
+      "id": "quality_madonna_studio",
+      "prompt": "Name a Madonna studio album.",
+      "canonicalAnswers": 14,
+      "source": "deepcut_quality_domains.json"
+    },
+    {
+      "index": 112,
+      "id": "quality_taylor_swift_studio_2024",
+      "prompt": "Name a Taylor Swift studio album released through 2024, excluding re-recordings.",
+      "canonicalAnswers": 11,
+      "source": "deepcut_quality_domains.json"
+    },
+    {
+      "index": 113,
+      "id": "quality_brazil_borders",
+      "prompt": "Name a sovereign state that shares a land border with Brazil, including France via French Guiana.",
+      "canonicalAnswers": 10,
+      "source": "deepcut_quality_domains.json"
+    },
+    {
+      "index": 114,
+      "id": "quality_russia_borders",
+      "prompt": "Name a country that shares an internationally recognized land border with Russia.",
+      "canonicalAnswers": 14,
+      "source": "deepcut_quality_domains.json"
+    },
+    {
+      "index": 115,
+      "id": "quality_us_chief_justices",
+      "prompt": "Name a Chief Justice of the United States.",
+      "canonicalAnswers": 17,
+      "source": "deepcut_quality_domains.json"
+    },
+    {
+      "index": 116,
+      "id": "quality_f1_world_champions_2024",
+      "prompt": "Name a Formula One World Drivers' Champion through the 2024 season.",
+      "canonicalAnswers": 33,
+      "source": "deepcut_quality_domains.json"
+    },
+    {
+      "index": 117,
+      "id": "quality_best_picture_2000_2024",
+      "prompt": "Name a film released from 2000 through 2024 that won the Academy Award for Best Picture.",
+      "canonicalAnswers": 25,
+      "source": "deepcut_quality_domains.json"
+    },
+    {
+      "index": 118,
+      "id": "quality_nobel_literature_2000_2024",
+      "prompt": "Name a Nobel Prize in Literature laureate from 2000 through 2024.",
+      "canonicalAnswers": 25,
+      "source": "deepcut_quality_domains.json"
+    },
+    {
+      "index": 119,
+      "id": "quality_ghibli_features",
+      "prompt": "Name a feature-length film produced or co-produced by Studio Ghibli.",
+      "canonicalAnswers": 24,
+      "source": "deepcut_quality_domains.json"
+    },
+    {
+      "index": 120,
+      "id": "quality_us_parks_ca_ut_az",
+      "prompt": "Name a U.S. national park in California, Utah, or Arizona.",
+      "canonicalAnswers": 17,
+      "source": "deepcut_quality_domains.json"
+    },
+    {
+      "index": 121,
+      "id": "quality_mens_world_cup_hosts_2022",
+      "prompt": "Name a country that hosted or co-hosted the men's FIFA World Cup through 2022.",
+      "canonicalAnswers": 18,
+      "source": "deepcut_quality_domains.json"
+    },
+    {
+      "index": 122,
+      "id": "quality_bond_eon_films",
+      "prompt": "Name an official Eon Productions James Bond film through No Time to Die.",
+      "canonicalAnswers": 25,
+      "source": "deepcut_quality_expansion.json"
+    },
+    {
+      "index": 123,
+      "id": "quality_pixar_features_2025",
+      "prompt": "Name a Pixar feature film released through 2025.",
+      "canonicalAnswers": 29,
+      "source": "deepcut_quality_expansion.json"
+    },
+    {
+      "index": 124,
+      "id": "quality_tarantino_features",
+      "prompt": "Name a theatrically released feature film directed by Quentin Tarantino.",
+      "canonicalAnswers": 10,
+      "source": "deepcut_quality_expansion.json"
+    },
+    {
+      "index": 125,
+      "id": "quality_spielberg_features",
+      "prompt": "Name a feature film directed by Steven Spielberg.",
+      "canonicalAnswers": 34,
+      "source": "deepcut_quality_expansion.json"
+    },
+    {
+      "index": 126,
+      "id": "quality_mediterranean_un_members",
+      "prompt": "Name a UN member state with a coastline on the Mediterranean Sea.",
+      "canonicalAnswers": 21,
+      "source": "deepcut_quality_expansion.json"
+    },
+    {
+      "index": 127,
+      "id": "quality_major_arcana",
+      "prompt": "Name a card in the traditional 22-card Major Arcana of a tarot deck.",
+      "canonicalAnswers": 22,
+      "source": "deepcut_quality_expansion.json"
+    },
+    {
+      "index": 128,
+      "id": "quality_classical_chess_champions",
+      "prompt": "Name a player in the commonly recognized line of classical World Chess Champions from Steinitz through Gukesh.",
+      "canonicalAnswers": 18,
+      "source": "deepcut_quality_expansion.json"
+    },
+    {
+      "index": 129,
+      "id": "quality_crewed_apollo_missions",
+      "prompt": "Name a crewed Apollo mission.",
+      "canonicalAnswers": 11,
+      "source": "deepcut_quality_expansion.json"
+    },
+    {
+      "index": 130,
+      "id": "quality_moonwalkers",
+      "prompt": "Name one of the 12 people who have walked on the Moon.",
+      "canonicalAnswers": 12,
+      "source": "deepcut_quality_expansion.json"
+    },
+    {
+      "index": 131,
+      "id": "quality_bowie_studio",
+      "prompt": "Name a David Bowie studio album.",
+      "canonicalAnswers": 26,
+      "source": "deepcut_quality_expansion.json"
+    },
+    {
+      "index": 132,
+      "id": "quality_nolan_features",
+      "prompt": "Name a feature film directed by Christopher Nolan.",
+      "canonicalAnswers": 13,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 133,
+      "id": "quality_kubrick_features",
+      "prompt": "Name a feature film directed by Stanley Kubrick.",
+      "canonicalAnswers": 13,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 134,
+      "id": "quality_miyazaki_features",
+      "prompt": "Name a feature film directed by Hayao Miyazaki.",
+      "canonicalAnswers": 12,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 135,
+      "id": "quality_fincher_features",
+      "prompt": "Name a feature film directed by David Fincher.",
+      "canonicalAnswers": 12,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 136,
+      "id": "quality_villeneuve_features",
+      "prompt": "Name a feature film directed by Denis Villeneuve.",
+      "canonicalAnswers": 11,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 137,
+      "id": "quality_wes_anderson_features",
+      "prompt": "Name a feature film directed by Wes Anderson.",
+      "canonicalAnswers": 12,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 138,
+      "id": "quality_beatles_uk_studio",
+      "prompt": "Name a Beatles studio album released in the UK during the band's original run.",
+      "canonicalAnswers": 12,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 139,
+      "id": "quality_pink_floyd_studio",
+      "prompt": "Name a Pink Floyd studio album.",
+      "canonicalAnswers": 15,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 140,
+      "id": "quality_queen_studio",
+      "prompt": "Name a Queen studio album.",
+      "canonicalAnswers": 15,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 141,
+      "id": "quality_radiohead_studio",
+      "prompt": "Name a Radiohead studio album.",
+      "canonicalAnswers": 9,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 142,
+      "id": "quality_rem_studio",
+      "prompt": "Name an R.E.M. studio album.",
+      "canonicalAnswers": 15,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 143,
+      "id": "quality_cure_studio",
+      "prompt": "Name a studio album by The Cure.",
+      "canonicalAnswers": 14,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 144,
+      "id": "quality_china_borders",
+      "prompt": "Name a sovereign country that shares a land border with China.",
+      "canonicalAnswers": 14,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 145,
+      "id": "quality_germany_borders",
+      "prompt": "Name a sovereign country that shares a land border with Germany.",
+      "canonicalAnswers": 9,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 146,
+      "id": "quality_danube_countries",
+      "prompt": "Name a country the Danube River flows through or forms a border of.",
+      "canonicalAnswers": 10,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 147,
+      "id": "quality_italy_regions",
+      "prompt": "Name one of Italy's 20 regions.",
+      "canonicalAnswers": 20,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 148,
+      "id": "quality_germany_states",
+      "prompt": "Name one of Germany's 16 federal states.",
+      "canonicalAnswers": 16,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 149,
+      "id": "quality_spain_autonomous_communities",
+      "prompt": "Name one of Spain's 17 autonomous communities.",
+      "canonicalAnswers": 17,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 151,
+      "id": "quality_japan_prefectures",
+      "prompt": "Name one of Japan's 47 prefectures.",
+      "canonicalAnswers": 47,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 152,
+      "id": "quality_soviet_republics",
+      "prompt": "Name one of the 15 union republics of the Soviet Union at its dissolution in 1991.",
+      "canonicalAnswers": 15,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 153,
+      "id": "quality_nato_1949_members",
+      "prompt": "Name an original 1949 member of NATO.",
+      "canonicalAnswers": 12,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 154,
+      "id": "quality_twelve_caesars",
+      "prompt": "Name one of Suetonius's Twelve Caesars.",
+      "canonicalAnswers": 12,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 155,
+      "id": "quality_mississippi_border_states",
+      "prompt": "Name a U.S. state that borders the Mississippi River.",
+      "canonicalAnswers": 10,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 156,
+      "id": "quality_summer_olympic_host_cities",
+      "prompt": "Name a city that has hosted the Summer Olympic Games through 2024.",
+      "canonicalAnswers": 23,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 157,
+      "id": "quality_mens_world_cup_winners",
+      "prompt": "Name a country that has won the men's FIFA World Cup.",
+      "canonicalAnswers": 8,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 158,
+      "id": "quality_amino_acids",
+      "prompt": "Name one of the 20 standard proteinogenic amino acids.",
+      "canonicalAnswers": 20,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 159,
+      "id": "quality_cranial_nerves",
+      "prompt": "Name one of the 12 cranial nerves.",
+      "canonicalAnswers": 12,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 160,
+      "id": "quality_mohs_minerals",
+      "prompt": "Name a reference mineral on the Mohs hardness scale.",
+      "canonicalAnswers": 10,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 161,
+      "id": "quality_cloud_genera",
+      "prompt": "Name one of the World Meteorological Organization's 10 cloud genera.",
+      "canonicalAnswers": 10,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 162,
+      "id": "quality_phanerozoic_periods",
+      "prompt": "Name a geologic period of the Phanerozoic Eon.",
+      "canonicalAnswers": 12,
+      "source": "deepcut_quality_supplement.json"
+    },
+    {
+      "index": 163,
+      "id": "quality_si_prefixes",
+      "prompt": "Name an official SI decimal prefix other than the no-prefix base unit.",
+      "canonicalAnswers": 24,
+      "source": "deepcut_quality_supplement.json"
+    }
+  ],
+  "excluded": [
+    {
+      "index": 0,
+      "id": "us_state",
+      "prompt": "Name a U.S. state.",
+      "source": "base",
+      "reasons": [
+        "elementary recall list"
+      ]
+    },
+    {
+      "index": 1,
+      "id": "country",
+      "prompt": "Name a country.",
+      "source": "base",
+      "reasons": [
+        "elementary recall list"
+      ]
+    },
+    {
+      "index": 11,
+      "id": "canada",
+      "prompt": "Name a Canadian province or territory.",
+      "source": "base",
+      "reasons": [
+        "elementary recall list"
+      ]
+    },
+    {
+      "index": 12,
+      "id": "zodiac",
+      "prompt": "Name a Western zodiac sign.",
+      "source": "base",
+      "reasons": [
+        "elementary recall list"
+      ]
+    },
+    {
+      "index": 13,
+      "id": "greek",
+      "prompt": "Name a letter of the Greek alphabet.",
+      "source": "base",
+      "reasons": [
+        "elementary recall list"
+      ]
+    },
+    {
+      "index": 14,
+      "id": "nato",
+      "prompt": "Name a NATO phonetic alphabet code word.",
+      "source": "base",
+      "reasons": [
+        "elementary recall list"
+      ]
+    },
+    {
+      "index": 15,
+      "id": "planets",
+      "prompt": "Name a planet in the Solar System.",
+      "source": "base",
+      "reasons": [
+        "elementary recall list"
+      ]
+    },
+    {
+      "index": 16,
+      "id": "dwarf",
+      "prompt": "Name an IAU-recognized dwarf planet.",
+      "source": "base",
+      "reasons": [
+        "only 5 canonical answers"
+      ]
+    },
+    {
+      "index": 17,
+      "id": "greatlakes",
+      "prompt": "Name one of the Great Lakes.",
+      "source": "base",
+      "reasons": [
+        "only 5 canonical answers"
+      ]
+    },
+    {
+      "index": 18,
+      "id": "continents",
+      "prompt": "Name a continent.",
+      "source": "base",
+      "reasons": [
+        "only 7 canonical answers",
+        "elementary recall list"
+      ]
+    },
+    {
+      "index": 19,
+      "id": "oceans",
+      "prompt": "Name one of Earth’s five oceans.",
+      "source": "base",
+      "reasons": [
+        "only 5 canonical answers"
+      ]
+    },
+    {
+      "index": 20,
+      "id": "g7",
+      "prompt": "Name a G7 country.",
+      "source": "base",
+      "reasons": [
+        "only 7 canonical answers"
+      ]
+    },
+    {
+      "index": 21,
+      "id": "unsc",
+      "prompt": "Name a permanent member of the UN Security Council.",
+      "source": "base",
+      "reasons": [
+        "only 5 canonical answers"
+      ]
+    },
+    {
+      "index": 22,
+      "id": "unlangs",
+      "prompt": "Name an official language of the United Nations.",
+      "source": "base",
+      "reasons": [
+        "only 6 canonical answers"
+      ]
+    },
+    {
+      "index": 23,
+      "id": "nobel",
+      "prompt": "Name a Nobel Prize category.",
+      "source": "base",
+      "reasons": [
+        "only 6 canonical answers"
+      ]
+    },
+    {
+      "index": 24,
+      "id": "military",
+      "prompt": "Name a branch of the U.S. Armed Forces.",
+      "source": "base",
+      "reasons": [
+        "only 6 canonical answers"
+      ]
+    },
+    {
+      "index": 25,
+      "id": "chess",
+      "prompt": "Name a type of chess piece.",
+      "source": "base",
+      "reasons": [
+        "only 6 canonical answers"
+      ]
+    },
+    {
+      "index": 26,
+      "id": "cardsuits",
+      "prompt": "Name a standard playing-card suit.",
+      "source": "base",
+      "reasons": [
+        "only 4 canonical answers"
+      ]
+    },
+    {
+      "index": 27,
+      "id": "cardranks",
+      "prompt": "Name a standard playing-card rank.",
+      "source": "base",
+      "reasons": [
+        "elementary recall list"
+      ]
+    },
+    {
+      "index": 28,
+      "id": "baseball",
+      "prompt": "Name a standard baseball fielding position.",
+      "source": "base",
+      "reasons": [
+        "elementary recall list"
+      ]
+    },
+    {
+      "index": 29,
+      "id": "rainbow",
+      "prompt": "Name a traditional rainbow color.",
+      "source": "base",
+      "reasons": [
+        "only 7 canonical answers",
+        "elementary recall list"
+      ]
+    },
+    {
+      "index": 30,
+      "id": "months",
+      "prompt": "Name a month of the year.",
+      "source": "base",
+      "reasons": [
+        "elementary recall list"
+      ]
+    },
+    {
+      "index": 31,
+      "id": "chinesezodiac",
+      "prompt": "Name an animal in the Chinese zodiac.",
+      "source": "base",
+      "reasons": [
+        "elementary recall list"
+      ]
+    },
+    {
+      "index": 32,
+      "id": "si",
+      "prompt": "Name an SI base unit.",
+      "source": "base",
+      "reasons": [
+        "only 7 canonical answers"
+      ]
+    },
+    {
+      "index": 33,
+      "id": "apollo",
+      "prompt": "Name an Apollo mission that landed astronauts on the Moon.",
+      "source": "base",
+      "reasons": [
+        "only 6 canonical answers"
+      ]
+    },
+    {
+      "index": 34,
+      "id": "ivy",
+      "prompt": "Name an Ivy League university.",
+      "source": "base",
+      "reasons": [
+        "elementary recall list"
+      ]
+    },
+    {
+      "index": 36,
+      "id": "state_initial_a",
+      "prompt": "Name a U.S. state beginning with A.",
+      "source": "base",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 37,
+      "id": "state_initial_i",
+      "prompt": "Name a U.S. state beginning with I.",
+      "source": "base",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 38,
+      "id": "state_initial_m",
+      "prompt": "Name a U.S. state beginning with M.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 39,
+      "id": "state_initial_n",
+      "prompt": "Name a U.S. state beginning with N.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 40,
+      "id": "state_initial_w",
+      "prompt": "Name a U.S. state beginning with W.",
+      "source": "base",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 41,
+      "id": "country_initial_a",
+      "prompt": "Name a country beginning with A.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 42,
+      "id": "country_initial_b",
+      "prompt": "Name a country beginning with B.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 43,
+      "id": "country_initial_c",
+      "prompt": "Name a country beginning with C.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 44,
+      "id": "country_initial_d",
+      "prompt": "Name a country beginning with D.",
+      "source": "base",
+      "reasons": [
+        "only 5 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 45,
+      "id": "country_initial_e",
+      "prompt": "Name a country beginning with E.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 46,
+      "id": "country_initial_g",
+      "prompt": "Name a country beginning with G.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 47,
+      "id": "country_initial_i",
+      "prompt": "Name a country beginning with I.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 48,
+      "id": "country_initial_k",
+      "prompt": "Name a country beginning with K.",
+      "source": "base",
+      "reasons": [
+        "only 5 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 49,
+      "id": "country_initial_l",
+      "prompt": "Name a country beginning with L.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 50,
+      "id": "country_initial_m",
+      "prompt": "Name a country beginning with M.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 51,
+      "id": "country_initial_n",
+      "prompt": "Name a country beginning with N.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 52,
+      "id": "country_initial_p",
+      "prompt": "Name a country beginning with P.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 53,
+      "id": "country_initial_r",
+      "prompt": "Name a country beginning with R.",
+      "source": "base",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 54,
+      "id": "country_initial_s",
+      "prompt": "Name a country beginning with S.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 55,
+      "id": "country_initial_t",
+      "prompt": "Name a country beginning with T.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 56,
+      "id": "country_initial_u",
+      "prompt": "Name a country beginning with U.",
+      "source": "base",
+      "reasons": [
+        "only 7 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 57,
+      "id": "country_initial_v",
+      "prompt": "Name a country beginning with V.",
+      "source": "base",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 58,
+      "id": "element_initial_a",
+      "prompt": "Name a chemical element beginning with A.",
+      "source": "base",
+      "reasons": [
+        "only 7 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 59,
+      "id": "element_initial_b",
+      "prompt": "Name a chemical element beginning with B.",
+      "source": "base",
+      "reasons": [
+        "only 7 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 60,
+      "id": "element_initial_c",
+      "prompt": "Name a chemical element beginning with C.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 61,
+      "id": "element_initial_f",
+      "prompt": "Name a chemical element beginning with F.",
+      "source": "base",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 62,
+      "id": "element_initial_g",
+      "prompt": "Name a chemical element beginning with G.",
+      "source": "base",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 63,
+      "id": "element_initial_h",
+      "prompt": "Name a chemical element beginning with H.",
+      "source": "base",
+      "reasons": [
+        "only 5 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 64,
+      "id": "element_initial_i",
+      "prompt": "Name a chemical element beginning with I.",
+      "source": "base",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 65,
+      "id": "element_initial_l",
+      "prompt": "Name a chemical element beginning with L.",
+      "source": "base",
+      "reasons": [
+        "only 6 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 66,
+      "id": "element_initial_m",
+      "prompt": "Name a chemical element beginning with M.",
+      "source": "base",
+      "reasons": [
+        "only 7 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 67,
+      "id": "element_initial_n",
+      "prompt": "Name a chemical element beginning with N.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 68,
+      "id": "element_initial_p",
+      "prompt": "Name a chemical element beginning with P.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 69,
+      "id": "element_initial_r",
+      "prompt": "Name a chemical element beginning with R.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 70,
+      "id": "element_initial_s",
+      "prompt": "Name a chemical element beginning with S.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 71,
+      "id": "element_initial_t",
+      "prompt": "Name a chemical element beginning with T.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 72,
+      "id": "capital_initial_a",
+      "prompt": "Name a U.S. state capital beginning with A.",
+      "source": "base",
+      "reasons": [
+        "only 5 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 73,
+      "id": "capital_initial_b",
+      "prompt": "Name a U.S. state capital beginning with B.",
+      "source": "base",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 74,
+      "id": "capital_initial_c",
+      "prompt": "Name a U.S. state capital beginning with C.",
+      "source": "base",
+      "reasons": [
+        "only 6 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 75,
+      "id": "capital_initial_h",
+      "prompt": "Name a U.S. state capital beginning with H.",
+      "source": "base",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 76,
+      "id": "capital_initial_s",
+      "prompt": "Name a U.S. state capital beginning with S.",
+      "source": "base",
+      "reasons": [
+        "only 6 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 77,
+      "id": "constellation_initial_a",
+      "prompt": "Name a constellation beginning with A.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 78,
+      "id": "constellation_initial_c",
+      "prompt": "Name a constellation beginning with C.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 79,
+      "id": "constellation_initial_h",
+      "prompt": "Name a constellation beginning with H.",
+      "source": "base",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 80,
+      "id": "constellation_initial_l",
+      "prompt": "Name a constellation beginning with L.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 81,
+      "id": "constellation_initial_m",
+      "prompt": "Name a constellation beginning with M.",
+      "source": "base",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 82,
+      "id": "constellation_initial_p",
+      "prompt": "Name a constellation beginning with P.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 83,
+      "id": "constellation_initial_s",
+      "prompt": "Name a constellation beginning with S.",
+      "source": "base",
+      "reasons": [
+        "only 7 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 84,
+      "id": "constellation_initial_t",
+      "prompt": "Name a constellation beginning with T.",
+      "source": "base",
+      "reasons": [
+        "only 5 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 85,
+      "id": "constellation_initial_v",
+      "prompt": "Name a constellation beginning with V.",
+      "source": "base",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 86,
+      "id": "play_initial_a",
+      "prompt": "Name a Shakespeare play beginning with A.",
+      "source": "base",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 87,
+      "id": "play_initial_h",
+      "prompt": "Name a Shakespeare play beginning with H.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 88,
+      "id": "play_initial_t",
+      "prompt": "Name a Shakespeare play beginning with T.",
+      "source": "base",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 89,
+      "id": "country_range_abcd",
+      "prompt": "Name a country beginning with a letter from A–D.",
+      "source": "base",
+      "reasons": [
+        "alphabet-range restriction"
+      ]
+    },
+    {
+      "index": 90,
+      "id": "country_range_efgh",
+      "prompt": "Name a country beginning with a letter from E–H.",
+      "source": "base",
+      "reasons": [
+        "alphabet-range restriction"
+      ]
+    },
+    {
+      "index": 91,
+      "id": "country_range_ijkl",
+      "prompt": "Name a country beginning with a letter from I–L.",
+      "source": "base",
+      "reasons": [
+        "alphabet-range restriction"
+      ]
+    },
+    {
+      "index": 92,
+      "id": "country_range_mnop",
+      "prompt": "Name a country beginning with a letter from M–P.",
+      "source": "base",
+      "reasons": [
+        "alphabet-range restriction"
+      ]
+    },
+    {
+      "index": 93,
+      "id": "country_range_qrst",
+      "prompt": "Name a country beginning with a letter from Q–T.",
+      "source": "base",
+      "reasons": [
+        "alphabet-range restriction"
+      ]
+    },
+    {
+      "index": 94,
+      "id": "country_range_uvwxyz",
+      "prompt": "Name a country beginning with a letter from U–Z.",
+      "source": "base",
+      "reasons": [
+        "alphabet-range restriction"
+      ]
+    },
+    {
+      "index": 95,
+      "id": "element_range_abcd",
+      "prompt": "Name a chemical element beginning with a letter from A–D.",
+      "source": "base",
+      "reasons": [
+        "alphabet-range restriction"
+      ]
+    },
+    {
+      "index": 96,
+      "id": "element_range_efgh",
+      "prompt": "Name a chemical element beginning with a letter from E–H.",
+      "source": "base",
+      "reasons": [
+        "alphabet-range restriction"
+      ]
+    },
+    {
+      "index": 97,
+      "id": "element_range_ijkl",
+      "prompt": "Name a chemical element beginning with a letter from I–L.",
+      "source": "base",
+      "reasons": [
+        "alphabet-range restriction"
+      ]
+    },
+    {
+      "index": 98,
+      "id": "element_range_mnop",
+      "prompt": "Name a chemical element beginning with a letter from M–P.",
+      "source": "base",
+      "reasons": [
+        "alphabet-range restriction"
+      ]
+    },
+    {
+      "index": 99,
+      "id": "element_range_qrst",
+      "prompt": "Name a chemical element beginning with a letter from Q–T.",
+      "source": "base",
+      "reasons": [
+        "alphabet-range restriction"
+      ]
+    },
+    {
+      "index": 100,
+      "id": "element_range_uvwxyz",
+      "prompt": "Name a chemical element beginning with a letter from U–Z.",
+      "source": "base",
+      "reasons": [
+        "only 7 canonical answers",
+        "alphabet-range restriction"
+      ]
+    },
+    {
+      "index": 101,
+      "id": "constellation_range_abcd",
+      "prompt": "Name a constellation beginning with a letter from A–D.",
+      "source": "base",
+      "reasons": [
+        "alphabet-range restriction"
+      ]
+    },
+    {
+      "index": 102,
+      "id": "constellation_range_efgh",
+      "prompt": "Name a constellation beginning with a letter from E–H.",
+      "source": "base",
+      "reasons": [
+        "alphabet-range restriction"
+      ]
+    },
+    {
+      "index": 103,
+      "id": "constellation_range_ijkl",
+      "prompt": "Name a constellation beginning with a letter from I–L.",
+      "source": "base",
+      "reasons": [
+        "alphabet-range restriction"
+      ]
+    },
+    {
+      "index": 104,
+      "id": "constellation_range_mnop",
+      "prompt": "Name a constellation beginning with a letter from M–P.",
+      "source": "base",
+      "reasons": [
+        "alphabet-range restriction"
+      ]
+    },
+    {
+      "index": 105,
+      "id": "constellation_range_qrst",
+      "prompt": "Name a constellation beginning with a letter from Q–T.",
+      "source": "base",
+      "reasons": [
+        "alphabet-range restriction"
+      ]
+    },
+    {
+      "index": 106,
+      "id": "constellation_range_uvwxyz",
+      "prompt": "Name a constellation beginning with a letter from U–Z.",
+      "source": "base",
+      "reasons": [
+        "only 6 canonical answers",
+        "alphabet-range restriction"
+      ]
+    },
+    {
+      "index": 150,
+      "id": "quality_canada_provinces_territories",
+      "prompt": "Name a Canadian province or territory.",
+      "source": "deepcut_quality_supplement.json",
+      "reasons": [
+        "elementary recall list"
+      ]
+    }
+  ]
+}
