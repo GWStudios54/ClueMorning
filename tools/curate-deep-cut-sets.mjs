@@ -12,6 +12,7 @@ import {
 const __dirname=path.dirname(fileURLToPath(import.meta.url));
 const root=path.resolve(__dirname,'..');
 const sourcePath=path.join(root,'content','source','deepcut_prompts.json');
+const supplementPath=path.join(root,'content','source','deepcut_quality_supplement.json');
 const schedulePath=path.join(root,'content','source','schedule.json');
 const generatedPath=path.join(root,'content','generated','deep_cut.json');
 const reportPath=path.join(root,'content','generated','deep_cut_quality.json');
@@ -19,10 +20,46 @@ const modulePath=path.join(root,'src','puzzles.js');
 
 function hashString(str){let h=2166136261;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
 function mulberry32(a){return function(){let t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
+function answerKey(value){return String(value||'').toUpperCase().replace(/[^A-Z0-9]/g,'')}
+function validatePrompt(prompt,sourceLabel){
+  if(!prompt?.id||!prompt?.prompt||!Array.isArray(prompt.answers)||prompt.answers.length<4){
+    throw new Error(`Invalid Deep Cut prompt in ${sourceLabel}: ${prompt?.id||'unknown'}`);
+  }
+  const accepted=new Set();
+  for(const answer of prompt.answers){
+    if(!answer?.name)throw new Error(`${prompt.id} has an answer without a name`);
+    for(const raw of [answer.name,...(Array.isArray(answer.aliases)?answer.aliases:[])]){
+      const key=answerKey(raw);
+      if(!key)throw new Error(`${prompt.id} has an empty answer or alias`);
+      if(accepted.has(key))throw new Error(`${prompt.id} repeats answer or alias: ${raw}`);
+      accepted.add(key);
+    }
+  }
+}
+function replaceExport(moduleText,name,value,nextName){
+  const startMarker=`export const ${name} = `;
+  const endMarker=`\n\nexport const ${nextName} = `;
+  const start=moduleText.indexOf(startMarker);
+  const end=moduleText.indexOf(endMarker,start);
+  if(start<0||end<0)throw new Error(`Could not locate ${name} in src/puzzles.js`);
+  return moduleText.slice(0,start)+startMarker+JSON.stringify(value)+';'+moduleText.slice(end);
+}
 
-const prompts=JSON.parse(await fs.readFile(sourcePath,'utf8'));
+const basePrompts=JSON.parse(await fs.readFile(sourcePath,'utf8'));
+const supplementPrompts=JSON.parse(await fs.readFile(supplementPath,'utf8'));
 const schedule=JSON.parse(await fs.readFile(schedulePath,'utf8'));
 const baseline=JSON.parse(await fs.readFile(generatedPath,'utf8'));
+
+if(!Array.isArray(basePrompts)||!Array.isArray(supplementPrompts))throw new Error('Deep Cut prompt sources must be arrays.');
+const ids=new Set();
+for(const [label,list] of [['base',basePrompts],['supplement',supplementPrompts]]){
+  for(const prompt of list){
+    validatePrompt(prompt,label);
+    if(ids.has(prompt.id))throw new Error(`Duplicate Deep Cut prompt id across sources: ${prompt.id}`);
+    ids.add(prompt.id);
+  }
+}
+const prompts=[...basePrompts,...supplementPrompts];
 const eligible=eligibleDeepCutIndices(prompts);
 
 if(eligible.length<64){
@@ -32,17 +69,20 @@ if(baseline.length!==schedule.days){
   throw new Error(`Deep Cut baseline has ${baseline.length} sets; expected ${schedule.days}.`);
 }
 
+const eligibleSet=new Set(eligible);
 const usage=Array(prompts.length).fill(0);
 const last=Array(prompts.length).fill(-999);
 const sets=[];
 const signatures=new Set();
 
+// Keep every board already played before the quality cutover byte-for-byte compatible
+// with the original 107-prompt bank, so historical leaderboard scores remain comparable.
 for(let day=0;day<Math.min(DEEP_CUT_QUALITY_CUTOVER_DAY,schedule.days);day++){
   const set=[...baseline[day]];
   sets.push(set);
   signatures.add(set.join(':'));
   for(const index of set){
-    if(eligible.includes(index)){usage[index]++;last[index]=day;}
+    if(eligibleSet.has(index)){usage[index]++;last[index]=day;}
   }
 }
 
@@ -76,12 +116,8 @@ for(let day=DEEP_CUT_QUALITY_CUTOVER_DAY;day<sets.length;day++){
 await fs.writeFile(generatedPath,JSON.stringify(sets,null,2)+'\n','utf8');
 
 let moduleText=await fs.readFile(modulePath,'utf8');
-const startMarker='export const DEEP_CUT_PUZZLES = ';
-const endMarker='\n\nexport const YEAR_PACK_START = ';
-const start=moduleText.indexOf(startMarker);
-const end=moduleText.indexOf(endMarker,start);
-if(start<0||end<0)throw new Error('Could not locate DEEP_CUT_PUZZLES in src/puzzles.js');
-moduleText=moduleText.slice(0,start)+startMarker+JSON.stringify(sets)+';'+moduleText.slice(end);
+moduleText=replaceExport(moduleText,'DEEP_CUT_PROMPTS',prompts,'DEEP_CUT_PUZZLES');
+moduleText=replaceExport(moduleText,'DEEP_CUT_PUZZLES',sets,'YEAR_PACK_START');
 await fs.writeFile(modulePath,moduleText,'utf8');
 
 const excluded=prompts.map((prompt,index)=>({index,id:prompt.id,prompt:prompt.prompt,...deepCutPromptQuality(prompt)}))
@@ -91,6 +127,8 @@ const report={
   cutoverDate:DEEP_CUT_QUALITY_CUTOVER_DATE,
   cutoverDay:DEEP_CUT_QUALITY_CUTOVER_DAY,
   minimumCanonicalAnswers:DEEP_CUT_MIN_ANSWERS,
+  basePrompts:basePrompts.length,
+  supplementPrompts:supplementPrompts.length,
   totalPrompts:prompts.length,
   eligiblePrompts:eligible.length,
   excludedPrompts:excluded.length,
@@ -98,4 +136,4 @@ const report={
 };
 await fs.writeFile(reportPath,JSON.stringify(report,null,2)+'\n','utf8');
 
-console.log(`Deep Cut quality curation: ${eligible.length}/${prompts.length} prompts eligible; ${sets.length-DEEP_CUT_QUALITY_CUTOVER_DAY} future daily sets rebuilt.`);
+console.log(`Deep Cut quality curation: ${eligible.length}/${prompts.length} prompts eligible (${basePrompts.length} base + ${supplementPrompts.length} supplement); ${sets.length-DEEP_CUT_QUALITY_CUTOVER_DAY} future daily sets rebuilt.`);
