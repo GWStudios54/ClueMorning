@@ -1,0 +1,51 @@
+name: Deep Cut content quality
+
+on:
+  push:
+    branches:
+      - main
+      - fix/deep-cut-question-quality
+    paths:
+      - 'package.json'
+      - 'content/source/deepcut_prompts.json'
+      - 'content/source/schedule.json'
+      - 'tools/deep-cut-quality.mjs'
+      - 'tools/curate-deep-cut-sets.mjs'
+      - 'tools/audit-deep-cut-daily.mjs'
+      - 'tools/rebuild_content.mjs'
+      - '.github/workflows/deep-cut-content.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild-and-audit:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Rebuild curated content
+        run: npm run rebuild:content
+
+      - name: Run tests and Deep Cut audits
+        run: npm test
+
+      - name: Commit generated Deep Cut artifacts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/generated/deep_cut.json content/generated/deep_cut_quality.json src/puzzles.js
+          if git diff --cached --quiet; then
+            echo "Generated Deep Cut artifacts already current."
+            exit 0
+          fi
+          git commit -m "Rebuild curated Deep Cut sets"
+          git push
