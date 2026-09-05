@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {DEEP_CUT_PROMPTS,DEEP_CUT_PUZZLES} from '../src/puzzles.js';
 import {
+  DEEP_CUT_MIN_ANSWERS,
   DEEP_CUT_QUALITY_CUTOVER_DAY,
   deepCutPromptQuality,
   eligibleDeepCutIndices
@@ -24,4 +25,4 @@ for(let day=DEEP_CUT_QUALITY_CUTOVER_DAY;day<DEEP_CUT_PUZZLES.length;day++){
   }
 }
 
-console.log(`Daily Deep Cut: ${eligible.length}/${DEEP_CUT_PROMPTS.length} prompts pass the quality gate; all post-cutover rounds have 10+ answers and an 8-day repeat gap.`);
+console.log(`Daily Deep Cut: ${eligible.length}/${DEEP_CUT_PROMPTS.length} prompts pass the quality gate; all post-cutover rounds have ${DEEP_CUT_MIN_ANSWERS}+ answers and an 8-day repeat gap.`);
