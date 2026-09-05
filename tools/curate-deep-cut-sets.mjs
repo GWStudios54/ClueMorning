@@ -28,12 +28,17 @@ function validatePrompt(prompt,sourceLabel){
   const accepted=new Set();
   for(const answer of prompt.answers){
     if(!answer?.name)throw new Error(`${prompt.id} has an answer without a name`);
+    const local=new Set();
     for(const raw of [answer.name,...(Array.isArray(answer.aliases)?answer.aliases:[])]){
       const key=answerKey(raw);
       if(!key)throw new Error(`${prompt.id} has an empty answer or alias`);
-      if(accepted.has(key))throw new Error(`${prompt.id} repeats answer or alias: ${raw}`);
-      accepted.add(key);
+      // Punctuation/accent variants of the same canonical answer may normalize
+      // identically. They are harmless; collisions between distinct answers are not.
+      if(local.has(key))continue;
+      if(accepted.has(key))throw new Error(`${prompt.id} repeats an accepted answer across entries: ${raw}`);
+      local.add(key);
     }
+    for(const key of local)accepted.add(key);
   }
 }
 function replaceExport(moduleText,name,value,nextName){
