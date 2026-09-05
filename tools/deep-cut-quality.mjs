@@ -2,7 +2,7 @@ export const DEEP_CUT_MIN_ANSWERS = 8;
 export const DEEP_CUT_QUALITY_CUTOVER_DAY = 6; // 2026-09-05; preserve launch week through Sep 4.
 export const DEEP_CUT_QUALITY_CUTOVER_DATE = '2026-09-05';
 export const DEEP_CUT_MIN_ACCESSIBLE_PER_DAY = 2;
-export const DEEP_CUT_MAX_DEEP_PER_DAY = 2;
+export const DEEP_CUT_MAX_DEEP_PER_DAY = 1;
 export const DEEP_CUT_MAX_SUBDIVISION_PER_DAY = 1;
 
 const BASIC_RECALL_IDS = new Set([
@@ -12,7 +12,8 @@ const BASIC_RECALL_IDS = new Set([
 
 const ACCESSIBLE_IDS = new Set([
   'element','state_capital','president','constellation','shakespeare_play','south_america','europe','africa','asia','eu',
-  'quality_nolan_features','quality_fincher_features','quality_wes_anderson_features','quality_beatles_uk_studio','quality_pink_floyd_studio','quality_queen_studio','quality_radiohead_studio','quality_metallica_studio','quality_taylor_swift_studio_2024','quality_mens_world_cup_hosts_2022','quality_mens_world_cup_winners','quality_summer_olympic_host_cities'
+  'quality_nolan_features','quality_fincher_features','quality_wes_anderson_features','quality_beatles_uk_studio','quality_pink_floyd_studio','quality_queen_studio','quality_radiohead_studio','quality_metallica_studio','quality_taylor_swift_studio_2024','quality_mens_world_cup_hosts_2022','quality_mens_world_cup_winners','quality_summer_olympic_host_cities',
+  'quality_tarantino_features','quality_spielberg_features','quality_bond_eon_films','quality_pixar_features_2025','quality_cameron_features_2025','quality_led_zeppelin_studio','quality_foo_fighters_studio','quality_mlb_teams','quality_nfl_teams','quality_nba_teams'
 ]);
 
 const DEEP_IDS = new Set([
