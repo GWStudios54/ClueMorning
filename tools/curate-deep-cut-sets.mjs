@@ -104,8 +104,28 @@ for(let day=DEEP_CUT_QUALITY_CUTOVER_DAY;day<schedule.days;day++){
   if(chosen.length<8){
     throw new Error(`Could not build quality Deep Cut set for day ${day} without violating the eight-day repeat window.`);
   }
-  const sig=chosen.join(':');
-  if(signatures.has(sig))throw new Error(`Duplicate Deep Cut daily set on day ${day}`);
+
+  let sig=chosen.join(':');
+  if(signatures.has(sig)){
+    let replaced=false;
+    for(const candidate of ranked){
+      if(chosen.includes(candidate.index)||day-candidate.last<8)continue;
+      for(let position=chosen.length-1;position>=0;position--){
+        const trial=[...chosen];
+        trial[position]=candidate.index;
+        const trialSig=trial.join(':');
+        if(new Set(trial).size===8&&!signatures.has(trialSig)){
+          chosen[position]=candidate.index;
+          sig=trialSig;
+          replaced=true;
+          break;
+        }
+      }
+      if(replaced)break;
+    }
+    if(!replaced)throw new Error(`Could not make Deep Cut day ${day} unique without violating the quality/repeat rules.`);
+  }
+
   signatures.add(sig);
   for(const index of chosen){usage[index]++;last[index]=day;}
   sets.push(chosen);
