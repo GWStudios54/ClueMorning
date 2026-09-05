@@ -11,16 +11,16 @@ import {
 
 const __dirname=path.dirname(fileURLToPath(import.meta.url));
 const root=path.resolve(__dirname,'..');
-const sourcePath=path.join(root,'content','source','deepcut_prompts.json');
-const supplementPath=path.join(root,'content','source','deepcut_quality_supplement.json');
-const schedulePath=path.join(root,'content','source','schedule.json');
+const sourceDir=path.join(root,'content','source');
+const sourcePath=path.join(sourceDir,'deepcut_prompts.json');
+const schedulePath=path.join(sourceDir,'schedule.json');
 const generatedPath=path.join(root,'content','generated','deep_cut.json');
 const reportPath=path.join(root,'content','generated','deep_cut_quality.json');
 const modulePath=path.join(root,'src','puzzles.js');
 
 function hashString(str){let h=2166136261;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
 function mulberry32(a){return function(){let t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
-function answerKey(value){return String(value||'').toUpperCase().replace(/[^A-Z0-9]/g,'')}
+function answerKey(value){return String(value||'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/[^A-Z0-9]/g,'')}
 function validatePrompt(prompt,sourceLabel){
   if(!prompt?.id||!prompt?.prompt||!Array.isArray(prompt.answers)||prompt.answers.length<4){
     throw new Error(`Invalid Deep Cut prompt in ${sourceLabel}: ${prompt?.id||'unknown'}`);
@@ -51,20 +51,34 @@ function replaceExport(moduleText,name,value,nextName){
 }
 
 const basePrompts=JSON.parse(await fs.readFile(sourcePath,'utf8'));
-const supplementPrompts=JSON.parse(await fs.readFile(supplementPath,'utf8'));
+const qualitySourceFiles=(await fs.readdir(sourceDir)).filter(name=>/^deepcut_quality_.*\.json$/i.test(name)).sort();
+const qualitySources=[];
+for(const name of qualitySourceFiles){
+  const list=JSON.parse(await fs.readFile(path.join(sourceDir,name),'utf8'));
+  if(!Array.isArray(list))throw new Error(`${name} must contain a JSON array.`);
+  qualitySources.push({name,prompts:list});
+}
+const supplementPrompts=qualitySources.flatMap(source=>source.prompts);
 const schedule=JSON.parse(await fs.readFile(schedulePath,'utf8'));
 const baseline=JSON.parse(await fs.readFile(generatedPath,'utf8'));
 
-if(!Array.isArray(basePrompts)||!Array.isArray(supplementPrompts))throw new Error('Deep Cut prompt sources must be arrays.');
+if(!Array.isArray(basePrompts))throw new Error('Deep Cut base prompt source must be an array.');
 const ids=new Set();
-for(const [label,list] of [['base',basePrompts],['supplement',supplementPrompts]]){
-  for(const prompt of list){
-    validatePrompt(prompt,label);
+for(const prompt of basePrompts){
+  validatePrompt(prompt,'deepcut_prompts.json');
+  if(ids.has(prompt.id))throw new Error(`Duplicate Deep Cut prompt id: ${prompt.id}`);
+  ids.add(prompt.id);
+}
+for(const source of qualitySources){
+  for(const prompt of source.prompts){
+    validatePrompt(prompt,source.name);
     if(ids.has(prompt.id))throw new Error(`Duplicate Deep Cut prompt id across sources: ${prompt.id}`);
     ids.add(prompt.id);
   }
 }
+
 const prompts=[...basePrompts,...supplementPrompts];
+const promptSources=[...basePrompts.map(()=>"base"),...qualitySources.flatMap(source=>source.prompts.map(()=>source.name))];
 const eligible=eligibleDeepCutIndices(prompts);
 
 if(eligible.length<64){
@@ -81,7 +95,7 @@ const sets=[];
 const signatures=new Set();
 
 // Keep every board already played before the quality cutover byte-for-byte compatible
-// with the original 107-prompt bank, so historical leaderboard scores remain comparable.
+// with the original base bank, so historical leaderboard scores remain comparable.
 for(let day=0;day<Math.min(DEEP_CUT_QUALITY_CUTOVER_DAY,schedule.days);day++){
   const set=[...baseline[day]];
   sets.push(set);
@@ -150,22 +164,24 @@ const eligibleDetails=eligible.map(index=>({
   id:prompts[index].id,
   prompt:prompts[index].prompt,
   canonicalAnswers:prompts[index].answers.length,
-  source:index<basePrompts.length?'base':'supplement'
+  source:promptSources[index]
 }));
-const excluded=prompts.map((prompt,index)=>({index,id:prompt.id,prompt:prompt.prompt,...deepCutPromptQuality(prompt)}))
+const excluded=prompts.map((prompt,index)=>({index,id:prompt.id,prompt:prompt.prompt,source:promptSources[index],...deepCutPromptQuality(prompt)}))
   .filter(row=>!row.eligible)
   .map(({eligible:_,...row})=>row);
 const firstCuratedSet=(sets[DEEP_CUT_QUALITY_CUTOVER_DAY]||[]).map(index=>({
   index,
   id:prompts[index].id,
   prompt:prompts[index].prompt,
-  canonicalAnswers:prompts[index].answers.length
+  canonicalAnswers:prompts[index].answers.length,
+  source:promptSources[index]
 }));
 const report={
   cutoverDate:DEEP_CUT_QUALITY_CUTOVER_DATE,
   cutoverDay:DEEP_CUT_QUALITY_CUTOVER_DAY,
   minimumCanonicalAnswers:DEEP_CUT_MIN_ANSWERS,
   basePrompts:basePrompts.length,
+  qualitySourceFiles:qualitySources.map(source=>({name:source.name,prompts:source.prompts.length})),
   supplementPrompts:supplementPrompts.length,
   totalPrompts:prompts.length,
   eligiblePrompts:eligible.length,
@@ -178,5 +194,5 @@ const report={
 };
 await fs.writeFile(reportPath,JSON.stringify(report,null,2)+'\n','utf8');
 
-console.log(`Deep Cut quality curation: ${eligible.length}/${prompts.length} prompts eligible (${basePrompts.length} base + ${supplementPrompts.length} supplement); ${sets.length-DEEP_CUT_QUALITY_CUTOVER_DAY} future daily sets rebuilt.`);
+console.log(`Deep Cut quality curation: ${eligible.length}/${prompts.length} prompts eligible (${basePrompts.length} base + ${supplementPrompts.length} quality additions across ${qualitySources.length} files); ${sets.length-DEEP_CUT_QUALITY_CUTOVER_DAY} future daily sets rebuilt.`);
 console.log(`First curated day ${DEEP_CUT_QUALITY_CUTOVER_DATE}: ${firstCuratedSet.map(row=>row.id).join(', ')}`);
