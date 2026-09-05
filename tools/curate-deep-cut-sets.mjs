@@ -7,6 +7,7 @@ import {
   DEEP_CUT_QUALITY_CUTOVER_DATE,
   DEEP_CUT_MIN_ACCESSIBLE_PER_DAY,
   DEEP_CUT_MAX_DEEP_PER_DAY,
+  DEEP_CUT_MAX_SUBDIVISION_PER_DAY,
   deepCutPromptQuality,
   deepCutDifficulty,
   deepCutDailyBalance,
@@ -130,8 +131,7 @@ for(let day=DEEP_CUT_QUALITY_CUTOVER_DAY;day<schedule.days;day++){
     if(chosen.length===8)break;
     if(chosen.includes(row.index))continue;
     const trial=[...chosen,row.index];
-    const balance=deepCutDailyBalance(trial,prompts);
-    if(balance.deep>DEEP_CUT_MAX_DEEP_PER_DAY)continue;
+    if(!deepCutDailyBalance(trial,prompts).valid)continue;
     chosen.push(row.index);
   }
   if(chosen.length<8){
@@ -185,36 +185,23 @@ moduleText=replaceExport(moduleText,'DEEP_CUT_PUZZLES',sets,'YEAR_PACK_START');
 await fs.writeFile(modulePath,moduleText,'utf8');
 
 function detail(index){
-  return {
-    index,
-    id:prompts[index].id,
-    prompt:prompts[index].prompt,
-    canonicalAnswers:prompts[index].answers.length,
-    source:promptSources[index],
-    difficulty:deepCutDifficulty(prompts[index]).tier
-  };
+  return {index,id:prompts[index].id,prompt:prompts[index].prompt,canonicalAnswers:prompts[index].answers.length,source:promptSources[index],difficulty:deepCutDifficulty(prompts[index]).tier};
 }
 const eligibleDetails=eligible.map(detail);
-const excluded=prompts.map((prompt,index)=>({index,id:prompt.id,prompt:prompt.prompt,source:promptSources[index],...deepCutPromptQuality(prompt)}))
-  .filter(row=>!row.eligible)
-  .map(({eligible:_,...row})=>row);
+const excluded=prompts.map((prompt,index)=>({index,id:prompt.id,prompt:prompt.prompt,source:promptSources[index],...deepCutPromptQuality(prompt)})).filter(row=>!row.eligible).map(({eligible:_,...row})=>row);
 const firstCuratedSet=(sets[DEEP_CUT_QUALITY_CUTOVER_DAY]||[]).map(detail);
 const firstCuratedBalance=deepCutDailyBalance(sets[DEEP_CUT_QUALITY_CUTOVER_DAY]||[],prompts);
 const report={
   cutoverDate:DEEP_CUT_QUALITY_CUTOVER_DATE,
   cutoverDay:DEEP_CUT_QUALITY_CUTOVER_DAY,
   minimumCanonicalAnswers:DEEP_CUT_MIN_ANSWERS,
-  dailyDifficultyRule:{minimumAccessible:DEEP_CUT_MIN_ACCESSIBLE_PER_DAY,maximumDeep:DEEP_CUT_MAX_DEEP_PER_DAY},
+  dailyDifficultyRule:{minimumAccessible:DEEP_CUT_MIN_ACCESSIBLE_PER_DAY,maximumDeep:DEEP_CUT_MAX_DEEP_PER_DAY,maximumAdministrativeSubdivision:DEEP_CUT_MAX_SUBDIVISION_PER_DAY},
   basePrompts:basePrompts.length,
   qualitySourceFiles:qualitySources.map(source=>({name:source.name,prompts:source.prompts.length})),
   supplementPrompts:supplementPrompts.length,
   totalPrompts:prompts.length,
   eligiblePrompts:eligible.length,
-  eligibleByDifficulty:{
-    accessible:eligible.filter(index=>deepCutDifficulty(prompts[index]).tier==='accessible').length,
-    standard:eligible.filter(index=>deepCutDifficulty(prompts[index]).tier==='standard').length,
-    deep:eligible.filter(index=>deepCutDifficulty(prompts[index]).tier==='deep').length
-  },
+  eligibleByDifficulty:{accessible:eligible.filter(index=>deepCutDifficulty(prompts[index]).tier==='accessible').length,standard:eligible.filter(index=>deepCutDifficulty(prompts[index]).tier==='standard').length,deep:eligible.filter(index=>deepCutDifficulty(prompts[index]).tier==='deep').length},
   excludedPrompts:excluded.length,
   futureDailySets:sets.length-DEEP_CUT_QUALITY_CUTOVER_DAY,
   uniqueDailySets:signatures.size,
@@ -225,5 +212,5 @@ const report={
 await fs.writeFile(reportPath,JSON.stringify(report,null,2)+'\n','utf8');
 
 console.log(`Deep Cut quality curation: ${eligible.length}/${prompts.length} prompts eligible (${basePrompts.length} base + ${supplementPrompts.length} quality additions across ${qualitySources.length} files); ${sets.length-DEEP_CUT_QUALITY_CUTOVER_DAY} future daily sets rebuilt.`);
-console.log(`Daily balance: at least ${DEEP_CUT_MIN_ACCESSIBLE_PER_DAY} accessible prompts and at most ${DEEP_CUT_MAX_DEEP_PER_DAY} deep prompt.`);
+console.log(`Daily balance: at least ${DEEP_CUT_MIN_ACCESSIBLE_PER_DAY} accessible, at most ${DEEP_CUT_MAX_DEEP_PER_DAY} deep, and at most ${DEEP_CUT_MAX_SUBDIVISION_PER_DAY} administrative-subdivision prompt.`);
 console.log(`First curated day ${DEEP_CUT_QUALITY_CUTOVER_DATE}: ${firstCuratedSet.map(row=>`${row.id}[${row.difficulty}]`).join(', ')}`);
