@@ -145,9 +145,22 @@ moduleText=replaceExport(moduleText,'DEEP_CUT_PROMPTS',prompts,'DEEP_CUT_PUZZLES
 moduleText=replaceExport(moduleText,'DEEP_CUT_PUZZLES',sets,'YEAR_PACK_START');
 await fs.writeFile(modulePath,moduleText,'utf8');
 
+const eligibleDetails=eligible.map(index=>({
+  index,
+  id:prompts[index].id,
+  prompt:prompts[index].prompt,
+  canonicalAnswers:prompts[index].answers.length,
+  source:index<basePrompts.length?'base':'supplement'
+}));
 const excluded=prompts.map((prompt,index)=>({index,id:prompt.id,prompt:prompt.prompt,...deepCutPromptQuality(prompt)}))
   .filter(row=>!row.eligible)
   .map(({eligible:_,...row})=>row);
+const firstCuratedSet=(sets[DEEP_CUT_QUALITY_CUTOVER_DAY]||[]).map(index=>({
+  index,
+  id:prompts[index].id,
+  prompt:prompts[index].prompt,
+  canonicalAnswers:prompts[index].answers.length
+}));
 const report={
   cutoverDate:DEEP_CUT_QUALITY_CUTOVER_DATE,
   cutoverDay:DEEP_CUT_QUALITY_CUTOVER_DAY,
@@ -157,8 +170,13 @@ const report={
   totalPrompts:prompts.length,
   eligiblePrompts:eligible.length,
   excludedPrompts:excluded.length,
+  futureDailySets:sets.length-DEEP_CUT_QUALITY_CUTOVER_DAY,
+  uniqueDailySets:signatures.size,
+  firstCuratedDay:{date:DEEP_CUT_QUALITY_CUTOVER_DATE,prompts:firstCuratedSet},
+  eligible:eligibleDetails,
   excluded
 };
 await fs.writeFile(reportPath,JSON.stringify(report,null,2)+'\n','utf8');
 
 console.log(`Deep Cut quality curation: ${eligible.length}/${prompts.length} prompts eligible (${basePrompts.length} base + ${supplementPrompts.length} supplement); ${sets.length-DEEP_CUT_QUALITY_CUTOVER_DAY} future daily sets rebuilt.`);
+console.log(`First curated day ${DEEP_CUT_QUALITY_CUTOVER_DATE}: ${firstCuratedSet.map(row=>row.id).join(', ')}`);
