@@ -8,6 +8,7 @@ on:
     paths:
       - 'package.json'
       - 'content/source/deepcut_prompts.json'
+      - 'content/source/deepcut_quality_supplement.json'
       - 'content/source/schedule.json'
       - 'tools/deep-cut-quality.mjs'
       - 'tools/curate-deep-cut-sets.mjs'
