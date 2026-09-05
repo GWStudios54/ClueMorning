@@ -1,4 +1,4 @@
-export const DEEP_CUT_MIN_ANSWERS = 10;
+export const DEEP_CUT_MIN_ANSWERS = 7;
 export const DEEP_CUT_QUALITY_CUTOVER_DAY = 6; // 2026-09-05; preserve launch week through Sep 4.
 export const DEEP_CUT_QUALITY_CUTOVER_DATE = '2026-09-05';
 
