@@ -11,6 +11,7 @@ on:
       - 'content/source/deepcut_quality_*.json'
       - 'content/source/schedule.json'
       - 'tools/deep-cut-quality.mjs'
+      - 'tools/deep-cut-rarity-order.mjs'
       - 'tools/curate-deep-cut-sets.mjs'
       - 'tools/audit-deep-cut-daily.mjs'
       - 'tools/rebuild_content.mjs'
