@@ -1,0 +1,43 @@
+name: Trail layout validation
+
+on:
+  push:
+    branches:
+      - fix/trail-irregular-paths
+  pull_request:
+    paths:
+      - 'tools/trail-layout.mjs'
+      - 'tools/rebuild_content.mjs'
+      - 'content/source/trail_seeds.json'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: Rebuild content with irregular Trail layouts
+        run: npm run rebuild:content
+      - name: Run tests
+        run: npm test
+      - name: Verify INTERNATIONALISM is not a row/column snake
+        run: |
+          node --input-type=module <<'NODE'
+          import {TRAIL_PUZZLES} from './src/puzzles.js';
+          import {isObviousTrailLayout} from './tools/trail-layout.mjs';
+          const puzzle=TRAIL_PUZZLES.find(p=>p.longest==='INTERNATIONALISM');
+          if(!puzzle) throw new Error('INTERNATIONALISM Trail board missing');
+          if(isObviousTrailLayout(puzzle.grid,puzzle.longest)) throw new Error('INTERNATIONALISM is still laid out as an obvious snake');
+          if(!puzzle.words.includes('INTERNATIONALISM')) throw new Error('Longest word is no longer solvable');
+          if(puzzle.words.length<20) throw new Error(`Trail board is too thin: ${puzzle.words.length} words`);
+          console.log(puzzle.grid.slice(0,4).join(' '));
+          console.log(puzzle.grid.slice(4,8).join(' '));
+          console.log(puzzle.grid.slice(8,12).join(' '));
+          console.log(puzzle.grid.slice(12,16).join(' '));
+          console.log(`words=${puzzle.words.length}`);
+          NODE

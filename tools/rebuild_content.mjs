@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { buildIrregularTrailGrid, isObviousTrailLayout } from "./trail-layout.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -195,15 +196,21 @@ async function main(){
   const wordBank = {};
   for(const len of [5,6,7,8,9,10]) wordBank[len] = await readLines(path.join(sourceDir, "word_bank", `${len}.txt`));
   const trie = makeTrie(lexicon);
-  const trails = trailSeeds.map(seed => {
-    const grid = seed.grid.map(ch => normalizeWord(ch));
+  const trails = trailSeeds.map((seed,seedIndex) => {
     const longest = normalizeWord(seed.longest);
-    const words = solveTrailBoard(grid, trie);
-    if(!trailPathValid(longest, grid)) throw new Error(`Invalid longest Trail word path: ${longest}`);
-    if(!words.includes(longest)) words.push(longest);
-    words.sort((a,b)=>a.length-b.length||a.localeCompare(b));
-    if(words.length < 20) throw new Error(`Trail board too thin: ${longest}`);
-    return { grid, longest, words };
+    let best=null;
+    for(let attempt=0;attempt<24;attempt++){
+      const grid=buildIrregularTrailGrid(seed,seedIndex,attempt);
+      if(!grid||isObviousTrailLayout(grid,longest)||!trailPathValid(longest,grid))continue;
+      const words=solveTrailBoard(grid,trie);
+      if(!words.includes(longest))words.push(longest);
+      words.sort((a,b)=>a.length-b.length||a.localeCompare(b));
+      const candidate={grid,longest,words};
+      if(!best||candidate.words.length>best.words.length)best=candidate;
+      if(words.length>=20)return candidate;
+    }
+    if(best&&best.words.length>=20)return best;
+    throw new Error(`Could not build an irregular Trail board with 20+ words: ${longest}`);
   });
   if(trails.length < schedule.days) throw new Error(`Need at least ${schedule.days} Trail boards, found ${trails.length}`);
   const stepBuild=buildWordSteps(commonStepWords,lexicon,schedule.startDate,schedule.days);
