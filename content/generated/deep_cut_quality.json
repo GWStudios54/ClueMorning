@@ -3,7 +3,7 @@
   "cutoverDay": 6,
   "minimumCanonicalAnswers": 8,
   "dailyDifficultyRule": {
-    "minimumAccessible": 2,
+    "minimumAccessible": 4,
     "maximumDeep": 1,
     "maximumAdministrativeSubdivision": 1
   },
@@ -30,8 +30,8 @@
   "totalPrompts": 170,
   "eligiblePrompts": 72,
   "eligibleByDifficulty": {
-    "accessible": 32,
-    "standard": 27,
+    "accessible": 49,
+    "standard": 10,
     "deep": 13
   },
   "excludedPrompts": 98,
@@ -40,13 +40,21 @@
   "firstCuratedDay": {
     "date": "2026-09-05",
     "balance": {
-      "accessible": 3,
-      "standard": 4,
+      "accessible": 5,
+      "standard": 2,
       "deep": 1,
       "subdivisions": 0,
       "valid": true
     },
     "prompts": [
+      {
+        "index": 135,
+        "id": "quality_crewed_apollo_missions",
+        "prompt": "Name a crewed Apollo mission.",
+        "canonicalAnswers": 11,
+        "source": "deepcut_quality_expansion.json",
+        "difficulty": "accessible"
+      },
       {
         "index": 2,
         "id": "element",
@@ -64,12 +72,12 @@
         "difficulty": "accessible"
       },
       {
-        "index": 135,
-        "id": "quality_crewed_apollo_missions",
-        "prompt": "Name a crewed Apollo mission.",
-        "canonicalAnswers": 11,
-        "source": "deepcut_quality_expansion.json",
-        "difficulty": "standard"
+        "index": 141,
+        "id": "quality_fincher_features",
+        "prompt": "Name a feature film directed by David Fincher.",
+        "canonicalAnswers": 12,
+        "source": "deepcut_quality_supplement.json",
+        "difficulty": "accessible"
       },
       {
         "index": 149,
@@ -96,20 +104,12 @@
         "difficulty": "standard"
       },
       {
-        "index": 141,
-        "id": "quality_fincher_features",
-        "prompt": "Name a feature film directed by David Fincher.",
-        "canonicalAnswers": 12,
-        "source": "deepcut_quality_supplement.json",
-        "difficulty": "accessible"
-      },
-      {
         "index": 161,
         "id": "quality_mississippi_border_states",
         "prompt": "Name a U.S. state that borders the Mississippi River.",
         "canonicalAnswers": 10,
         "source": "deepcut_quality_supplement.json",
-        "difficulty": "standard"
+        "difficulty": "accessible"
       }
     ]
   },
@@ -248,7 +248,7 @@
       "prompt": "Name a feature film directed by Martin Scorsese.",
       "canonicalAnswers": 26,
       "source": "deepcut_quality_domains.json",
-      "difficulty": "standard"
+      "difficulty": "accessible"
     },
     {
       "index": 114,
@@ -256,7 +256,7 @@
       "prompt": "Name a feature film made by Joel and Ethan Coen as the Coen brothers.",
       "canonicalAnswers": 18,
       "source": "deepcut_quality_domains.json",
-      "difficulty": "standard"
+      "difficulty": "accessible"
     },
     {
       "index": 115,
@@ -280,7 +280,7 @@
       "prompt": "Name a Madonna studio album.",
       "canonicalAnswers": 14,
       "source": "deepcut_quality_domains.json",
-      "difficulty": "standard"
+      "difficulty": "accessible"
     },
     {
       "index": 118,
@@ -296,7 +296,7 @@
       "prompt": "Name a sovereign state that shares a land border with Brazil, including France via French Guiana.",
       "canonicalAnswers": 10,
       "source": "deepcut_quality_domains.json",
-      "difficulty": "standard"
+      "difficulty": "accessible"
     },
     {
       "index": 120,
@@ -304,7 +304,7 @@
       "prompt": "Name a country that shares an internationally recognized land border with Russia.",
       "canonicalAnswers": 14,
       "source": "deepcut_quality_domains.json",
-      "difficulty": "standard"
+      "difficulty": "accessible"
     },
     {
       "index": 121,
@@ -320,7 +320,7 @@
       "prompt": "Name a Formula One World Drivers' Champion through the 2024 season.",
       "canonicalAnswers": 33,
       "source": "deepcut_quality_domains.json",
-      "difficulty": "standard"
+      "difficulty": "accessible"
     },
     {
       "index": 123,
@@ -328,7 +328,7 @@
       "prompt": "Name a film released from 2000 through 2024 that won the Academy Award for Best Picture.",
       "canonicalAnswers": 25,
       "source": "deepcut_quality_domains.json",
-      "difficulty": "standard"
+      "difficulty": "accessible"
     },
     {
       "index": 124,
@@ -344,7 +344,7 @@
       "prompt": "Name a feature-length film produced or co-produced by Studio Ghibli.",
       "canonicalAnswers": 24,
       "source": "deepcut_quality_domains.json",
-      "difficulty": "standard"
+      "difficulty": "accessible"
     },
     {
       "index": 126,
@@ -352,7 +352,7 @@
       "prompt": "Name a U.S. national park in California, Utah, or Arizona.",
       "canonicalAnswers": 17,
       "source": "deepcut_quality_domains.json",
-      "difficulty": "standard"
+      "difficulty": "accessible"
     },
     {
       "index": 127,
@@ -400,7 +400,7 @@
       "prompt": "Name a UN member state with a coastline on the Mediterranean Sea.",
       "canonicalAnswers": 21,
       "source": "deepcut_quality_expansion.json",
-      "difficulty": "standard"
+      "difficulty": "accessible"
     },
     {
       "index": 133,
@@ -424,7 +424,7 @@
       "prompt": "Name a crewed Apollo mission.",
       "canonicalAnswers": 11,
       "source": "deepcut_quality_expansion.json",
-      "difficulty": "standard"
+      "difficulty": "accessible"
     },
     {
       "index": 136,
@@ -432,7 +432,7 @@
       "prompt": "Name one of the 12 people who have walked on the Moon.",
       "canonicalAnswers": 12,
       "source": "deepcut_quality_expansion.json",
-      "difficulty": "standard"
+      "difficulty": "accessible"
     },
     {
       "index": 137,
@@ -440,7 +440,7 @@
       "prompt": "Name a David Bowie studio album.",
       "canonicalAnswers": 26,
       "source": "deepcut_quality_expansion.json",
-      "difficulty": "standard"
+      "difficulty": "accessible"
     },
     {
       "index": 138,
@@ -544,7 +544,7 @@
       "prompt": "Name a sovereign country that shares a land border with China.",
       "canonicalAnswers": 14,
       "source": "deepcut_quality_supplement.json",
-      "difficulty": "standard"
+      "difficulty": "accessible"
     },
     {
       "index": 151,
@@ -552,7 +552,7 @@
       "prompt": "Name a sovereign country that shares a land border with Germany.",
       "canonicalAnswers": 9,
       "source": "deepcut_quality_supplement.json",
-      "difficulty": "standard"
+      "difficulty": "accessible"
     },
     {
       "index": 152,
@@ -608,7 +608,7 @@
       "prompt": "Name an original 1949 member of NATO.",
       "canonicalAnswers": 12,
       "source": "deepcut_quality_supplement.json",
-      "difficulty": "standard"
+      "difficulty": "accessible"
     },
     {
       "index": 160,
@@ -624,7 +624,7 @@
       "prompt": "Name a U.S. state that borders the Mississippi River.",
       "canonicalAnswers": 10,
       "source": "deepcut_quality_supplement.json",
-      "difficulty": "standard"
+      "difficulty": "accessible"
     },
     {
       "index": 162,
