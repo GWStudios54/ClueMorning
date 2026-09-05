@@ -1,25 +1,5 @@
 [
   {
-    "id":"quality_tarantino_features",
-    "prompt":"Name a feature film directed by Quentin Tarantino.",
-    "answers":[{"name":"Reservoir Dogs"},{"name":"Pulp Fiction"},{"name":"Jackie Brown"},{"name":"Kill Bill: Volume 1","aliases":["Kill Bill Vol 1","Kill Bill Volume 1"]},{"name":"Kill Bill: Volume 2","aliases":["Kill Bill Vol 2","Kill Bill Volume 2"]},{"name":"Death Proof"},{"name":"Inglourious Basterds"},{"name":"Django Unchained"},{"name":"The Hateful Eight"},{"name":"Once Upon a Time in Hollywood"}]
-  },
-  {
-    "id":"quality_spielberg_features",
-    "prompt":"Name a theatrically released feature film directed by Steven Spielberg from The Sugarland Express through The Fabelmans.",
-    "answers":[{"name":"The Sugarland Express"},{"name":"Jaws"},{"name":"Close Encounters of the Third Kind"},{"name":"1941"},{"name":"Raiders of the Lost Ark"},{"name":"E.T. the Extra-Terrestrial","aliases":["ET","E.T."]},{"name":"Indiana Jones and the Temple of Doom"},{"name":"The Color Purple"},{"name":"Empire of the Sun"},{"name":"Indiana Jones and the Last Crusade"},{"name":"Always"},{"name":"Hook"},{"name":"Jurassic Park"},{"name":"Schindler's List"},{"name":"The Lost World: Jurassic Park"},{"name":"Amistad"},{"name":"Saving Private Ryan"},{"name":"A.I. Artificial Intelligence","aliases":["AI Artificial Intelligence"]},{"name":"Minority Report"},{"name":"Catch Me If You Can"},{"name":"The Terminal"},{"name":"War of the Worlds"},{"name":"Munich"},{"name":"Indiana Jones and the Kingdom of the Crystal Skull"},{"name":"The Adventures of Tintin"},{"name":"War Horse"},{"name":"Lincoln"},{"name":"Bridge of Spies"},{"name":"The BFG"},{"name":"The Post"},{"name":"Ready Player One"},{"name":"West Side Story"},{"name":"The Fabelmans"}]
-  },
-  {
-    "id":"quality_bond_eon_films",
-    "prompt":"Name an Eon Productions James Bond film released through No Time to Die.",
-    "answers":[{"name":"Dr. No"},{"name":"From Russia with Love"},{"name":"Goldfinger"},{"name":"Thunderball"},{"name":"You Only Live Twice"},{"name":"On Her Majesty's Secret Service"},{"name":"Diamonds Are Forever"},{"name":"Live and Let Die"},{"name":"The Man with the Golden Gun"},{"name":"The Spy Who Loved Me"},{"name":"Moonraker"},{"name":"For Your Eyes Only"},{"name":"Octopussy"},{"name":"A View to a Kill"},{"name":"The Living Daylights"},{"name":"Licence to Kill","aliases":["License to Kill"]},{"name":"GoldenEye"},{"name":"Tomorrow Never Dies"},{"name":"The World Is Not Enough"},{"name":"Die Another Day"},{"name":"Casino Royale"},{"name":"Quantum of Solace"},{"name":"Skyfall"},{"name":"Spectre"},{"name":"No Time to Die"}]
-  },
-  {
-    "id":"quality_pixar_features_2025",
-    "prompt":"Name a Pixar feature film released through 2025.",
-    "answers":[{"name":"Toy Story"},{"name":"A Bug's Life"},{"name":"Toy Story 2"},{"name":"Monsters, Inc."},{"name":"Finding Nemo"},{"name":"The Incredibles"},{"name":"Cars"},{"name":"Ratatouille"},{"name":"WALL-E","aliases":["WALLE"]},{"name":"Up"},{"name":"Toy Story 3"},{"name":"Cars 2"},{"name":"Brave"},{"name":"Monsters University"},{"name":"Inside Out"},{"name":"The Good Dinosaur"},{"name":"Finding Dory"},{"name":"Cars 3"},{"name":"Coco"},{"name":"Incredibles 2"},{"name":"Toy Story 4"},{"name":"Onward"},{"name":"Soul"},{"name":"Luca"},{"name":"Turning Red"},{"name":"Lightyear"},{"name":"Elemental"},{"name":"Inside Out 2"},{"name":"Elio"}]
-  },
-  {
     "id":"quality_cameron_features_2025",
     "prompt":"Name a feature film credited as directed by James Cameron through 2025.",
     "answers":[{"name":"Piranha II: The Spawning","aliases":["Piranha 2 The Spawning"]},{"name":"The Terminator"},{"name":"Aliens"},{"name":"The Abyss"},{"name":"Terminator 2: Judgment Day","aliases":["T2","Terminator 2"]},{"name":"True Lies"},{"name":"Titanic"},{"name":"Avatar"},{"name":"Avatar: The Way of Water"},{"name":"Avatar: Fire and Ash"}]
