@@ -1,0 +1,570 @@
+{
+  "cutoverDate": "2026-09-05",
+  "cutoverDay": 6,
+  "minimumCanonicalAnswers": 7,
+  "basePrompts": 107,
+  "supplementPrompts": 32,
+  "totalPrompts": 139,
+  "eligiblePrompts": 72,
+  "excludedPrompts": 67,
+  "excluded": [
+    {
+      "index": 0,
+      "id": "us_state",
+      "prompt": "Name a U.S. state.",
+      "reasons": [
+        "elementary recall list"
+      ]
+    },
+    {
+      "index": 1,
+      "id": "country",
+      "prompt": "Name a country.",
+      "reasons": [
+        "elementary recall list"
+      ]
+    },
+    {
+      "index": 16,
+      "id": "dwarf",
+      "prompt": "Name an IAU-recognized dwarf planet.",
+      "reasons": [
+        "only 5 canonical answers"
+      ]
+    },
+    {
+      "index": 17,
+      "id": "greatlakes",
+      "prompt": "Name one of the Great Lakes.",
+      "reasons": [
+        "only 5 canonical answers"
+      ]
+    },
+    {
+      "index": 19,
+      "id": "oceans",
+      "prompt": "Name one of Earth’s five oceans.",
+      "reasons": [
+        "only 5 canonical answers"
+      ]
+    },
+    {
+      "index": 21,
+      "id": "unsc",
+      "prompt": "Name a permanent member of the UN Security Council.",
+      "reasons": [
+        "only 5 canonical answers"
+      ]
+    },
+    {
+      "index": 22,
+      "id": "unlangs",
+      "prompt": "Name an official language of the United Nations.",
+      "reasons": [
+        "only 6 canonical answers"
+      ]
+    },
+    {
+      "index": 23,
+      "id": "nobel",
+      "prompt": "Name a Nobel Prize category.",
+      "reasons": [
+        "only 6 canonical answers"
+      ]
+    },
+    {
+      "index": 24,
+      "id": "military",
+      "prompt": "Name a branch of the U.S. Armed Forces.",
+      "reasons": [
+        "only 6 canonical answers"
+      ]
+    },
+    {
+      "index": 25,
+      "id": "chess",
+      "prompt": "Name a type of chess piece.",
+      "reasons": [
+        "only 6 canonical answers"
+      ]
+    },
+    {
+      "index": 26,
+      "id": "cardsuits",
+      "prompt": "Name a standard playing-card suit.",
+      "reasons": [
+        "only 4 canonical answers"
+      ]
+    },
+    {
+      "index": 29,
+      "id": "rainbow",
+      "prompt": "Name a traditional rainbow color.",
+      "reasons": [
+        "elementary recall list"
+      ]
+    },
+    {
+      "index": 33,
+      "id": "apollo",
+      "prompt": "Name an Apollo mission that landed astronauts on the Moon.",
+      "reasons": [
+        "only 6 canonical answers"
+      ]
+    },
+    {
+      "index": 36,
+      "id": "state_initial_a",
+      "prompt": "Name a U.S. state beginning with A.",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 37,
+      "id": "state_initial_i",
+      "prompt": "Name a U.S. state beginning with I.",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 38,
+      "id": "state_initial_m",
+      "prompt": "Name a U.S. state beginning with M.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 39,
+      "id": "state_initial_n",
+      "prompt": "Name a U.S. state beginning with N.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 40,
+      "id": "state_initial_w",
+      "prompt": "Name a U.S. state beginning with W.",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 41,
+      "id": "country_initial_a",
+      "prompt": "Name a country beginning with A.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 42,
+      "id": "country_initial_b",
+      "prompt": "Name a country beginning with B.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 43,
+      "id": "country_initial_c",
+      "prompt": "Name a country beginning with C.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 44,
+      "id": "country_initial_d",
+      "prompt": "Name a country beginning with D.",
+      "reasons": [
+        "only 5 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 45,
+      "id": "country_initial_e",
+      "prompt": "Name a country beginning with E.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 46,
+      "id": "country_initial_g",
+      "prompt": "Name a country beginning with G.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 47,
+      "id": "country_initial_i",
+      "prompt": "Name a country beginning with I.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 48,
+      "id": "country_initial_k",
+      "prompt": "Name a country beginning with K.",
+      "reasons": [
+        "only 5 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 49,
+      "id": "country_initial_l",
+      "prompt": "Name a country beginning with L.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 50,
+      "id": "country_initial_m",
+      "prompt": "Name a country beginning with M.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 51,
+      "id": "country_initial_n",
+      "prompt": "Name a country beginning with N.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 52,
+      "id": "country_initial_p",
+      "prompt": "Name a country beginning with P.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 53,
+      "id": "country_initial_r",
+      "prompt": "Name a country beginning with R.",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 54,
+      "id": "country_initial_s",
+      "prompt": "Name a country beginning with S.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 55,
+      "id": "country_initial_t",
+      "prompt": "Name a country beginning with T.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 56,
+      "id": "country_initial_u",
+      "prompt": "Name a country beginning with U.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 57,
+      "id": "country_initial_v",
+      "prompt": "Name a country beginning with V.",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 58,
+      "id": "element_initial_a",
+      "prompt": "Name a chemical element beginning with A.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 59,
+      "id": "element_initial_b",
+      "prompt": "Name a chemical element beginning with B.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 60,
+      "id": "element_initial_c",
+      "prompt": "Name a chemical element beginning with C.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 61,
+      "id": "element_initial_f",
+      "prompt": "Name a chemical element beginning with F.",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 62,
+      "id": "element_initial_g",
+      "prompt": "Name a chemical element beginning with G.",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 63,
+      "id": "element_initial_h",
+      "prompt": "Name a chemical element beginning with H.",
+      "reasons": [
+        "only 5 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 64,
+      "id": "element_initial_i",
+      "prompt": "Name a chemical element beginning with I.",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 65,
+      "id": "element_initial_l",
+      "prompt": "Name a chemical element beginning with L.",
+      "reasons": [
+        "only 6 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 66,
+      "id": "element_initial_m",
+      "prompt": "Name a chemical element beginning with M.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 67,
+      "id": "element_initial_n",
+      "prompt": "Name a chemical element beginning with N.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 68,
+      "id": "element_initial_p",
+      "prompt": "Name a chemical element beginning with P.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 69,
+      "id": "element_initial_r",
+      "prompt": "Name a chemical element beginning with R.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 70,
+      "id": "element_initial_s",
+      "prompt": "Name a chemical element beginning with S.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 71,
+      "id": "element_initial_t",
+      "prompt": "Name a chemical element beginning with T.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 72,
+      "id": "capital_initial_a",
+      "prompt": "Name a U.S. state capital beginning with A.",
+      "reasons": [
+        "only 5 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 73,
+      "id": "capital_initial_b",
+      "prompt": "Name a U.S. state capital beginning with B.",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 74,
+      "id": "capital_initial_c",
+      "prompt": "Name a U.S. state capital beginning with C.",
+      "reasons": [
+        "only 6 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 75,
+      "id": "capital_initial_h",
+      "prompt": "Name a U.S. state capital beginning with H.",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 76,
+      "id": "capital_initial_s",
+      "prompt": "Name a U.S. state capital beginning with S.",
+      "reasons": [
+        "only 6 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 77,
+      "id": "constellation_initial_a",
+      "prompt": "Name a constellation beginning with A.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 78,
+      "id": "constellation_initial_c",
+      "prompt": "Name a constellation beginning with C.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 79,
+      "id": "constellation_initial_h",
+      "prompt": "Name a constellation beginning with H.",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 80,
+      "id": "constellation_initial_l",
+      "prompt": "Name a constellation beginning with L.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 81,
+      "id": "constellation_initial_m",
+      "prompt": "Name a constellation beginning with M.",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 82,
+      "id": "constellation_initial_p",
+      "prompt": "Name a constellation beginning with P.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 83,
+      "id": "constellation_initial_s",
+      "prompt": "Name a constellation beginning with S.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 84,
+      "id": "constellation_initial_t",
+      "prompt": "Name a constellation beginning with T.",
+      "reasons": [
+        "only 5 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 85,
+      "id": "constellation_initial_v",
+      "prompt": "Name a constellation beginning with V.",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 86,
+      "id": "play_initial_a",
+      "prompt": "Name a Shakespeare play beginning with A.",
+      "reasons": [
+        "only 4 canonical answers",
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 87,
+      "id": "play_initial_h",
+      "prompt": "Name a Shakespeare play beginning with H.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 88,
+      "id": "play_initial_t",
+      "prompt": "Name a Shakespeare play beginning with T.",
+      "reasons": [
+        "single-letter prefix restriction"
+      ]
+    },
+    {
+      "index": 106,
+      "id": "constellation_range_uvwxyz",
+      "prompt": "Name a constellation beginning with a letter from U–Z.",
+      "reasons": [
+        "only 6 canonical answers"
+      ]
+    }
+  ]
+}
