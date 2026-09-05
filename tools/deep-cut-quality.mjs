@@ -2,7 +2,7 @@ export const DEEP_CUT_MIN_ANSWERS = 8;
 export const DEEP_CUT_QUALITY_CUTOVER_DAY = 6; // 2026-09-05; preserve launch week through Sep 4.
 export const DEEP_CUT_QUALITY_CUTOVER_DATE = '2026-09-05';
 export const DEEP_CUT_MIN_ACCESSIBLE_PER_DAY = 2;
-export const DEEP_CUT_MAX_DEEP_PER_DAY = 1;
+export const DEEP_CUT_MAX_DEEP_PER_DAY = 2;
 
 const BASIC_RECALL_IDS = new Set([
   'us_state',
@@ -61,7 +61,7 @@ const ACCESSIBLE_IDS = new Set([
 ]);
 
 // These are legitimate Deep Cut categories, but they require specialized recall.
-// They stay in the game as a spice round rather than dominating a whole day.
+// They stay in the game as spice rounds rather than dominating a whole day.
 const DEEP_IDS = new Set([
   'quality_twelve_caesars',
   'quality_cranial_nerves',
