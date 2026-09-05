@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - fix/deep-cut-question-quality
+      - 'fix/deep-cut-*'
     paths:
       - 'package.json'
       - 'content/source/deepcut_prompts.json'

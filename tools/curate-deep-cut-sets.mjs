@@ -5,7 +5,12 @@ import {
   DEEP_CUT_MIN_ANSWERS,
   DEEP_CUT_QUALITY_CUTOVER_DAY,
   DEEP_CUT_QUALITY_CUTOVER_DATE,
+  DEEP_CUT_MIN_ACCESSIBLE_PER_DAY,
+  DEEP_CUT_MAX_DEEP_PER_DAY,
+  DEEP_CUT_MAX_SUBDIVISION_PER_DAY,
   deepCutPromptQuality,
+  deepCutDifficulty,
+  deepCutDailyBalance,
   eligibleDeepCutIndices
 } from './deep-cut-quality.mjs';
 import {applyDeepCutRarityOrder} from './deep-cut-rarity-order.mjs';
@@ -33,8 +38,6 @@ function validatePrompt(prompt,sourceLabel){
     for(const raw of [answer.name,...(Array.isArray(answer.aliases)?answer.aliases:[])]){
       const key=answerKey(raw);
       if(!key)throw new Error(`${prompt.id} has an empty answer or alias`);
-      // Punctuation/accent variants of the same canonical answer may normalize
-      // identically. They are harmless; collisions between distinct answers are not.
       if(local.has(key))continue;
       if(accepted.has(key))throw new Error(`${prompt.id} repeats an accepted answer across entries: ${raw}`);
       local.add(key);
@@ -81,9 +84,13 @@ for(const source of qualitySources){
 const prompts=applyDeepCutRarityOrder([...basePrompts,...supplementPrompts]);
 const promptSources=[...basePrompts.map(()=>"base"),...qualitySources.flatMap(source=>source.prompts.map(()=>source.name))];
 const eligible=eligibleDeepCutIndices(prompts);
+const accessibleEligible=eligible.filter(index=>deepCutDifficulty(prompts[index]).tier==='accessible');
 
 if(eligible.length<64){
   throw new Error(`Deep Cut quality gate left only ${eligible.length} eligible prompts; need at least 64 to keep an eight-day no-repeat window.`);
+}
+if(accessibleEligible.length<DEEP_CUT_MIN_ACCESSIBLE_PER_DAY*8){
+  throw new Error(`Deep Cut has only ${accessibleEligible.length} accessible prompts; need at least ${DEEP_CUT_MIN_ACCESSIBLE_PER_DAY*8} for the daily balance and repeat window.`);
 }
 if(baseline.length!==schedule.days){
   throw new Error(`Deep Cut baseline has ${baseline.length} sets; expected ${schedule.days}.`);
@@ -95,8 +102,6 @@ const last=Array(prompts.length).fill(-999);
 const sets=[];
 const signatures=new Set();
 
-// Keep every board already played before the quality cutover byte-for-byte compatible
-// with the original base bank, so historical leaderboard scores remain comparable.
 for(let day=0;day<Math.min(DEEP_CUT_QUALITY_CUTOVER_DAY,schedule.days);day++){
   const set=[...baseline[day]];
   sets.push(set);
@@ -108,37 +113,54 @@ for(let day=0;day<Math.min(DEEP_CUT_QUALITY_CUTOVER_DAY,schedule.days);day++){
 
 for(let day=DEEP_CUT_QUALITY_CUTOVER_DAY;day<schedule.days;day++){
   const rnd=mulberry32(hashString(`${schedule.startDate}::deep-cut-quality::${day}`));
-  const ranked=eligible.map(index=>({index,use:usage[index],last:last[index],r:rnd()}))
+  const ranked=eligible.map(index=>({index,use:usage[index],last:last[index],r:rnd(),difficulty:deepCutDifficulty(prompts[index])}))
     .sort((a,b)=>a.use-b.use||a.last-b.last||a.r-b.r);
+  const available=ranked.filter(row=>day-row.last>=8);
   const chosen=[];
-  for(const row of ranked){
+
+  for(const row of available){
+    if(chosen.length>=DEEP_CUT_MIN_ACCESSIBLE_PER_DAY)break;
+    if(row.difficulty.tier!=='accessible')continue;
+    chosen.push(row.index);
+  }
+  if(chosen.length<DEEP_CUT_MIN_ACCESSIBLE_PER_DAY){
+    throw new Error(`Could not place ${DEEP_CUT_MIN_ACCESSIBLE_PER_DAY} accessible Deep Cut prompts on day ${day}.`);
+  }
+
+  for(const row of available){
     if(chosen.length===8)break;
-    if(day-row.last<8)continue;
+    if(chosen.includes(row.index))continue;
+    const trial=[...chosen,row.index];
+    if(!deepCutDailyBalance(trial,prompts).valid)continue;
     chosen.push(row.index);
   }
   if(chosen.length<8){
-    throw new Error(`Could not build quality Deep Cut set for day ${day} without violating the eight-day repeat window.`);
+    throw new Error(`Could not build a balanced quality Deep Cut set for day ${day} without violating the eight-day repeat window.`);
+  }
+  const balance=deepCutDailyBalance(chosen,prompts);
+  if(!balance.valid){
+    throw new Error(`Deep Cut day ${day} is unbalanced: ${JSON.stringify(balance)}`);
   }
 
   let sig=chosen.join(':');
   if(signatures.has(sig)){
     let replaced=false;
-    for(const candidate of ranked){
-      if(chosen.includes(candidate.index)||day-candidate.last<8)continue;
+    for(const candidate of available){
+      if(chosen.includes(candidate.index))continue;
       for(let position=chosen.length-1;position>=0;position--){
         const trial=[...chosen];
         trial[position]=candidate.index;
         const trialSig=trial.join(':');
-        if(new Set(trial).size===8&&!signatures.has(trialSig)){
-          chosen[position]=candidate.index;
-          sig=trialSig;
-          replaced=true;
-          break;
-        }
+        if(new Set(trial).size!==8||signatures.has(trialSig))continue;
+        if(!deepCutDailyBalance(trial,prompts).valid)continue;
+        chosen[position]=candidate.index;
+        sig=trialSig;
+        replaced=true;
+        break;
       }
       if(replaced)break;
     }
-    if(!replaced)throw new Error(`Could not make Deep Cut day ${day} unique without violating the quality/repeat rules.`);
+    if(!replaced)throw new Error(`Could not make Deep Cut day ${day} unique without violating quality, balance, or repeat rules.`);
   }
 
   signatures.add(sig);
@@ -147,6 +169,8 @@ for(let day=DEEP_CUT_QUALITY_CUTOVER_DAY;day<schedule.days;day++){
 }
 
 for(let day=DEEP_CUT_QUALITY_CUTOVER_DAY;day<sets.length;day++){
+  const balance=deepCutDailyBalance(sets[day],prompts);
+  if(!balance.valid)throw new Error(`Unbalanced Deep Cut set on day ${day}: ${JSON.stringify(balance)}`);
   for(const index of sets[day]){
     const quality=deepCutPromptQuality(prompts[index]);
     if(!quality.eligible)throw new Error(`Weak prompt scheduled after cutover: ${prompts[index]?.id} (${quality.reasons.join(', ')})`);
@@ -160,40 +184,33 @@ moduleText=replaceExport(moduleText,'DEEP_CUT_PROMPTS',prompts,'DEEP_CUT_PUZZLES
 moduleText=replaceExport(moduleText,'DEEP_CUT_PUZZLES',sets,'YEAR_PACK_START');
 await fs.writeFile(modulePath,moduleText,'utf8');
 
-const eligibleDetails=eligible.map(index=>({
-  index,
-  id:prompts[index].id,
-  prompt:prompts[index].prompt,
-  canonicalAnswers:prompts[index].answers.length,
-  source:promptSources[index]
-}));
-const excluded=prompts.map((prompt,index)=>({index,id:prompt.id,prompt:prompt.prompt,source:promptSources[index],...deepCutPromptQuality(prompt)}))
-  .filter(row=>!row.eligible)
-  .map(({eligible:_,...row})=>row);
-const firstCuratedSet=(sets[DEEP_CUT_QUALITY_CUTOVER_DAY]||[]).map(index=>({
-  index,
-  id:prompts[index].id,
-  prompt:prompts[index].prompt,
-  canonicalAnswers:prompts[index].answers.length,
-  source:promptSources[index]
-}));
+function detail(index){
+  return {index,id:prompts[index].id,prompt:prompts[index].prompt,canonicalAnswers:prompts[index].answers.length,source:promptSources[index],difficulty:deepCutDifficulty(prompts[index]).tier};
+}
+const eligibleDetails=eligible.map(detail);
+const excluded=prompts.map((prompt,index)=>({index,id:prompt.id,prompt:prompt.prompt,source:promptSources[index],...deepCutPromptQuality(prompt)})).filter(row=>!row.eligible).map(({eligible:_,...row})=>row);
+const firstCuratedSet=(sets[DEEP_CUT_QUALITY_CUTOVER_DAY]||[]).map(detail);
+const firstCuratedBalance=deepCutDailyBalance(sets[DEEP_CUT_QUALITY_CUTOVER_DAY]||[],prompts);
 const report={
   cutoverDate:DEEP_CUT_QUALITY_CUTOVER_DATE,
   cutoverDay:DEEP_CUT_QUALITY_CUTOVER_DAY,
   minimumCanonicalAnswers:DEEP_CUT_MIN_ANSWERS,
+  dailyDifficultyRule:{minimumAccessible:DEEP_CUT_MIN_ACCESSIBLE_PER_DAY,maximumDeep:DEEP_CUT_MAX_DEEP_PER_DAY,maximumAdministrativeSubdivision:DEEP_CUT_MAX_SUBDIVISION_PER_DAY},
   basePrompts:basePrompts.length,
   qualitySourceFiles:qualitySources.map(source=>({name:source.name,prompts:source.prompts.length})),
   supplementPrompts:supplementPrompts.length,
   totalPrompts:prompts.length,
   eligiblePrompts:eligible.length,
+  eligibleByDifficulty:{accessible:eligible.filter(index=>deepCutDifficulty(prompts[index]).tier==='accessible').length,standard:eligible.filter(index=>deepCutDifficulty(prompts[index]).tier==='standard').length,deep:eligible.filter(index=>deepCutDifficulty(prompts[index]).tier==='deep').length},
   excludedPrompts:excluded.length,
   futureDailySets:sets.length-DEEP_CUT_QUALITY_CUTOVER_DAY,
   uniqueDailySets:signatures.size,
-  firstCuratedDay:{date:DEEP_CUT_QUALITY_CUTOVER_DATE,prompts:firstCuratedSet},
+  firstCuratedDay:{date:DEEP_CUT_QUALITY_CUTOVER_DATE,balance:firstCuratedBalance,prompts:firstCuratedSet},
   eligible:eligibleDetails,
   excluded
 };
 await fs.writeFile(reportPath,JSON.stringify(report,null,2)+'\n','utf8');
 
 console.log(`Deep Cut quality curation: ${eligible.length}/${prompts.length} prompts eligible (${basePrompts.length} base + ${supplementPrompts.length} quality additions across ${qualitySources.length} files); ${sets.length-DEEP_CUT_QUALITY_CUTOVER_DAY} future daily sets rebuilt.`);
-console.log(`First curated day ${DEEP_CUT_QUALITY_CUTOVER_DATE}: ${firstCuratedSet.map(row=>row.id).join(', ')}`);
+console.log(`Daily balance: at least ${DEEP_CUT_MIN_ACCESSIBLE_PER_DAY} accessible, at most ${DEEP_CUT_MAX_DEEP_PER_DAY} deep, and at most ${DEEP_CUT_MAX_SUBDIVISION_PER_DAY} administrative-subdivision prompt.`);
+console.log(`First curated day ${DEEP_CUT_QUALITY_CUTOVER_DATE}: ${firstCuratedSet.map(row=>`${row.id}[${row.difficulty}]`).join(', ')}`);

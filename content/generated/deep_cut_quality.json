@@ -2,8 +2,17 @@
   "cutoverDate": "2026-09-05",
   "cutoverDay": 6,
   "minimumCanonicalAnswers": 8,
+  "dailyDifficultyRule": {
+    "minimumAccessible": 4,
+    "maximumDeep": 1,
+    "maximumAdministrativeSubdivision": 1
+  },
   "basePrompts": 107,
   "qualitySourceFiles": [
+    {
+      "name": "deepcut_quality_accessible.json",
+      "prompts": 6
+    },
     {
       "name": "deepcut_quality_domains.json",
       "prompts": 15
@@ -17,70 +26,90 @@
       "prompts": 32
     }
   ],
-  "supplementPrompts": 57,
-  "totalPrompts": 164,
-  "eligiblePrompts": 66,
+  "supplementPrompts": 63,
+  "totalPrompts": 170,
+  "eligiblePrompts": 72,
+  "eligibleByDifficulty": {
+    "accessible": 49,
+    "standard": 10,
+    "deep": 13
+  },
   "excludedPrompts": 98,
   "futureDailySets": 359,
   "uniqueDailySets": 365,
   "firstCuratedDay": {
     "date": "2026-09-05",
+    "balance": {
+      "accessible": 5,
+      "standard": 2,
+      "deep": 1,
+      "subdivisions": 0,
+      "valid": true
+    },
     "prompts": [
       {
         "index": 135,
-        "id": "quality_fincher_features",
-        "prompt": "Name a feature film directed by David Fincher.",
-        "canonicalAnswers": 12,
-        "source": "deepcut_quality_supplement.json"
-      },
-      {
-        "index": 149,
-        "id": "quality_spain_autonomous_communities",
-        "prompt": "Name one of Spain's 17 autonomous communities.",
-        "canonicalAnswers": 17,
-        "source": "deepcut_quality_supplement.json"
-      },
-      {
-        "index": 121,
-        "id": "quality_mens_world_cup_hosts_2022",
-        "prompt": "Name a country that hosted or co-hosted the men's FIFA World Cup through 2022.",
-        "canonicalAnswers": 18,
-        "source": "deepcut_quality_domains.json"
+        "id": "quality_crewed_apollo_missions",
+        "prompt": "Name a crewed Apollo mission.",
+        "canonicalAnswers": 11,
+        "source": "deepcut_quality_expansion.json",
+        "difficulty": "accessible"
       },
       {
         "index": 2,
         "id": "element",
         "prompt": "Name a chemical element.",
         "canonicalAnswers": 118,
-        "source": "base"
-      },
-      {
-        "index": 148,
-        "id": "quality_germany_states",
-        "prompt": "Name one of Germany's 16 federal states.",
-        "canonicalAnswers": 16,
-        "source": "deepcut_quality_supplement.json"
+        "source": "base",
+        "difficulty": "accessible"
       },
       {
         "index": 5,
         "id": "constellation",
         "prompt": "Name a modern constellation.",
         "canonicalAnswers": 88,
-        "source": "base"
+        "source": "base",
+        "difficulty": "accessible"
       },
       {
         "index": 141,
-        "id": "quality_radiohead_studio",
-        "prompt": "Name a Radiohead studio album.",
-        "canonicalAnswers": 9,
-        "source": "deepcut_quality_supplement.json"
+        "id": "quality_fincher_features",
+        "prompt": "Name a feature film directed by David Fincher.",
+        "canonicalAnswers": 12,
+        "source": "deepcut_quality_supplement.json",
+        "difficulty": "accessible"
       },
       {
-        "index": 154,
-        "id": "quality_twelve_caesars",
-        "prompt": "Name one of Suetonius's Twelve Caesars.",
-        "canonicalAnswers": 12,
-        "source": "deepcut_quality_supplement.json"
+        "index": 149,
+        "id": "quality_cure_studio",
+        "prompt": "Name a studio album by The Cure.",
+        "canonicalAnswers": 14,
+        "source": "deepcut_quality_supplement.json",
+        "difficulty": "standard"
+      },
+      {
+        "index": 121,
+        "id": "quality_us_chief_justices",
+        "prompt": "Name a Chief Justice of the United States.",
+        "canonicalAnswers": 17,
+        "source": "deepcut_quality_domains.json",
+        "difficulty": "deep"
+      },
+      {
+        "index": 148,
+        "id": "quality_rem_studio",
+        "prompt": "Name an R.E.M. studio album.",
+        "canonicalAnswers": 15,
+        "source": "deepcut_quality_supplement.json",
+        "difficulty": "standard"
+      },
+      {
+        "index": 161,
+        "id": "quality_mississippi_border_states",
+        "prompt": "Name a U.S. state that borders the Mississippi River.",
+        "canonicalAnswers": 10,
+        "source": "deepcut_quality_supplement.json",
+        "difficulty": "accessible"
       }
     ]
   },
@@ -90,462 +119,576 @@
       "id": "element",
       "prompt": "Name a chemical element.",
       "canonicalAnswers": 118,
-      "source": "base"
+      "source": "base",
+      "difficulty": "accessible"
     },
     {
       "index": 3,
       "id": "state_capital",
       "prompt": "Name a U.S. state capital.",
       "canonicalAnswers": 50,
-      "source": "base"
+      "source": "base",
+      "difficulty": "accessible"
     },
     {
       "index": 4,
       "id": "president",
       "prompt": "Name a U.S. president.",
       "canonicalAnswers": 45,
-      "source": "base"
+      "source": "base",
+      "difficulty": "accessible"
     },
     {
       "index": 5,
       "id": "constellation",
       "prompt": "Name a modern constellation.",
       "canonicalAnswers": 88,
-      "source": "base"
+      "source": "base",
+      "difficulty": "accessible"
     },
     {
       "index": 6,
       "id": "shakespeare_play",
       "prompt": "Name a Shakespeare play.",
       "canonicalAnswers": 38,
-      "source": "base"
+      "source": "base",
+      "difficulty": "accessible"
     },
     {
       "index": 7,
       "id": "south_america",
       "prompt": "Name a country in South America.",
       "canonicalAnswers": 12,
-      "source": "base"
+      "source": "base",
+      "difficulty": "accessible"
     },
     {
       "index": 8,
       "id": "europe",
       "prompt": "Name a country in Europe.",
       "canonicalAnswers": 44,
-      "source": "base"
+      "source": "base",
+      "difficulty": "accessible"
     },
     {
       "index": 9,
       "id": "africa",
       "prompt": "Name a country in Africa.",
       "canonicalAnswers": 54,
-      "source": "base"
+      "source": "base",
+      "difficulty": "accessible"
     },
     {
       "index": 10,
       "id": "asia",
       "prompt": "Name a country in Asia.",
       "canonicalAnswers": 48,
-      "source": "base"
+      "source": "base",
+      "difficulty": "accessible"
     },
     {
       "index": 35,
       "id": "eu",
       "prompt": "Name a member state of the European Union.",
       "canonicalAnswers": 27,
-      "source": "base"
+      "source": "base",
+      "difficulty": "accessible"
     },
     {
       "index": 107,
-      "id": "quality_scorsese_features",
-      "prompt": "Name a feature film directed by Martin Scorsese.",
-      "canonicalAnswers": 26,
-      "source": "deepcut_quality_domains.json"
+      "id": "quality_cameron_features_2025",
+      "prompt": "Name a feature film credited as directed by James Cameron through 2025.",
+      "canonicalAnswers": 10,
+      "source": "deepcut_quality_accessible.json",
+      "difficulty": "accessible"
     },
     {
       "index": 108,
-      "id": "quality_coen_features",
-      "prompt": "Name a feature film made by Joel and Ethan Coen as the Coen brothers.",
-      "canonicalAnswers": 18,
-      "source": "deepcut_quality_domains.json"
+      "id": "quality_led_zeppelin_studio",
+      "prompt": "Name a Led Zeppelin studio album.",
+      "canonicalAnswers": 9,
+      "source": "deepcut_quality_accessible.json",
+      "difficulty": "accessible"
     },
     {
       "index": 109,
-      "id": "quality_metallica_studio",
-      "prompt": "Name a Metallica studio album.",
+      "id": "quality_foo_fighters_studio",
+      "prompt": "Name a Foo Fighters studio album.",
       "canonicalAnswers": 11,
-      "source": "deepcut_quality_domains.json"
+      "source": "deepcut_quality_accessible.json",
+      "difficulty": "accessible"
     },
     {
       "index": 110,
-      "id": "quality_u2_studio",
-      "prompt": "Name a U2 studio album.",
-      "canonicalAnswers": 15,
-      "source": "deepcut_quality_domains.json"
+      "id": "quality_mlb_teams",
+      "prompt": "Name a current Major League Baseball team.",
+      "canonicalAnswers": 30,
+      "source": "deepcut_quality_accessible.json",
+      "difficulty": "accessible"
     },
     {
       "index": 111,
-      "id": "quality_madonna_studio",
-      "prompt": "Name a Madonna studio album.",
-      "canonicalAnswers": 14,
-      "source": "deepcut_quality_domains.json"
+      "id": "quality_nfl_teams",
+      "prompt": "Name a current NFL team.",
+      "canonicalAnswers": 32,
+      "source": "deepcut_quality_accessible.json",
+      "difficulty": "accessible"
     },
     {
       "index": 112,
-      "id": "quality_taylor_swift_studio_2024",
-      "prompt": "Name a Taylor Swift studio album released through 2024, excluding re-recordings.",
-      "canonicalAnswers": 11,
-      "source": "deepcut_quality_domains.json"
+      "id": "quality_nba_teams",
+      "prompt": "Name a current NBA team.",
+      "canonicalAnswers": 30,
+      "source": "deepcut_quality_accessible.json",
+      "difficulty": "accessible"
     },
     {
       "index": 113,
-      "id": "quality_brazil_borders",
-      "prompt": "Name a sovereign state that shares a land border with Brazil, including France via French Guiana.",
-      "canonicalAnswers": 10,
-      "source": "deepcut_quality_domains.json"
+      "id": "quality_scorsese_features",
+      "prompt": "Name a feature film directed by Martin Scorsese.",
+      "canonicalAnswers": 26,
+      "source": "deepcut_quality_domains.json",
+      "difficulty": "accessible"
     },
     {
       "index": 114,
-      "id": "quality_russia_borders",
-      "prompt": "Name a country that shares an internationally recognized land border with Russia.",
-      "canonicalAnswers": 14,
-      "source": "deepcut_quality_domains.json"
+      "id": "quality_coen_features",
+      "prompt": "Name a feature film made by Joel and Ethan Coen as the Coen brothers.",
+      "canonicalAnswers": 18,
+      "source": "deepcut_quality_domains.json",
+      "difficulty": "accessible"
     },
     {
       "index": 115,
-      "id": "quality_us_chief_justices",
-      "prompt": "Name a Chief Justice of the United States.",
-      "canonicalAnswers": 17,
-      "source": "deepcut_quality_domains.json"
+      "id": "quality_metallica_studio",
+      "prompt": "Name a Metallica studio album.",
+      "canonicalAnswers": 11,
+      "source": "deepcut_quality_domains.json",
+      "difficulty": "accessible"
     },
     {
       "index": 116,
-      "id": "quality_f1_world_champions_2024",
-      "prompt": "Name a Formula One World Drivers' Champion through the 2024 season.",
-      "canonicalAnswers": 33,
-      "source": "deepcut_quality_domains.json"
+      "id": "quality_u2_studio",
+      "prompt": "Name a U2 studio album.",
+      "canonicalAnswers": 15,
+      "source": "deepcut_quality_domains.json",
+      "difficulty": "standard"
     },
     {
       "index": 117,
-      "id": "quality_best_picture_2000_2024",
-      "prompt": "Name a film released from 2000 through 2024 that won the Academy Award for Best Picture.",
-      "canonicalAnswers": 25,
-      "source": "deepcut_quality_domains.json"
+      "id": "quality_madonna_studio",
+      "prompt": "Name a Madonna studio album.",
+      "canonicalAnswers": 14,
+      "source": "deepcut_quality_domains.json",
+      "difficulty": "accessible"
     },
     {
       "index": 118,
-      "id": "quality_nobel_literature_2000_2024",
-      "prompt": "Name a Nobel Prize in Literature laureate from 2000 through 2024.",
-      "canonicalAnswers": 25,
-      "source": "deepcut_quality_domains.json"
+      "id": "quality_taylor_swift_studio_2024",
+      "prompt": "Name a Taylor Swift studio album released through 2024, excluding re-recordings.",
+      "canonicalAnswers": 11,
+      "source": "deepcut_quality_domains.json",
+      "difficulty": "accessible"
     },
     {
       "index": 119,
-      "id": "quality_ghibli_features",
-      "prompt": "Name a feature-length film produced or co-produced by Studio Ghibli.",
-      "canonicalAnswers": 24,
-      "source": "deepcut_quality_domains.json"
+      "id": "quality_brazil_borders",
+      "prompt": "Name a sovereign state that shares a land border with Brazil, including France via French Guiana.",
+      "canonicalAnswers": 10,
+      "source": "deepcut_quality_domains.json",
+      "difficulty": "accessible"
     },
     {
       "index": 120,
-      "id": "quality_us_parks_ca_ut_az",
-      "prompt": "Name a U.S. national park in California, Utah, or Arizona.",
-      "canonicalAnswers": 17,
-      "source": "deepcut_quality_domains.json"
+      "id": "quality_russia_borders",
+      "prompt": "Name a country that shares an internationally recognized land border with Russia.",
+      "canonicalAnswers": 14,
+      "source": "deepcut_quality_domains.json",
+      "difficulty": "accessible"
     },
     {
       "index": 121,
-      "id": "quality_mens_world_cup_hosts_2022",
-      "prompt": "Name a country that hosted or co-hosted the men's FIFA World Cup through 2022.",
-      "canonicalAnswers": 18,
-      "source": "deepcut_quality_domains.json"
+      "id": "quality_us_chief_justices",
+      "prompt": "Name a Chief Justice of the United States.",
+      "canonicalAnswers": 17,
+      "source": "deepcut_quality_domains.json",
+      "difficulty": "deep"
     },
     {
       "index": 122,
-      "id": "quality_bond_eon_films",
-      "prompt": "Name an official Eon Productions James Bond film through No Time to Die.",
-      "canonicalAnswers": 25,
-      "source": "deepcut_quality_expansion.json"
+      "id": "quality_f1_world_champions_2024",
+      "prompt": "Name a Formula One World Drivers' Champion through the 2024 season.",
+      "canonicalAnswers": 33,
+      "source": "deepcut_quality_domains.json",
+      "difficulty": "accessible"
     },
     {
       "index": 123,
-      "id": "quality_pixar_features_2025",
-      "prompt": "Name a Pixar feature film released through 2025.",
-      "canonicalAnswers": 29,
-      "source": "deepcut_quality_expansion.json"
+      "id": "quality_best_picture_2000_2024",
+      "prompt": "Name a film released from 2000 through 2024 that won the Academy Award for Best Picture.",
+      "canonicalAnswers": 25,
+      "source": "deepcut_quality_domains.json",
+      "difficulty": "accessible"
     },
     {
       "index": 124,
-      "id": "quality_tarantino_features",
-      "prompt": "Name a theatrically released feature film directed by Quentin Tarantino.",
-      "canonicalAnswers": 10,
-      "source": "deepcut_quality_expansion.json"
+      "id": "quality_nobel_literature_2000_2024",
+      "prompt": "Name a Nobel Prize in Literature laureate from 2000 through 2024.",
+      "canonicalAnswers": 25,
+      "source": "deepcut_quality_domains.json",
+      "difficulty": "standard"
     },
     {
       "index": 125,
-      "id": "quality_spielberg_features",
-      "prompt": "Name a feature film directed by Steven Spielberg.",
-      "canonicalAnswers": 34,
-      "source": "deepcut_quality_expansion.json"
+      "id": "quality_ghibli_features",
+      "prompt": "Name a feature-length film produced or co-produced by Studio Ghibli.",
+      "canonicalAnswers": 24,
+      "source": "deepcut_quality_domains.json",
+      "difficulty": "accessible"
     },
     {
       "index": 126,
-      "id": "quality_mediterranean_un_members",
-      "prompt": "Name a UN member state with a coastline on the Mediterranean Sea.",
-      "canonicalAnswers": 21,
-      "source": "deepcut_quality_expansion.json"
+      "id": "quality_us_parks_ca_ut_az",
+      "prompt": "Name a U.S. national park in California, Utah, or Arizona.",
+      "canonicalAnswers": 17,
+      "source": "deepcut_quality_domains.json",
+      "difficulty": "accessible"
     },
     {
       "index": 127,
-      "id": "quality_major_arcana",
-      "prompt": "Name a card in the traditional 22-card Major Arcana of a tarot deck.",
-      "canonicalAnswers": 22,
-      "source": "deepcut_quality_expansion.json"
+      "id": "quality_mens_world_cup_hosts_2022",
+      "prompt": "Name a country that hosted or co-hosted the men's FIFA World Cup through 2022.",
+      "canonicalAnswers": 18,
+      "source": "deepcut_quality_domains.json",
+      "difficulty": "accessible"
     },
     {
       "index": 128,
-      "id": "quality_classical_chess_champions",
-      "prompt": "Name a player in the commonly recognized line of classical World Chess Champions from Steinitz through Gukesh.",
-      "canonicalAnswers": 18,
-      "source": "deepcut_quality_expansion.json"
+      "id": "quality_bond_eon_films",
+      "prompt": "Name an official Eon Productions James Bond film through No Time to Die.",
+      "canonicalAnswers": 25,
+      "source": "deepcut_quality_expansion.json",
+      "difficulty": "accessible"
     },
     {
       "index": 129,
-      "id": "quality_crewed_apollo_missions",
-      "prompt": "Name a crewed Apollo mission.",
-      "canonicalAnswers": 11,
-      "source": "deepcut_quality_expansion.json"
+      "id": "quality_pixar_features_2025",
+      "prompt": "Name a Pixar feature film released through 2025.",
+      "canonicalAnswers": 29,
+      "source": "deepcut_quality_expansion.json",
+      "difficulty": "accessible"
     },
     {
       "index": 130,
-      "id": "quality_moonwalkers",
-      "prompt": "Name one of the 12 people who have walked on the Moon.",
-      "canonicalAnswers": 12,
-      "source": "deepcut_quality_expansion.json"
+      "id": "quality_tarantino_features",
+      "prompt": "Name a theatrically released feature film directed by Quentin Tarantino.",
+      "canonicalAnswers": 10,
+      "source": "deepcut_quality_expansion.json",
+      "difficulty": "accessible"
     },
     {
       "index": 131,
-      "id": "quality_bowie_studio",
-      "prompt": "Name a David Bowie studio album.",
-      "canonicalAnswers": 26,
-      "source": "deepcut_quality_expansion.json"
+      "id": "quality_spielberg_features",
+      "prompt": "Name a feature film directed by Steven Spielberg.",
+      "canonicalAnswers": 34,
+      "source": "deepcut_quality_expansion.json",
+      "difficulty": "accessible"
     },
     {
       "index": 132,
-      "id": "quality_nolan_features",
-      "prompt": "Name a feature film directed by Christopher Nolan.",
-      "canonicalAnswers": 13,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_mediterranean_un_members",
+      "prompt": "Name a UN member state with a coastline on the Mediterranean Sea.",
+      "canonicalAnswers": 21,
+      "source": "deepcut_quality_expansion.json",
+      "difficulty": "accessible"
     },
     {
       "index": 133,
-      "id": "quality_kubrick_features",
-      "prompt": "Name a feature film directed by Stanley Kubrick.",
-      "canonicalAnswers": 13,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_major_arcana",
+      "prompt": "Name a card in the traditional 22-card Major Arcana of a tarot deck.",
+      "canonicalAnswers": 22,
+      "source": "deepcut_quality_expansion.json",
+      "difficulty": "standard"
     },
     {
       "index": 134,
-      "id": "quality_miyazaki_features",
-      "prompt": "Name a feature film directed by Hayao Miyazaki.",
-      "canonicalAnswers": 12,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_classical_chess_champions",
+      "prompt": "Name a player in the commonly recognized line of classical World Chess Champions from Steinitz through Gukesh.",
+      "canonicalAnswers": 18,
+      "source": "deepcut_quality_expansion.json",
+      "difficulty": "standard"
     },
     {
       "index": 135,
-      "id": "quality_fincher_features",
-      "prompt": "Name a feature film directed by David Fincher.",
-      "canonicalAnswers": 12,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_crewed_apollo_missions",
+      "prompt": "Name a crewed Apollo mission.",
+      "canonicalAnswers": 11,
+      "source": "deepcut_quality_expansion.json",
+      "difficulty": "accessible"
     },
     {
       "index": 136,
-      "id": "quality_villeneuve_features",
-      "prompt": "Name a feature film directed by Denis Villeneuve.",
-      "canonicalAnswers": 11,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_moonwalkers",
+      "prompt": "Name one of the 12 people who have walked on the Moon.",
+      "canonicalAnswers": 12,
+      "source": "deepcut_quality_expansion.json",
+      "difficulty": "accessible"
     },
     {
       "index": 137,
-      "id": "quality_wes_anderson_features",
-      "prompt": "Name a feature film directed by Wes Anderson.",
-      "canonicalAnswers": 12,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_bowie_studio",
+      "prompt": "Name a David Bowie studio album.",
+      "canonicalAnswers": 26,
+      "source": "deepcut_quality_expansion.json",
+      "difficulty": "accessible"
     },
     {
       "index": 138,
-      "id": "quality_beatles_uk_studio",
-      "prompt": "Name a Beatles studio album released in the UK during the band's original run.",
-      "canonicalAnswers": 12,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_nolan_features",
+      "prompt": "Name a feature film directed by Christopher Nolan.",
+      "canonicalAnswers": 13,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "accessible"
     },
     {
       "index": 139,
-      "id": "quality_pink_floyd_studio",
-      "prompt": "Name a Pink Floyd studio album.",
-      "canonicalAnswers": 15,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_kubrick_features",
+      "prompt": "Name a feature film directed by Stanley Kubrick.",
+      "canonicalAnswers": 13,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "standard"
     },
     {
       "index": 140,
-      "id": "quality_queen_studio",
-      "prompt": "Name a Queen studio album.",
-      "canonicalAnswers": 15,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_miyazaki_features",
+      "prompt": "Name a feature film directed by Hayao Miyazaki.",
+      "canonicalAnswers": 12,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "standard"
     },
     {
       "index": 141,
-      "id": "quality_radiohead_studio",
-      "prompt": "Name a Radiohead studio album.",
-      "canonicalAnswers": 9,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_fincher_features",
+      "prompt": "Name a feature film directed by David Fincher.",
+      "canonicalAnswers": 12,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "accessible"
     },
     {
       "index": 142,
-      "id": "quality_rem_studio",
-      "prompt": "Name an R.E.M. studio album.",
-      "canonicalAnswers": 15,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_villeneuve_features",
+      "prompt": "Name a feature film directed by Denis Villeneuve.",
+      "canonicalAnswers": 11,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "standard"
     },
     {
       "index": 143,
-      "id": "quality_cure_studio",
-      "prompt": "Name a studio album by The Cure.",
-      "canonicalAnswers": 14,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_wes_anderson_features",
+      "prompt": "Name a feature film directed by Wes Anderson.",
+      "canonicalAnswers": 12,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "accessible"
     },
     {
       "index": 144,
-      "id": "quality_china_borders",
-      "prompt": "Name a sovereign country that shares a land border with China.",
-      "canonicalAnswers": 14,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_beatles_uk_studio",
+      "prompt": "Name a Beatles studio album released in the UK during the band's original run.",
+      "canonicalAnswers": 12,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "accessible"
     },
     {
       "index": 145,
-      "id": "quality_germany_borders",
-      "prompt": "Name a sovereign country that shares a land border with Germany.",
-      "canonicalAnswers": 9,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_pink_floyd_studio",
+      "prompt": "Name a Pink Floyd studio album.",
+      "canonicalAnswers": 15,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "accessible"
     },
     {
       "index": 146,
-      "id": "quality_danube_countries",
-      "prompt": "Name a country the Danube River flows through or forms a border of.",
-      "canonicalAnswers": 10,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_queen_studio",
+      "prompt": "Name a Queen studio album.",
+      "canonicalAnswers": 15,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "accessible"
     },
     {
       "index": 147,
-      "id": "quality_italy_regions",
-      "prompt": "Name one of Italy's 20 regions.",
-      "canonicalAnswers": 20,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_radiohead_studio",
+      "prompt": "Name a Radiohead studio album.",
+      "canonicalAnswers": 9,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "accessible"
     },
     {
       "index": 148,
-      "id": "quality_germany_states",
-      "prompt": "Name one of Germany's 16 federal states.",
-      "canonicalAnswers": 16,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_rem_studio",
+      "prompt": "Name an R.E.M. studio album.",
+      "canonicalAnswers": 15,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "standard"
     },
     {
       "index": 149,
-      "id": "quality_spain_autonomous_communities",
-      "prompt": "Name one of Spain's 17 autonomous communities.",
-      "canonicalAnswers": 17,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_cure_studio",
+      "prompt": "Name a studio album by The Cure.",
+      "canonicalAnswers": 14,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "standard"
+    },
+    {
+      "index": 150,
+      "id": "quality_china_borders",
+      "prompt": "Name a sovereign country that shares a land border with China.",
+      "canonicalAnswers": 14,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "accessible"
     },
     {
       "index": 151,
-      "id": "quality_japan_prefectures",
-      "prompt": "Name one of Japan's 47 prefectures.",
-      "canonicalAnswers": 47,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_germany_borders",
+      "prompt": "Name a sovereign country that shares a land border with Germany.",
+      "canonicalAnswers": 9,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "accessible"
     },
     {
       "index": 152,
-      "id": "quality_soviet_republics",
-      "prompt": "Name one of the 15 union republics of the Soviet Union at its dissolution in 1991.",
-      "canonicalAnswers": 15,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_danube_countries",
+      "prompt": "Name a country the Danube River flows through or forms a border of.",
+      "canonicalAnswers": 10,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "standard"
     },
     {
       "index": 153,
-      "id": "quality_nato_1949_members",
-      "prompt": "Name an original 1949 member of NATO.",
-      "canonicalAnswers": 12,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_italy_regions",
+      "prompt": "Name one of Italy's 20 regions.",
+      "canonicalAnswers": 20,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "deep"
     },
     {
       "index": 154,
-      "id": "quality_twelve_caesars",
-      "prompt": "Name one of Suetonius's Twelve Caesars.",
-      "canonicalAnswers": 12,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_germany_states",
+      "prompt": "Name one of Germany's 16 federal states.",
+      "canonicalAnswers": 16,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "deep"
     },
     {
       "index": 155,
-      "id": "quality_mississippi_border_states",
-      "prompt": "Name a U.S. state that borders the Mississippi River.",
-      "canonicalAnswers": 10,
-      "source": "deepcut_quality_supplement.json"
-    },
-    {
-      "index": 156,
-      "id": "quality_summer_olympic_host_cities",
-      "prompt": "Name a city that has hosted the Summer Olympic Games through 2024.",
-      "canonicalAnswers": 23,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_spain_autonomous_communities",
+      "prompt": "Name one of Spain's 17 autonomous communities.",
+      "canonicalAnswers": 17,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "deep"
     },
     {
       "index": 157,
-      "id": "quality_mens_world_cup_winners",
-      "prompt": "Name a country that has won the men's FIFA World Cup.",
-      "canonicalAnswers": 8,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_japan_prefectures",
+      "prompt": "Name one of Japan's 47 prefectures.",
+      "canonicalAnswers": 47,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "deep"
     },
     {
       "index": 158,
-      "id": "quality_amino_acids",
-      "prompt": "Name one of the 20 standard proteinogenic amino acids.",
-      "canonicalAnswers": 20,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_soviet_republics",
+      "prompt": "Name one of the 15 union republics of the Soviet Union at its dissolution in 1991.",
+      "canonicalAnswers": 15,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "deep"
     },
     {
       "index": 159,
-      "id": "quality_cranial_nerves",
-      "prompt": "Name one of the 12 cranial nerves.",
+      "id": "quality_nato_1949_members",
+      "prompt": "Name an original 1949 member of NATO.",
       "canonicalAnswers": 12,
-      "source": "deepcut_quality_supplement.json"
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "accessible"
     },
     {
       "index": 160,
-      "id": "quality_mohs_minerals",
-      "prompt": "Name a reference mineral on the Mohs hardness scale.",
-      "canonicalAnswers": 10,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_twelve_caesars",
+      "prompt": "Name one of Suetonius's Twelve Caesars.",
+      "canonicalAnswers": 12,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "deep"
     },
     {
       "index": 161,
-      "id": "quality_cloud_genera",
-      "prompt": "Name one of the World Meteorological Organization's 10 cloud genera.",
+      "id": "quality_mississippi_border_states",
+      "prompt": "Name a U.S. state that borders the Mississippi River.",
       "canonicalAnswers": 10,
-      "source": "deepcut_quality_supplement.json"
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "accessible"
     },
     {
       "index": 162,
-      "id": "quality_phanerozoic_periods",
-      "prompt": "Name a geologic period of the Phanerozoic Eon.",
-      "canonicalAnswers": 12,
-      "source": "deepcut_quality_supplement.json"
+      "id": "quality_summer_olympic_host_cities",
+      "prompt": "Name a city that has hosted the Summer Olympic Games through 2024.",
+      "canonicalAnswers": 23,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "accessible"
     },
     {
       "index": 163,
+      "id": "quality_mens_world_cup_winners",
+      "prompt": "Name a country that has won the men's FIFA World Cup.",
+      "canonicalAnswers": 8,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "accessible"
+    },
+    {
+      "index": 164,
+      "id": "quality_amino_acids",
+      "prompt": "Name one of the 20 standard proteinogenic amino acids.",
+      "canonicalAnswers": 20,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "deep"
+    },
+    {
+      "index": 165,
+      "id": "quality_cranial_nerves",
+      "prompt": "Name one of the 12 cranial nerves.",
+      "canonicalAnswers": 12,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "deep"
+    },
+    {
+      "index": 166,
+      "id": "quality_mohs_minerals",
+      "prompt": "Name a reference mineral on the Mohs hardness scale.",
+      "canonicalAnswers": 10,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "deep"
+    },
+    {
+      "index": 167,
+      "id": "quality_cloud_genera",
+      "prompt": "Name one of the World Meteorological Organization's 10 cloud genera.",
+      "canonicalAnswers": 10,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "deep"
+    },
+    {
+      "index": 168,
+      "id": "quality_phanerozoic_periods",
+      "prompt": "Name a geologic period of the Phanerozoic Eon.",
+      "canonicalAnswers": 12,
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "deep"
+    },
+    {
+      "index": 169,
       "id": "quality_si_prefixes",
       "prompt": "Name an official SI decimal prefix other than the no-prefix base unit.",
       "canonicalAnswers": 24,
-      "source": "deepcut_quality_supplement.json"
+      "source": "deepcut_quality_supplement.json",
+      "difficulty": "deep"
     }
   ],
   "excluded": [
@@ -1454,7 +1597,7 @@
       ]
     },
     {
-      "index": 150,
+      "index": 156,
       "id": "quality_canada_provinces_territories",
       "prompt": "Name a Canadian province or territory.",
       "source": "deepcut_quality_supplement.json",
