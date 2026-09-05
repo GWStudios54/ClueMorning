@@ -8,6 +8,7 @@ import {
   deepCutPromptQuality,
   eligibleDeepCutIndices
 } from './deep-cut-quality.mjs';
+import {applyDeepCutRarityOrder} from './deep-cut-rarity-order.mjs';
 
 const __dirname=path.dirname(fileURLToPath(import.meta.url));
 const root=path.resolve(__dirname,'..');
@@ -77,7 +78,7 @@ for(const source of qualitySources){
   }
 }
 
-const prompts=[...basePrompts,...supplementPrompts];
+const prompts=applyDeepCutRarityOrder([...basePrompts,...supplementPrompts]);
 const promptSources=[...basePrompts.map(()=>"base"),...qualitySources.flatMap(source=>source.prompts.map(()=>source.name))];
 const eligible=eligibleDeepCutIndices(prompts);
 
