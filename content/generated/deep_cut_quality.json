@@ -4,7 +4,8 @@
   "minimumCanonicalAnswers": 8,
   "dailyDifficultyRule": {
     "minimumAccessible": 2,
-    "maximumDeep": 2
+    "maximumDeep": 2,
+    "maximumAdministrativeSubdivision": 1
   },
   "basePrompts": 107,
   "qualitySourceFiles": [
@@ -38,6 +39,7 @@
       "accessible": 5,
       "standard": 1,
       "deep": 2,
+      "subdivisions": 1,
       "valid": true
     },
     "prompts": [
@@ -74,14 +76,6 @@
         "difficulty": "accessible"
       },
       {
-        "index": 148,
-        "id": "quality_germany_states",
-        "prompt": "Name one of Germany's 16 federal states.",
-        "canonicalAnswers": 16,
-        "source": "deepcut_quality_supplement.json",
-        "difficulty": "deep"
-      },
-      {
         "index": 5,
         "id": "constellation",
         "prompt": "Name a modern constellation.",
@@ -96,6 +90,14 @@
         "canonicalAnswers": 9,
         "source": "deepcut_quality_supplement.json",
         "difficulty": "accessible"
+      },
+      {
+        "index": 154,
+        "id": "quality_twelve_caesars",
+        "prompt": "Name one of Suetonius's Twelve Caesars.",
+        "canonicalAnswers": 12,
+        "source": "deepcut_quality_supplement.json",
+        "difficulty": "deep"
       },
       {
         "index": 146,
