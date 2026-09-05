@@ -1,0 +1,226 @@
+[
+  {
+    "id": "quality_nolan_features",
+    "prompt": "Name a feature film directed by Christopher Nolan.",
+    "answers": [
+      {"name":"The Dark Knight"},{"name":"Inception"},{"name":"Interstellar"},{"name":"Oppenheimer"},{"name":"Batman Begins"},{"name":"The Prestige"},{"name":"Dunkirk"},{"name":"Tenet"},{"name":"The Dark Knight Rises"},{"name":"Memento"},{"name":"Insomnia"},{"name":"Following"},{"name":"The Odyssey"}
+    ]
+  },
+  {
+    "id": "quality_kubrick_features",
+    "prompt": "Name a feature film directed by Stanley Kubrick.",
+    "answers": [
+      {"name":"The Shining"},{"name":"2001: A Space Odyssey"},{"name":"A Clockwork Orange"},{"name":"Full Metal Jacket"},{"name":"Dr. Strangelove"},{"name":"Spartacus"},{"name":"Eyes Wide Shut"},{"name":"Barry Lyndon"},{"name":"Lolita"},{"name":"Paths of Glory"},{"name":"The Killing"},{"name":"Killer's Kiss"},{"name":"Fear and Desire"}
+    ]
+  },
+  {
+    "id": "quality_miyazaki_features",
+    "prompt": "Name a feature film directed by Hayao Miyazaki.",
+    "answers": [
+      {"name":"Spirited Away"},{"name":"My Neighbor Totoro"},{"name":"Princess Mononoke"},{"name":"Howl's Moving Castle"},{"name":"Kiki's Delivery Service"},{"name":"Ponyo"},{"name":"The Boy and the Heron"},{"name":"Nausicaä of the Valley of the Wind"},{"name":"Castle in the Sky"},{"name":"The Wind Rises"},{"name":"Porco Rosso"},{"name":"The Castle of Cagliostro"}
+    ]
+  },
+  {
+    "id": "quality_fincher_features",
+    "prompt": "Name a feature film directed by David Fincher.",
+    "answers": [
+      {"name":"Fight Club"},{"name":"Seven","aliases":["Se7en"]},{"name":"The Social Network"},{"name":"Gone Girl"},{"name":"Zodiac"},{"name":"The Girl with the Dragon Tattoo"},{"name":"The Curious Case of Benjamin Button"},{"name":"Panic Room"},{"name":"The Game"},{"name":"Alien 3"},{"name":"Mank"},{"name":"The Killer"}
+    ]
+  },
+  {
+    "id": "quality_villeneuve_features",
+    "prompt": "Name a feature film directed by Denis Villeneuve.",
+    "answers": [
+      {"name":"Dune"},{"name":"Dune: Part Two"},{"name":"Arrival"},{"name":"Blade Runner 2049"},{"name":"Sicario"},{"name":"Prisoners"},{"name":"Enemy"},{"name":"Incendies"},{"name":"Polytechnique"},{"name":"Maelström","aliases":["Maelstrom"]},{"name":"August 32nd on Earth"}
+    ]
+  },
+  {
+    "id": "quality_wes_anderson_features",
+    "prompt": "Name a feature film directed by Wes Anderson.",
+    "answers": [
+      {"name":"The Grand Budapest Hotel"},{"name":"The Royal Tenenbaums"},{"name":"Fantastic Mr. Fox"},{"name":"Moonrise Kingdom"},{"name":"Rushmore"},{"name":"The Life Aquatic with Steve Zissou"},{"name":"The Darjeeling Limited"},{"name":"Isle of Dogs"},{"name":"The French Dispatch"},{"name":"Asteroid City"},{"name":"Bottle Rocket"},{"name":"The Phoenician Scheme"}
+    ]
+  },
+  {
+    "id": "quality_beatles_uk_studio",
+    "prompt": "Name a Beatles studio album released in the UK during the band's original run.",
+    "answers": [
+      {"name":"Abbey Road"},{"name":"Sgt. Pepper's Lonely Hearts Club Band"},{"name":"The Beatles","aliases":["White Album","The White Album"]},{"name":"Revolver"},{"name":"Rubber Soul"},{"name":"Let It Be"},{"name":"Help!"},{"name":"A Hard Day's Night"},{"name":"Please Please Me"},{"name":"With the Beatles"},{"name":"Beatles for Sale"},{"name":"Yellow Submarine"}
+    ]
+  },
+  {
+    "id": "quality_pink_floyd_studio",
+    "prompt": "Name a Pink Floyd studio album.",
+    "answers": [
+      {"name":"The Dark Side of the Moon"},{"name":"The Wall"},{"name":"Wish You Were Here"},{"name":"Animals"},{"name":"Meddle"},{"name":"The Piper at the Gates of Dawn"},{"name":"A Momentary Lapse of Reason"},{"name":"The Division Bell"},{"name":"Atom Heart Mother"},{"name":"Obscured by Clouds"},{"name":"A Saucerful of Secrets"},{"name":"More"},{"name":"Ummagumma"},{"name":"The Final Cut"},{"name":"The Endless River"}
+    ]
+  },
+  {
+    "id": "quality_queen_studio",
+    "prompt": "Name a Queen studio album.",
+    "answers": [
+      {"name":"A Night at the Opera"},{"name":"News of the World"},{"name":"The Game"},{"name":"Queen"},{"name":"Queen II"},{"name":"Sheer Heart Attack"},{"name":"A Day at the Races"},{"name":"Jazz"},{"name":"Flash Gordon"},{"name":"Hot Space"},{"name":"The Works"},{"name":"A Kind of Magic"},{"name":"The Miracle"},{"name":"Innuendo"},{"name":"Made in Heaven"}
+    ]
+  },
+  {
+    "id": "quality_radiohead_studio",
+    "prompt": "Name a Radiohead studio album.",
+    "answers": [
+      {"name":"OK Computer"},{"name":"Kid A"},{"name":"In Rainbows"},{"name":"The Bends"},{"name":"Pablo Honey"},{"name":"Amnesiac"},{"name":"Hail to the Thief"},{"name":"The King of Limbs"},{"name":"A Moon Shaped Pool"}
+    ]
+  },
+  {
+    "id": "quality_rem_studio",
+    "prompt": "Name an R.E.M. studio album.",
+    "answers": [
+      {"name":"Automatic for the People"},{"name":"Out of Time"},{"name":"Murmur"},{"name":"Monster"},{"name":"Document"},{"name":"Reckoning"},{"name":"Fables of the Reconstruction"},{"name":"Lifes Rich Pageant","aliases":["Life's Rich Pageant"]},{"name":"Green"},{"name":"New Adventures in Hi-Fi"},{"name":"Up"},{"name":"Reveal"},{"name":"Around the Sun"},{"name":"Accelerate"},{"name":"Collapse into Now"}
+    ]
+  },
+  {
+    "id": "quality_cure_studio",
+    "prompt": "Name a studio album by The Cure.",
+    "answers": [
+      {"name":"Disintegration"},{"name":"Wish"},{"name":"Pornography"},{"name":"The Head on the Door"},{"name":"Kiss Me, Kiss Me, Kiss Me"},{"name":"Three Imaginary Boys"},{"name":"Seventeen Seconds"},{"name":"Faith"},{"name":"The Top"},{"name":"Wild Mood Swings"},{"name":"Bloodflowers"},{"name":"The Cure"},{"name":"4:13 Dream"},{"name":"Songs of a Lost World"}
+    ]
+  },
+  {
+    "id": "quality_china_borders",
+    "prompt": "Name a sovereign country that shares a land border with China.",
+    "answers": [
+      {"name":"Russia"},{"name":"India"},{"name":"North Korea","aliases":["DPRK"]},{"name":"Vietnam"},{"name":"Pakistan"},{"name":"Mongolia"},{"name":"Nepal"},{"name":"Bhutan"},{"name":"Myanmar","aliases":["Burma"]},{"name":"Laos"},{"name":"Kazakhstan"},{"name":"Kyrgyzstan"},{"name":"Tajikistan"},{"name":"Afghanistan"}
+    ]
+  },
+  {
+    "id": "quality_germany_borders",
+    "prompt": "Name a sovereign country that shares a land border with Germany.",
+    "answers": [
+      {"name":"France"},{"name":"Poland"},{"name":"Austria"},{"name":"Netherlands"},{"name":"Switzerland"},{"name":"Belgium"},{"name":"Denmark"},{"name":"Czechia","aliases":["Czech Republic"]},{"name":"Luxembourg"}
+    ]
+  },
+  {
+    "id": "quality_danube_countries",
+    "prompt": "Name a country the Danube River flows through or forms a border of.",
+    "answers": [
+      {"name":"Germany"},{"name":"Austria"},{"name":"Hungary"},{"name":"Romania"},{"name":"Serbia"},{"name":"Slovakia"},{"name":"Croatia"},{"name":"Bulgaria"},{"name":"Moldova"},{"name":"Ukraine"}
+    ]
+  },
+  {
+    "id": "quality_italy_regions",
+    "prompt": "Name one of Italy's 20 regions.",
+    "answers": [
+      {"name":"Lombardy","aliases":["Lombardia"]},{"name":"Lazio"},{"name":"Tuscany","aliases":["Toscana"]},{"name":"Sicily","aliases":["Sicilia"]},{"name":"Veneto"},{"name":"Campania"},{"name":"Piedmont","aliases":["Piemonte"]},{"name":"Emilia-Romagna"},{"name":"Liguria"},{"name":"Sardinia","aliases":["Sardegna"]},{"name":"Apulia","aliases":["Puglia"]},{"name":"Calabria"},{"name":"Abruzzo"},{"name":"Friuli-Venezia Giulia"},{"name":"Trentino-Alto Adige","aliases":["Trentino-South Tyrol"]},{"name":"Umbria"},{"name":"Basilicata"},{"name":"Marche"},{"name":"Molise"},{"name":"Aosta Valley","aliases":["Valle d'Aosta"]}
+    ]
+  },
+  {
+    "id": "quality_germany_states",
+    "prompt": "Name one of Germany's 16 federal states.",
+    "answers": [
+      {"name":"Bavaria","aliases":["Bayern"]},{"name":"Berlin"},{"name":"Hamburg"},{"name":"Saxony","aliases":["Sachsen"]},{"name":"Hesse","aliases":["Hessen"]},{"name":"Brandenburg"},{"name":"Baden-Württemberg"},{"name":"Lower Saxony","aliases":["Niedersachsen"]},{"name":"North Rhine-Westphalia","aliases":["Nordrhein-Westfalen"]},{"name":"Rhineland-Palatinate","aliases":["Rheinland-Pfalz"]},{"name":"Schleswig-Holstein"},{"name":"Thuringia","aliases":["Thüringen","Thuringen"]},{"name":"Saxony-Anhalt","aliases":["Sachsen-Anhalt"]},{"name":"Mecklenburg-Western Pomerania","aliases":["Mecklenburg-Vorpommern"]},{"name":"Saarland"},{"name":"Bremen"}
+    ]
+  },
+  {
+    "id": "quality_spain_autonomous_communities",
+    "prompt": "Name one of Spain's 17 autonomous communities.",
+    "answers": [
+      {"name":"Andalusia","aliases":["Andalucía","Andalucia"]},{"name":"Catalonia","aliases":["Catalunya"]},{"name":"Madrid"},{"name":"Valencian Community","aliases":["Valencia"]},{"name":"Galicia"},{"name":"Basque Country","aliases":["Euskadi"]},{"name":"Canary Islands"},{"name":"Castile and León","aliases":["Castile and Leon","Castilla y León","Castilla y Leon"]},{"name":"Castilla-La Mancha"},{"name":"Murcia"},{"name":"Aragon","aliases":["Aragón"]},{"name":"Extremadura"},{"name":"Asturias"},{"name":"Navarre","aliases":["Navarra"]},{"name":"Cantabria"},{"name":"La Rioja"},{"name":"Balearic Islands"}
+    ]
+  },
+  {
+    "id": "quality_canada_provinces_territories",
+    "prompt": "Name a Canadian province or territory.",
+    "answers": [
+      {"name":"Ontario"},{"name":"Quebec"},{"name":"British Columbia"},{"name":"Alberta"},{"name":"Manitoba"},{"name":"Saskatchewan"},{"name":"Nova Scotia"},{"name":"New Brunswick"},{"name":"Newfoundland and Labrador"},{"name":"Prince Edward Island"},{"name":"Yukon"},{"name":"Northwest Territories"},{"name":"Nunavut"}
+    ]
+  },
+  {
+    "id": "quality_japan_prefectures",
+    "prompt": "Name one of Japan's 47 prefectures.",
+    "answers": [
+      {"name":"Tokyo"},{"name":"Osaka"},{"name":"Kyoto"},{"name":"Hokkaido"},{"name":"Okinawa"},{"name":"Kanagawa"},{"name":"Aichi"},{"name":"Fukuoka"},{"name":"Hyogo"},{"name":"Chiba"},{"name":"Saitama"},{"name":"Shizuoka"},{"name":"Hiroshima"},{"name":"Miyagi"},{"name":"Nagano"},{"name":"Niigata"},{"name":"Ibaraki"},{"name":"Tochigi"},{"name":"Gunma"},{"name":"Gifu"},{"name":"Mie"},{"name":"Shiga"},{"name":"Nara"},{"name":"Wakayama"},{"name":"Okayama"},{"name":"Yamaguchi"},{"name":"Kumamoto"},{"name":"Kagoshima"},{"name":"Nagasaki"},{"name":"Ehime"},{"name":"Kagawa"},{"name":"Tokushima"},{"name":"Kochi"},{"name":"Saga"},{"name":"Oita"},{"name":"Miyazaki"},{"name":"Fukushima"},{"name":"Yamagata"},{"name":"Akita"},{"name":"Iwate"},{"name":"Aomori"},{"name":"Toyama"},{"name":"Ishikawa"},{"name":"Fukui"},{"name":"Yamanashi"},{"name":"Tottori"},{"name":"Shimane"}
+    ]
+  },
+  {
+    "id": "quality_soviet_republics",
+    "prompt": "Name one of the 15 union republics of the Soviet Union at its dissolution in 1991.",
+    "answers": [
+      {"name":"Russia"},{"name":"Ukraine"},{"name":"Belarus"},{"name":"Kazakhstan"},{"name":"Uzbekistan"},{"name":"Georgia"},{"name":"Armenia"},{"name":"Azerbaijan"},{"name":"Estonia"},{"name":"Latvia"},{"name":"Lithuania"},{"name":"Moldova"},{"name":"Kyrgyzstan"},{"name":"Tajikistan"},{"name":"Turkmenistan"}
+    ]
+  },
+  {
+    "id": "quality_nato_1949_members",
+    "prompt": "Name an original 1949 member of NATO.",
+    "answers": [
+      {"name":"United States","aliases":["USA","US"]},{"name":"United Kingdom","aliases":["UK"]},{"name":"Canada"},{"name":"France"},{"name":"Italy"},{"name":"Belgium"},{"name":"Netherlands"},{"name":"Luxembourg"},{"name":"Denmark"},{"name":"Norway"},{"name":"Iceland"},{"name":"Portugal"}
+    ]
+  },
+  {
+    "id": "quality_twelve_caesars",
+    "prompt": "Name one of Suetonius's Twelve Caesars.",
+    "answers": [
+      {"name":"Julius Caesar"},{"name":"Augustus"},{"name":"Tiberius"},{"name":"Caligula"},{"name":"Claudius"},{"name":"Nero"},{"name":"Galba"},{"name":"Otho"},{"name":"Vitellius"},{"name":"Vespasian"},{"name":"Titus"},{"name":"Domitian"}
+    ]
+  },
+  {
+    "id": "quality_mississippi_border_states",
+    "prompt": "Name a U.S. state that borders the Mississippi River.",
+    "answers": [
+      {"name":"Minnesota"},{"name":"Wisconsin"},{"name":"Iowa"},{"name":"Illinois"},{"name":"Missouri"},{"name":"Kentucky"},{"name":"Tennessee"},{"name":"Arkansas"},{"name":"Mississippi"},{"name":"Louisiana"}
+    ]
+  },
+  {
+    "id": "quality_summer_olympic_host_cities",
+    "prompt": "Name a city that has hosted the Summer Olympic Games through 2024.",
+    "answers": [
+      {"name":"London"},{"name":"Paris"},{"name":"Los Angeles"},{"name":"Tokyo"},{"name":"Athens"},{"name":"Beijing"},{"name":"Sydney"},{"name":"Rio de Janeiro"},{"name":"Barcelona"},{"name":"Seoul"},{"name":"Moscow"},{"name":"Montreal"},{"name":"Munich"},{"name":"Mexico City"},{"name":"Rome"},{"name":"Melbourne"},{"name":"Helsinki"},{"name":"Berlin"},{"name":"Amsterdam"},{"name":"Antwerp"},{"name":"Stockholm"},{"name":"St. Louis","aliases":["Saint Louis"]},{"name":"Atlanta"}
+    ]
+  },
+  {
+    "id": "quality_mens_world_cup_winners",
+    "prompt": "Name a country that has won the men's FIFA World Cup.",
+    "answers": [
+      {"name":"Brazil"},{"name":"Germany"},{"name":"Italy"},{"name":"Argentina"},{"name":"France"},{"name":"Uruguay"},{"name":"England"},{"name":"Spain"}
+    ]
+  },
+  {
+    "id": "quality_amino_acids",
+    "prompt": "Name one of the 20 standard proteinogenic amino acids.",
+    "answers": [
+      {"name":"Glycine"},{"name":"Alanine"},{"name":"Valine"},{"name":"Leucine"},{"name":"Isoleucine"},{"name":"Serine"},{"name":"Threonine"},{"name":"Cysteine"},{"name":"Methionine"},{"name":"Aspartic acid","aliases":["Aspartate"]},{"name":"Glutamic acid","aliases":["Glutamate"]},{"name":"Asparagine"},{"name":"Glutamine"},{"name":"Lysine"},{"name":"Arginine"},{"name":"Histidine"},{"name":"Phenylalanine"},{"name":"Tyrosine"},{"name":"Tryptophan"},{"name":"Proline"}
+    ]
+  },
+  {
+    "id": "quality_cranial_nerves",
+    "prompt": "Name one of the 12 cranial nerves.",
+    "answers": [
+      {"name":"Olfactory"},{"name":"Optic"},{"name":"Oculomotor"},{"name":"Trochlear"},{"name":"Trigeminal"},{"name":"Abducens"},{"name":"Facial"},{"name":"Vestibulocochlear","aliases":["Auditory nerve","Vestibulocochlear nerve"]},{"name":"Glossopharyngeal"},{"name":"Vagus"},{"name":"Accessory","aliases":["Spinal accessory"]},{"name":"Hypoglossal"}
+    ]
+  },
+  {
+    "id": "quality_mohs_minerals",
+    "prompt": "Name a reference mineral on the Mohs hardness scale.",
+    "answers": [
+      {"name":"Talc"},{"name":"Gypsum"},{"name":"Calcite"},{"name":"Fluorite"},{"name":"Apatite"},{"name":"Orthoclase"},{"name":"Quartz"},{"name":"Topaz"},{"name":"Corundum"},{"name":"Diamond"}
+    ]
+  },
+  {
+    "id": "quality_cloud_genera",
+    "prompt": "Name one of the World Meteorological Organization's 10 cloud genera.",
+    "answers": [
+      {"name":"Cirrus"},{"name":"Cirrocumulus"},{"name":"Cirrostratus"},{"name":"Altocumulus"},{"name":"Altostratus"},{"name":"Nimbostratus"},{"name":"Stratocumulus"},{"name":"Stratus"},{"name":"Cumulus"},{"name":"Cumulonimbus"}
+    ]
+  },
+  {
+    "id": "quality_phanerozoic_periods",
+    "prompt": "Name a geologic period of the Phanerozoic Eon.",
+    "answers": [
+      {"name":"Cambrian"},{"name":"Ordovician"},{"name":"Silurian"},{"name":"Devonian"},{"name":"Carboniferous"},{"name":"Permian"},{"name":"Triassic"},{"name":"Jurassic"},{"name":"Cretaceous"},{"name":"Paleogene"},{"name":"Neogene"},{"name":"Quaternary"}
+    ]
+  },
+  {
+    "id": "quality_si_prefixes",
+    "prompt": "Name an official SI decimal prefix other than the no-prefix base unit.",
+    "answers": [
+      {"name":"quecto"},{"name":"ronto"},{"name":"yocto"},{"name":"zepto"},{"name":"atto"},{"name":"femto"},{"name":"pico"},{"name":"nano"},{"name":"micro"},{"name":"milli"},{"name":"centi"},{"name":"deci"},{"name":"deca","aliases":["deka"]},{"name":"hecto"},{"name":"kilo"},{"name":"mega"},{"name":"giga"},{"name":"tera"},{"name":"peta"},{"name":"exa"},{"name":"zetta"},{"name":"yotta"},{"name":"ronna"},{"name":"quetta"}
+    ]
+  }
+]
