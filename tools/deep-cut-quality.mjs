@@ -1,7 +1,7 @@
 export const DEEP_CUT_MIN_ANSWERS = 8;
 export const DEEP_CUT_QUALITY_CUTOVER_DAY = 6; // 2026-09-05; preserve launch week through Sep 4.
 export const DEEP_CUT_QUALITY_CUTOVER_DATE = '2026-09-05';
-export const DEEP_CUT_MIN_ACCESSIBLE_PER_DAY = 2;
+export const DEEP_CUT_MIN_ACCESSIBLE_PER_DAY = 4;
 export const DEEP_CUT_MAX_DEEP_PER_DAY = 1;
 export const DEEP_CUT_MAX_SUBDIVISION_PER_DAY = 1;
 
@@ -10,10 +10,18 @@ const BASIC_RECALL_IDS = new Set([
   'lang_nato_alphabet','lang_greek_alphabet','mil_us_branches','geo_continents','geo_oceans','space_planets','food_basic_tastes','food_mms_colors','sports_baseball_positions'
 ]);
 
+// "Accessible" means the category has an obvious entry point for a general player,
+// while the long tail still supports uncommon and rare answers. That is the core
+// Deep Cut feel: easy to enter, difficult to maximize.
 const ACCESSIBLE_IDS = new Set([
   'element','state_capital','president','constellation','shakespeare_play','south_america','europe','africa','asia','eu',
-  'quality_nolan_features','quality_fincher_features','quality_wes_anderson_features','quality_beatles_uk_studio','quality_pink_floyd_studio','quality_queen_studio','quality_radiohead_studio','quality_metallica_studio','quality_taylor_swift_studio_2024','quality_mens_world_cup_hosts_2022','quality_mens_world_cup_winners','quality_summer_olympic_host_cities',
-  'quality_tarantino_features','quality_spielberg_features','quality_bond_eon_films','quality_pixar_features_2025','quality_cameron_features_2025','quality_led_zeppelin_studio','quality_foo_fighters_studio','quality_mlb_teams','quality_nfl_teams','quality_nba_teams'
+  'quality_nolan_features','quality_fincher_features','quality_wes_anderson_features','quality_scorsese_features','quality_coen_features',
+  'quality_tarantino_features','quality_spielberg_features','quality_cameron_features_2025','quality_bond_eon_films','quality_pixar_features_2025','quality_ghibli_features',
+  'quality_beatles_uk_studio','quality_pink_floyd_studio','quality_queen_studio','quality_radiohead_studio','quality_metallica_studio','quality_madonna_studio','quality_taylor_swift_studio_2024','quality_led_zeppelin_studio','quality_foo_fighters_studio','quality_bowie_studio',
+  'quality_mens_world_cup_hosts_2022','quality_mens_world_cup_winners','quality_summer_olympic_host_cities','quality_f1_world_champions_2024','quality_mlb_teams','quality_nfl_teams','quality_nba_teams',
+  'quality_best_picture_2000_2024','quality_us_parks_ca_ut_az',
+  'quality_brazil_borders','quality_russia_borders','quality_china_borders','quality_germany_borders','quality_mediterranean_un_members','quality_mississippi_border_states',
+  'quality_crewed_apollo_missions','quality_moonwalkers','quality_nato_1949_members'
 ]);
 
 const DEEP_IDS = new Set([
