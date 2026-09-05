@@ -1,0 +1,72 @@
+[
+  {
+    "id": "quality_bond_eon_films",
+    "prompt": "Name an official Eon Productions James Bond film through No Time to Die.",
+    "answers": [
+      {"name":"Skyfall"},{"name":"Casino Royale"},{"name":"Goldfinger"},{"name":"GoldenEye"},{"name":"No Time to Die"},{"name":"Spectre"},{"name":"Dr. No","aliases":["Dr No"]},{"name":"From Russia with Love"},{"name":"Die Another Day"},{"name":"The World Is Not Enough"},{"name":"Tomorrow Never Dies"},{"name":"Quantum of Solace"},{"name":"Live and Let Die"},{"name":"Thunderball"},{"name":"The Spy Who Loved Me"},{"name":"You Only Live Twice"},{"name":"Diamonds Are Forever"},{"name":"The Man with the Golden Gun"},{"name":"Moonraker"},{"name":"For Your Eyes Only"},{"name":"The Living Daylights"},{"name":"Licence to Kill","aliases":["License to Kill"]},{"name":"A View to a Kill"},{"name":"Octopussy"},{"name":"On Her Majesty's Secret Service"}
+    ]
+  },
+  {
+    "id": "quality_pixar_features_2025",
+    "prompt": "Name a Pixar feature film released through 2025.",
+    "answers": [
+      {"name":"Toy Story"},{"name":"Finding Nemo"},{"name":"The Incredibles"},{"name":"Monsters, Inc.","aliases":["Monsters Inc"]},{"name":"Cars"},{"name":"Up"},{"name":"Inside Out"},{"name":"Coco"},{"name":"Ratatouille"},{"name":"WALL-E","aliases":["WALL E"]},{"name":"Toy Story 3"},{"name":"Toy Story 2"},{"name":"A Bug's Life"},{"name":"Finding Dory"},{"name":"Incredibles 2"},{"name":"Toy Story 4"},{"name":"Inside Out 2"},{"name":"Brave"},{"name":"Monsters University"},{"name":"Cars 2"},{"name":"Cars 3"},{"name":"Soul"},{"name":"Onward"},{"name":"Luca"},{"name":"Turning Red"},{"name":"Elemental"},{"name":"Lightyear"},{"name":"The Good Dinosaur"},{"name":"Elio"}
+    ]
+  },
+  {
+    "id": "quality_tarantino_features",
+    "prompt": "Name a theatrically released feature film directed by Quentin Tarantino.",
+    "answers": [
+      {"name":"Pulp Fiction"},{"name":"Kill Bill: Volume 1","aliases":["Kill Bill Vol 1","Kill Bill Volume 1"]},{"name":"Django Unchained"},{"name":"Inglourious Basterds"},{"name":"Reservoir Dogs"},{"name":"Once Upon a Time in Hollywood"},{"name":"Kill Bill: Volume 2","aliases":["Kill Bill Vol 2","Kill Bill Volume 2"]},{"name":"The Hateful Eight"},{"name":"Jackie Brown"},{"name":"Death Proof"}
+    ]
+  },
+  {
+    "id": "quality_spielberg_features",
+    "prompt": "Name a feature film directed by Steven Spielberg.",
+    "answers": [
+      {"name":"Jurassic Park"},{"name":"Jaws"},{"name":"E.T. the Extra-Terrestrial","aliases":["ET","E T the Extra Terrestrial"]},{"name":"Raiders of the Lost Ark"},{"name":"Schindler's List"},{"name":"Saving Private Ryan"},{"name":"Indiana Jones and the Last Crusade"},{"name":"Catch Me If You Can"},{"name":"Minority Report"},{"name":"War of the Worlds"},{"name":"The Color Purple"},{"name":"Hook"},{"name":"Ready Player One"},{"name":"Lincoln"},{"name":"Indiana Jones and the Temple of Doom"},{"name":"The Lost World: Jurassic Park"},{"name":"Close Encounters of the Third Kind"},{"name":"A.I. Artificial Intelligence","aliases":["AI Artificial Intelligence"]},{"name":"West Side Story"},{"name":"The Terminal"},{"name":"Munich"},{"name":"Bridge of Spies"},{"name":"The Post"},{"name":"The Fabelmans"},{"name":"Indiana Jones and the Kingdom of the Crystal Skull"},{"name":"The Adventures of Tintin"},{"name":"War Horse"},{"name":"The BFG"},{"name":"Amistad"},{"name":"Empire of the Sun"},{"name":"Always"},{"name":"1941"},{"name":"The Sugarland Express"},{"name":"Duel"}
+    ]
+  },
+  {
+    "id": "quality_mediterranean_un_members",
+    "prompt": "Name a UN member state with a coastline on the Mediterranean Sea.",
+    "answers": [
+      {"name":"Italy"},{"name":"Greece"},{"name":"Spain"},{"name":"France"},{"name":"Turkey"},{"name":"Egypt"},{"name":"Israel"},{"name":"Croatia"},{"name":"Morocco"},{"name":"Lebanon"},{"name":"Syria"},{"name":"Tunisia"},{"name":"Algeria"},{"name":"Libya"},{"name":"Cyprus"},{"name":"Albania"},{"name":"Slovenia"},{"name":"Montenegro"},{"name":"Malta"},{"name":"Monaco"},{"name":"Bosnia and Herzegovina","aliases":["Bosnia","Bosnia-Herzegovina"]}
+    ]
+  },
+  {
+    "id": "quality_major_arcana",
+    "prompt": "Name a card in the traditional 22-card Major Arcana of a tarot deck.",
+    "answers": [
+      {"name":"Death"},{"name":"The Fool"},{"name":"The Magician"},{"name":"The Devil"},{"name":"The Lovers"},{"name":"The Tower"},{"name":"The Moon"},{"name":"The Sun"},{"name":"The Star"},{"name":"The World"},{"name":"The Empress"},{"name":"The Emperor"},{"name":"The Hermit"},{"name":"Justice"},{"name":"Strength"},{"name":"The High Priestess"},{"name":"The Chariot"},{"name":"Wheel of Fortune"},{"name":"Temperance"},{"name":"The Hanged Man"},{"name":"Judgement","aliases":["Judgment"]},{"name":"The Hierophant"}
+    ]
+  },
+  {
+    "id": "quality_classical_chess_champions",
+    "prompt": "Name a player in the commonly recognized line of classical World Chess Champions from Steinitz through Gukesh.",
+    "answers": [
+      {"name":"Magnus Carlsen"},{"name":"Bobby Fischer"},{"name":"Garry Kasparov"},{"name":"Viswanathan Anand"},{"name":"Anatoly Karpov"},{"name":"José Capablanca","aliases":["Jose Capablanca"]},{"name":"Gukesh Dommaraju","aliases":["Gukesh D","Gukesh"]},{"name":"Vladimir Kramnik"},{"name":"Mikhail Tal"},{"name":"Boris Spassky"},{"name":"Alexander Alekhine"},{"name":"Emanuel Lasker"},{"name":"Wilhelm Steinitz"},{"name":"Tigran Petrosian"},{"name":"Mikhail Botvinnik"},{"name":"Ding Liren"},{"name":"Max Euwe"},{"name":"Vasily Smyslov","aliases":["Vassily Smyslov"]}
+    ]
+  },
+  {
+    "id": "quality_crewed_apollo_missions",
+    "prompt": "Name a crewed Apollo mission.",
+    "answers": [
+      {"name":"Apollo 11"},{"name":"Apollo 13"},{"name":"Apollo 8"},{"name":"Apollo 17"},{"name":"Apollo 15"},{"name":"Apollo 12"},{"name":"Apollo 14"},{"name":"Apollo 16"},{"name":"Apollo 10"},{"name":"Apollo 9"},{"name":"Apollo 7"}
+    ]
+  },
+  {
+    "id": "quality_moonwalkers",
+    "prompt": "Name one of the 12 people who have walked on the Moon.",
+    "answers": [
+      {"name":"Neil Armstrong"},{"name":"Buzz Aldrin","aliases":["Edwin Aldrin"]},{"name":"Alan Shepard"},{"name":"Eugene Cernan","aliases":["Gene Cernan"]},{"name":"John Young"},{"name":"Pete Conrad","aliases":["Charles Conrad"]},{"name":"David Scott"},{"name":"Charles Duke"},{"name":"Harrison Schmitt"},{"name":"Alan Bean"},{"name":"Edgar Mitchell"},{"name":"James Irwin"}
+    ]
+  },
+  {
+    "id": "quality_bowie_studio",
+    "prompt": "Name a David Bowie studio album.",
+    "answers": [
+      {"name":"The Rise and Fall of Ziggy Stardust and the Spiders from Mars","aliases":["Ziggy Stardust"]},{"name":"Hunky Dory"},{"name":"Let's Dance"},{"name":"Blackstar"},{"name":"Low"},{"name":"Heroes","aliases":["Heroes album"]},{"name":"Aladdin Sane"},{"name":"Diamond Dogs"},{"name":"Station to Station"},{"name":"Scary Monsters (and Super Creeps)","aliases":["Scary Monsters"]},{"name":"Young Americans"},{"name":"The Man Who Sold the World"},{"name":"Lodger"},{"name":"The Next Day"},{"name":"Heathen"},{"name":"Reality"},{"name":"Tonight"},{"name":"Never Let Me Down"},{"name":"Earthling"},{"name":"Outside","aliases":["1. Outside","1 Outside"]},{"name":"Hours","aliases":["'Hours...'","Hours..."]},{"name":"Black Tie White Noise"},{"name":"The Buddha of Suburbia"},{"name":"Pin Ups"},{"name":"David Bowie (1969)","aliases":["Space Oddity"]},{"name":"David Bowie (1967)"}
+    ]
+  }
+]
