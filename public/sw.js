@@ -1,4 +1,4 @@
-const CACHE = 'clue-morning-pwa-v5';
+const CACHE = 'clue-morning-pwa-v6';
 const APP_SHELL = [
   '/',
   '/index.html',
@@ -27,6 +27,7 @@ const APP_SHELL = [
   '/leaderboards-game-hooks.js',
   '/manifest.webmanifest',
   '/icon.svg',
+  '/icon-maskable.svg',
   '/icon-192.png',
   '/icon-512.png',
   '/notification-badge.svg'
