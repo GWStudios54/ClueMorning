@@ -1,21 +1,47 @@
 {
+  "id": "/",
   "name": "Clue Morning",
   "short_name": "Clue Morning",
-  "start_url": "./",
+  "description": "Six fresh word, logic, and trivia games every morning.",
+  "lang": "en-US",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
   "background_color": "#f7f1e5",
   "theme_color": "#f7f1e5",
-  "description": "Six fresh word, logic, and trivia games every morning.",
+  "categories": ["games", "entertainment"],
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "icon-512.png",
+      "src": "/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Today's Games",
+      "short_name": "Today",
+      "url": "/"
+    },
+    {
+      "name": "Deep Cut",
+      "short_name": "Deep Cut",
+      "url": "/games/deep-cut/"
+    },
+    {
+      "name": "Four Groups",
+      "short_name": "Groups",
+      "url": "/games/four-groups/"
     }
   ]
 }
