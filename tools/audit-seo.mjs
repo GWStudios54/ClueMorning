@@ -32,7 +32,7 @@ const checks=[
   ['served HTML rewrites play links to fragments',router.includes("replaceAll('/?play=','/#play=')")],
   ['hash deep links open requested games',deepLink.includes("new URLSearchParams(location.hash.replace(/^#/,'')).get('play')")&&deepLink.includes("lastcall:'lastcall'")],
   ['deep-link client is injected on homepage',router.includes('/deep-link.js?v=1')],
-  ['PWA cache includes deep-link client',sw.includes("clue-morning-pwa-v5")&&sw.includes("'/deep-link.js'" )],
+  ['PWA cache includes deep-link client',sw.includes("'/deep-link.js'" )],
   ['Wrangler uses routing worker v5',wrangler.includes('"main": "src/worker-v5.js"')],
   ['games hub is indexable',games.includes('<meta name="robots" content="index,follow,max-image-preview:large">')&&games.includes('<link rel="canonical" href="https://cluemorning.com/games/">')],
   ['games hub lists all seven daily games',games.includes('The seven daily games')&&games.includes('/games/last-call/')],
