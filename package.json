@@ -1,15 +1,16 @@
 {
   "name": "clue-morning",
-  "version": "2.8.0",
+  "version": "2.8.1",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "test": "node test.mjs && node tools/audit-trail-layout.mjs && node tools/audit-deep-cut-daily.mjs && node tools/audit-deep-cut-unlimited.mjs && node tools/audit-pwa-push.mjs",
+    "test": "node test.mjs && node tools/audit-trail-layout.mjs && node tools/audit-deep-cut-daily.mjs && node tools/audit-deep-cut-unlimited.mjs && node tools/audit-pwa-push.mjs && node tools/audit-tileworks-situation-fold.mjs",
     "audit:deepcut": "node tools/audit-deep-cut-daily.mjs && node tools/audit-deep-cut-unlimited.mjs",
     "audit:trail": "node tools/audit-trail-layout.mjs",
     "audit:push": "node tools/audit-pwa-push.mjs",
+    "audit:tileworks": "node tools/audit-tileworks-situation-fold.mjs",
     "rebuild:content": "node tools/rebuild_content.mjs && node tools/curate-deep-cut-sets.mjs"
   },
   "dependencies": {
