@@ -7,7 +7,7 @@ export const DEEP_CUT_MAX_SUBDIVISION_PER_DAY = 0;
 export const DEEP_CUT_MAX_MOVIE_PER_DAY = 1;
 export const DEEP_CUT_MAX_MUSIC_PER_DAY = 1;
 export const DEEP_CUT_MAX_ENTERTAINMENT_PER_DAY = 2;
-export const DEEP_CUT_MAX_DOMAIN_PER_DAY = 3;
+export const DEEP_CUT_MAX_DOMAIN_PER_DAY = 8;
 
 // Deep Cut is not supposed to test specialist vocabulary. The prompt should be
 // recognizable to a general player; the difficulty should come from how far down
