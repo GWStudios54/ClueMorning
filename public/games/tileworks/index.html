@@ -5,20 +5,26 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#f7f1e5">
   <title>Tileworks — Clue Morning</title>
-  <meta name="description" content="Tileworks is Clue Morning's full crossword tile board game. Play against four AI opponents from Beginner to Grandmaster.">
+  <meta name="description" content="Tileworks is Clue Morning's crossword tile game. Play a full AI match or tackle the daily three-move Situation challenge.">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/games/tileworks/tileworks.css">
   <link rel="stylesheet" href="/games/tileworks/tileworks-interactions.css">
   <link rel="stylesheet" href="/games/tileworks/tileworks-stats.css">
+  <link rel="stylesheet" href="/games/tileworks/tileworks-situation.css">
 </head>
 <body>
   <header class="topbar">
     <a class="back" href="/">← Clue Morning</a>
-    <div class="wordmark"><span class="logo-tile">T<small>4</small></span><div><strong>Tileworks</strong><small>Crossword board game</small></div></div>
+    <div class="wordmark"><span class="logo-tile">T<small>4</small></span><div><strong>Tileworks</strong><small>Crossword tile game</small></div></div>
     <span id="tierBadge" class="tier-badge">BASE GAME</span>
   </header>
 
   <main>
+    <nav class="tileworks-mode-switch" aria-label="Tileworks mode">
+      <button type="button" class="active" data-tileworks-mode="match"><strong>Full Match</strong><small>Play the complete board game against an AI opponent.</small></button>
+      <button type="button" data-tileworks-mode="situation"><strong>Situation</strong><small>One fixed rack. Three moves. Squeeze the board for points.</small></button>
+    </nav>
+
     <section id="setup" class="setup-card">
       <div class="setup-copy">
         <span class="kicker">FULL MATCH</span>
@@ -85,6 +91,29 @@
       </details>
     </section>
 
+    <section id="situationMode" class="situation-mode" hidden>
+      <div class="situation-mode-head">
+        <div><span class="kicker">SITUATION</span><h1>Three moves. One rack. No refill.</h1><p id="situationModeSubhead">Loading today's position…</p></div>
+        <div class="situation-day"><span>DAILY POSITION</span><strong id="situationDate">—</strong></div>
+      </div>
+      <div class="situation-scorebar">
+        <div><span>Moves</span><strong id="twSituationMoves">0/3</strong></div>
+        <div><span>Score</span><strong id="twSituationScore">0</strong></div>
+        <div><span>Rack</span><strong id="twSituationRackCount">7</strong></div>
+        <div><span>Status</span><strong id="twSituationStatus">OPEN</strong></div>
+      </div>
+      <div class="situation-board-wrap"><div id="twSituationBoard" class="situation-board" aria-label="Tileworks Situation board"></div></div>
+      <div class="situation-rack-zone"><div class="situation-rack-head"><span>Your rack</span><small>Tap or drag a tile onto the board</small></div><div id="twSituationRack" class="situation-rack"></div></div>
+      <div id="twSituationPreview" class="situation-preview" hidden><span>Draft</span><strong>—</strong></div>
+      <div class="situation-actions">
+        <button id="twSituationRecall" class="secondary" type="button">Recall</button>
+        <button id="twSituationFinish" class="secondary" type="button">Finish early</button>
+        <button id="twSituationPlay" class="primary" type="button">Play move</button>
+      </div>
+      <p class="situation-note">This is Tileworks' short-form mode: the board is already live, your seven-tile rack never refills, and every premium square scores only when you cover it.</p>
+      <div id="twSituationMessage" class="message">Loading word library…</div>
+    </section>
+
     <dialog id="resultDialog">
       <div class="result-card"><span class="kicker">MATCH COMPLETE</span><h2 id="resultTitle">You win.</h2><p id="resultText"></p><div class="result-scores"><span>You <b id="resultPlayer">0</b></span><span id="resultAiName">Scarlet <b id="resultAi">0</b></span></div><div class="result-actions"><button id="rematchBtn" class="primary" type="button">Rematch</button><button id="setupBtn" class="secondary" type="button">Change setup</button></div></div>
     </dialog>
@@ -92,6 +121,7 @@
 
   <script src="/games/tileworks/tileworks-lexicon-shim.js?v=3"></script>
   <script type="module" src="/games/tileworks/tileworks.js"></script>
+  <script src="/games/tileworks/tileworks-situation.js" defer></script>
   <script src="/games/tileworks/tileworks-interactions.js" defer></script>
   <script src="/games/tileworks/tileworks-stats.js" defer></script>
   <script src="/leaderboards-game-hooks.js?v=2" defer></script>
