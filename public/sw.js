@@ -1,4 +1,4 @@
-const CACHE = 'clue-morning-pwa-v1';
+const CACHE = 'clue-morning-pwa-v2';
 const APP_SHELL = [
   '/',
   '/index.html',
@@ -86,6 +86,7 @@ self.addEventListener('push', event => {
   const options = {
     body: payload.body || "Today's puzzles are ready.",
     icon: payload.icon || '/icon-192.png',
+    badge: payload.badge || '/icon-192.png',
     image: payload.image,
     tag: payload.tag || 'clue-morning',
     renotify: Boolean(payload.renotify),
