@@ -38,8 +38,14 @@
     hero.insertAdjacentHTML('afterend',`<section id="dailyRunCard" class="daily-run-card"><div class="daily-run-head"><div><span>TODAY'S RUN</span><strong id="dailyRunName">Build your run.</strong></div><b id="dailyRunCount" class="daily-run-count">0/7</b></div><div class="daily-run-track"><i id="dailyRunFill"></i></div><div class="daily-run-milestones"><div class="daily-run-chip" data-run-at="2"><b>STREAK</b><small>2 games</small></div><div class="daily-run-chip" data-run-at="4"><b>HOT STREAK</b><small>4 games</small></div><div class="daily-run-chip super" data-run-at="7"><b>SUPER STREAK</b><small>all 7</small></div></div></section>`);
   }
 
+  function polishTileworks(){
+    let style=$('#tileworksModeLabelStyle');if(!style){style=document.createElement('style');style.id='tileworksModeLabelStyle';style.textContent='.presentation-pass-v1 .more-play-grid .tileworks-home-card::before{content:"TWO MODES"}';document.head.appendChild(style)}
+    const card=$('[data-tileworks-home]');if(card){const label=card.querySelector('.game-label'),copy=card.querySelector('.game-copy p');if(label)label.textContent='CROSSWORD TILE GAME';if(copy)copy.textContent='Play a full match, or take on the daily three-move Situation.'}
+    const heading=$('#morePlaySection .more-play-heading p');if(heading)heading.textContent='Full Match and Situation live together in Tileworks.';
+  }
+
   function render(){
-    if(!date)return;removeRetiredDailyUi();ensureRunCard();
+    if(!date)return;removeRetiredDailyUi();ensureRunCard();polishTileworks();
     const core=coreDay(date),last=lastDay(date),coreScore=CORE.reduce((n,g)=>n+Number(core[g]?.score||0),0),lastScore=Number(last.score||0),total=coreScore+lastScore;
     const done=CORE.filter(g=>core[g]?.done).length+(date<START?0:(last.done?1:0)),count=date<START?6:7;
     const set=(sel,value)=>{const el=$(sel);if(el&&el.textContent!==String(value))el.textContent=String(value)};
