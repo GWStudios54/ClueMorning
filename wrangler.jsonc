@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "clue-morning",
-  "main": "src/worker-v4.js",
+  "main": "src/worker-v5.js",
   "compatibility_date": "2026-08-30",
   "workers_dev": true,
   "routes": [
@@ -25,12 +25,14 @@
       "/app.js",
       "/styles.css",
       "/sw.js",
+      "/games/",
       "/games/letter-grid/",
       "/games/four-groups/",
       "/games/letter-trail/",
       "/games/triple-link/",
       "/games/word-steps/",
       "/games/deep-cut/",
+      "/games/last-call/",
       "/games/tileworks/",
       "/games/pangram/",
       "/games/all-seven/",

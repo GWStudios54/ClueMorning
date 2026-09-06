@@ -4,10 +4,13 @@ const read=path=>fs.readFileSync(path,'utf8');
 const sitemap=read('public/sitemap.xml');
 const robots=read('public/robots.txt');
 const worker=read('src/worker-v4.js');
+const router=read('src/worker-v5.js');
 const wrangler=read('wrangler.jsonc');
 const games=read('public/games/index.html');
 const lastCall=read('public/games/last-call/index.html');
 const about=read('public/about/index.html');
+const deepLink=read('public/deep-link.js');
+const sw=read('public/sw.js');
 
 const routes=[
   '/', '/about/', '/games/', '/games/letter-grid/', '/games/four-groups/', '/games/letter-trail/',
@@ -25,6 +28,12 @@ const checks=[
   ['homepage has seven-item structured data',worker.includes('numberOfItems:7')&&worker.includes("name:'Last Call'")],
   ['old Lineup route permanently redirects',worker.includes("path==='/games/lineup/'")&&worker.includes("Response.redirect(new URL('/games/deep-cut/',url),301)")],
   ['guide response polish corrects six-game copy',worker.includes("replaceAll('six free daily games','seven free daily games')")&&worker.includes('href="/games/last-call/"')],
+  ['legacy play query URLs permanently redirect',router.includes("url.searchParams.has('play')")&&router.includes('Response.redirect(target.toString(),301)')&&router.includes("target.hash=`play=${play}`")],
+  ['served HTML rewrites play links to fragments',router.includes("replaceAll('/?play=','/#play=')")],
+  ['hash deep links open requested games',deepLink.includes("new URLSearchParams(location.hash.replace(/^#/,'')).get('play')")&&deepLink.includes("lastcall:'lastcall'")],
+  ['deep-link client is injected on homepage',router.includes('/deep-link.js?v=1')],
+  ['PWA cache includes deep-link client',sw.includes("clue-morning-pwa-v5")&&sw.includes("'/deep-link.js'" )],
+  ['Wrangler uses routing worker v5',wrangler.includes('"main": "src/worker-v5.js"')],
   ['games hub is indexable',games.includes('<meta name="robots" content="index,follow,max-image-preview:large">')&&games.includes('<link rel="canonical" href="https://cluemorning.com/games/">')],
   ['games hub lists all seven daily games',games.includes('The seven daily games')&&games.includes('/games/last-call/')],
   ['Last Call has a dedicated indexable guide',lastCall.includes('<title>Last Call — Free Daily Push-Your-Luck Trivia Game | Clue Morning</title>')&&lastCall.includes('<link rel="canonical" href="https://cluemorning.com/games/last-call/">')],
@@ -32,7 +41,7 @@ const checks=[
   ['bonus games receive complete server SEO',bonusRoutes.every(route=>worker.includes(`'${route}':{`))]
 ];
 for(const route of routes)checks.push([`sitemap includes ${route}`,sitemap.includes(`<loc>https://cluemorning.com${route}</loc>`)]);
-for(const route of [...guideRoutes,...bonusRoutes,'/games/lineup/'])checks.push([`worker-first includes ${route}`,wrangler.includes(`"${route}"`)]);
+for(const route of [...guideRoutes,...bonusRoutes,'/games/','/games/last-call/','/games/lineup/'])checks.push([`worker-first includes ${route}`,wrangler.includes(`"${route}"`)]);
 
 const failed=checks.filter(([,ok])=>!ok);
 for(const [name,ok] of checks)console.log(`${ok?'PASS':'FAIL'} ${name}`);
