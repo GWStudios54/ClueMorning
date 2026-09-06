@@ -16,7 +16,7 @@ const checks=[
   ['Today leaderboard unions per-game scores',worker.includes("SELECT player_id FROM leaderboard_game_scores WHERE date=?")],
   ['leaderboard client has no Situation board',!leaders.includes("['situation','Situation']")],
   ['leaderboard client does not post Situation',!leaders.includes("submitDaily('situation'")],
-  ['daily presentation is seven games',presentation.includes("Today's Seven")&&!presentation.includes("['situation','Situation']")],
+  ['daily presentation is seven games',presentation.includes('0 of 7 complete')&&presentation.includes('all seven')&&!presentation.includes("['situation','Situation']")],
   ['Morning Report is seven games',social.includes('const DAILY_COUNT=7')&&!social.includes("id:'situation'")],
   ['daily run controller uses seven-game super streak',dailyRun.includes('data-run-at="7"')],
   ['Tileworks exposes Full Match and Situation modes',tileHtml.includes('data-tileworks-mode="match"')&&tileHtml.includes('data-tileworks-mode="situation"')],
