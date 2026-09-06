@@ -1,15 +1,19 @@
 {
   "name": "clue-morning",
-  "version": "2.7.1",
+  "version": "2.8.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "test": "node test.mjs && node tools/audit-trail-layout.mjs && node tools/audit-deep-cut-daily.mjs && node tools/audit-deep-cut-unlimited.mjs",
+    "test": "node test.mjs && node tools/audit-trail-layout.mjs && node tools/audit-deep-cut-daily.mjs && node tools/audit-deep-cut-unlimited.mjs && node tools/audit-pwa-push.mjs",
     "audit:deepcut": "node tools/audit-deep-cut-daily.mjs && node tools/audit-deep-cut-unlimited.mjs",
     "audit:trail": "node tools/audit-trail-layout.mjs",
+    "audit:push": "node tools/audit-pwa-push.mjs",
     "rebuild:content": "node tools/rebuild_content.mjs && node tools/curate-deep-cut-sets.mjs"
+  },
+  "dependencies": {
+    "@block65/webcrypto-web-push": "^2.0.0"
   },
   "devDependencies": {
     "wrangler": "^4.68.0"
