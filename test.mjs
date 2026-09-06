@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import worker,{pickDaily,evaluateGuess,trailPathValid,trailDictionaryWord,wordStepsDictionaryWord,differsByOne,deepCutResult,safeName,scoreParts,unlimitedPuzzle,unlimitedGroupBoard,unlimitedStepsPuzzle,UNLIMITED_COUNTS} from './src/worker.js';
+import liveWorker from './src/worker-v4.js';
 import {TRAIL_PUZZLES,WORD_STEPS_PUZZLES,DEEP_CUT_PROMPTS,DEEP_CUT_PUZZLES,YEAR_PACK,YEAR_PACK_START} from './src/puzzles.js';
 
 for(const p of TRAIL_PUZZLES){
@@ -57,8 +58,8 @@ for(const slot of [0,1,10,499,2048,4999]){const b=unlimitedGroupBoard(slot);asse
 for(const slot of [0,5,77,999,4999]){const p=unlimitedStepsPuzzle(slot);assert.equal(p.solution[0],p.start);assert.equal(p.solution.at(-1),p.target);for(let i=1;i<p.solution.length;i++)assert.equal(differsByOne(p.solution[i-1],p.solution[i]),true)}
 for(const game of ['letter','groups','link','steps','deepcut'])assert.ok(unlimitedPuzzle(game,0)?.public?.[game]);
 assert.equal(new Set(YEAR_PACK.map(x=>`${x.length}:${x.answerIndex}:${x.groupsIndex}:${x.trailIndex}:${x.linkIndex}:${x.stepsIndex}:${x.deepCutIndex}`)).size,365);
-for(const f of ['./content/source/trail_seeds.json','./content/source/steps_common_words.txt','./content/source/deepcut_prompts.json','./tools/rebuild_content.mjs','./public/robots.txt','./public/sitemap.xml','./public/about/index.html','./public/games/word-steps/index.html','./public/games/deep-cut/index.html'])assert.equal(fs.existsSync(f),true,`Missing ${f}`);
-const appSource=fs.readFileSync('./public/app.js','utf8');assert.ok(appSource.includes("QWERTYUIOPASDFGHJKLZXCVBNM"),'Letter Grid keyboard should use QWERTY order');assert.ok(appSource.includes('Keep guessing — the clock is still running.'),'Deep Cut invalid guesses should preserve the active prompt');assert.ok(appSource.includes('startUnlimitedGame'),'Unlimited library UI should be wired');
+for(const f of ['./content/source/trail_seeds.json','./content/source/steps_common_words.txt','./content/source/deepcut_prompts.json','./tools/rebuild_content.mjs','./public/app-core.js','./public/robots.txt','./public/sitemap.xml','./public/about/index.html','./public/games/word-steps/index.html','./public/games/deep-cut/index.html'])assert.equal(fs.existsSync(f),true,`Missing ${f}`);
+const appSource=fs.readFileSync('./public/app.js','utf8')+fs.readFileSync('./public/app-core.js','utf8');assert.ok(appSource.includes("QWERTYUIOPASDFGHJKLZXCVBNM"),'Letter Grid keyboard should use QWERTY order');assert.ok(appSource.includes('Keep guessing — the clock is still running.'),'Deep Cut invalid guesses should preserve the active prompt');assert.ok(appSource.includes('startUnlimitedGame'),'Unlimited library UI should be wired');assert.ok(appSource.includes('Play More Games')&&appSource.includes('Share Score'),'Daily completion score cards should offer retention and sharing actions');
 
 const p=pickDaily('2026-08-30');
 const p2=pickDaily('2026-08-31');
@@ -86,6 +87,8 @@ r=await worker.fetch(new Request('https://x.test/api/steps/reveal?date=2026-08-3
 const dc=p.deepcut.prompts[0],dcAnswer=dc.answers[0].name;
 r=await worker.fetch(new Request('https://x.test/api/deepcut/check?date=2026-08-30',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({promptId:dc.id,answer:dcAnswer})}),env);assert.equal(r.status,200);j=await r.json();assert.equal(j.accepted,true);assert.equal(j.canonical,dcAnswer);assert.ok(j.score>=30&&j.score<=100);
 r=await worker.fetch(new Request('https://x.test/api/deepcut/check?date=2026-08-30',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({promptId:dc.id,answer:'not-a-real-answer'})}),env);j=await r.json();assert.equal(j.accepted,false);assert.equal(j.score,0);
+
+r=await liveWorker.fetch(new Request('https://x.test/api/deepcut/recap',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({promptIds:[dc.id]})}),env);assert.equal(r.status,200);j=await r.json();assert.equal(j.rows.length,1);assert.equal(j.rows[0].mostCommon,dc.answers[0].name);assert.equal(j.rows[0].rarest,dc.answers.at(-1).name);
 
 // Regression: current Aug 30 board must accept ordinary words that the old live API rejected.
 const current=pickDaily('2026-08-30');
