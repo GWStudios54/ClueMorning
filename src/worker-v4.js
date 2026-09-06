@@ -31,6 +31,11 @@ async function ensureLeaderboard(env){
     link_score INTEGER NOT NULL DEFAULT 0,steps_score INTEGER NOT NULL DEFAULT 0,lineup_score INTEGER NOT NULL DEFAULT 0,
     deepcut_score INTEGER NOT NULL DEFAULT 0,updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,PRIMARY KEY(date,player_id)
   )`).run();
+  for(const sql of [
+    'ALTER TABLE leaderboard ADD COLUMN steps_score INTEGER NOT NULL DEFAULT 0',
+    'ALTER TABLE leaderboard ADD COLUMN lineup_score INTEGER NOT NULL DEFAULT 0',
+    'ALTER TABLE leaderboard ADD COLUMN deepcut_score INTEGER NOT NULL DEFAULT 0'
+  ]){try{await env.DB.prepare(sql).run()}catch{}}
   await env.DB.prepare(`CREATE TABLE IF NOT EXISTS leaderboard_game_scores (
     date TEXT NOT NULL,game TEXT NOT NULL,player_id TEXT NOT NULL,display_name TEXT NOT NULL,score INTEGER NOT NULL DEFAULT 0,
     updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,PRIMARY KEY(date,game,player_id)
@@ -145,7 +150,7 @@ async function healthResponseV4(response){
 async function withSiteBootstrap(response){
   if(!response.ok)return response;const type=response.headers.get('content-type')||'';if(!type.includes('text/html'))return response;
   let html=await response.text();
-  html=html.replace(/\s*<link[^>]+daily-expansion\.css[^>]*>/gi,'').replace(/\s*<script[^>]+daily-expansion\.js[^>]*><\/script>/gi,'');
+  html=html.replace(/\s*<script[^>]+daily-expansion\.js[^>]*><\/script>/gi,'');
   html=html.replaceAll('Eight fresh puzzles are waiting.','Seven games. One morning run.').replaceAll('Eight fresh word, logic, deduction, and trivia games every morning','Seven fresh word, logic, trivia, and push-your-luck games every morning').replaceAll('eight daily word, logic, deduction, and trivia games, including Situation and Last Call','seven daily word, logic, trivia, and push-your-luck games, including Last Call').replaceAll('eight daily word, logic, deduction, and trivia games','seven daily word, logic, trivia, and push-your-luck games').replaceAll('including Situation and Last Call','including Last Call');
   const scripts=[];if(!html.includes('/daily-run-v2.js'))scripts.push('<script src="/daily-run-v2.js?v=1" defer></script>');if(!html.includes('/pwa.js'))scripts.push('<script src="/pwa.js" defer></script>');if(scripts.length)html=html.replace('</body>',`${scripts.join('\n')}\n</body>`);
   const headers=new Headers(response.headers);headers.delete('content-length');headers.set('cache-control','no-store, max-age=0, must-revalidate');
