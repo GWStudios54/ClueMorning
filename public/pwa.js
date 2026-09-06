@@ -254,6 +254,7 @@
     dialog.querySelector('#pushStreakTime').value=prefs.streakTime||DEFAULTS.streakTime;
     dialog.querySelector('#pushTimezone').textContent=`Times use this device's time zone: ${prefs.timezone}. Morning Puzzle defaults to 7:00 AM; Streak Save defaults to 7:00 PM and starts off.`;
     setTestStatus('');
+    void getConfig().catch(()=>{});
     await renderStatusOnly();
   }
 
@@ -266,10 +267,10 @@
     }
     try{
       readFields();
-      const cfg=await getConfig();
-      if(!cfg.enabled||!cfg.publicKey)throw new Error(cfg.reason||'Notification service is not ready.');
-      const permission=await Notification.requestPermission();
+      const permissionPromise=Notification.requestPermission();
+      const [permission,cfg]=await Promise.all([permissionPromise,getConfig()]);
       if(permission!=='granted')throw new Error(permission==='denied'?'Notification permission was blocked.':'Notification permission was not granted.');
+      if(!cfg.enabled||!cfg.publicKey)throw new Error(cfg.reason||'Notification service is not ready.');
       let sub=await currentSubscription();
       if(!sub){
         sub=await registration.pushManager.subscribe({
