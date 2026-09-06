@@ -1,215 +1,156 @@
-// Clue Morning app loader.
-// Core puzzle logic remains in app-core.js; lightweight retention UI can live here
-// without making the main game bundle harder to maintain.
+// Clue Morning app loader + daily-game retention flow.
 (() => {
   const CORE_SRC = '/app-core.js';
   const STATE_KEY = 'clue-morning-state-v2.4';
-  const SHARE_URL = 'https://cluemorning.com/games/deep-cut/';
+  const TZ = 'America/Los_Angeles';
+  const GAMES = {
+    letter:{name:'Letter Grid',panel:'letter',url:'https://cluemorning.com/games/letter-grid/'},
+    groups:{name:'Four Groups',panel:'groups',url:'https://cluemorning.com/games/four-groups/'},
+    trail:{name:'Letter Trail',panel:'trail',url:'https://cluemorning.com/games/letter-trail/'},
+    link:{name:'Triple Link',panel:'link',url:'https://cluemorning.com/games/triple-link/'},
+    steps:{name:'Word Steps',panel:'steps',url:'https://cluemorning.com/games/word-steps/'},
+    deepcut:{name:'Deep Cut',panel:'deepcut',url:'https://cluemorning.com/games/deep-cut/'}
+  };
 
-  function localDateKey(d = new Date()) {
-    const y = d.getFullYear();
-    const m = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    return `${y}-${m}-${day}`;
+  function pacificDateKey(d=new Date()){
+    const parts=new Intl.DateTimeFormat('en-US',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d);
+    const get=t=>parts.find(p=>p.type===t)?.value||'';
+    return `${get('year')}-${get('month')}-${get('day')}`;
   }
-
-  function deepCutWasDoneAtLoad() {
-    try {
-      const saved = JSON.parse(localStorage.getItem(STATE_KEY) || '{}');
-      return !!saved?.days?.[localDateKey()]?.deepcut?.done;
-    } catch {
-      return false;
-    }
+  function readDay(){
+    try{return JSON.parse(localStorage.getItem(STATE_KEY)||'{}')?.days?.[pacificDateKey()]||{}}catch{return {}}
   }
+  const initialDone=Object.fromEntries(Object.keys(GAMES).map(game=>[game,!!readDay()?.[game]?.done]));
+  const shown=new Set(Object.entries(initialDone).filter(([,done])=>done).map(([game])=>game));
 
-  const alreadyDoneAtLoad = deepCutWasDoneAtLoad();
+  function installScoreCards(){
+    if(!document.querySelector('.app'))return;
+    const style=document.createElement('style');
+    style.id='daily-score-card-styles';
+    style.textContent=`
+      .daily-score-dialog{width:min(540px,92vw);text-align:center;padding:28px;max-height:min(86vh,760px);overflow:auto}
+      .daily-score-dialog .dialog-close{position:absolute;right:16px;top:16px;float:none}
+      .daily-score-kicker{display:block;margin-top:4px}
+      .daily-score-dialog h2{font-size:clamp(2.25rem,8vw,3.25rem);margin:.25rem 0 .4rem}
+      .daily-score-copy{color:var(--muted);margin:0 auto 16px;max-width:36ch;line-height:1.5}
+      .daily-score-number{display:flex;align-items:baseline;justify-content:center;gap:8px;margin:10px 0 8px}
+      .daily-score-number strong{font:700 clamp(3.35rem,14vw,5rem)/.9 Georgia,"Times New Roman",serif;letter-spacing:-.05em}
+      .daily-score-number span{font-weight:900;color:var(--muted)}
+      .daily-score-detail{font-weight:850;margin:10px auto 14px;color:var(--dark)}
+      .daily-score-marks{font-size:1.3rem;letter-spacing:.08em;line-height:1.45;margin:10px auto 18px;white-space:pre-wrap;overflow-wrap:anywhere}
+      .daily-score-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+      .daily-score-actions button{min-height:52px;justify-content:center}
+      .daily-share-status{min-height:1.4em;margin:12px 0 0;color:var(--muted);font-size:.83rem}
+      .daily-score-reopen{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin:18px 0 4px}
+      .daily-score-reopen button{min-width:145px}
+      .deepcut-recap{display:grid;gap:8px;text-align:left;margin:18px 0 4px;padding-top:16px;border-top:1px solid var(--line)}
+      .deepcut-recap-row{padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:var(--paper2)}
+      .deepcut-recap-row strong{display:block;font-family:Georgia,"Times New Roman",serif;font-size:.95rem;margin-bottom:5px}
+      .deepcut-recap-row span{display:block;color:var(--muted);font-size:.76rem;line-height:1.45}
+      @media(max-width:520px){.daily-score-actions{grid-template-columns:1fr}.daily-score-reopen{display:grid}.daily-score-reopen button{width:100%}}
+    `;
+    document.head.appendChild(style);
 
-  function installDeepCutRetentionFlow() {
-    const doneCard = document.querySelector('#deepCutDone');
-    if (!doneCard) return;
+    const dialog=document.createElement('dialog');
+    dialog.id='dailyScoreDialog';
+    dialog.className='daily-score-dialog';
+    dialog.innerHTML=`
+      <form method="dialog"><button class="dialog-close" type="submit" aria-label="Close score"><span aria-hidden="true">×</span></button></form>
+      <span id="dailyScoreKicker" class="game-label daily-score-kicker">GAME COMPLETE</span>
+      <h2 id="dailyScoreTitle">Nice work.</h2>
+      <p class="daily-score-copy">Your score is locked in. Share it, or keep the morning going.</p>
+      <div class="daily-score-number"><strong id="dailyScoreValue">0</strong><span id="dailyScoreMax"></span></div>
+      <div id="dailyScoreDetail" class="daily-score-detail"></div>
+      <div id="dailyScoreMarks" class="daily-score-marks"></div>
+      <div id="dailyScoreExtra"></div>
+      <div class="daily-score-actions">
+        <button id="dailyScoreMore" class="primary-button" type="button">Play More Games</button>
+        <button id="dailyScoreShare" class="secondary-button" type="button">Share Score</button>
+      </div>
+      <p id="dailyShareStatus" class="daily-share-status" role="status" aria-live="polite"></p>
+    `;
+    document.querySelector('.app').appendChild(dialog);
 
-    if (!document.querySelector('#deepcut-retention-styles')) {
-      const style = document.createElement('style');
-      style.id = 'deepcut-retention-styles';
-      style.textContent = `
-        .deepcut-done-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
-        .deepcut-done-actions .primary-button,.deepcut-done-actions .secondary-button{min-width:150px}
-        .deepcut-result-dialog{width:min(500px,92vw);text-align:center;padding:28px}
-        .deepcut-result-dialog .dialog-close{position:absolute;right:16px;top:16px;float:none}
-        .deepcut-result-dialog h2{font-size:clamp(2.3rem,8vw,3.35rem);margin:.25rem 0 .5rem}
-        .deepcut-result-kicker{display:block;margin-top:4px}
-        .deepcut-result-copy{color:var(--muted);margin:0 auto 16px;max-width:34ch;line-height:1.5}
-        .deepcut-result-score{display:flex;align-items:baseline;justify-content:center;gap:8px;margin:8px 0 10px}
-        .deepcut-result-score strong{font:700 clamp(3.25rem,14vw,5rem)/.9 Georgia,"Times New Roman",serif;letter-spacing:-.05em}
-        .deepcut-result-score span{font-weight:900;color:var(--muted)}
-        .deepcut-result-marks{font-size:1.45rem;letter-spacing:.12em;line-height:1.4;margin:12px auto 18px;overflow-wrap:anywhere}
-        .deepcut-result-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
-        .deepcut-result-actions button{min-height:52px;justify-content:center}
-        .deepcut-share-status{min-height:1.4em;margin:12px 0 0;color:var(--muted);font-size:.83rem}
-        @media(max-width:520px){.deepcut-result-actions{grid-template-columns:1fr}.deepcut-done-actions{display:grid}.deepcut-done-actions button{width:100%}}
-      `;
-      document.head.appendChild(style);
+    let currentGame=null,currentSnapshot=null,recapToken=0;
+    const valueEl=dialog.querySelector('#dailyScoreValue'),maxEl=dialog.querySelector('#dailyScoreMax'),detailEl=dialog.querySelector('#dailyScoreDetail'),marksEl=dialog.querySelector('#dailyScoreMarks'),extraEl=dialog.querySelector('#dailyScoreExtra'),statusEl=dialog.querySelector('#dailyShareStatus');
+
+    function isUnlimited(game){return !!document.querySelector(`#${GAMES[game].panel} .unlimited-play-bar`)}
+    function letterMarks(s){
+      return (s.guesses||[]).map(g=>(g.feedback||[]).map(v=>v==='green'?'🟩':v==='yellow'?'🟨':'⬛').join('')).join('\n');
+    }
+    function snapshot(game,s){
+      const score=Number(s?.score||0);
+      if(game==='letter')return {score,detail:s.won?`Solved in ${(s.guesses||[]).length}/6 guesses`:'No solve',marks:letterMarks(s)};
+      if(game==='groups')return {score,detail:`${(s.solved||[]).length}/4 groups · ${Number(s.mistakes||0)} mistake${Number(s.mistakes||0)===1?'':'s'}`,marks:`${'🟩'.repeat((s.solved||[]).length)}${'⬛'.repeat(Math.max(0,4-(s.solved||[]).length))}`};
+      if(game==='trail')return {score,detail:`${(s.words||[]).length} words${s.best?` · Best: ${s.best}`:''}`,marks:''};
+      if(game==='link')return {score,detail:s.won?`Solved in ${Number(s.guesses||0)}/3 guesses`:'Missed today’s link',marks:s.won?'🟩':'⬛'};
+      if(game==='steps'){
+        const moves=Math.max(0,(s.path||[]).length-1),par=document.querySelector('#stepsPar')?.textContent||'';
+        return {score,detail:s.won?`Solved in ${moves} move${moves===1?'':'s'}${par?` · Par ${par}`:''}`:'Path revealed',marks:s.won?'🟩':'⬛'};
+      }
+      const answers=s.answers||[],hits=answers.filter(a=>a.accepted).length,total=Math.max(8,answers.length||8);
+      return {score,max:total*100,detail:`${hits}/${total} prompts landed`,marks:Array.from({length:total},(_,i)=>answers[i]?.accepted?'🟩':'⬛').join(''),promptIds:answers.map(a=>a.promptId).filter(Boolean)};
     }
 
-    if (!document.querySelector('#deepCutDoneActions')) {
-      const actions = document.createElement('div');
-      actions.id = 'deepCutDoneActions';
-      actions.className = 'deepcut-done-actions';
-      actions.innerHTML = `
-        <button id="deepCutDoneMore" class="primary-button" type="button">Play More Games</button>
-        <button id="deepCutDoneShare" class="secondary-button" type="button">Share Score</button>
-      `;
-      doneCard.appendChild(actions);
+    async function loadDeepCutRecap(data,token){
+      if(!data.promptIds?.length)return;
+      extraEl.innerHTML='<div class="deepcut-recap"><div class="deepcut-recap-row"><span>Loading the common and rare ends of today’s categories…</span></div></div>';
+      try{
+        const response=await fetch('/api/deepcut/recap',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({promptIds:data.promptIds})});
+        const result=await response.json();if(!response.ok)throw new Error(result.error||'Recap unavailable');if(token!==recapToken)return;
+        extraEl.innerHTML=`<div class="deepcut-recap">${result.rows.map(row=>`<div class="deepcut-recap-row"><strong>${escapeHtml(row.prompt)}</strong><span>Most common: <b>${escapeHtml(row.mostCommon)}</b></span><span>Most rare: <b>${escapeHtml(row.rarest)}</b></span></div>`).join('')}</div>`;
+      }catch{if(token===recapToken)extraEl.innerHTML=''}
     }
+    function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
 
-    let dialog = document.querySelector('#deepCutResultDialog');
-    if (!dialog) {
-      dialog = document.createElement('dialog');
-      dialog.id = 'deepCutResultDialog';
-      dialog.className = 'deepcut-result-dialog';
-      dialog.setAttribute('aria-labelledby', 'deepCutResultTitle');
-      dialog.innerHTML = `
-        <form method="dialog"><button class="dialog-close" type="submit" aria-label="Close score"><span aria-hidden="true">×</span></button></form>
-        <span class="game-label deepcut-result-kicker">DEEP CUT COMPLETE</span>
-        <h2 id="deepCutResultTitle">Nice cut.</h2>
-        <p class="deepcut-result-copy">Your score is locked in. Share it, or keep the morning going with five more daily games.</p>
-        <div class="deepcut-result-score"><strong id="deepCutResultScore">0</strong><span id="deepCutResultMax">/ 800</span></div>
-        <div id="deepCutResultMarks" class="deepcut-result-marks" aria-label="Round results"></div>
-        <div class="deepcut-result-actions">
-          <button id="deepCutResultMore" class="primary-button" type="button">Play More Games</button>
-          <button id="deepCutResultShare" class="secondary-button" type="button">Share Score</button>
-        </div>
-        <p id="deepCutShareStatus" class="deepcut-share-status" role="status" aria-live="polite"></p>
-      `;
-      document.querySelector('.app')?.appendChild(dialog);
-    }
-
-    const doneMore = document.querySelector('#deepCutDoneMore');
-    const doneShare = document.querySelector('#deepCutDoneShare');
-    const resultMore = document.querySelector('#deepCutResultMore');
-    const resultShare = document.querySelector('#deepCutResultShare');
-    const shareStatus = document.querySelector('#deepCutShareStatus');
-    let autoOpened = alreadyDoneAtLoad;
-
-    function isUnlimited() {
-      return !!document.querySelector('#deepcut .unlimited-play-bar');
-    }
-
-    function snapshot() {
-      const score = Number((document.querySelector('#deepCutDoneScore')?.textContent || '0').replace(/[^0-9]/g, '')) || 0;
-      const roundText = document.querySelector('#deepCutRound')?.textContent || '8/8';
-      const total = Math.max(1, Number(roundText.split('/')[1]) || 8);
-      const rows = [...document.querySelectorAll('#deepCutHistory .deepcut-result')];
-      const marks = Array.from({length: total}, (_, i) => {
-        const badge = (rows[i]?.querySelector('.deepcut-tier')?.textContent || '').trim().toUpperCase();
-        return badge && !/TIME|MISS/.test(badge) ? '🟩' : '⬛';
-      }).join('');
-      return {score, total, max: total * 100, marks};
-    }
-
-    function syncResultUi() {
-      const data = snapshot();
-      const scoreEl = document.querySelector('#deepCutResultScore');
-      const maxEl = document.querySelector('#deepCutResultMax');
-      const marksEl = document.querySelector('#deepCutResultMarks');
-      if (scoreEl) scoreEl.textContent = data.score.toLocaleString();
-      if (maxEl) maxEl.textContent = `/ ${data.max.toLocaleString()}`;
-      if (marksEl) marksEl.textContent = data.marks;
-      if (shareStatus) shareStatus.textContent = '';
-      const unlimited = isUnlimited();
-      if (doneMore) doneMore.textContent = unlimited ? 'Back to Unlimited' : 'Play More Games';
-      if (doneShare) doneShare.hidden = unlimited;
-      if (resultShare) resultShare.hidden = unlimited;
-      if (resultMore) resultMore.textContent = unlimited ? 'Back to Unlimited' : 'Play More Games';
+    function renderCard(game){
+      const s=readDay()?.[game];if(!s?.done)return null;
+      const data=snapshot(game,s);currentGame=game;currentSnapshot=data;recapToken++;
+      dialog.querySelector('#dailyScoreKicker').textContent=`${GAMES[game].name.toUpperCase()} COMPLETE`;
+      dialog.querySelector('#dailyScoreTitle').textContent=game==='deepcut'?'Nice cut.':'Nice work.';
+      valueEl.textContent=data.score.toLocaleString();maxEl.textContent=data.max?`/ ${data.max.toLocaleString()}`:'';detailEl.textContent=data.detail||'';marksEl.textContent=data.marks||'';marksEl.hidden=!data.marks;extraEl.innerHTML='';statusEl.textContent='';
+      if(game==='deepcut')void loadDeepCutRecap(data,recapToken);
       return data;
     }
+    function showCard(game){if(isUnlimited(game)||!renderCard(game))return;if(!dialog.open)dialog.showModal()}
+    function goMore(){if(dialog.open)dialog.close();try{const url=new URL(location.href);url.searchParams.delete('play');history.replaceState({},'',`${url.pathname}${url.search}${url.hash}`)}catch{}document.querySelector('[data-tab="today"]')?.click()}
+    function shareBody(game,data,includeUrl=true){
+      const lines=[`${GAMES[game].name} · Clue Morning`,data.max?`${data.score.toLocaleString()}/${data.max.toLocaleString()}`:`${data.score.toLocaleString()} points`,data.detail];
+      if(data.marks)lines.push(data.marks);if(includeUrl)lines.push('',`Play: ${GAMES[game].url}`);return lines.filter(v=>v!==undefined&&v!==null&&v!=='').join('\n');
+    }
+    async function copy(text){
+      if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(text);return}
+      const area=document.createElement('textarea');area.value=text;area.setAttribute('readonly','');area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();document.execCommand('copy');area.remove();
+    }
+    async function share(){
+      if(!currentGame||!currentSnapshot)return;statusEl.textContent='';const game=currentGame,data=currentSnapshot;
+      try{
+        if(navigator.share){await navigator.share({title:`${GAMES[game].name} — Clue Morning`,text:shareBody(game,data,false),url:GAMES[game].url});statusEl.textContent='Shared.';return}
+        await copy(shareBody(game,data,true));statusEl.textContent='Score copied — paste it anywhere.';
+      }catch(err){if(err?.name==='AbortError')return;try{await copy(shareBody(game,data,true));statusEl.textContent='Score copied — paste it anywhere.'}catch{statusEl.textContent='Sharing is not available in this browser.'}}
+    }
+    dialog.querySelector('#dailyScoreMore').addEventListener('click',goMore);
+    dialog.querySelector('#dailyScoreShare').addEventListener('click',()=>void share());
 
-    function goPlayMore() {
-      if (dialog?.open) dialog.close();
-      if (isUnlimited()) {
-        document.querySelector('[data-tab="unlimited"]')?.click();
-        return;
-      }
-      try {
-        const url = new URL(location.href);
-        url.searchParams.delete('play');
-        history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
-      } catch {}
-      document.querySelector('[data-tab="today"]')?.click();
+    function ensureReopen(game,s){
+      const panel=document.querySelector(`#${GAMES[game].panel}`);if(!panel)return;
+      let bar=panel.querySelector(`[data-score-reopen="${game}"]`);
+      if(!bar){bar=document.createElement('div');bar.className='daily-score-reopen';bar.dataset.scoreReopen=game;bar.innerHTML='<button class="secondary-button" type="button" data-view-score>View Score Card</button><button class="primary-button" type="button" data-play-more>Play More Games</button>';panel.appendChild(bar);bar.querySelector('[data-view-score]').addEventListener('click',()=>showCard(game));bar.querySelector('[data-play-more]').addEventListener('click',goMore)}
+      bar.hidden=!s?.done||isUnlimited(game);
     }
 
-    function shareText(data) {
-      return `Deep Cut · Clue Morning\n${data.score.toLocaleString()}/${data.max.toLocaleString()}\n${data.marks}\n\nPlay today's Deep Cut: ${SHARE_URL}`;
-    }
-
-    async function copyFallback(text) {
-      if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(text);
-        return true;
-      }
-      const area = document.createElement('textarea');
-      area.value = text;
-      area.setAttribute('readonly', '');
-      area.style.position = 'fixed';
-      area.style.opacity = '0';
-      document.body.appendChild(area);
-      area.select();
-      const ok = document.execCommand('copy');
-      area.remove();
-      return ok;
-    }
-
-    async function shareScore() {
-      const data = syncResultUi();
-      const compact = `Deep Cut · Clue Morning\n${data.score.toLocaleString()}/${data.max.toLocaleString()}\n${data.marks}`;
-      try {
-        if (navigator.share) {
-          await navigator.share({title: 'Deep Cut — Clue Morning', text: compact, url: SHARE_URL});
-          if (shareStatus) shareStatus.textContent = 'Shared.';
-          return;
-        }
-        await copyFallback(shareText(data));
-        if (shareStatus) shareStatus.textContent = 'Score copied — paste it anywhere.';
-      } catch (err) {
-        if (err?.name === 'AbortError') return;
-        try {
-          await copyFallback(shareText(data));
-          if (shareStatus) shareStatus.textContent = 'Score copied — paste it anywhere.';
-        } catch {
-          if (shareStatus) shareStatus.textContent = 'Sharing is not available in this browser.';
-        }
+    let checkQueued=false;
+    function checkCompletions(){
+      checkQueued=false;const day=readDay();
+      for(const game of Object.keys(GAMES)){
+        const s=day?.[game];ensureReopen(game,s);
+        if(s?.done&&!shown.has(game)&&!isUnlimited(game)){shown.add(game);setTimeout(()=>showCard(game),120)}
       }
     }
-
-    function showResult() {
-      if (isUnlimited()) return;
-      syncResultUi();
-      if (!dialog.open) dialog.showModal();
-    }
-
-    doneMore?.addEventListener('click', goPlayMore);
-    resultMore?.addEventListener('click', goPlayMore);
-    doneShare?.addEventListener('click', () => void shareScore());
-    resultShare?.addEventListener('click', () => void shareScore());
-
-    let wasVisible = !doneCard.hidden;
-    const observer = new MutationObserver(() => {
-      const visible = !doneCard.hidden;
-      syncResultUi();
-      if (visible && !wasVisible && !isUnlimited() && !autoOpened) {
-        autoOpened = true;
-        setTimeout(showResult, 120);
-      }
-      wasVisible = visible;
-    });
-    observer.observe(doneCard, {attributes: true, attributeFilter: ['hidden']});
-    syncResultUi();
+    function queueCheck(){if(checkQueued)return;checkQueued=true;setTimeout(checkCompletions,80)}
+    const observer=new MutationObserver(queueCheck);observer.observe(document.querySelector('.app'),{subtree:true,childList:true,attributes:true,characterData:true});
+    checkCompletions();
   }
 
-  const core = document.createElement('script');
-  core.src = CORE_SRC;
-  core.async = false;
-  core.onload = installDeepCutRetentionFlow;
-  core.onerror = () => console.error('Clue Morning core failed to load.');
-  document.body.appendChild(core);
+  const core=document.createElement('script');core.src=CORE_SRC;core.async=false;core.onload=installScoreCards;core.onerror=()=>console.error('Clue Morning core failed to load.');document.body.appendChild(core);
 })();
