@@ -24,7 +24,17 @@
       "/index.html",
       "/app.js",
       "/styles.css",
-      "/sw.js"
+      "/sw.js",
+      "/games/letter-grid/",
+      "/games/four-groups/",
+      "/games/letter-trail/",
+      "/games/triple-link/",
+      "/games/word-steps/",
+      "/games/deep-cut/",
+      "/games/tileworks/",
+      "/games/pangram/",
+      "/games/all-seven/",
+      "/games/lineup/"
     ],
     "html_handling": "auto-trailing-slash"
   }

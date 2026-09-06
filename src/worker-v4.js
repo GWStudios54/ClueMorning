@@ -5,6 +5,30 @@ import {handlePushRequest,runPushSchedule} from './push.js';
 const DAILY_BOARDS=new Set(['grid','groups','trail','link','steps','deepcut','lastcall']);
 const RECORD_BOARDS=new Set(['all-seven','pangram','tileworks']);
 const LEGACY_COLUMN={grid:'grid_score',groups:'groups_score',trail:'trail_score',link:'link_score',steps:'steps_score',deepcut:'deepcut_score'};
+const DAILY_GUIDE_PATHS=new Set(['/games/letter-grid/','/games/four-groups/','/games/letter-trail/','/games/triple-link/','/games/word-steps/','/games/deep-cut/']);
+const SEO_PAGES={
+  '/games/tileworks/':{
+    name:'Tileworks',
+    title:'Tileworks — Free Crossword Tile Word Game | Clue Morning',
+    description:'Play Tileworks, a free crossword tile word game with full AI matches, premium squares, rack strategy, and a daily three-move Situation mode.',
+    ogTitle:'Tileworks — Free Crossword Tile Word Game',
+    ogDescription:'Build words on a premium-square board in a full AI match, or take on the daily three-move Situation.'
+  },
+  '/games/pangram/':{
+    name:'Pangram',
+    title:'Pangram — Free Seven-Letter Word Game | Clue Morning',
+    description:'Play Pangram, an endless seven-letter word hunt. Every word must use the center letter; use all seven letters for a pangram bonus.',
+    ogTitle:'Pangram — Free Seven-Letter Word Game',
+    ogDescription:'Find words from seven letters, use the required center letter every time, and chase the pangram bonus.'
+  },
+  '/games/all-seven/':{
+    name:'All Seven',
+    title:'All Seven — Free Seven-Center Word Hunt | Clue Morning',
+    description:'Play All Seven, a multi-stage seven-letter word game. Clear every center letter by finding new words or landing pangrams across one run.',
+    ogTitle:'All Seven — Free Seven-Center Word Hunt',
+    ogDescription:'One seven-letter set, seven required centers, and a full run built around words and pangrams.'
+  }
+};
 let leaderboardReady=false;
 
 function json(data,status=200){
@@ -147,20 +171,119 @@ async function healthResponseV4(response){
   try{const data=await response.clone().json();data.dailyGames=7;data.leaderboardBoards=12;data.situationMode='tileworks';return json(data,response.status)}catch{return response}
 }
 
-async function withSiteBootstrap(response){
+function escRe(value){return String(value).replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+function setTitle(html,value){return /<title>.*?<\/title>/is.test(html)?html.replace(/<title>.*?<\/title>/is,`<title>${value}</title>`):html.replace('</head>',`<title>${value}</title>\n</head>`)}
+function setMetaName(html,name,content){const re=new RegExp(`<meta\\s+name=["']${escRe(name)}["'][^>]*>`,'i'),tag=`<meta name="${name}" content="${content}">`;return re.test(html)?html.replace(re,tag):html.replace('</head>',`${tag}\n</head>`)}
+function setMetaProperty(html,name,content){const re=new RegExp(`<meta\\s+property=["']${escRe(name)}["'][^>]*>`,'i'),tag=`<meta property="${name}" content="${content}">`;return re.test(html)?html.replace(re,tag):html.replace('</head>',`${tag}\n</head>`)}
+function setCanonical(html,url){const re=/<link\s+rel=["']canonical["'][^>]*>/i,tag=`<link rel="canonical" href="${url}">`;return re.test(html)?html.replace(re,tag):html.replace('</head>',`${tag}\n</head>`)}
+function appendHead(html,markup){return html.replace('</head>',`${markup}\n</head>`)}
+
+function applyHomepageSeo(html){
+  const title='Clue Morning — 7 Free Daily Word, Logic & Trivia Games';
+  const description='Play seven free daily word, logic, trivia, and push-your-luck games. Letter Grid, Four Groups, Deep Cut, Last Call, and more refresh every morning.';
+  const social='Seven fresh word, logic, trivia, and push-your-luck games every morning, free in your browser.';
+  html=setTitle(html,title);
+  html=setMetaName(html,'description',description);
+  html=setMetaName(html,'robots','index,follow,max-image-preview:large');
+  html=setCanonical(html,'https://cluemorning.com/');
+  html=setMetaProperty(html,'og:type','website');
+  html=setMetaProperty(html,'og:site_name','Clue Morning');
+  html=setMetaProperty(html,'og:locale','en_US');
+  html=setMetaProperty(html,'og:title',title);
+  html=setMetaProperty(html,'og:description',social);
+  html=setMetaProperty(html,'og:url','https://cluemorning.com/');
+  html=setMetaProperty(html,'og:image','https://cluemorning.com/icon-512.png');
+  html=setMetaName(html,'twitter:card','summary');
+  html=setMetaName(html,'twitter:title',title);
+  html=setMetaName(html,'twitter:description',social);
+  html=setMetaName(html,'twitter:image','https://cluemorning.com/icon-512.png');
+  const schema={
+    '@context':'https://schema.org',
+    '@graph':[
+      {'@type':'WebSite','@id':'https://cluemorning.com/#website',name:'Clue Morning',url:'https://cluemorning.com/',description:'A free collection of seven daily word, logic, trivia, and push-your-luck games with a fresh shared set every morning.'},
+      {'@type':'CollectionPage','@id':'https://cluemorning.com/#daily-games',name:'Clue Morning Daily Games',url:'https://cluemorning.com/',isPartOf:{'@id':'https://cluemorning.com/#website'},mainEntity:{'@type':'ItemList',numberOfItems:7,itemListElement:[
+        {'@type':'ListItem',position:1,name:'Letter Grid',url:'https://cluemorning.com/games/letter-grid/'},
+        {'@type':'ListItem',position:2,name:'Four Groups',url:'https://cluemorning.com/games/four-groups/'},
+        {'@type':'ListItem',position:3,name:'Letter Trail',url:'https://cluemorning.com/games/letter-trail/'},
+        {'@type':'ListItem',position:4,name:'Triple Link',url:'https://cluemorning.com/games/triple-link/'},
+        {'@type':'ListItem',position:5,name:'Word Steps',url:'https://cluemorning.com/games/word-steps/'},
+        {'@type':'ListItem',position:6,name:'Deep Cut',url:'https://cluemorning.com/games/deep-cut/'},
+        {'@type':'ListItem',position:7,name:'Last Call',url:'https://cluemorning.com/games/last-call/'}
+      ]}}
+    ]
+  };
+  html=html.replace(/<script\s+type=["']application\/ld\+json["']>.*?<\/script>/is,`<script type="application/ld+json">${JSON.stringify(schema)}</script>`);
+  html=html.replaceAll('Six fresh puzzles are waiting.','Seven games. One morning run.')
+    .replaceAll('Six quick word, logic, and trivia games, every morning.','Seven quick word, logic, trivia, and push-your-luck games, every morning.')
+    .replaceAll('Clue Morning is a free browser-based daily game collection. Play Letter Grid, Four Groups, Letter Trail, Triple Link, Word Steps, and Deep Cut without an app download.','Clue Morning is a free browser-based daily game collection. Seven games land every morning: Letter Grid, Four Groups, Letter Trail, Triple Link, Word Steps, Deep Cut, and Last Call.')
+    .replaceAll('finish all six puzzles.','finish all seven games.')
+    .replaceAll('Today’s six games','Today’s seven games');
+  if(!html.includes('/games/last-call/'))html=html.replace('<a href="/games/deep-cut/">Deep Cut guide</a></nav>','<a href="/games/deep-cut/">Deep Cut guide</a><a href="/games/last-call/">Last Call guide</a><a href="/games/">All games</a></nav>');
+  return html;
+}
+
+function applyDailyGuidePolish(html){
+  html=html.replaceAll('href="/">Today’s six games</a>','href="/games/">All games</a>')
+    .replaceAll('six free daily games','seven free daily games')
+    .replaceAll('free six-game daily set','free seven-game daily set')
+    .replaceAll('six-game daily set','seven-game daily set')
+    .replaceAll('Free daily word, logic, and trivia games.','Free daily word, logic, trivia, and push-your-luck games.');
+  html=setMetaProperty(html,'og:locale','en_US');
+  html=setMetaName(html,'twitter:image','https://cluemorning.com/icon-512.png');
+  if(!html.includes('href="/games/last-call/"'))html=html.replace('</nav>\n    </section>','<a href="/games/last-call/">Last Call</a><a href="/games/">All games</a></nav>\n    </section>');
+  return html;
+}
+
+function applyBonusSeo(html,path){
+  const cfg=SEO_PAGES[path];if(!cfg)return html;const canonical=`https://cluemorning.com${path}`;
+  html=setTitle(html,cfg.title);
+  html=setMetaName(html,'description',cfg.description);
+  html=setMetaName(html,'robots','index,follow,max-image-preview:large');
+  html=setCanonical(html,canonical);
+  html=setMetaProperty(html,'og:type','website');
+  html=setMetaProperty(html,'og:site_name','Clue Morning');
+  html=setMetaProperty(html,'og:locale','en_US');
+  html=setMetaProperty(html,'og:title',cfg.ogTitle);
+  html=setMetaProperty(html,'og:description',cfg.ogDescription);
+  html=setMetaProperty(html,'og:url',canonical);
+  html=setMetaProperty(html,'og:image','https://cluemorning.com/icon-512.png');
+  html=setMetaName(html,'twitter:card','summary');
+  html=setMetaName(html,'twitter:title',cfg.ogTitle);
+  html=setMetaName(html,'twitter:description',cfg.ogDescription);
+  html=setMetaName(html,'twitter:image','https://cluemorning.com/icon-512.png');
+  if(!/application\/ld\+json/i.test(html)){
+    const schema={'@context':'https://schema.org','@graph':[
+      {'@type':'WebPage','@id':`${canonical}#page`,name:cfg.ogTitle,url:canonical,description:cfg.description,isPartOf:{'@type':'WebSite',name:'Clue Morning',url:'https://cluemorning.com/'},breadcrumb:{'@id':`${canonical}#breadcrumbs`}},
+      {'@type':'BreadcrumbList','@id':`${canonical}#breadcrumbs`,itemListElement:[
+        {'@type':'ListItem',position:1,name:'Clue Morning',item:'https://cluemorning.com/'},
+        {'@type':'ListItem',position:2,name:'Games',item:'https://cluemorning.com/games/'},
+        {'@type':'ListItem',position:3,name:cfg.name,item:canonical}
+      ]}
+    ]};
+    html=appendHead(html,`<script type="application/ld+json">${JSON.stringify(schema)}</script>`);
+  }
+  return html;
+}
+
+async function withHtmlPolish(response,path){
   if(!response.ok)return response;const type=response.headers.get('content-type')||'';if(!type.includes('text/html'))return response;
-  let html=await response.text();
-  html=html.replace(/\s*<script[^>]+daily-expansion\.js[^>]*><\/script>/gi,'');
-  html=html.replaceAll('Eight fresh puzzles are waiting.','Seven games. One morning run.').replaceAll('Eight fresh word, logic, deduction, and trivia games every morning','Seven fresh word, logic, trivia, and push-your-luck games every morning').replaceAll('eight daily word, logic, deduction, and trivia games, including Situation and Last Call','seven daily word, logic, trivia, and push-your-luck games, including Last Call').replaceAll('eight daily word, logic, deduction, and trivia games','seven daily word, logic, trivia, and push-your-luck games').replaceAll('including Situation and Last Call','including Last Call');
-  const scripts=[];if(!html.includes('/daily-run-v2.js'))scripts.push('<script src="/daily-run-v2.js?v=1" defer></script>');if(!html.includes('/pwa.js'))scripts.push('<script src="/pwa.js" defer></script>');if(scripts.length)html=html.replace('</body>',`${scripts.join('\n')}\n</body>`);
-  const headers=new Headers(response.headers);headers.delete('content-length');headers.set('cache-control','no-store, max-age=0, must-revalidate');
+  let html=await response.text();const home=path==='/'||path==='/index.html';
+  if(home){
+    html=html.replace(/\s*<script[^>]+daily-expansion\.js[^>]*><\/script>/gi,'');
+    html=html.replaceAll('Eight fresh puzzles are waiting.','Seven games. One morning run.').replaceAll('Eight fresh word, logic, deduction, and trivia games every morning','Seven fresh word, logic, trivia, and push-your-luck games every morning').replaceAll('eight daily word, logic, deduction, and trivia games, including Situation and Last Call','seven daily word, logic, trivia, and push-your-luck games, including Last Call').replaceAll('eight daily word, logic, deduction, and trivia games','seven daily word, logic, trivia, and push-your-luck games').replaceAll('including Situation and Last Call','including Last Call');
+    html=applyHomepageSeo(html);
+    const scripts=[];if(!html.includes('/daily-run-v2.js'))scripts.push('<script src="/daily-run-v2.js?v=1" defer></script>');if(!html.includes('/pwa.js'))scripts.push('<script src="/pwa.js" defer></script>');if(scripts.length)html=html.replace('</body>',`${scripts.join('\n')}\n</body>`);
+  }else if(DAILY_GUIDE_PATHS.has(path))html=applyDailyGuidePolish(html);
+  else if(SEO_PAGES[path])html=applyBonusSeo(html,path);
+  const headers=new Headers(response.headers);headers.delete('content-length');headers.delete('etag');headers.set('cache-control',home?'no-store, max-age=0, must-revalidate':'public, max-age=900');
   return new Response(html,{status:response.status,statusText:response.statusText,headers});
 }
 
 export default {
   async fetch(request,env,ctx){
-    const url=new URL(request.url);
+    const url=new URL(request.url),path=url.pathname;
     if(url.pathname.startsWith('/api/push/')){const pushResponse=await handlePushRequest(request,env);if(pushResponse)return pushResponse}
+    if(request.method==='GET'&&(path==='/games/lineup/'||path==='/games/lineup'))return Response.redirect(new URL('/games/deep-cut/',url),301);
     if(request.method==='GET'&&url.pathname==='/api/leaderboard'&&url.searchParams.has('board'))return boardResponse(url,env);
     if(request.method==='POST'&&url.pathname==='/api/deepcut/recap'){
       const b=await body(request),ids=Array.isArray(b.promptIds)?b.promptIds.map(String).slice(0,8):[];
@@ -169,7 +292,7 @@ export default {
     const response=await core.fetch(request,env,ctx);
     if(request.method==='GET'&&url.pathname==='/api/daily')return dailyResponseV4(response);
     if(request.method==='GET'&&url.pathname==='/api/health')return healthResponseV4(response);
-    if(request.method==='GET'&&(url.pathname==='/'||url.pathname==='/index.html'))return withSiteBootstrap(response);
+    if(request.method==='GET'&&(path==='/'||path==='/index.html'||DAILY_GUIDE_PATHS.has(path)||SEO_PAGES[path]))return withHtmlPolish(response,path);
     return response;
   },
   async scheduled(controller,env,ctx){const scheduledAt=Number(controller?.scheduledTime)||Date.now();ctx.waitUntil(runPushSchedule(env,new Date(scheduledAt)))}
