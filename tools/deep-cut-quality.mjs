@@ -1,4 +1,4 @@
-export const DEEP_CUT_MIN_ANSWERS = 10;
+export const DEEP_CUT_MIN_ANSWERS = 8;
 export const DEEP_CUT_QUALITY_CUTOVER_DAY = 6; // 2026-09-05; rebuild the post-launch rotation.
 export const DEEP_CUT_QUALITY_CUTOVER_DATE = '2026-09-05';
 export const DEEP_CUT_MIN_ACCESSIBLE_PER_DAY = 8;
@@ -7,7 +7,7 @@ export const DEEP_CUT_MAX_SUBDIVISION_PER_DAY = 0;
 export const DEEP_CUT_MAX_MOVIE_PER_DAY = 1;
 export const DEEP_CUT_MAX_MUSIC_PER_DAY = 1;
 export const DEEP_CUT_MAX_ENTERTAINMENT_PER_DAY = 2;
-export const DEEP_CUT_MAX_DOMAIN_PER_DAY = 2;
+export const DEEP_CUT_MAX_DOMAIN_PER_DAY = 3;
 
 // Deep Cut is not supposed to test specialist vocabulary. The prompt should be
 // recognizable to a general player; the difficulty should come from how far down
@@ -67,7 +67,6 @@ export function deepCutDifficulty(prompt){
 }
 
 export function deepCutDomain(prompt){
-  const id=String(prompt?.id||'').toLowerCase();
   const text=String(prompt?.prompt||'').toLowerCase();
   if(MOVIE_IDS.has(prompt?.id)||/\b(?:film|movie|best picture|pixar|ghibli)\b/.test(text))return 'movies';
   if(MUSIC_IDS.has(prompt?.id)||/\b(?:album|song|band|singer|musician|recording artist)\b/.test(text))return 'music';
