@@ -7,6 +7,7 @@ on:
       - 'fix/deep-cut-*'
     paths:
       - 'package.json'
+      - 'test.mjs'
       - 'content/source/deepcut_prompts.json'
       - 'content/source/deepcut_quality_*.json'
       - 'content/source/schedule.json'
@@ -15,6 +16,11 @@ on:
       - 'tools/curate-deep-cut-sets.mjs'
       - 'tools/audit-deep-cut-daily.mjs'
       - 'tools/rebuild_content.mjs'
+      - 'src/worker-v4.js'
+      - 'public/app.js'
+      - 'public/app-core.js'
+      - 'public/sw.js'
+      - 'wrangler.jsonc'
       - '.github/workflows/deep-cut-content.yml'
   workflow_dispatch:
 
