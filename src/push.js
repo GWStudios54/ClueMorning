@@ -119,6 +119,13 @@ function localClock(date,timeZone){
   };
 }
 
+function previousDate(key){
+  const [year,month,day]=key.split('-').map(Number);
+  const date=new Date(Date.UTC(year,month-1,day,12));
+  date.setUTCDate(date.getUTCDate()-1);
+  return date.toISOString().slice(0,10);
+}
+
 function targetMinutes(time){
   const [hour,minute]=time.split(':').map(Number);
   return hour*60+minute;
@@ -312,11 +319,13 @@ export async function runPushSchedule(env,now=new Date()){
       &&dueAfter(clock,safeTime(row.morning_time,DEFAULT_MORNING),12*60);
     if(morningDue)jobs.push(()=>sendMorning(env,row,localDate));
     const progressCurrent=row.progress_date===localDate;
+    const progressYesterday=row.progress_date===previousDate(localDate);
     const completed=progressCurrent?Number(row.completed_count||0):0;
     const streak=Number(row.streak_count||0);
+    const activeStreak=streak>0&&(progressCurrent||(progressYesterday&&Number(row.completed_count||0)>=6));
     const streakDue=Number(row.streak_enabled)===1
       &&row.last_streak_date!==localDate
-      &&streak>0
+      &&activeStreak
       &&completed<6
       &&dueAfter(clock,safeTime(row.streak_time,DEFAULT_STREAK),90);
     if(streakDue)jobs.push(()=>sendStreak(env,row,localDate));
