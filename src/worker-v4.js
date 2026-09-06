@@ -17,6 +17,18 @@ function promptRecap(id){
   };
 }
 
+async function withPwaBootstrap(response){
+  if(!response.ok)return response;
+  const type=response.headers.get('content-type')||'';
+  if(!type.includes('text/html'))return response;
+  const html=await response.text();
+  if(html.includes('/pwa.js'))return new Response(html,response);
+  const injected=html.replace('</body>','<script src="/pwa.js" defer></script>\n</body>');
+  const headers=new Headers(response.headers);
+  headers.delete('content-length');
+  return new Response(injected,{status:response.status,statusText:response.statusText,headers});
+}
+
 export default {
   async fetch(request,env,ctx){
     const url=new URL(request.url);
@@ -27,6 +39,8 @@ export default {
       if(rows.some(row=>!row))return json({ok:false,error:'Unknown Deep Cut prompt.'},400);
       return json({ok:true,rows});
     }
-    return core.fetch(request,env,ctx);
+    const response=await core.fetch(request,env,ctx);
+    if(request.method==='GET'&&(url.pathname==='/'||url.pathname==='/index.html'))return withPwaBootstrap(response);
+    return response;
   }
 };
