@@ -1,5 +1,113 @@
-const CACHE='clue-morning-v2.11.0';
-const ASSETS=['./','index.html','styles.css','styles-base.css','app.js','app-core.js','daily-expansion.css','daily-expansion.js','daily-presentation-fix.css','daily-presentation-fix.js','last-call.css','last-call.js','presentation-v1.css','presentation-v1.js','social.css','social.js','founders-ui.css','founders-ui.js','extra-games.js','word-controls.js','leaderboards-v2.css','leaderboards-v2.js','leaderboards-game-hooks.js','games/pangram-core.js','games/pangram.css','games/pangram/index.html','games/pangram/pangram.js','games/all-seven/index.html','games/all-seven/all-seven.js','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png'];
-self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)))});
-self.addEventListener('activate',e=>e.waitUntil(Promise.all([self.clients.claim(),caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))])));
-self.addEventListener('fetch',e=>{const u=new URL(e.request.url);if(u.pathname.startsWith('/api/'))return;e.respondWith(fetch(e.request).then(r=>{const copy=r.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));return r}).catch(()=>caches.match(e.request)))});
+const CACHE = 'clue-morning-pwa-v1';
+const APP_SHELL = [
+  '/',
+  '/index.html',
+  '/styles.css',
+  '/styles-base.css',
+  '/app.js',
+  '/app-core.js',
+  '/pwa.js',
+  '/daily-expansion.css',
+  '/daily-expansion.js',
+  '/daily-presentation-fix.css',
+  '/daily-presentation-fix.js',
+  '/last-call.css',
+  '/last-call.js',
+  '/presentation-v1.css',
+  '/presentation-v1.js',
+  '/social.css',
+  '/social.js',
+  '/founders-ui.css',
+  '/founders-ui.js',
+  '/extra-games.js',
+  '/word-controls.js',
+  '/leaderboards-v2.css',
+  '/leaderboards-v2.js',
+  '/leaderboards-game-hooks.js',
+  '/manifest.webmanifest',
+  '/icon.svg',
+  '/icon-192.png',
+  '/icon-512.png'
+];
+
+self.addEventListener('install', event => {
+  self.skipWaiting();
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE);
+    await Promise.allSettled(APP_SHELL.map(asset => cache.add(asset)));
+  })());
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys
+      .filter(key => key.startsWith('clue-morning-') && key !== CACHE)
+      .map(key => caches.delete(key)));
+    await self.clients.claim();
+  })());
+});
+
+self.addEventListener('fetch', event => {
+  const request = event.request;
+  if (request.method !== 'GET') return;
+
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin || url.pathname.startsWith('/api/')) return;
+
+  event.respondWith((async () => {
+    try {
+      const response = await fetch(request);
+      if (response.ok) {
+        const cache = await caches.open(CACHE);
+        cache.put(request, response.clone()).catch(() => {});
+      }
+      return response;
+    } catch {
+      const cached = await caches.match(request);
+      if (cached) return cached;
+      if (request.mode === 'navigate') {
+        return (await caches.match('/')) || (await caches.match('/index.html')) || Response.error();
+      }
+      return Response.error();
+    }
+  })());
+});
+
+self.addEventListener('push', event => {
+  let payload = {};
+  try {
+    payload = event.data ? event.data.json() : {};
+  } catch {
+    payload = { body: event.data ? event.data.text() : '' };
+  }
+
+  const title = payload.title || 'Clue Morning';
+  const options = {
+    body: payload.body || "Today's puzzles are ready.",
+    icon: payload.icon || '/icon-192.png',
+    image: payload.image,
+    tag: payload.tag || 'clue-morning',
+    renotify: Boolean(payload.renotify),
+    data: { url: payload.url || '/' }
+  };
+  if (!options.image) delete options.image;
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener('notificationclick', event => {
+  event.notification.close();
+  const target = new URL(event.notification.data?.url || '/', self.location.origin).href;
+
+  event.waitUntil((async () => {
+    const clients = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    for (const client of clients) {
+      if ('focus' in client) {
+        if ('navigate' in client && client.url !== target) await client.navigate(target);
+        return client.focus();
+      }
+    }
+    return self.clients.openWindow ? self.clients.openWindow(target) : undefined;
+  })());
+});
