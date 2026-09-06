@@ -8,6 +8,8 @@ const social=read('public/social.js');
 const tileHtml=read('public/games/tileworks/index.html');
 const tileSituation=read('public/games/tileworks/tileworks-situation.js');
 const dailyRun=read('public/daily-run-v2.js');
+const legacyPresentation=read('public/daily-presentation-fix.js');
+const serviceWorker=read('public/sw.js');
 
 const checks=[
   ['worker reports seven daily games',worker.includes('data.dailyGames=7')],
@@ -19,6 +21,9 @@ const checks=[
   ['daily presentation is seven games',presentation.includes('0 of 7 complete')&&presentation.includes('all seven')&&!presentation.includes("['situation','Situation']")],
   ['Morning Report is seven games',social.includes('const DAILY_COUNT=7')&&!social.includes("id:'situation'")],
   ['daily run controller uses seven-game super streak',dailyRun.includes('data-run-at="7"')],
+  ['legacy presentation cannot restore eight-game copy',legacyPresentation.includes('Seven games. One morning run.')&&!legacyPresentation.includes('Eight fresh puzzles are waiting.')&&!legacyPresentation.includes('m.done/8')],
+  ['legacy presentation removes standalone Situation UI',legacyPresentation.includes('[data-tab="situation"]')&&legacyPresentation.includes('#situation')&&!legacyPresentation.includes('homeSituationScore'),],
+  ['PWA cache no longer preloads retired daily expansion script',serviceWorker.includes("clue-morning-pwa-v3")&&!serviceWorker.includes("'/daily-expansion.js'" )],
   ['Tileworks exposes Full Match and Situation modes',tileHtml.includes('data-tileworks-mode="match"')&&tileHtml.includes('data-tileworks-mode="situation"')],
   ['Tileworks loads Situation implementation',tileHtml.includes('/games/tileworks/tileworks-situation.js')],
   ['Situation preserves three-move rules',tileSituation.includes("maxMoves||3")&&tileSituation.includes('Your rack will not refill.')]
