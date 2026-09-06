@@ -6,13 +6,17 @@ import {
   DEEP_CUT_MIN_ACCESSIBLE_PER_DAY,
   DEEP_CUT_MAX_DEEP_PER_DAY,
   DEEP_CUT_MAX_SUBDIVISION_PER_DAY,
+  DEEP_CUT_MAX_MOVIE_PER_DAY,
+  DEEP_CUT_MAX_MUSIC_PER_DAY,
+  DEEP_CUT_MAX_ENTERTAINMENT_PER_DAY,
+  DEEP_CUT_MAX_DOMAIN_PER_DAY,
   deepCutPromptQuality,
   deepCutDailyBalance,
   eligibleDeepCutIndices
 } from './deep-cut-quality.mjs';
 
 const eligible=eligibleDeepCutIndices(DEEP_CUT_PROMPTS);
-assert.ok(eligible.length>=64,`Need at least 64 quality Deep Cut prompts; found ${eligible.length}`);
+assert.ok(eligible.length>=64,`Need at least 64 common-knowledge Deep Cut prompts; found ${eligible.length}`);
 assert.equal(DEEP_CUT_PUZZLES.length,365);
 
 const lastSeen=new Map();
@@ -21,9 +25,14 @@ for(let day=DEEP_CUT_QUALITY_CUTOVER_DAY;day<DEEP_CUT_PUZZLES.length;day++){
   assert.equal(set.length,8,`Day ${day} should have eight Deep Cut prompts`);
   assert.equal(new Set(set).size,8,`Day ${day} contains a duplicate prompt`);
   const balance=deepCutDailyBalance(set,DEEP_CUT_PROMPTS);
+  assert.ok(balance.valid,`Day ${day} violates Deep Cut balance: ${JSON.stringify(balance)}`);
   assert.ok(balance.accessible>=DEEP_CUT_MIN_ACCESSIBLE_PER_DAY,`Day ${day} has only ${balance.accessible} accessible prompts`);
-  assert.ok(balance.deep<=DEEP_CUT_MAX_DEEP_PER_DAY,`Day ${day} has ${balance.deep} deep prompts`);
-  assert.ok(balance.subdivisions<=DEEP_CUT_MAX_SUBDIVISION_PER_DAY,`Day ${day} stacks ${balance.subdivisions} administrative-subdivision prompts`);
+  assert.ok(balance.deep<=DEEP_CUT_MAX_DEEP_PER_DAY,`Day ${day} has ${balance.deep} specialist prompts`);
+  assert.ok(balance.subdivisions<=DEEP_CUT_MAX_SUBDIVISION_PER_DAY,`Day ${day} has ${balance.subdivisions} administrative-subdivision prompts`);
+  assert.ok(balance.movies<=DEEP_CUT_MAX_MOVIE_PER_DAY,`Day ${day} has ${balance.movies} movie prompts`);
+  assert.ok(balance.music<=DEEP_CUT_MAX_MUSIC_PER_DAY,`Day ${day} has ${balance.music} music prompts`);
+  assert.ok(balance.entertainment<=DEEP_CUT_MAX_ENTERTAINMENT_PER_DAY,`Day ${day} has ${balance.entertainment} entertainment prompts`);
+  assert.ok(Math.max(0,...Object.values(balance.domains))<=DEEP_CUT_MAX_DOMAIN_PER_DAY,`Day ${day} overuses one domain: ${JSON.stringify(balance.domains)}`);
   for(const index of set){
     const prompt=DEEP_CUT_PROMPTS[index];
     const quality=deepCutPromptQuality(prompt);
@@ -33,4 +42,4 @@ for(let day=DEEP_CUT_QUALITY_CUTOVER_DAY;day<DEEP_CUT_PUZZLES.length;day++){
   }
 }
 
-console.log(`Daily Deep Cut: ${eligible.length}/${DEEP_CUT_PROMPTS.length} prompts pass the quality gate; every post-cutover day has ${DEEP_CUT_MIN_ACCESSIBLE_PER_DAY}+ accessible prompts, no more than ${DEEP_CUT_MAX_DEEP_PER_DAY} deep prompts, no stacked administrative-subdivision rounds, ${DEEP_CUT_MIN_ANSWERS}+ answers per prompt, and an 8-day repeat gap.`);
+console.log(`Daily Deep Cut: ${eligible.length}/${DEEP_CUT_PROMPTS.length} prompts pass the common-knowledge gate; every post-cutover day has eight accessible prompts, max ${DEEP_CUT_MAX_MOVIE_PER_DAY} movie, max ${DEEP_CUT_MAX_MUSIC_PER_DAY} music, max ${DEEP_CUT_MAX_ENTERTAINMENT_PER_DAY} entertainment total, max ${DEEP_CUT_MAX_DOMAIN_PER_DAY} from any domain, ${DEEP_CUT_MIN_ANSWERS}+ answers per prompt, and an 8-day repeat gap.`);
