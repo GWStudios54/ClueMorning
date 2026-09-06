@@ -1,5 +1,6 @@
 import core from './worker-v3.js';
 import {DEEP_CUT_PROMPTS} from './puzzles.js';
+import {handlePushRequest,runPushSchedule} from './push.js';
 
 function json(data,status=200){
   return new Response(JSON.stringify(data),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store'}});
@@ -32,6 +33,10 @@ async function withPwaBootstrap(response){
 export default {
   async fetch(request,env,ctx){
     const url=new URL(request.url);
+    if(url.pathname.startsWith('/api/push/')){
+      const pushResponse=await handlePushRequest(request,env);
+      if(pushResponse)return pushResponse;
+    }
     if(request.method==='POST'&&url.pathname==='/api/deepcut/recap'){
       const b=await body(request),ids=Array.isArray(b.promptIds)?b.promptIds.map(String).slice(0,8):[];
       if(!ids.length)return json({ok:false,error:'No Deep Cut prompts supplied.'},400);
@@ -42,5 +47,9 @@ export default {
     const response=await core.fetch(request,env,ctx);
     if(request.method==='GET'&&(url.pathname==='/'||url.pathname==='/index.html'))return withPwaBootstrap(response);
     return response;
+  },
+  async scheduled(controller,env,ctx){
+    const scheduledAt=Number(controller?.scheduledTime)||Date.now();
+    ctx.waitUntil(runPushSchedule(env,new Date(scheduledAt)));
   }
 };
