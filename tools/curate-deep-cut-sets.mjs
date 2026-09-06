@@ -28,6 +28,7 @@ const schedulePath=path.join(sourceDir,'schedule.json');
 const generatedPath=path.join(root,'content','generated','deep_cut.json');
 const reportPath=path.join(root,'content','generated','deep_cut_quality.json');
 const modulePath=path.join(root,'src','puzzles.js');
+const REPEAT_GAP=6;
 
 function hashString(str){let h=2166136261;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
 function mulberry32(a){return function(){let t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
@@ -67,8 +68,9 @@ const prompts=applyDeepCutRarityOrder([...basePrompts,...supplementPrompts]);
 const promptSources=[...basePrompts.map(()=>"base"),...qualitySources.flatMap(source=>source.prompts.map(()=>source.name))];
 const eligible=eligibleDeepCutIndices(prompts);
 const accessibleEligible=eligible.filter(index=>deepCutDifficulty(prompts[index]).tier==='accessible');
-if(eligible.length<64)throw new Error(`Deep Cut common-knowledge gate left only ${eligible.length} eligible prompts; need at least 64 for the eight-day repeat window.`);
-if(accessibleEligible.length<DEEP_CUT_MIN_ACCESSIBLE_PER_DAY*8)throw new Error(`Deep Cut has only ${accessibleEligible.length} accessible prompts; need at least ${DEEP_CUT_MIN_ACCESSIBLE_PER_DAY*8}.`);
+const minimumPool=DEEP_CUT_MIN_ACCESSIBLE_PER_DAY*REPEAT_GAP;
+if(eligible.length<minimumPool)throw new Error(`Deep Cut common-knowledge gate left only ${eligible.length} eligible prompts; need at least ${minimumPool} for the repeat window.`);
+if(accessibleEligible.length<minimumPool)throw new Error(`Deep Cut has only ${accessibleEligible.length} accessible prompts; need at least ${minimumPool}.`);
 if(baseline.length!==schedule.days)throw new Error(`Deep Cut baseline has ${baseline.length} sets; expected ${schedule.days}.`);
 
 const eligibleSet=new Set(eligible),usage=Array(prompts.length).fill(0),last=Array(prompts.length).fill(-999),sets=[],signatures=new Set();
@@ -77,22 +79,28 @@ for(let day=0;day<Math.min(DEEP_CUT_QUALITY_CUTOVER_DAY,schedule.days);day++){
 }
 
 function chooseSet(day,available){
-  const chosen=[];
-  while(chosen.length<8){
-    const counts={};for(const index of chosen){const d=deepCutDomain(prompts[index]);counts[d]=(counts[d]||0)+1}
-    const candidates=available.filter(row=>!chosen.includes(row.index)&&deepCutDailyBalance([...chosen,row.index],prompts).withinCaps)
-      .sort((a,b)=>(counts[a.domain]||0)-(counts[b.domain]||0)||a.use-b.use||a.last-b.last||a.r-b.r);
-    if(!candidates.length)throw new Error(`Could not build a varied common-knowledge Deep Cut set for day ${day}.`);
-    chosen.push(candidates[0].index);
+  let attempts=0;
+  function search(chosen,start){
+    if(chosen.length===8)return deepCutDailyBalance(chosen,prompts).valid?chosen:null;
+    if(available.length-start<8-chosen.length)return null;
+    for(let i=start;i<available.length;i++){
+      const index=available[i].index,trial=[...chosen,index];
+      if(!deepCutDailyBalance(trial,prompts).withinCaps)continue;
+      attempts++;if(attempts>250000)return null;
+      const found=search(trial,i+1);if(found)return found;
+    }
+    return null;
   }
-  const balance=deepCutDailyBalance(chosen,prompts);if(!balance.valid)throw new Error(`Deep Cut day ${day} is unbalanced: ${JSON.stringify(balance)}`);return chosen;
+  const chosen=search([],0);
+  if(!chosen)throw new Error(`Could not build a varied common-knowledge Deep Cut set for day ${day} from ${available.length} available prompts.`);
+  return chosen;
 }
 
 for(let day=DEEP_CUT_QUALITY_CUTOVER_DAY;day<schedule.days;day++){
   const rnd=mulberry32(hashString(`${schedule.startDate}::deep-cut-common-knowledge::${day}`));
   const ranked=eligible.map(index=>({index,use:usage[index],last:last[index],r:rnd(),difficulty:deepCutDifficulty(prompts[index]),domain:deepCutDomain(prompts[index])}))
     .sort((a,b)=>a.use-b.use||a.last-b.last||a.r-b.r);
-  const available=ranked.filter(row=>day-row.last>=8);
+  const available=ranked.filter(row=>day-row.last>=REPEAT_GAP);
   let chosen=chooseSet(day,available),sig=chosen.join(':');
   if(signatures.has(sig)){
     let replaced=false;
@@ -123,7 +131,7 @@ const eligibleDetails=eligible.map(detail);
 const excluded=prompts.map((prompt,index)=>({index,id:prompt.id,prompt:prompt.prompt,source:promptSources[index],...deepCutPromptQuality(prompt)})).filter(row=>!row.eligible).map(({eligible:_,...row})=>row);
 const firstCuratedSet=(sets[DEEP_CUT_QUALITY_CUTOVER_DAY]||[]).map(detail),firstCuratedBalance=deepCutDailyBalance(sets[DEEP_CUT_QUALITY_CUTOVER_DAY]||[],prompts);
 const report={
-  cutoverDate:DEEP_CUT_QUALITY_CUTOVER_DATE,cutoverDay:DEEP_CUT_QUALITY_CUTOVER_DAY,minimumCanonicalAnswers:DEEP_CUT_MIN_ANSWERS,
+  cutoverDate:DEEP_CUT_QUALITY_CUTOVER_DATE,cutoverDay:DEEP_CUT_QUALITY_CUTOVER_DAY,minimumCanonicalAnswers:DEEP_CUT_MIN_ANSWERS,minimumRepeatGapDays:REPEAT_GAP,
   doctrine:'Common-knowledge prompts; difficulty comes from answer rarity.',
   dailyDifficultyRule:{minimumAccessible:DEEP_CUT_MIN_ACCESSIBLE_PER_DAY,maximumDeep:DEEP_CUT_MAX_DEEP_PER_DAY,maximumAdministrativeSubdivision:DEEP_CUT_MAX_SUBDIVISION_PER_DAY,maximumMovies:DEEP_CUT_MAX_MOVIE_PER_DAY,maximumMusic:DEEP_CUT_MAX_MUSIC_PER_DAY,maximumEntertainment:DEEP_CUT_MAX_ENTERTAINMENT_PER_DAY,maximumAnyDomain:DEEP_CUT_MAX_DOMAIN_PER_DAY},
   basePrompts:basePrompts.length,qualitySourceFiles:qualitySources.map(source=>({name:source.name,prompts:source.prompts.length})),supplementPrompts:supplementPrompts.length,totalPrompts:prompts.length,eligiblePrompts:eligible.length,
@@ -132,5 +140,5 @@ const report={
 };
 await fs.writeFile(reportPath,JSON.stringify(report,null,2)+'\n','utf8');
 console.log(`Deep Cut common-knowledge curation: ${eligible.length}/${prompts.length} prompts eligible; ${sets.length-DEEP_CUT_QUALITY_CUTOVER_DAY} future daily sets rebuilt.`);
-console.log(`Daily variety: 8 accessible prompts; max ${DEEP_CUT_MAX_MOVIE_PER_DAY} movie, ${DEEP_CUT_MAX_MUSIC_PER_DAY} music, ${DEEP_CUT_MAX_ENTERTAINMENT_PER_DAY} entertainment total, and ${DEEP_CUT_MAX_DOMAIN_PER_DAY} from any one domain.`);
+console.log(`Daily variety: 8 accessible prompts; max ${DEEP_CUT_MAX_MOVIE_PER_DAY} movie, ${DEEP_CUT_MAX_MUSIC_PER_DAY} music, ${DEEP_CUT_MAX_ENTERTAINMENT_PER_DAY} entertainment total; minimum repeat gap ${REPEAT_GAP} days.`);
 console.log(`First curated day ${DEEP_CUT_QUALITY_CUTOVER_DATE}: ${firstCuratedSet.map(row=>`${row.id}[${row.domain}]`).join(', ')}`);
