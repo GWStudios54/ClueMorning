@@ -1,13 +1,16 @@
 import core from './worker-v4.js';
 
-const PLAY_TARGETS=new Set(['letter','groups','trail','link','steps','deepcut','lastcall']);
+const PLAY_TARGETS={
+  grid:'letter',letter:'letter',groups:'groups',trail:'trail',link:'link',steps:'steps',
+  deepcut:'deepcut','deep-cut':'deepcut',lastcall:'lastcall','last-call':'lastcall'
+};
 
 function legacyPlayRedirect(url){
-  const play=String(url.searchParams.get('play')||'').toLowerCase();
-  if(!PLAY_TARGETS.has(play))return null;
+  const raw=String(url.searchParams.get('play')||'').toLowerCase();
+  const play=PLAY_TARGETS[raw]||'';
   const target=new URL('/',url);
   target.search='';
-  target.hash=`play=${play}`;
+  if(play)target.hash=`play=${play}`;
   return Response.redirect(target.toString(),301);
 }
 
@@ -17,6 +20,7 @@ async function polishDeepLinks(response,path){
   if(!type.includes('text/html'))return response;
   let html=await response.text();
   html=html.replaceAll('/?play=','/#play=');
+  if(path==='/games/last-call/')html=html.replace('href="/">Play today’s Last Call','href="/#play=lastcall">Play today’s Last Call');
   if((path==='/'||path==='/index.html')&&!html.includes('/deep-link.js')){
     html=html.replace('</body>','<script src="/deep-link.js?v=1" defer></script>\n</body>');
   }
@@ -29,10 +33,7 @@ async function polishDeepLinks(response,path){
 export default {
   async fetch(request,env,ctx){
     const url=new URL(request.url),path=url.pathname;
-    if(request.method==='GET'&&(path==='/'||path==='/index.html')&&url.searchParams.has('play')){
-      const redirect=legacyPlayRedirect(url);
-      if(redirect)return redirect;
-    }
+    if(request.method==='GET'&&(path==='/'||path==='/index.html')&&url.searchParams.has('play'))return legacyPlayRedirect(url);
     const response=await core.fetch(request,env,ctx);
     if(request.method==='GET')return polishDeepLinks(response,path);
     return response;
