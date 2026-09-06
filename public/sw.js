@@ -1,4 +1,4 @@
-const CACHE = 'clue-morning-pwa-v3';
+const CACHE = 'clue-morning-pwa-v4';
 const APP_SHELL = [
   '/',
   '/index.html',
@@ -27,7 +27,8 @@ const APP_SHELL = [
   '/manifest.webmanifest',
   '/icon.svg',
   '/icon-192.png',
-  '/icon-512.png'
+  '/icon-512.png',
+  '/notification-badge.svg'
 ];
 
 self.addEventListener('install', event => {
@@ -85,8 +86,10 @@ self.addEventListener('push', event => {
   const title = payload.title || 'Clue Morning';
   const options = {
     body: payload.body || "Today's puzzles are ready.",
-    icon: payload.icon || '/icon-192.png',
-    badge: payload.badge || '/icon-192.png',
+    // Always use the centered square artwork and dedicated monochrome badge.
+    // This avoids Android applying its own crop to the older portrait-shaped icon.
+    icon: '/icon.svg',
+    badge: '/notification-badge.svg',
     image: payload.image,
     tag: payload.tag || 'clue-morning',
     renotify: Boolean(payload.renotify),
