@@ -6,13 +6,15 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "test": "node test.mjs && node tools/audit-trail-layout.mjs && node tools/audit-deep-cut-daily.mjs && node tools/audit-deep-cut-unlimited.mjs && node tools/audit-pwa-push.mjs && node tools/audit-tileworks-situation-fold.mjs && node tools/audit-seo.mjs",
+    "test": "node test.mjs && node tools/audit-four-groups.mjs && node tools/audit-trail-layout.mjs && node tools/audit-deep-cut-daily.mjs && node tools/audit-deep-cut-unlimited.mjs && node tools/audit-pwa-push.mjs && node tools/audit-tileworks-situation-fold.mjs && node tools/audit-seo.mjs",
+    "audit:groups": "node tools/audit-four-groups.mjs",
     "audit:deepcut": "node tools/audit-deep-cut-daily.mjs && node tools/audit-deep-cut-unlimited.mjs",
     "audit:trail": "node tools/audit-trail-layout.mjs",
     "audit:push": "node tools/audit-pwa-push.mjs",
     "audit:tileworks": "node tools/audit-tileworks-situation-fold.mjs",
     "audit:seo": "node tools/audit-seo.mjs",
-    "rebuild:content": "node tools/rebuild_content.mjs && node tools/curate-deep-cut-sets.mjs"
+    "rebuild:content": "node tools/audit-four-groups.mjs && node tools/rebuild_content.mjs && node tools/curate-deep-cut-sets.mjs",
+    "content:ai": "node tools/ai-content-pipeline.mjs"
   },
   "dependencies": {
     "@block65/webcrypto-web-push": "2.0.0"
