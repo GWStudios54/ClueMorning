@@ -45,9 +45,9 @@ public class MainActivity extends Activity {
     private void injectGameplayHotfix(WebView view) {
         String script =
             "(function(){" +
-            "if(window.__higherHotfixV011)return;window.__higherHotfixV011=true;" +
+            "if(window.__higherHotfixV012)return;window.__higherHotfixV012=true;" +
             "var style=document.createElement('style');" +
-            "style.id='higher-hotfix-v011';" +
+            "style.id='higher-hotfix-v012';" +
             "style.textContent=" +
             "'.toolbadge{top:-15px!important;left:50%!important;min-width:0!important;width:auto!important;height:auto!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;filter:drop-shadow(0 2px 1px rgba(0,0,0,.22))!important;font-size:25px!important;line-height:1!important;transform-origin:50% 120%!important;animation:toolOverhead 1.15s ease-in-out infinite!important;}'+" +
             "'.sitewrap:nth-child(2n) .toolbadge{animation-delay:-.57s!important;}'+" +
@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
             "'.arm{animation:armOverhead 1.15s ease-in-out infinite!important;}'+" +
             "'@keyframes armOverhead{0%,100%{transform:rotate(-52deg)}48%,58%{transform:rotate(38deg)}}';" +
             "document.head.appendChild(style);" +
-            "var brand=document.querySelector('.brand span');if(brand)brand.textContent='v0.1.1 · absolutely permitted construction';" +
+            "var brand=document.querySelector('.brand span');if(brand)brand.textContent='v0.1.2 · absolutely permitted construction';" +
             "var units={k:1e3,M:1e6,B:1e9,T:1e12,Qa:1e15,Qi:1e18,Sx:1e21,Sp:1e24,Oc:1e27,No:1e30,Dc:1e33,Ud:1e36,Dd:1e39};" +
             "function num(text){if(!text)return NaN;var s=String(text).replace(/,/g,'').trim();var m=s.match(/([0-9]+(?:\\.[0-9]+)?)\\s*(Qa|Qi|Sx|Sp|Oc|No|Dc|Ud|Dd|[kMBT])?/);if(!m)return NaN;return parseFloat(m[1])*(units[m[2]]||1);}" +
             "function refresh(){var h=document.getElementById('height');var money=num(h&&h.textContent);if(!isFinite(money))return;" +
