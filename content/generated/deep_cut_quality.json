@@ -3,7 +3,7 @@
   "cutoverDay": 6,
   "minimumCanonicalAnswers": 8,
   "minimumRepeatGapDays": 6,
-  "doctrine": "Common-knowledge prompts; difficulty comes from answer rarity.",
+  "doctrine": "Common-knowledge prompts; difficulty comes from answer rarity; accepted answers may not overlap within a daily set.",
   "dailyDifficultyRule": {
     "minimumAccessible": 8,
     "maximumDeep": 0,

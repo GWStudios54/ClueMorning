@@ -19,6 +19,7 @@ import {
   eligibleDeepCutIndices
 } from './deep-cut-quality.mjs';
 import {applyDeepCutRarityOrder} from './deep-cut-rarity-order.mjs';
+import {deepCutSetAnswerCollisions} from './content-integrity.mjs';
 
 const __dirname=path.dirname(fileURLToPath(import.meta.url));
 const root=path.resolve(__dirname,'..');
@@ -81,10 +82,11 @@ for(let day=0;day<Math.min(DEEP_CUT_QUALITY_CUTOVER_DAY,schedule.days);day++){
 function chooseSet(day,available){
   let attempts=0;
   function search(chosen,start){
-    if(chosen.length===8)return deepCutDailyBalance(chosen,prompts).valid?chosen:null;
+    if(chosen.length===8)return deepCutDailyBalance(chosen,prompts).valid&&deepCutSetAnswerCollisions(chosen,prompts).length===0?chosen:null;
     if(available.length-start<8-chosen.length)return null;
     for(let i=start;i<available.length;i++){
       const index=available[i].index,trial=[...chosen,index];
+      if(deepCutSetAnswerCollisions(trial,prompts).length)continue;
       if(!deepCutDailyBalance(trial,prompts).withinCaps)continue;
       attempts++;if(attempts>250000)return null;
       const found=search(trial,i+1);if(found)return found;
@@ -92,7 +94,7 @@ function chooseSet(day,available){
     return null;
   }
   const chosen=search([],0);
-  if(!chosen)throw new Error(`Could not build a varied common-knowledge Deep Cut set for day ${day} from ${available.length} available prompts.`);
+  if(!chosen)throw new Error(`Could not build a varied common-knowledge Deep Cut set with unique accepted answers for day ${day} from ${available.length} available prompts.`);
   return chosen;
 }
 
@@ -108,18 +110,19 @@ for(let day=DEEP_CUT_QUALITY_CUTOVER_DAY;day<schedule.days;day++){
       if(chosen.includes(candidate.index))continue;
       for(let position=chosen.length-1;position>=0;position--){
         const trial=[...chosen];trial[position]=candidate.index;const trialSig=trial.join(':');
-        if(new Set(trial).size!==8||signatures.has(trialSig)||!deepCutDailyBalance(trial,prompts).valid)continue;
+        if(new Set(trial).size!==8||signatures.has(trialSig)||deepCutSetAnswerCollisions(trial,prompts).length||!deepCutDailyBalance(trial,prompts).valid)continue;
         chosen=trial;sig=trialSig;replaced=true;break;
       }
       if(replaced)break;
     }
-    if(!replaced)throw new Error(`Could not make Deep Cut day ${day} unique without violating common-knowledge, variety, or repeat rules.`);
+    if(!replaced)throw new Error(`Could not make Deep Cut day ${day} unique without violating common-knowledge, answer uniqueness, variety, or repeat rules.`);
   }
   signatures.add(sig);for(const index of chosen){usage[index]++;last[index]=day}sets.push(chosen);
 }
 
 for(let day=DEEP_CUT_QUALITY_CUTOVER_DAY;day<sets.length;day++){
   const balance=deepCutDailyBalance(sets[day],prompts);if(!balance.valid)throw new Error(`Unbalanced Deep Cut set on day ${day}: ${JSON.stringify(balance)}`);
+  const collisions=deepCutSetAnswerCollisions(sets[day],prompts);if(collisions.length)throw new Error(`Deep Cut set ${day} contains overlapping accepted answers: ${collisions.map(c=>`${c.key} (${c.firstId}/${c.secondId})`).join(', ')}`);
   for(const index of sets[day]){const quality=deepCutPromptQuality(prompts[index]);if(!quality.eligible)throw new Error(`Weak prompt scheduled after cutover: ${prompts[index]?.id} (${quality.reasons.join(', ')})`)}
 }
 
@@ -132,7 +135,7 @@ const excluded=prompts.map((prompt,index)=>({index,id:prompt.id,prompt:prompt.pr
 const firstCuratedSet=(sets[DEEP_CUT_QUALITY_CUTOVER_DAY]||[]).map(detail),firstCuratedBalance=deepCutDailyBalance(sets[DEEP_CUT_QUALITY_CUTOVER_DAY]||[],prompts);
 const report={
   cutoverDate:DEEP_CUT_QUALITY_CUTOVER_DATE,cutoverDay:DEEP_CUT_QUALITY_CUTOVER_DAY,minimumCanonicalAnswers:DEEP_CUT_MIN_ANSWERS,minimumRepeatGapDays:REPEAT_GAP,
-  doctrine:'Common-knowledge prompts; difficulty comes from answer rarity.',
+  doctrine:'Common-knowledge prompts; difficulty comes from answer rarity; accepted answers may not overlap within a daily set.',
   dailyDifficultyRule:{minimumAccessible:DEEP_CUT_MIN_ACCESSIBLE_PER_DAY,maximumDeep:DEEP_CUT_MAX_DEEP_PER_DAY,maximumAdministrativeSubdivision:DEEP_CUT_MAX_SUBDIVISION_PER_DAY,maximumMovies:DEEP_CUT_MAX_MOVIE_PER_DAY,maximumMusic:DEEP_CUT_MAX_MUSIC_PER_DAY,maximumEntertainment:DEEP_CUT_MAX_ENTERTAINMENT_PER_DAY,maximumAnyDomain:DEEP_CUT_MAX_DOMAIN_PER_DAY},
   basePrompts:basePrompts.length,qualitySourceFiles:qualitySources.map(source=>({name:source.name,prompts:source.prompts.length})),supplementPrompts:supplementPrompts.length,totalPrompts:prompts.length,eligiblePrompts:eligible.length,
   eligibleByDifficulty:{accessible:eligible.filter(index=>deepCutDifficulty(prompts[index]).tier==='accessible').length,standard:eligible.filter(index=>deepCutDifficulty(prompts[index]).tier==='standard').length,deep:eligible.filter(index=>deepCutDifficulty(prompts[index]).tier==='deep').length},
@@ -140,5 +143,5 @@ const report={
 };
 await fs.writeFile(reportPath,JSON.stringify(report,null,2)+'\n','utf8');
 console.log(`Deep Cut common-knowledge curation: ${eligible.length}/${prompts.length} prompts eligible; ${sets.length-DEEP_CUT_QUALITY_CUTOVER_DAY} future daily sets rebuilt.`);
-console.log(`Daily variety: 8 accessible prompts; max ${DEEP_CUT_MAX_MOVIE_PER_DAY} movie, ${DEEP_CUT_MAX_MUSIC_PER_DAY} music, ${DEEP_CUT_MAX_ENTERTAINMENT_PER_DAY} entertainment total; minimum repeat gap ${REPEAT_GAP} days.`);
+console.log(`Daily variety: 8 accessible prompts, no overlapping accepted answers; max ${DEEP_CUT_MAX_MOVIE_PER_DAY} movie, ${DEEP_CUT_MAX_MUSIC_PER_DAY} music, ${DEEP_CUT_MAX_ENTERTAINMENT_PER_DAY} entertainment total; minimum repeat gap ${REPEAT_GAP} days.`);
 console.log(`First curated day ${DEEP_CUT_QUALITY_CUTOVER_DATE}: ${firstCuratedSet.map(row=>`${row.id}[${row.domain}]`).join(', ')}`);
