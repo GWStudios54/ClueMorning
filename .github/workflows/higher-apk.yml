@@ -7,6 +7,12 @@ on:
     paths:
       - 'higher-android/**'
       - '.github/workflows/higher-apk.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'higher-android/**'
+      - '.github/workflows/higher-apk.yml'
 
 permissions:
   contents: read
