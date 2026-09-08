@@ -1,4 +1,5 @@
 import core from './worker-v4.js';
+import {runContentAiSchedule} from './content-ai.js';
 
 const PLAY_TARGETS={
   grid:'letter',letter:'letter',groups:'groups',trail:'trail',link:'link',steps:'steps',
@@ -39,6 +40,10 @@ export default {
     return response;
   },
   async scheduled(controller,env,ctx){
-    if(core.scheduled)return core.scheduled(controller,env,ctx);
+    try{if(core.scheduled)await core.scheduled(controller,env,ctx)}catch(error){console.error('Core scheduled task failed',error)}
+    const scheduledAt=Number(controller?.scheduledTime)||Date.now();
+    ctx.waitUntil(runContentAiSchedule(env,new Date(scheduledAt)).then(result=>{
+      if(result?.ran)console.log('Workers AI content batch',JSON.stringify(result));
+    }).catch(error=>console.error('Workers AI scheduled content task failed',error)));
   }
 };
