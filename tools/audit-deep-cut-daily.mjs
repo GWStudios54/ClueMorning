@@ -14,6 +14,7 @@ import {
   deepCutDailyBalance,
   eligibleDeepCutIndices
 } from './deep-cut-quality.mjs';
+import {deepCutSetAnswerCollisions} from './content-integrity.mjs';
 
 const REPEAT_GAP=6;
 const eligible=eligibleDeepCutIndices(DEEP_CUT_PROMPTS);
@@ -25,6 +26,8 @@ for(let day=DEEP_CUT_QUALITY_CUTOVER_DAY;day<DEEP_CUT_PUZZLES.length;day++){
   const set=DEEP_CUT_PUZZLES[day];
   assert.equal(set.length,8,`Day ${day} should have eight Deep Cut prompts`);
   assert.equal(new Set(set).size,8,`Day ${day} contains a duplicate prompt`);
+  const collisions=deepCutSetAnswerCollisions(set,DEEP_CUT_PROMPTS);
+  assert.equal(collisions.length,0,`Day ${day} contains duplicate/overlapping accepted answers: ${collisions.map(c=>`${c.key} (${c.firstId} / ${c.secondId})`).join(', ')}`);
   const balance=deepCutDailyBalance(set,DEEP_CUT_PROMPTS);
   assert.ok(balance.valid,`Day ${day} violates Deep Cut balance: ${JSON.stringify(balance)}`);
   assert.ok(balance.accessible>=DEEP_CUT_MIN_ACCESSIBLE_PER_DAY,`Day ${day} has only ${balance.accessible} accessible prompts`);
@@ -43,4 +46,4 @@ for(let day=DEEP_CUT_QUALITY_CUTOVER_DAY;day<DEEP_CUT_PUZZLES.length;day++){
   }
 }
 
-console.log(`Daily Deep Cut: ${eligible.length}/${DEEP_CUT_PROMPTS.length} prompts pass the common-knowledge gate; every post-cutover day has eight accessible prompts, max ${DEEP_CUT_MAX_MOVIE_PER_DAY} movie, max ${DEEP_CUT_MAX_MUSIC_PER_DAY} music, max ${DEEP_CUT_MAX_ENTERTAINMENT_PER_DAY} entertainment total, ${DEEP_CUT_MIN_ANSWERS}+ answers per prompt, and at least a ${REPEAT_GAP}-day repeat gap.`);
+console.log(`Daily Deep Cut: ${eligible.length}/${DEEP_CUT_PROMPTS.length} prompts pass the common-knowledge gate; every post-cutover day has eight accessible prompts, no overlapping accepted answers, max ${DEEP_CUT_MAX_MOVIE_PER_DAY} movie, max ${DEEP_CUT_MAX_MUSIC_PER_DAY} music, max ${DEEP_CUT_MAX_ENTERTAINMENT_PER_DAY} entertainment total, ${DEEP_CUT_MIN_ANSWERS}+ answers per prompt, and at least a ${REPEAT_GAP}-day repeat gap.`);
