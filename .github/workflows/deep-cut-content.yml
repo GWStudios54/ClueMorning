@@ -1,16 +1,20 @@
-name: Deep Cut content quality
+name: Daily content quality
 
 on:
   push:
     branches:
       - main
       - 'fix/deep-cut-*'
+      - 'feature/content-integrity-*'
     paths:
       - 'package.json'
       - 'test.mjs'
+      - 'content/source/groups.json'
       - 'content/source/deepcut_prompts.json'
       - 'content/source/deepcut_quality_*.json'
       - 'content/source/schedule.json'
+      - 'tools/content-integrity.mjs'
+      - 'tools/audit-four-groups.mjs'
       - 'tools/deep-cut-quality.mjs'
       - 'tools/deep-cut-rarity-order.mjs'
       - 'tools/curate-deep-cut-sets.mjs'
@@ -46,17 +50,17 @@ jobs:
       - name: Rebuild curated content
         run: npm run rebuild:content
 
-      - name: Run tests and Deep Cut audits
+      - name: Run tests and content audits
         run: npm test
 
-      - name: Commit generated Deep Cut artifacts
+      - name: Commit generated content artifacts
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add content/generated/deep_cut.json content/generated/deep_cut_quality.json src/puzzles.js
           if git diff --cached --quiet; then
-            echo "Generated Deep Cut artifacts already current."
+            echo "Generated content artifacts already current."
             exit 0
           fi
-          git commit -m "Rebuild curated Deep Cut sets"
+          git commit -m "Rebuild validated daily content"
           git push
