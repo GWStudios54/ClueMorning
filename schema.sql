@@ -66,3 +66,37 @@ CREATE TABLE IF NOT EXISTS push_subscriptions (
   updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE INDEX IF NOT EXISTS idx_push_active ON push_subscriptions(morning_enabled, streak_enabled);
+
+CREATE TABLE IF NOT EXISTS ai_neuron_usage (
+  date_utc TEXT PRIMARY KEY,
+  neurons REAL NOT NULL DEFAULT 0,
+  request_count INTEGER NOT NULL DEFAULT 0,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS ai_content_runs (
+  date_utc TEXT PRIMARY KEY,
+  status TEXT NOT NULL,
+  model TEXT NOT NULL,
+  approved_groups INTEGER NOT NULL DEFAULT 0,
+  approved_deepcut INTEGER NOT NULL DEFAULT 0,
+  request_count INTEGER NOT NULL DEFAULT 0,
+  neurons REAL NOT NULL DEFAULT 0,
+  note TEXT,
+  started_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  completed_at TEXT
+);
+
+CREATE TABLE IF NOT EXISTS ai_content_candidates (
+  id TEXT PRIMARY KEY,
+  date_utc TEXT NOT NULL,
+  game TEXT NOT NULL,
+  status TEXT NOT NULL,
+  candidate_json TEXT,
+  review_json TEXT,
+  issues_json TEXT,
+  model TEXT NOT NULL,
+  neurons REAL NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_ai_candidates_status_game ON ai_content_candidates(status, game, created_at DESC);
