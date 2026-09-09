@@ -1,3 +1,4 @@
+// Clue Morning routing worker. Keep preview-only features gated and fail-open.
 import core from './worker-v4.js';
 import {runContentAiSchedule} from './content-ai.js';
 
