@@ -1,0 +1,57 @@
+name: Production animation preview smoke
+
+on:
+  push:
+    branches:
+      - prod-animation-preview-smoke
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify normal and preview production paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://cluemorning.com'
+          for attempt in {1..18}; do
+            bust="$(date +%s)-${attempt}"
+            normal="$(curl -fsSL --max-time 20 "${base}/?normal-smoke=${bust}" || true)"
+            curl -fsSL --max-time 20 -D /tmp/preview-headers -o /tmp/preview "${base}/?motion-preview=deepcut&smoke=${bust}" || true
+            preview="$(cat /tmp/preview 2>/dev/null || true)"
+            js="$(curl -fsSL --max-time 20 "${base}/animation-overhaul.js?v=2&smoke=${bust}" || true)"
+            css="$(curl -fsSL --max-time 20 "${base}/animation-overhaul.css?v=2&smoke=${bust}" || true)"
+            sw="$(curl -fsSL --max-time 20 "${base}/sw.js?smoke=${bust}" || true)"
+
+            normal_clean=0
+            if ! grep -Fq '/animation-overhaul.js' <<<"$normal" && ! grep -Fq '/animation-overhaul.css' <<<"$normal"; then normal_clean=1; fi
+
+            js_self_contained=0
+            if ! grep -Fq 'https://' <<<"$js" && ! grep -Fq 'http://' <<<"$js" && ! grep -Fq 'import(' <<<"$js"; then js_self_contained=1; fi
+
+            sw_clean=0
+            if grep -Fq "clue-morning-pwa-v9" <<<"$sw" && grep -Fq "previewRequest" <<<"$sw" && ! grep -Fq "'/animation-overhaul.js'" <<<"$sw" && ! grep -Fq "'/animation-overhaul.css'" <<<"$sw"; then sw_clean=1; fi
+
+            if [[ "$normal_clean" == 1 ]] \
+              && grep -Fq '/retention-hooks.js?v=1' <<<"$normal" \
+              && grep -Fq '/animation-overhaul.js?v=2' <<<"$preview" \
+              && grep -Fq '/animation-overhaul.css?v=2' <<<"$preview" \
+              && grep -Fq 'name="clue-motion-preview" content="deepcut"' <<<"$preview" \
+              && grep -Fiq 'x-clue-motion-preview: deepcut' /tmp/preview-headers \
+              && grep -Fiq 'cache-control: no-store' /tmp/preview-headers \
+              && grep -Fq "publicApi.engine = 'waapi'" <<<"$js" \
+              && grep -Fq '.cm-deepcut-page' <<<"$css" \
+              && [[ "$js_self_contained" == 1 ]] \
+              && [[ "$sw_clean" == 1 ]]; then
+              echo 'Production safe animation preview is live; normal homepage remains animation-free.'
+              exit 0
+            fi
+
+            echo "Attempt ${attempt}: production canary not fully visible yet"
+            sleep 5
+          done
+          echo 'Production animation preview did not become fully visible during smoke window.' >&2
+          exit 1
