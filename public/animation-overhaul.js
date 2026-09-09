@@ -145,6 +145,7 @@
       urgentRound: ''
     };
     let syncFrame = 0;
+    let syncTimer = 0;
 
     function positionBurstOrigin() {
       if (!burstLayer) return;
@@ -254,8 +255,16 @@
     }
 
     function queueSync() {
-      if (syncFrame) return;
-      syncFrame = window.requestAnimationFrame(syncNow);
+      if (syncFrame || syncTimer) return;
+      const run = () => {
+        if (syncFrame) window.cancelAnimationFrame(syncFrame);
+        if (syncTimer) window.clearTimeout(syncTimer);
+        syncFrame = 0;
+        syncTimer = 0;
+        syncNow();
+      };
+      syncFrame = window.requestAnimationFrame(run);
+      syncTimer = window.setTimeout(run, 120);
     }
 
     const contentObserver = new MutationObserver(queueSync);
