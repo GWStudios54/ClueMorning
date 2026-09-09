@@ -26,7 +26,7 @@
 .cm-rive-layer canvas{width:100%;height:100%;display:block}
 .cm-page-atmosphere.has-rive .cm-fallback-scene{opacity:.18}
 .cm-fallback-scene{transition:opacity .25s ease}
-.cm-burst-layer{z-index:4;display:grid;place-items:center;overflow:visible}
+.cm-burst-layer{z-index:4;overflow:visible}
 
 /* Deep Cut: warm editorial desk / clue-board identity. */
 .cm-deepcut-page.active{
@@ -217,8 +217,8 @@
 
 .cm-burst-spark{
   position:absolute;
-  left:50%;
-  top:50%;
+  left:var(--burst-origin-x,50%);
+  top:var(--burst-origin-y,50%);
   width:8px;
   height:18px;
   border-radius:99px;
