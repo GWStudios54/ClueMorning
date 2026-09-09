@@ -15,6 +15,7 @@
   const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
   let currentDate='';
   let previousDone=-1;
+  let previousLastCallDone=null;
   let lastSignature='';
   let toastTimer=0;
 
@@ -24,7 +25,16 @@
     const get=t=>parts.find(p=>p.type===t)?.value||'';
     return `${get('year')}-${get('month')}-${get('day')}`;
   }
-  function dateObj(key){return new Date(`${key}T12:00:00`)}
+  function shiftDateKey(key,days){
+    const [y,m,d]=String(key).split('-').map(Number);
+    const date=new Date(Date.UTC(y,m-1,d+days));
+    return `${date.getUTCFullYear()}-${String(date.getUTCMonth()+1).padStart(2,'0')}-${String(date.getUTCDate()).padStart(2,'0')}`;
+  }
+  function dateLabel(key){
+    const [,month,day]=String(key).split('-').map(Number);
+    const name=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][Math.max(0,month-1)]||'';
+    return `${name} ${day}`.trim();
+  }
   function coreDay(key){return read(CORE_STORE).days?.[key]||{}}
   function lastDay(key){return read(LAST_STORE).days?.[key]||{}}
   function gameState(key,id){return id==='lastcall'?lastDay(key):coreDay(key)?.[id]||{}}
@@ -40,11 +50,10 @@
   }
   function streakFor(key){
     if(!key)return 0;
-    let cursor=dateObj(key),streak=0;
+    let cursor=key,streak=0;
     for(let i=0;i<730;i++){
-      const k=`${cursor.getFullYear()}-${String(cursor.getMonth()+1).padStart(2,'0')}-${String(cursor.getDate()).padStart(2,'0')}`;
-      if(completeDay(k)){streak++;cursor.setDate(cursor.getDate()-1);continue}
-      if(i===0){cursor.setDate(cursor.getDate()-1);continue}
+      if(completeDay(cursor)){streak++;cursor=shiftDateKey(cursor,-1);continue}
+      if(i===0){cursor=shiftDateKey(cursor,-1);continue}
       break;
     }
     return streak;
@@ -155,10 +164,9 @@
   }
 
   function reportShareText(m){
-    const date=new Intl.DateTimeFormat('en-US',{timeZone:TZ,month:'short',day:'numeric'}).format(dateObj(m.date));
     const best=m.best>0&&m.total>m.best?' · PERSONAL BEST':'';
     return [
-      `Clue Morning · ${date}`,
+      `Clue Morning · ${dateLabel(m.date)}`,
       `7/7 · SUPER STREAK${best}`,
       `${m.total.toLocaleString()} points · ${m.streak} day streak`,
       '',
@@ -224,7 +232,7 @@
 
   function render(){
     ensureStrip();ensureReport();
-    const m=metrics();
+    const m=metrics(),lastCallDone=gameDone(m.date,'lastcall');
     const sig=`${m.date}:${m.done}:${m.total}:${m.rows.map(r=>r.done?'1':'0').join('')}:${activeId()}`;
     if(sig===lastSignature){wireScoreDialog(m);return}
     lastSignature=sig;
@@ -238,11 +246,11 @@
       else{const next=nextGame(m);nextButton.textContent=next?`Next: ${next.name}`:'Start a game'}
     }
     wireScoreDialog(m);
-    if(previousDone>=0&&m.done>previousDone){
-      if(m.done>=7)setTimeout(showReport,260);
-      else if(gameDone(m.date,'lastcall'))showToast(m);
+    if(previousDone>=0&&m.done>previousDone&&previousLastCallDone===false&&lastCallDone){
+      if(m.done>=7)setTimeout(showReport,260);else showToast(m);
     }
     previousDone=m.done;
+    previousLastCallDone=lastCallDone;
   }
 
   function boot(){
@@ -254,7 +262,7 @@
     window.addEventListener('storage',()=>{lastSignature='';render()});
     window.addEventListener('clue-lastcall-update',()=>{lastSignature='';render()});
     window.addEventListener('hashchange',()=>{lastSignature='';render()});
-    setInterval(()=>{const key=pacificDateKey();if(key!==currentDate){currentDate=key;previousDone=-1;lastSignature=''}render()},1500);
+    setInterval(()=>{const key=pacificDateKey();if(key!==currentDate){currentDate=key;previousDone=-1;previousLastCallDone=null;lastSignature=''}render()},1500);
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
