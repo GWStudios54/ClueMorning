@@ -17,7 +17,7 @@ assert(!/https?:\/\//.test(js),'animation runtime must not fetch or import third
 assert(!js.includes('import('),'animation runtime must not use dynamic imports');
 assert(js.includes("const PREVIEW_PARAM = 'motion-preview'"),'client must double-gate the preview by URL parameter');
 assert(js.includes("const PREVIEW_VALUE = 'deepcut'"),'Deep Cut must be the only preview target');
-assert(js.includes("engine = 'waapi'")||js.includes("publicApi.engine = 'waapi'"),'preview must use the browser Web Animations API');
+assert(js.includes("publicApi.engine = 'waapi'"),'preview must use the browser Web Animations API');
 assert(js.includes("typeof el.animate !== 'function'"),'animation must fail open when Web Animations is unavailable');
 assert(js.includes("prefers-reduced-motion: reduce"),'JavaScript motion must respect reduced-motion preferences');
 assert(js.includes('requestAnimationFrame'),'DOM state synchronization must be coalesced to animation frames');
@@ -45,6 +45,8 @@ assert(worker.includes("headers.set('x-clue-motion-preview','deepcut')"),'previe
 const cacheVersion=Number(sw.match(/const CACHE = 'clue-morning-pwa-v(\d+)'/)?.[1]||0);
 assert(cacheVersion>=9,'service-worker cache must advance beyond the failed animation rollout');
 assert(!sw.includes("'/animation-overhaul.css'")&&!sw.includes("'/animation-overhaul.js'"),'normal PWA app shell must not preload preview animation assets');
+assert(sw.includes("url.searchParams.has('motion-preview')"),'service worker must recognize preview requests');
+assert(sw.includes('response.ok && !previewRequest'),'service worker must not cache preview responses');
 assert(pkg.scripts?.test?.includes('node tools/audit-animation-overhaul.mjs'),'full regression suite must gate the animation preview');
 assert(pkg.scripts?.['audit:animation']==='node tools/audit-animation-overhaul.mjs','animation audit script must be directly runnable');
 
@@ -53,4 +55,4 @@ for(const input of ['Start','Prompt','CorrectCommon','CorrectUncommon','CorrectR
 }
 assert(brief.includes("state machine name: `DeepCut`")||brief.includes("State machine name: `DeepCut`"),'Rive production brief must lock the DeepCut state-machine name');
 
-console.log('Animation preview audit passed: dependency-free WAAPI, explicit preview gate, fail-open boot, mobile load shedding, no PWA preload, and inert Rive bridge.');
+console.log('Animation preview audit passed: dependency-free WAAPI, explicit preview gate, fail-open boot, mobile load shedding, no PWA preload/cache, and inert Rive bridge.');
