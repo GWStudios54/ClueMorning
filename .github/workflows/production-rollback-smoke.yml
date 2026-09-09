@@ -1,0 +1,36 @@
+name: Production rollback smoke
+
+on:
+  push:
+    branches:
+      - prod-animation-smoke
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify production is back on known-good build
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://cluemorning.com'
+          for attempt in {1..18}; do
+            bust="$(date +%s)-${attempt}"
+            root="$(curl -fsSL --max-time 20 "${base}/?rollback-smoke=${bust}" || true)"
+            daily="$(curl -fsSL --max-time 20 "${base}/api/daily?smoke=${bust}" || true)"
+            animation_status="$(curl -sS -o /tmp/animation.js -w '%{http_code}' --max-time 20 "${base}/animation-overhaul.js?v=1&smoke=${bust}" || true)"
+            if grep -Fq '/retention-hooks.js?v=1' <<<"$root" \
+              && ! grep -Fq '/animation-overhaul.js?v=1' <<<"$root" \
+              && grep -Fq '"date"' <<<"$daily" \
+              && [ "$animation_status" != '200' ]; then
+              echo 'Production rollback is live and daily API responds.'
+              exit 0
+            fi
+            echo "Attempt ${attempt}: rollback not fully visible yet (animation status ${animation_status})"
+            sleep 5
+          done
+          echo 'Production rollback did not become fully visible during smoke window.' >&2
+          exit 1
