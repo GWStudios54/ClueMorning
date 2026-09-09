@@ -36,6 +36,7 @@ for(const asset of ['/retention-hooks.css','/retention-hooks.js']){
   assert(worker.includes(asset),`worker does not inject ${asset}`);
   assert(sw.includes(`'${asset}'`),`service worker does not cache ${asset}`);
 }
-assert(sw.includes("const CACHE = 'clue-morning-pwa-v7'"),'PWA cache version was not advanced');
+const cacheVersion=Number(sw.match(/const CACHE = 'clue-morning-pwa-v(\d+)'/)?.[1]||0);
+assert(cacheVersion>=7,'PWA cache version regressed below the retention release baseline');
 
 console.log('Retention hooks audit passed: 7-game run, next-game CTA, Morning Report, personal best, spoiler-free share, Last Call transition, Worker injection, and PWA caching.');
