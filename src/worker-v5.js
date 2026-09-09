@@ -26,17 +26,11 @@ async function polishDeepLinks(response,path){
     if(!html.includes('/retention-hooks.css')){
       html=html.replace('</head>','<link rel="stylesheet" href="/retention-hooks.css?v=1">\n</head>');
     }
-    if(!html.includes('/animation-overhaul.css')){
-      html=html.replace('</head>','<link rel="stylesheet" href="/animation-overhaul.css?v=1">\n</head>');
-    }
     if(!html.includes('/deep-link.js')){
       html=html.replace('</body>','<script src="/deep-link.js?v=1" defer></script>\n</body>');
     }
     if(!html.includes('/retention-hooks.js')){
       html=html.replace('</body>','<script src="/retention-hooks.js?v=1" defer></script>\n</body>');
-    }
-    if(!html.includes('/animation-overhaul.js')){
-      html=html.replace('</body>','<script src="/animation-overhaul.js?v=1" defer></script>\n</body>');
     }
   }
   const headers=new Headers(response.headers);
