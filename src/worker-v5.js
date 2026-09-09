@@ -1,11 +1,20 @@
 // Clue Morning routing worker. Keep preview-only features gated, fail-open, and deploy-safe.
 import core from './worker-v4.js';
 import {runContentAiSchedule} from './content-ai.js';
+import animationCssSource from './animation-overhaul.css.txt';
+import animationJsSource from './animation-overhaul.js.txt';
 
 const PLAY_TARGETS={
   grid:'letter',letter:'letter',groups:'groups',trail:'trail',link:'link',steps:'steps',
   deepcut:'deepcut','deep-cut':'deepcut',lastcall:'lastcall','last-call':'lastcall'
 };
+
+// Wrangler bundles .txt imports into the Worker. Preview visitors therefore receive
+// animation code inline with the HTML response: no CDN and no standalone asset request.
+const INLINE_ANIMATION_CSS=animationCssSource.replaceAll('</style','<\\/style');
+const INLINE_ANIMATION_JS=animationJsSource.replaceAll('</script','<\\/script');
+const INLINE_ANIMATION_STYLE=`<style id="clue-motion-inline-style">${INLINE_ANIMATION_CSS}</style>`;
+const INLINE_ANIMATION_SCRIPT=`<script id="clue-motion-inline-script">${INLINE_ANIMATION_JS}</script>`;
 
 function legacyPlayRedirect(url){
   const raw=String(url.searchParams.get('play')||'').toLowerCase();
@@ -38,11 +47,11 @@ async function polishDeepLinks(response,path,url){
       if(!html.includes('name="clue-motion-preview"')){
         html=html.replace('</head>','<meta name="clue-motion-preview" content="deepcut">\n</head>');
       }
-      if(!html.includes('/animation-overhaul.css')){
-        html=html.replace('</head>','<link rel="stylesheet" href="/animation-overhaul.css?v=2">\n</head>');
+      if(!html.includes('id="clue-motion-inline-style"')){
+        html=html.replace('</head>',`${INLINE_ANIMATION_STYLE}\n</head>`);
       }
-      if(!html.includes('/animation-overhaul.js')){
-        html=html.replace('</body>','<script src="/animation-overhaul.js?v=2" defer></script>\n</body>');
+      if(!html.includes('id="clue-motion-inline-script"')){
+        html=html.replace('</body>',`${INLINE_ANIMATION_SCRIPT}\n</body>`);
       }
     }
   }
@@ -51,7 +60,7 @@ async function polishDeepLinks(response,path,url){
   headers.delete('etag');
   if(previewMotion){
     headers.set('cache-control','no-store');
-    headers.set('x-clue-motion-preview','deepcut');
+    headers.set('x-clue-motion-preview','deepcut-inline');
   }
   return new Response(html,{status:response.status,statusText:response.statusText,headers});
 }
