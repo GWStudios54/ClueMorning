@@ -63,7 +63,8 @@ self.addEventListener('fetch', event => {
   event.respondWith((async () => {
     try {
       const response = await fetch(request);
-      if (response.ok) {
+      const previewRequest = url.searchParams.has('motion-preview');
+      if (response.ok && !previewRequest) {
         const cache = await caches.open(CACHE);
         cache.put(request, response.clone()).catch(() => {});
       }
