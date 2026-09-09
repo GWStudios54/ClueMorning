@@ -1,8 +1,6 @@
-// Clue Morning routing worker. Keep preview-only features gated, fail-open, and deploy-safe.
+// Clue Morning routing worker. Keep owner controls isolated and deploy-safe.
 import core from './worker-v4.js';
 import {runContentAiSchedule} from './content-ai.js';
-import animationCssSource from './animation-overhaul.css.txt';
-import animationJsSource from './animation-overhaul.js.txt';
 
 const PLAY_TARGETS={
   grid:'letter',letter:'letter',groups:'groups',trail:'trail',link:'link',steps:'steps',
@@ -10,13 +8,6 @@ const PLAY_TARGETS={
 };
 const OWNER_ADMIN_COOKIE='cm_owner_admin';
 const OWNER_ADMIN_HASH='6616d27148a3b24037d545e8befbcd0ce77a1ba8b1eb3abbfd0aa690e1da371c';
-
-// Wrangler bundles .txt imports into the Worker. Preview visitors therefore receive
-// animation code inline with the HTML response: no CDN and no standalone asset request.
-const INLINE_ANIMATION_CSS=animationCssSource.replaceAll('</style','<\\/style');
-const INLINE_ANIMATION_JS=animationJsSource.replaceAll('</script','<\\/script');
-const INLINE_ANIMATION_STYLE=`<style id="clue-motion-inline-style">${INLINE_ANIMATION_CSS}</style>`;
-const INLINE_ANIMATION_SCRIPT=`<script id="clue-motion-inline-script">${INLINE_ANIMATION_JS}</script>`;
 
 function json(data,status=200,extraHeaders={}){
   return new Response(JSON.stringify(data),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store',...extraHeaders}});
@@ -92,14 +83,13 @@ function legacyPlayRedirect(url){
   return Response.redirect(target.toString(),301);
 }
 
-async function polishDeepLinks(response,path,url){
+async function polishDeepLinks(response,path){
   if(!response.ok)return response;
   const type=response.headers.get('content-type')||'';
   if(!type.includes('text/html'))return response;
   let html=await response.text();
   html=html.replaceAll('/?play=','/#play=');
   if(path==='/games/last-call/')html=html.replace('href="/">Play today’s Last Call','href="/#play=lastcall">Play today’s Last Call');
-  const previewMotion=(path==='/'||path==='/index.html')&&url.searchParams.get('motion-preview')==='deepcut';
   if(path==='/'||path==='/index.html'){
     if(!html.includes('/retention-hooks.css')){
       html=html.replace('</head>','<link rel="stylesheet" href="/retention-hooks.css?v=1">\n</head>');
@@ -110,25 +100,10 @@ async function polishDeepLinks(response,path,url){
     if(!html.includes('/retention-hooks.js')){
       html=html.replace('</body>','<script src="/retention-hooks.js?v=1" defer></script>\n</body>');
     }
-    if(previewMotion){
-      if(!html.includes('name="clue-motion-preview"')){
-        html=html.replace('</head>','<meta name="clue-motion-preview" content="deepcut">\n</head>');
-      }
-      if(!html.includes('id="clue-motion-inline-style"')){
-        html=html.replace('</head>',`${INLINE_ANIMATION_STYLE}\n</head>`);
-      }
-      if(!html.includes('id="clue-motion-inline-script"')){
-        html=html.replace('</body>',`${INLINE_ANIMATION_SCRIPT}\n</body>`);
-      }
-    }
   }
   const headers=new Headers(response.headers);
   headers.delete('content-length');
   headers.delete('etag');
-  if(previewMotion){
-    headers.set('cache-control','no-store');
-    headers.set('x-clue-motion-preview','deepcut-inline');
-  }
   return new Response(html,{status:response.status,statusText:response.statusText,headers});
 }
 
@@ -138,7 +113,7 @@ export default {
     if(path.startsWith('/api/admin/'))return adminApi(request,env,path);
     if(request.method==='GET'&&(path==='/'||path==='/index.html')&&url.searchParams.has('play'))return legacyPlayRedirect(url);
     const response=await core.fetch(request,env,ctx);
-    if(request.method==='GET')return polishDeepLinks(response,path,url);
+    if(request.method==='GET')return polishDeepLinks(response,path);
     return response;
   },
   async scheduled(controller,env,ctx){
