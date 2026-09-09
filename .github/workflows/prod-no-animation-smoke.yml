@@ -1,0 +1,35 @@
+name: Production no-animation smoke
+
+on:
+  push:
+    branches:
+      - prod-no-animation-smoke
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify animation is gone from production
+        shell: bash
+        run: |
+          set -euo pipefail
+          url='https://cluemorning.com/?motion-preview=deepcut'
+          for attempt in $(seq 1 24); do
+            headers="$(mktemp)"
+            body="$(mktemp)"
+            curl -fsSL -D "$headers" -o "$body" "$url" || true
+            if ! grep -q 'clue-motion-inline-style' "$body" \
+              && ! grep -q 'clue-motion-inline-script' "$body" \
+              && ! grep -q 'cm-deepcut-canvas' "$body" \
+              && ! grep -qi '^x-clue-motion-preview:' "$headers"; then
+              echo "Production is animation-free."
+              exit 0
+            fi
+            echo "Attempt $attempt: old animation still visible; waiting for deploy..."
+            sleep 5
+          done
+          echo 'Animation removal did not reach production in time.' >&2
+          exit 1
