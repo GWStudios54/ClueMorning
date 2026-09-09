@@ -120,19 +120,27 @@ Triggered once per prompt when the timer reaches five seconds.
 
 ## Runtime contract
 
-The page runtime is in `public/animation-overhaul.js`.
+The dependency-free HTML/CSS animation preview lives in `public/animation-overhaul.js` and is loaded only when the page URL explicitly includes `?motion-preview=deepcut`.
 
-Once the exported file is available at (for example) `/animations/deep-cut.riv`, register it with:
+The preview does **not** fetch Rive, Motion, or any other third-party runtime. When the final `.riv` asset exists, the Rive runtime must be self-hosted by Clue Morning and initialized separately. After creating the Rive instance, attach it to the existing bridge:
 
 ```js
 window.ClueMotion.registerRive('deepcut', {
-  src: '/animations/deep-cut.riv',
-  artboard: 'DeepCutScene',
+  instance: deepCutRiveInstance,
   stateMachine: 'DeepCut'
 });
 ```
 
-The runtime lazily loads Rive only when a `.riv` asset is registered, so the current native Motion/CSS fallback has no Rive download cost.
+The instance must expose `stateMachineInputs('DeepCut')`. Until a self-hosted Rive instance is attached, all Rive calls are inert and the dependency-free WAAPI/CSS presentation remains the complete fallback.
+
+## Preview safety contract
+
+- Normal Clue Morning pages do not load the animation JS or CSS.
+- The Worker injects preview assets only for `?motion-preview=deepcut`.
+- Preview HTML is returned with `Cache-Control: no-store`.
+- The client checks the preview parameter again before installing anything.
+- The PWA app shell does not preload animation assets.
+- If Web Animations is unavailable or preview boot throws, the puzzle remains normal HTML and continues working.
 
 ## Performance constraints
 
@@ -143,6 +151,8 @@ The runtime lazily loads Rive only when a `.riv` asset is registered, so the cur
 - Keep the center visually quiet
 - Respect that mobile is a primary surface
 - Test at narrow phone widths as well as desktop
+- Self-host the eventual Rive runtime; do not introduce a runtime CDN dependency
+- Keep nonessential mobile ambient elements removable without changing game state
 
 ## Rive Agent seed prompt
 
