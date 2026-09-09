@@ -1,4 +1,4 @@
-/* Clue Morning Deep Cut animation preview. Loaded only with ?motion-preview=deepcut. */
+/* Clue Morning Deep Cut animation preview. Bundled into the Worker and inlined only with ?motion-preview=deepcut. */
 .cm-animated-page{position:relative;isolation:isolate;min-height:620px}
 .cm-animated-page>.cm-page-atmosphere{
   position:absolute;inset:-6px -14px -20px;z-index:0;overflow:hidden;border-radius:34px;

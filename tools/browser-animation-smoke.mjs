@@ -2,11 +2,13 @@ import fs from 'node:fs';
 import http from 'node:http';
 import {spawn,spawnSync} from 'node:child_process';
 
-const js=fs.readFileSync(new URL('../public/animation-overhaul.js',import.meta.url),'utf8');
-const css=fs.readFileSync(new URL('../public/animation-overhaul.css',import.meta.url),'utf8');
+const js=fs.readFileSync(new URL('../src/animation-overhaul.js.txt',import.meta.url),'utf8');
+const css=fs.readFileSync(new URL('../src/animation-overhaul.css.txt',import.meta.url),'utf8');
+const safeJs=js.replaceAll('</script','<\\/script');
+const safeCss=css.replaceAll('</style','<\\/style');
 
 const page=`<!doctype html>
-<html><head><meta charset="utf-8"><link rel="stylesheet" href="/animation-overhaul.css"></head>
+<html><head><meta charset="utf-8"><style id="clue-motion-inline-style">${safeCss}</style></head>
 <body>
 <section id="deepcut" class="panel active">
   <div class="panel-head"><h2>Deep Cut</h2></div>
@@ -20,7 +22,7 @@ const page=`<!doctype html>
 window.addEventListener('error',event=>{document.body.dataset.runtimeError=String(event.message||'error')});
 window.addEventListener('unhandledrejection',()=>{document.body.dataset.runtimeError='promise'});
 </script>
-<script src="/animation-overhaul.js"></script>
+<script id="clue-motion-inline-script">${safeJs}</script>
 <script>
 setTimeout(()=>{
   const panel=document.querySelector('#deepcut');
@@ -41,8 +43,10 @@ setTimeout(()=>{
       document.body.dataset.motionInstalled=installed;
       document.body.dataset.motionState=state;
       document.body.dataset.engine=window.ClueMotion?.engine||'';
-      document.body.dataset.externalScripts=String([...document.scripts].filter(s=>s.src&&!s.src.startsWith(location.origin)).length);
+      document.body.dataset.externalScripts=String([...document.scripts].filter(s=>s.src).length);
       document.body.dataset.visibility=document.visibilityState;
+      document.body.dataset.inlineStyle=String(Boolean(document.querySelector('#clue-motion-inline-style')));
+      document.body.dataset.inlineScript=String(Boolean(document.querySelector('#clue-motion-inline-script')));
       document.body.dataset.smokeSettled='true';
       return;
     }
@@ -54,9 +58,6 @@ setTimeout(()=>{
 </body></html>`;
 
 const server=http.createServer((req,res)=>{
-  const path=new URL(req.url,'http://127.0.0.1').pathname;
-  if(path==='/animation-overhaul.js'){res.writeHead(200,{'content-type':'text/javascript'});res.end(js);return}
-  if(path==='/animation-overhaul.css'){res.writeHead(200,{'content-type':'text/css'});res.end(css);return}
   res.writeHead(200,{'content-type':'text/html'});res.end(page);
 });
 
@@ -98,13 +99,14 @@ try{
   if(!hidden&&!enabled.includes('data-motion-state="live"'))throw new Error('Visible preview did not react to live state in Chromium');
   if(!enabled.includes('data-engine="waapi"'))throw new Error('Preview did not use WAAPI in Chromium');
   if(!enabled.includes('data-external-scripts="0"'))throw new Error('Preview loaded an external script in Chromium');
+  if(!enabled.includes('data-inline-style="true"')||!enabled.includes('data-inline-script="true"'))throw new Error('Preview did not use inline bundled animation payloads');
   if(enabled.includes('data-runtime-error='))throw new Error('Preview raised a browser runtime error');
 
   const disabled=await dump('');
   if(!disabled.includes('data-motion-installed="false"'))throw new Error('Client preview gate failed when query parameter was absent');
   if(disabled.includes('data-runtime-error='))throw new Error('Disabled preview path raised a browser runtime error');
 
-  console.log(`Browser animation smoke passed: preview installed, ${hidden?'hidden-tab load shedding was honored':'visible state reactions ran'}, no external scripts loaded, and the client gate stayed off by default.`);
+  console.log(`Browser animation smoke passed: inline preview installed, ${hidden?'hidden-tab load shedding was honored':'visible state reactions ran'}, zero external scripts loaded, and the client gate stayed off by default.`);
 } finally {
   await new Promise(resolve=>server.close(resolve));
 }
