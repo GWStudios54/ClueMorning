@@ -4,6 +4,7 @@
   const DEVICE_KEY='clue-morning-push-device-v1';
   const PLAYER_KEY='clue-morning-player-id';
   const STATE_KEY='clue-morning-state-v2.4';
+  const LAST_STATE_KEY='clue-morning-last-call-v1';
   const DAILY_GAMES=['letter','groups','trail','link','steps','deepcut'];
   const DEFAULTS={
     morningEnabled:true,
@@ -45,11 +46,15 @@
   }
   function progressSnapshot(){
     const prefs=loadPrefs(),date=dateKey(prefs.timezone);
-    let state={};
+    let state={},lastState={};
     try{state=JSON.parse(localStorage.getItem(STATE_KEY)||'{}')}catch{}
-    const days=state.days||{},today=days[date]||{};
-    const complete=key=>DAILY_GAMES.every(game=>days[key]?.[game]?.done);
-    const completedCount=DAILY_GAMES.filter(game=>today?.[game]?.done).length;
+    try{lastState=JSON.parse(localStorage.getItem(LAST_STATE_KEY)||'{}')}catch{}
+    const days=state.days||{},lastDays=lastState.days||{},today=days[date]||{},lastToday=lastDays[date]||{};
+    const complete=key=>DAILY_GAMES.every(game=>days[key]?.[game]?.done)&&!!lastDays[key]?.done;
+    const rawCompleted=DAILY_GAMES.filter(game=>today?.[game]?.done).length+(lastToday.done?1:0);
+    // The push backend uses a legacy 0–6 completion sentinel: 6 means the full daily set is complete.
+    // Keep that wire format stable while treating all seven current games as the real completion gate.
+    const completedCount=rawCompleted>=7?6:Math.min(rawCompleted,5);
     let cursor=date,streakCount=0;
     if(!complete(cursor))cursor=previousDate(cursor);
     for(let i=0;i<370&&complete(cursor);i++){
@@ -176,9 +181,9 @@
         </div>
       </div>
       <div class="push-setting">
-        <div><strong>Streak Save</strong><small>Optional evening reminder only when you have an active streak and today's core set is still unfinished.</small></div>
+        <div><strong>Streak Save</strong><small>Optional evening reminder only when you have an active streak and today's seven-game set is still unfinished.</small></div>
         <div class="push-setting-controls">
-          <input id="pushStreakTime" type="time" step="900" aria-label="Streak reminder time">
+          <input id="pushStreakTime" type="time" step="900" aria-label="Streak notification time">
           <label class="push-switch"><input id="pushStreakEnabled" type="checkbox"><span>On</span></label>
         </div>
       </div>
