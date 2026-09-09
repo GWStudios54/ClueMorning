@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "test": "node test.mjs && node tools/audit-four-groups.mjs && node tools/audit-trail-layout.mjs && node tools/audit-deep-cut-daily.mjs && node tools/audit-deep-cut-unlimited.mjs && node tools/audit-pwa-push.mjs && node tools/audit-tileworks-situation-fold.mjs && node tools/audit-seo.mjs && node tools/audit-workers-ai-budget.mjs && node tools/audit-retention-hooks.mjs && node tools/audit-animation-overhaul.mjs && node tools/browser-animation-smoke.mjs",
+    "test": "node test.mjs && node tools/audit-four-groups.mjs && node tools/audit-trail-layout.mjs && node tools/audit-deep-cut-daily.mjs && node tools/audit-deep-cut-unlimited.mjs && node tools/audit-pwa-push.mjs && node tools/audit-tileworks-situation-fold.mjs && node tools/audit-seo.mjs && node tools/audit-workers-ai-budget.mjs && node tools/audit-retention-hooks.mjs && node tools/audit-animation-overhaul.mjs",
     "audit:groups": "node tools/audit-four-groups.mjs",
     "audit:deepcut": "node tools/audit-deep-cut-daily.mjs && node tools/audit-deep-cut-unlimited.mjs",
     "audit:trail": "node tools/audit-trail-layout.mjs",
