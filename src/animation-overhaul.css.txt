@@ -1,157 +1,133 @@
-/* Clue Morning Deep Cut animation preview. Bundled into the Worker and inlined only with ?motion-preview=deepcut. */
-.cm-animated-page{position:relative;isolation:isolate;min-height:620px}
-.cm-animated-page>.cm-page-atmosphere{
-  position:absolute;inset:-6px -14px -20px;z-index:0;overflow:hidden;border-radius:34px;
-  pointer-events:none;contain:paint
+/* Deep Cut canvas preview. Worker-bundled and inlined only for ?motion-preview=deepcut. */
+body.cm-deepcut-focus{
+  background:var(--paper);
 }
-.cm-animated-page>:not(.cm-page-atmosphere){position:relative;z-index:1}
-.cm-page-atmosphere::after{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,rgba(255,255,255,.06),transparent 32%,color-mix(in srgb,var(--paper) 46%,transparent))
+body.cm-deepcut-focus .masthead,
+body.cm-deepcut-focus .tabs,
+body.cm-deepcut-focus footer{
+  display:none!important;
 }
-.cm-fallback-scene,.cm-rive-layer,.cm-burst-layer{position:absolute;inset:0}
-.cm-rive-layer{opacity:0;z-index:2;transition:opacity .2s ease}
-.cm-rive-layer.is-live{opacity:1}
-.cm-rive-layer canvas{width:100%;height:100%;display:block}
-.cm-page-atmosphere.has-rive .cm-fallback-scene{opacity:.16}
-.cm-fallback-scene{transition:opacity .2s ease}
-.cm-burst-layer{z-index:4;overflow:visible}
-
-.cm-deepcut-page.active{
-  margin-top:8px;padding:18px 18px 28px;border:1px solid color-mix(in srgb,var(--line) 76%,transparent);
-  border-radius:30px;overflow:hidden;
-  background:linear-gradient(180deg,color-mix(in srgb,var(--card) 78%,transparent),color-mix(in srgb,var(--paper) 86%,transparent));
-  box-shadow:0 20px 48px rgba(66,52,31,.075),inset 0 1px 0 rgba(255,255,255,.48)
+body.cm-deepcut-focus .app{
+  width:min(920px,100%);
+  margin:0 auto;
+  padding-top:max(10px,env(safe-area-inset-top));
 }
-.cm-deepcut-atmosphere{
-  background:
-    radial-gradient(circle at 14% 14%,color-mix(in srgb,var(--sun2) 40%,transparent),transparent 27rem),
-    radial-gradient(circle at 86% 44%,color-mix(in srgb,var(--paper2) 68%,transparent),transparent 22rem),
-    linear-gradient(145deg,color-mix(in srgb,var(--paper2) 62%,var(--card)),color-mix(in srgb,var(--paper) 78%,white))
+body.cm-deepcut-focus .panel:not(#deepcut){
+  display:none!important;
 }
-.cm-deepcut-page .panel-head{
-  margin:0 0 13px;padding:20px 20px 18px;border:1px solid color-mix(in srgb,var(--line) 82%,white);
-  border-radius:22px;background:color-mix(in srgb,var(--card) 90%,transparent);
-  box-shadow:0 10px 24px rgba(66,52,31,.05),inset 0 1px 0 rgba(255,255,255,.52)
+.cm-deepcut-canvas-page.active{
+  display:block;
+  position:relative;
+  isolation:isolate;
+  margin:0 auto;
+  padding:8px 12px 30px;
+  contain:layout paint style;
 }
-.cm-deepcut-page .stats-row{
-  padding:8px;border:1px solid color-mix(in srgb,var(--line) 78%,white);border-radius:20px;
-  background:color-mix(in srgb,var(--paper-glass) 92%,transparent);box-shadow:0 8px 20px rgba(66,52,31,.04)
+.cm-focus-exit{
+  appearance:none;
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  font:700 13px/1.2 system-ui,sans-serif;
+  padding:8px 4px 12px;
+  cursor:pointer;
 }
-.cm-deepcut-page .stat{border-radius:15px;background:color-mix(in srgb,var(--card) 88%,transparent)}
-.cm-deepcut-page .start-card{border-color:color-mix(in srgb,var(--line) 82%,white);background:color-mix(in srgb,var(--card) 92%,transparent)}
-.cm-deepcut-page .guess-form{
-  position:relative;max-width:680px;margin-left:auto;margin-right:auto;padding:8px;
-  border:1px solid color-mix(in srgb,var(--line) 76%,white);border-radius:18px;
-  background:color-mix(in srgb,var(--card) 88%,transparent);box-shadow:0 10px 24px rgba(66,52,31,.05)
+.cm-focus-exit:active{transform:translateY(1px)}
+.cm-deepcut-canvas-page .panel-head{
+  margin-top:0;
 }
-.cm-deepcut-page .guess-form .text-input{background:color-mix(in srgb,var(--input) 96%,transparent)}
-.cm-deepcut-page .message{max-width:680px;margin-left:auto;margin-right:auto}
-.cm-deepcut-page .deepcut-history{max-width:760px;margin-left:auto;margin-right:auto}
-.cm-deepcut-page .deepcut-result{background:color-mix(in srgb,var(--card) 94%,transparent)}
-
-.cm-deepcut-page .deepcut-prompt-card{
-  position:relative;overflow:visible;max-width:680px;min-height:164px;display:grid;align-content:center;
-  padding:30px 30px 27px;border:1px solid color-mix(in srgb,var(--line) 78%,white);border-radius:18px 22px 20px 19px;
-  background:
-    repeating-linear-gradient(180deg,transparent 0,transparent 31px,color-mix(in srgb,var(--line) 12%,transparent) 32px),
-    linear-gradient(180deg,color-mix(in srgb,var(--card) 96%,white),color-mix(in srgb,var(--paper) 58%,var(--card)));
-  box-shadow:0 16px 34px rgba(66,52,31,.095),0 2px 0 rgba(255,255,255,.72) inset;transform-origin:50% 70%
+.cm-deepcut-stage{
+  position:relative;
+  width:100%;
+  height:clamp(270px,42vw,350px);
+  margin:14px auto 18px;
+  overflow:hidden;
+  border-radius:24px;
+  background:#26221d;
+  border:1px solid color-mix(in srgb,var(--line) 72%,#5b4932);
+  contain:strict;
+  isolation:isolate;
 }
-.cm-deepcut-page .deepcut-prompt-card::before{
-  content:"";position:absolute;top:-11px;left:50%;width:78px;height:22px;transform:translateX(-50%) rotate(-2deg);
-  border:1px solid color-mix(in srgb,var(--sun) 23%,var(--line));
-  background:linear-gradient(90deg,rgba(239,219,169,.72),rgba(251,236,193,.88),rgba(239,219,169,.7));
-  box-shadow:0 2px 4px rgba(66,52,31,.08);opacity:.78
+.cm-deepcut-canvas{
+  display:block;
+  width:100%;
+  height:100%;
+  touch-action:none;
 }
-.cm-deepcut-page .deepcut-prompt-card::after{
-  content:"";position:absolute;right:14px;bottom:13px;width:14px;height:14px;border-radius:50%;
-  border:2px solid color-mix(in srgb,var(--sun) 44%,var(--line));opacity:.38
+.cm-canvas-hud{
+  position:absolute;
+  inset:12px 12px auto;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  pointer-events:none;
+  color:#f5ead5;
+  font:800 10px/1.1 system-ui,sans-serif;
+  letter-spacing:.12em;
+  text-shadow:0 1px 1px rgba(0,0,0,.5);
 }
-.cm-deepcut-page .deepcut-prompt-card>span{position:relative;z-index:1}
-.cm-deepcut-page .deepcut-prompt-card h3{position:relative;z-index:1;max-width:28ch;margin:9px auto 0}
-
-.cm-scene-glow{
-  position:absolute;left:-10%;top:-18%;width:62%;aspect-ratio:1;border-radius:50%;
-  background:radial-gradient(circle,color-mix(in srgb,var(--sun2) 48%,transparent),transparent 68%);opacity:.46
+.cm-canvas-hud span{
+  display:inline-flex;
+  align-items:center;
+  min-height:26px;
+  padding:0 9px;
+  border-radius:999px;
+  background:rgba(19,17,15,.62);
+  border:1px solid rgba(232,204,151,.16);
+  backdrop-filter:none;
 }
-.cm-scene-paper{
-  position:absolute;width:220px;height:152px;padding:24px;border:1px solid color-mix(in srgb,var(--line) 72%,white);
-  border-radius:10px;background:color-mix(in srgb,var(--card) 94%,white);box-shadow:0 12px 24px rgba(66,52,31,.07);
-  opacity:.72;animation:cm-paper-drift 9s ease-in-out infinite alternate;will-change:transform
+.cm-depth-readout strong{
+  margin-left:5px;
+  color:#e8c986;
 }
-.cm-scene-paper span{display:block;height:2px;margin:12px 0;border-radius:99px;background:color-mix(in srgb,var(--muted) 20%,transparent)}
-.cm-scene-paper span:nth-child(2){width:76%}.cm-scene-paper span:nth-child(3){width:56%}
-.cm-scene-paper b{position:absolute;top:13px;right:14px;width:9px;height:9px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 5px color-mix(in srgb,var(--sun2) 45%,transparent)}
-.cm-scene-paper-a{top:104px;right:-94px;transform:rotate(7deg)}
-.cm-scene-paper-b{left:-112px;bottom:54px;transform:rotate(-8deg);animation-delay:-3.1s}
-.cm-scene-pencil{
-  position:absolute;right:18px;top:46%;width:124px;height:13px;border-radius:10px 3px 3px 10px;
-  background:linear-gradient(180deg,color-mix(in srgb,var(--sun) 88%,white),var(--sun));box-shadow:0 6px 10px rgba(66,52,31,.07);
-  transform:rotate(-18deg);opacity:.58;animation:cm-pencil-float 8s ease-in-out infinite;will-change:transform
+.cm-scene-state{color:#e8c986}
+.cm-deepcut-canvas-page .stats-row{
+  position:relative;
+  z-index:2;
 }
-.cm-scene-pencil::before{content:"";position:absolute;left:-18px;top:0;border-top:6.5px solid transparent;border-bottom:6.5px solid transparent;border-right:20px solid #d8b58b}
-.cm-scene-pencil::after{content:"";position:absolute;right:-13px;top:0;width:18px;height:13px;border-radius:2px 8px 8px 2px;background:color-mix(in srgb,var(--danger) 42%,#e9b9b0)}
-.cm-scene-pencil i{position:absolute;left:-19px;top:5px;width:6px;height:3px;background:var(--dark);transform:rotate(-2deg)}
-.cm-scene-cup{
-  position:absolute;left:-36px;top:34%;width:94px;height:72px;border:3px solid color-mix(in srgb,var(--dark) 62%,var(--line));
-  border-top-width:2px;border-radius:9px 9px 32px 32px;background:linear-gradient(180deg,color-mix(in srgb,var(--card) 85%,white),var(--paper2));
-  box-shadow:0 12px 20px rgba(66,52,31,.07);opacity:.62
+.cm-deepcut-canvas-page .deepcut-prompt-card,
+.cm-deepcut-canvas-page .guess-form,
+.cm-deepcut-canvas-page .message,
+.cm-deepcut-canvas-page .deepcut-history,
+.cm-deepcut-canvas-page .start-card{
+  position:relative;
+  z-index:2;
 }
-.cm-scene-cup::before{content:"";position:absolute;right:-28px;top:13px;width:34px;height:35px;border:3px solid color-mix(in srgb,var(--dark) 54%,var(--line));border-left:0;border-radius:0 50% 50% 0}
-.cm-steam{
-  position:absolute;top:-45px;width:18px;height:42px;border-left:2px solid color-mix(in srgb,var(--muted) 38%,transparent);
-  border-radius:50%;opacity:0;animation:cm-steam-rise 3.6s ease-in-out infinite;will-change:transform,opacity
+.cm-deepcut-canvas-page .deepcut-prompt-card{
+  box-shadow:none!important;
+  transition:transform .16s ease,opacity .16s ease;
 }
-.cm-steam-a{left:25px}.cm-steam-b{left:43px;animation-delay:-1.2s}.cm-steam-c{left:59px;animation-delay:-2.4s}
-.cm-scene-ring{position:absolute;right:10%;bottom:8%;width:86px;height:86px;border-radius:50%;border:3px solid color-mix(in srgb,var(--sun) 12%,transparent);opacity:.42}
-
-.cm-deepcut-page:not(.active) .cm-fallback-scene *{animation-play-state:paused!important}
-.cm-deepcut-page.cm-is-urgent #deepCutTimer{color:var(--danger);animation:cm-timer-pulse .78s ease-in-out infinite}
-.cm-deepcut-page.cm-is-urgent .deepcut-prompt-card{box-shadow:0 18px 38px rgba(156,75,66,.12),0 0 0 1px color-mix(in srgb,var(--danger) 18%,transparent)}
-.cm-deepcut-page.cm-flash-common .deepcut-prompt-card{animation:cm-card-common .58s ease-out}
-.cm-deepcut-page.cm-flash-uncommon .deepcut-prompt-card{animation:cm-card-uncommon .6s ease-out}
-.cm-deepcut-page.cm-flash-rare .deepcut-prompt-card{animation:cm-card-rare .64s ease-out}
-.cm-deepcut-page.cm-is-complete .cm-scene-glow{opacity:.66}
-
-.cm-burst-spark{
-  position:absolute;left:var(--burst-origin-x,50%);top:var(--burst-origin-y,50%);width:8px;height:17px;border-radius:99px;
-  background:var(--sun);opacity:0;transform-origin:center;animation:cm-burst .64s cubic-bezier(.2,.72,.28,1) var(--burst-delay) both
+.cm-deepcut-canvas-page .guess-form{
+  box-shadow:none!important;
 }
-.cm-burst-uncommon{background:var(--green)}
-.cm-burst-rare{width:9px;height:19px;background:linear-gradient(180deg,var(--sun),var(--gold))}
-
-@keyframes cm-paper-drift{from{transform:translate3d(0,0,0) rotate(var(--paper-angle,0deg))}to{transform:translate3d(0,6px,0) rotate(var(--paper-angle,0deg))}}
-.cm-scene-paper-a{--paper-angle:7deg}.cm-scene-paper-b{--paper-angle:-8deg}
-@keyframes cm-pencil-float{0%,100%{transform:translate3d(0,0,0) rotate(-18deg)}50%{transform:translate3d(-3px,5px,0) rotate(-18deg)}}
-@keyframes cm-steam-rise{0%{opacity:0;transform:translate3d(0,8px,0) scaleX(.8)}35%{opacity:.48}100%{opacity:0;transform:translate3d(4px,-16px,0) scaleX(1.15)}}
-@keyframes cm-timer-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
-@keyframes cm-card-common{0%{box-shadow:0 16px 34px rgba(66,52,31,.095)}45%{box-shadow:0 18px 36px color-mix(in srgb,var(--sun) 18%,transparent)}100%{box-shadow:0 16px 34px rgba(66,52,31,.095)}}
-@keyframes cm-card-uncommon{0%{box-shadow:0 16px 34px rgba(66,52,31,.095)}45%{box-shadow:0 20px 42px color-mix(in srgb,var(--green) 24%,transparent),0 0 0 2px color-mix(in srgb,var(--green) 20%,transparent)}100%{box-shadow:0 16px 34px rgba(66,52,31,.095)}}
-@keyframes cm-card-rare{0%{box-shadow:0 16px 34px rgba(66,52,31,.095)}40%{box-shadow:0 22px 46px color-mix(in srgb,var(--gold) 30%,transparent),0 0 0 2px color-mix(in srgb,var(--gold) 28%,transparent)}100%{box-shadow:0 16px 34px rgba(66,52,31,.095)}}
-@keyframes cm-burst{0%{opacity:0;transform:translate(-50%,-50%) scale(.25) rotate(0deg)}16%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--burst-x)),calc(-50% + var(--burst-y))) scale(.7) rotate(var(--burst-r))}}
-
+.cm-deepcut-canvas-page.cm-canvas-urgent #deepCutTimer{
+  color:var(--danger);
+}
+.cm-deepcut-canvas-page.cm-canvas-urgent .cm-scene-state{
+  color:#f09b86;
+}
+.cm-deepcut-canvas-page.cm-canvas-complete .cm-deepcut-stage{
+  border-color:color-mix(in srgb,var(--gold) 42%,var(--line));
+}
 @media(max-width:760px){
-  .cm-deepcut-page.active{padding:14px 12px 24px;border-radius:25px;box-shadow:0 12px 30px rgba(66,52,31,.055)}
-  .cm-animated-page>.cm-page-atmosphere{inset:-4px -8px -15px}
-  .cm-deepcut-page .panel-head{padding:17px 15px;box-shadow:0 6px 16px rgba(66,52,31,.035)}
-  .cm-deepcut-page .stats-row,.cm-deepcut-page .guess-form{box-shadow:none}
-  .cm-deepcut-page .deepcut-prompt-card{min-height:150px;padding:27px 18px 23px;box-shadow:0 10px 24px rgba(66,52,31,.075)}
-  .cm-scene-paper{width:168px;height:122px;opacity:.38;box-shadow:none}
-  .cm-scene-paper-a{right:-112px}
-  .cm-scene-paper-b,.cm-scene-pencil,.cm-steam-b,.cm-steam-c,.cm-scene-ring{display:none}
-  .cm-scene-cup{left:-62px;opacity:.28;box-shadow:none}
-}
-
-@media(max-width:520px){
-  .cm-deepcut-page .stats-row{padding:6px}
-  .cm-deepcut-page .guess-form{padding:6px;border-radius:16px}
-  .cm-scene-paper-a{opacity:.22}
-  .cm-scene-cup{opacity:.2}
-}
-
-@media(prefers-reduced-motion:reduce){
-  .cm-animated-page *, .cm-animated-page *::before, .cm-animated-page *::after{
-    animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important
+  body.cm-deepcut-focus .app{padding-left:8px;padding-right:8px}
+  .cm-deepcut-canvas-page.active{padding:4px 4px 24px}
+  .cm-deepcut-stage{
+    height:300px;
+    margin:10px auto 14px;
+    border-radius:20px;
   }
+  .cm-canvas-hud{
+    inset:9px 9px auto;
+    gap:6px;
+    font-size:9px;
+  }
+  .cm-canvas-hud span{min-height:24px;padding:0 7px}
+}
+@media(max-width:420px){
+  .cm-deepcut-stage{height:276px}
+  .cm-depth-readout{letter-spacing:.08em}
+}
+@media(prefers-reduced-motion:reduce){
+  .cm-deepcut-canvas-page .deepcut-prompt-card{transition:none}
 }
