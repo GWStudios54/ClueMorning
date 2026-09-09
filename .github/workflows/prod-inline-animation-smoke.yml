@@ -1,0 +1,65 @@
+name: Production inline animation smoke
+
+on:
+  push:
+    branches:
+      - prod-inline-animation-smoke
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify live inline animation canary
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://cluemorning.com'
+          ready=0
+          for attempt in {1..24}; do
+            bust="$(date +%s)-${attempt}"
+            normal="$(curl -fsSL --max-time 20 "${base}/?normal-inline-smoke=${bust}" || true)"
+            curl -fsSL --max-time 20 -D /tmp/preview-headers -o /tmp/preview "${base}/?motion-preview=deepcut&inline-smoke=${bust}" || true
+            preview="$(cat /tmp/preview 2>/dev/null || true)"
+
+            if ! grep -Fq 'clue-motion-inline-style' <<<"$normal" \
+              && ! grep -Fq 'clue-motion-inline-script' <<<"$normal" \
+              && grep -Fq 'id="clue-motion-inline-style"' <<<"$preview" \
+              && grep -Fq 'id="clue-motion-inline-script"' <<<"$preview" \
+              && grep -Fq 'name="clue-motion-preview" content="deepcut"' <<<"$preview" \
+              && ! grep -Fq '/animation-overhaul.js' <<<"$preview" \
+              && ! grep -Fq '/animation-overhaul.css' <<<"$preview" \
+              && grep -Fiq 'x-clue-motion-preview: deepcut-inline' /tmp/preview-headers \
+              && grep -Fiq 'cache-control: no-store' /tmp/preview-headers; then
+              ready=1
+              break
+            fi
+
+            echo "Attempt ${attempt}: inline production canary not visible yet"
+            sleep 5
+          done
+
+          if [[ "$ready" != 1 ]]; then
+            echo 'Inline animation production canary never became visible.' >&2
+            exit 1
+          fi
+
+          chrome="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser || true)"
+          if [[ -z "$chrome" ]]; then
+            echo 'Chrome/Chromium not found on runner.' >&2
+            exit 1
+          fi
+
+          "$chrome" --headless=new --no-sandbox --disable-gpu --disable-background-networking \
+            --disable-default-apps --disable-extensions --disable-sync --disable-background-timer-throttling \
+            --disable-renderer-backgrounding --no-first-run --virtual-time-budget=3000 --dump-dom \
+            "${base}/?motion-preview=deepcut&browser-smoke=$(date +%s)#play=deepcut" > /tmp/dom
+
+          grep -Fq 'data-motion-installed="true"' /tmp/dom
+          grep -Fq 'cm-deepcut-page' /tmp/dom
+          grep -Fq 'id="clue-motion-inline-style"' /tmp/dom
+          grep -Fq 'id="clue-motion-inline-script"' /tmp/dom
+
+          echo 'Production inline Deep Cut animation is live and installs in Chromium; normal homepage remains animation-free.'
