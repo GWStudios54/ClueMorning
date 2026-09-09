@@ -31,13 +31,25 @@ setTimeout(()=>{
   message.className='message good';
   message.textContent='RARE: Example — +100';
   const row=document.createElement('div');row.className='deepcut-result';row.textContent='Example';document.querySelector('#deepCutHistory').appendChild(row);
-  setTimeout(()=>{
-    document.body.dataset.motionInstalled=panel.dataset.motionInstalled||'false';
-    document.body.dataset.motionState=panel.dataset.motionState||'';
-    document.body.dataset.engine=window.ClueMotion?.engine||'';
-    document.body.dataset.externalScripts=String([...document.scripts].filter(s=>s.src&&!s.src.startsWith(location.origin)).length);
-  },80);
-},80);
+
+  let checks=0;
+  const markWhenSettled=()=>{
+    checks++;
+    const installed=panel.dataset.motionInstalled||'false';
+    const state=panel.dataset.motionState||'';
+    if((installed==='true'&&state==='live')||checks>=30){
+      document.body.dataset.motionInstalled=installed;
+      document.body.dataset.motionState=state;
+      document.body.dataset.engine=window.ClueMotion?.engine||'';
+      document.body.dataset.externalScripts=String([...document.scripts].filter(s=>s.src&&!s.src.startsWith(location.origin)).length);
+      document.body.dataset.visibility=document.visibilityState;
+      document.body.dataset.smokeSettled='true';
+      return;
+    }
+    setTimeout(markWhenSettled,50);
+  };
+  markWhenSettled();
+},100);
 </script>
 </body></html>`;
 
@@ -62,7 +74,7 @@ function chromePath(){
 function dump(path){
   return new Promise((resolve,reject)=>{
     const child=spawn(chromePath(),[
-      '--headless=new','--no-sandbox','--disable-gpu','--disable-background-networking','--disable-default-apps','--disable-extensions','--disable-sync','--metrics-recording-only','--mute-audio','--no-first-run','--virtual-time-budget=1200','--dump-dom',`http://127.0.0.1:${port}/${path}`
+      '--headless=new','--no-sandbox','--disable-gpu','--disable-background-networking','--disable-default-apps','--disable-extensions','--disable-sync','--disable-background-timer-throttling','--disable-renderer-backgrounding','--metrics-recording-only','--mute-audio','--no-first-run','--virtual-time-budget=2600','--dump-dom',`http://127.0.0.1:${port}/${path}`
     ],{stdio:['ignore','pipe','pipe']});
     let stdout='',stderr='';
     const timer=setTimeout(()=>{child.kill('SIGKILL');reject(new Error('Chrome smoke timed out'))},20000);
@@ -80,6 +92,7 @@ function dump(path){
 
 try{
   const enabled=await dump('?motion-preview=deepcut');
+  if(!enabled.includes('data-smoke-settled="true"'))throw new Error('Preview smoke did not reach its settled checkpoint');
   if(!enabled.includes('data-motion-installed="true"'))throw new Error('Preview did not install in Chromium');
   if(!enabled.includes('data-motion-state="live"'))throw new Error('Preview did not react to live state in Chromium');
   if(!enabled.includes('data-engine="waapi"'))throw new Error('Preview did not use WAAPI in Chromium');
