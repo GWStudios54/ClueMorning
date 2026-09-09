@@ -1,5 +1,8 @@
 (()=>{
   const $=s=>document.querySelector(s);
+  const CORE_STORE='clue-morning-state-v2.4';
+  const PLAYER_KEY='clue-morning-player-id';
+  let ownerAdmin=false;
   const setText=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value};
   const addStyle=()=>{
     if(document.querySelector('link[href="/founders-ui.css"]'))return;
@@ -11,6 +14,64 @@
     const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
     for(const n of nodes)if(n.nodeValue.includes(from))n.nodeValue=n.nodeValue.split(from).join(to);
   };
+  async function requestJson(path,options={}){
+    const r=await fetch(path,{cache:'no-store',credentials:'same-origin',...options});let j={};try{j=await r.json()}catch{}
+    if(!r.ok)throw new Error(j.error||`Request failed (${r.status}).`);return j;
+  }
+  function postJson(path,payload){return requestJson(path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)})}
+  function ownerAdminRequested(){try{return new URL(location.href).searchParams.get('admin')==='owner'}catch{return false}}
+  function cleanOwnerAdminParam(){
+    try{const url=new URL(location.href);if(!url.searchParams.has('admin'))return;url.searchParams.delete('admin');history.replaceState(null,'',`${url.pathname}${url.search}${url.hash}`)}catch{}
+  }
+  function playerId(){
+    let id='';try{id=localStorage.getItem(PLAYER_KEY)||''}catch{}
+    if(!/^[A-Za-z0-9-]{8,64}$/.test(id)){
+      id=crypto.randomUUID?crypto.randomUUID():`p-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      try{localStorage.setItem(PLAYER_KEY,id)}catch{}
+    }
+    return id;
+  }
+  function readCoreStore(){try{return JSON.parse(localStorage.getItem(CORE_STORE)||'{}')||{}}catch{return {}}}
+  async function resetTodayDeepCut(button,status){
+    if(!ownerAdmin)return;
+    if(!confirm('Reset only your Deep Cut for today? Your Deep Cut answers and score will be cleared; every other game stays untouched.'))return;
+    if(button)button.disabled=true;if(status){status.className='owner-admin-status';status.textContent='Resetting your Deep Cut…'}
+    try{
+      const daily=await requestJson('/api/daily');
+      await postJson('/api/admin/deepcut/reset',{playerId:playerId()});
+      const store=readCoreStore();store.days??={};store.days[daily.date]??={};delete store.days[daily.date].deepcut;delete store.days[daily.date].leaderboardPost;
+      localStorage.setItem(CORE_STORE,JSON.stringify(store));
+      if(status)status.textContent='Reset complete. Reloading Deep Cut…';
+      const url=new URL(location.href);url.searchParams.delete('admin');url.hash='play=deepcut';setTimeout(()=>location.replace(url.toString()),180);
+    }catch(err){if(status){status.className='owner-admin-status bad';status.textContent=err.message}if(button)button.disabled=false}
+  }
+  function ownerAdminControl(){
+    const panel=$('#deepcut');if(!panel)return;let bar=panel.querySelector('[data-owner-admin-control]');
+    if(!ownerAdmin){bar?.remove();return}
+    if(bar)return;
+    bar=document.createElement('div');bar.className='owner-admin-bar';bar.dataset.ownerAdminControl='1';
+    bar.innerHTML='<div class="owner-admin-copy"><span>OWNER ADMIN</span><strong>Deep Cut test controls</strong><small>This reset targets only this browser/player and today’s Deep Cut score.</small></div><div class="owner-admin-actions"><button class="secondary-button" type="button">Reset today’s Deep Cut</button><p class="owner-admin-status" role="status" aria-live="polite"></p></div>';
+    const button=bar.querySelector('button'),status=bar.querySelector('.owner-admin-status');button.addEventListener('click',()=>void resetTodayDeepCut(button,status));
+    const head=panel.querySelector('.panel-head');if(head)head.insertAdjacentElement('afterend',bar);else panel.prepend(bar);
+  }
+  function ensureOwnerAdminDialog(){
+    if(!ownerAdminRequested()||ownerAdmin||$('#ownerAdminDialog'))return;
+    const d=document.createElement('dialog');d.id='ownerAdminDialog';d.className='owner-admin-dialog';
+    d.innerHTML='<form id="ownerAdminForm"><span class="game-label">OWNER ONLY</span><h2>Activate owner admin</h2><p>Enter the private owner-admin code once. This browser will receive a secure admin cookie; Founder access by itself does not grant reset privileges.</p><label class="owner-admin-label">Owner-admin code<input id="ownerAdminCode" class="text-input" type="password" autocomplete="off" autocapitalize="characters" spellcheck="false" required></label><p id="ownerAdminMessage" class="owner-admin-message" role="status" aria-live="polite"></p><div class="owner-admin-dialog-actions"><button class="primary-button" type="submit">Activate owner admin</button><button class="secondary-button" type="button" data-owner-admin-cancel>Cancel</button></div></form>';
+    document.body.appendChild(d);
+    d.querySelector('[data-owner-admin-cancel]').addEventListener('click',()=>{cleanOwnerAdminParam();d.close();d.remove()});
+    d.querySelector('form').addEventListener('submit',async e=>{
+      e.preventDefault();const input=d.querySelector('#ownerAdminCode'),message=d.querySelector('#ownerAdminMessage'),button=d.querySelector('button[type="submit"]'),code=input.value.trim().toUpperCase().replace(/\s+/g,'');if(!code)return;
+      button.disabled=true;message.className='owner-admin-message';message.textContent='Checking…';
+      try{const r=await postJson('/api/admin/claim',{code});if(!r.active)throw new Error('Owner-admin activation failed.');ownerAdmin=true;input.value='';message.textContent='Owner admin active.';cleanOwnerAdminParam();rewrite();setTimeout(()=>{d.close();d.remove()},180)}
+      catch(err){message.className='owner-admin-message bad';message.textContent=err.message;button.disabled=false}
+    });
+    d.showModal();setTimeout(()=>d.querySelector('#ownerAdminCode')?.focus(),0);
+  }
+  async function refreshOwnerAdmin(){
+    try{const r=await requestJson('/api/admin/status');ownerAdmin=!!r.active}catch{ownerAdmin=false}
+    if(ownerAdmin&&ownerAdminRequested())cleanOwnerAdminParam();rewrite();ensureOwnerAdminDialog();
+  }
   const goTileworks=()=>{location.href='/games/tileworks/'};
   const tileworksNav=()=>{
     const nav=$('.tabs');
@@ -49,7 +110,7 @@
     archive.appendChild(card);
   };
   const rewrite=()=>{
-    addStyle();tileworksNav();homeTileworks();
+    addStyle();tileworksNav();homeTileworks();ownerAdminControl();
     setText($('#unlimitedTab span'),'Founders');
     const access=$('.unlimited-access-card');
     if(access){
@@ -75,7 +136,7 @@
     }
     archiveTileworks();unlimitedPreview();
   };
-  rewrite();
+  rewrite();ensureOwnerAdminDialog();void refreshOwnerAdmin();
   const obs=new MutationObserver(()=>rewrite());
-  const targets=[$('.unlimited-access-card'),$('#unlimited')].filter(Boolean);targets.forEach(t=>obs.observe(t,{subtree:true,childList:true,characterData:true}));
+  const targets=[$('.unlimited-access-card'),$('#unlimited'),$('#deepcut')].filter(Boolean);targets.forEach(t=>obs.observe(t,{subtree:true,childList:true,characterData:true}));
 })();
