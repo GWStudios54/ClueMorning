@@ -1,0 +1,51 @@
+name: Production canvas v3 smoke
+
+on:
+  push:
+    branches:
+      - prod-canvas-v3-smoke
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify live Canvas 2D preview
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://cluemorning.com'
+          ready=0
+          for attempt in {1..36}; do
+            bust="$(date +%s)-${attempt}"
+            normal="$(curl -fsSL --max-time 20 "${base}/?normal-canvas-smoke=${bust}" || true)"
+            curl -fsSL --max-time 20 -D /tmp/preview-headers -o /tmp/preview "${base}/?motion-preview=deepcut&canvas-smoke=${bust}" || true
+            preview="$(cat /tmp/preview 2>/dev/null || true)"
+
+            if ! grep -Fq 'cm-deepcut-canvas' <<<"$normal" \
+              && ! grep -Fq "publicApi.engine = 'canvas2d'" <<<"$normal" \
+              && grep -Fq 'id="clue-motion-inline-style"' <<<"$preview" \
+              && grep -Fq 'id="clue-motion-inline-script"' <<<"$preview" \
+              && grep -Fq 'cm-deepcut-canvas' <<<"$preview" \
+              && grep -Fq "publicApi.engine = 'canvas2d'" <<<"$preview" \
+              && grep -Fq "document.body.classList.add('cm-deepcut-focus')" <<<"$preview" \
+              && ! grep -Fq 'MutationObserver' <<<"$preview" \
+              && ! grep -Fq 'cm-rive-layer' <<<"$preview" \
+              && grep -Fiq 'x-clue-motion-preview: deepcut-inline' /tmp/preview-headers \
+              && grep -Fiq 'cache-control: no-store' /tmp/preview-headers; then
+              ready=1
+              break
+            fi
+
+            echo "Attempt ${attempt}: Canvas 2D production preview not visible yet"
+            sleep 5
+          done
+
+          if [[ "$ready" != 1 ]]; then
+            echo 'Canvas 2D Deep Cut production preview never became visible.' >&2
+            exit 1
+          fi
+
+          echo 'Production is serving the Canvas 2D Deep Cut preview while the normal homepage remains animation-free.'
