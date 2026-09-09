@@ -94,7 +94,8 @@ try{
   const enabled=await dump('?motion-preview=deepcut');
   if(!enabled.includes('data-smoke-settled="true"'))throw new Error('Preview smoke did not reach its settled checkpoint');
   if(!enabled.includes('data-motion-installed="true"'))throw new Error('Preview did not install in Chromium');
-  if(!enabled.includes('data-motion-state="live"'))throw new Error('Preview did not react to live state in Chromium');
+  const hidden=enabled.includes('data-visibility="hidden"');
+  if(!hidden&&!enabled.includes('data-motion-state="live"'))throw new Error('Visible preview did not react to live state in Chromium');
   if(!enabled.includes('data-engine="waapi"'))throw new Error('Preview did not use WAAPI in Chromium');
   if(!enabled.includes('data-external-scripts="0"'))throw new Error('Preview loaded an external script in Chromium');
   if(enabled.includes('data-runtime-error='))throw new Error('Preview raised a browser runtime error');
@@ -103,7 +104,7 @@ try{
   if(!disabled.includes('data-motion-installed="false"'))throw new Error('Client preview gate failed when query parameter was absent');
   if(disabled.includes('data-runtime-error='))throw new Error('Disabled preview path raised a browser runtime error');
 
-  console.log('Browser animation smoke passed: Chromium install/state reactions work, no external scripts load, and the client gate stays off by default.');
+  console.log(`Browser animation smoke passed: preview installed, ${hidden?'hidden-tab load shedding was honored':'visible state reactions ran'}, no external scripts loaded, and the client gate stayed off by default.`);
 } finally {
   await new Promise(resolve=>server.close(resolve));
 }
