@@ -22,8 +22,16 @@ async function polishDeepLinks(response,path){
   let html=await response.text();
   html=html.replaceAll('/?play=','/#play=');
   if(path==='/games/last-call/')html=html.replace('href="/">Play today’s Last Call','href="/#play=lastcall">Play today’s Last Call');
-  if((path==='/'||path==='/index.html')&&!html.includes('/deep-link.js')){
-    html=html.replace('</body>','<script src="/deep-link.js?v=1" defer></script>\n</body>');
+  if(path==='/'||path==='/index.html'){
+    if(!html.includes('/retention-hooks.css')){
+      html=html.replace('</head>','<link rel="stylesheet" href="/retention-hooks.css?v=1">\n</head>');
+    }
+    if(!html.includes('/deep-link.js')){
+      html=html.replace('</body>','<script src="/deep-link.js?v=1" defer></script>\n</body>');
+    }
+    if(!html.includes('/retention-hooks.js')){
+      html=html.replace('</body>','<script src="/retention-hooks.js?v=1" defer></script>\n</body>');
+    }
   }
   const headers=new Headers(response.headers);
   headers.delete('content-length');
