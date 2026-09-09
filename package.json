@@ -1,12 +1,12 @@
 {
   "name": "clue-morning",
-  "version": "2.9.0",
+  "version": "2.9.1",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "test": "node test.mjs && node tools/audit-four-groups.mjs && node tools/audit-trail-layout.mjs && node tools/audit-deep-cut-daily.mjs && node tools/audit-deep-cut-unlimited.mjs && node tools/audit-pwa-push.mjs && node tools/audit-tileworks-situation-fold.mjs && node tools/audit-seo.mjs && node tools/audit-workers-ai-budget.mjs",
+    "test": "node test.mjs && node tools/audit-four-groups.mjs && node tools/audit-trail-layout.mjs && node tools/audit-deep-cut-daily.mjs && node tools/audit-deep-cut-unlimited.mjs && node tools/audit-pwa-push.mjs && node tools/audit-tileworks-situation-fold.mjs && node tools/audit-seo.mjs && node tools/audit-workers-ai-budget.mjs && node tools/audit-retention-hooks.mjs",
     "audit:groups": "node tools/audit-four-groups.mjs",
     "audit:deepcut": "node tools/audit-deep-cut-daily.mjs && node tools/audit-deep-cut-unlimited.mjs",
     "audit:trail": "node tools/audit-trail-layout.mjs",
@@ -14,6 +14,7 @@
     "audit:tileworks": "node tools/audit-tileworks-situation-fold.mjs",
     "audit:seo": "node tools/audit-seo.mjs",
     "audit:ai-budget": "node tools/audit-workers-ai-budget.mjs",
+    "audit:retention": "node tools/audit-retention-hooks.mjs",
     "rebuild:content": "node tools/audit-four-groups.mjs && node tools/rebuild_content.mjs && node tools/curate-deep-cut-sets.mjs"
   },
   "dependencies": {
