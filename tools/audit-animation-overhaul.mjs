@@ -13,25 +13,39 @@ const sw=read('public/sw.js');
 const pkg=JSON.parse(read('package.json'));
 const brief=read('docs/DEEP_CUT_RIVE_BRIEF.md');
 
-assert(js.includes('motion@13.1.1/+esm'),'Motion runtime must be pinned to the reviewed production version');
-assert(js.includes('@rive-app/canvas@2.42.0'),'Rive runtime bridge must be pinned');
+assert(!/https?:\/\//.test(js),'animation runtime must not fetch or import third-party code');
+assert(!js.includes('import('),'animation runtime must not use dynamic imports');
+assert(js.includes("const PREVIEW_PARAM = 'motion-preview'"),'client must double-gate the preview by URL parameter');
+assert(js.includes("const PREVIEW_VALUE = 'deepcut'"),'Deep Cut must be the only preview target');
+assert(js.includes("engine = 'waapi'")||js.includes("publicApi.engine = 'waapi'"),'preview must use the browser Web Animations API');
+assert(js.includes("typeof el.animate !== 'function'"),'animation must fail open when Web Animations is unavailable');
 assert(js.includes("prefers-reduced-motion: reduce"),'JavaScript motion must respect reduced-motion preferences');
+assert(js.includes('requestAnimationFrame'),'DOM state synchronization must be coalesced to animation frames');
+assert(js.includes("document.visibilityState === 'hidden'"),'hidden tabs must skip animation work');
 assert(js.includes("#deepCutStatus")&&js.includes("#deepCutTimer")&&js.includes("#deepCutPrompt")&&js.includes("#deepCutMessage"),'Deep Cut animation must react to gameplay state, timer, prompts, and feedback');
-assert(js.includes('correct_common')&&js.includes('correct_uncommon')&&js.includes('correct_rare'),'Deep Cut must expose tier-aware positive Rive reactions');
-assert(js.includes('registerRive')&&js.includes('stateMachineInputs'),'Rive bridge must expose registration and state-machine triggers');
-assert(js.includes('Rive asset could not load; keeping the native motion fallback'),'Rive failure must preserve the native fallback');
+assert(js.includes('correct_common')&&js.includes('correct_uncommon')&&js.includes('correct_rare'),'Deep Cut must preserve tier-aware positive reactions');
+assert(js.includes('registerRive')&&js.includes('stateMachineInputs'),'Rive bridge must remain available without loading a runtime');
+assert(js.includes('animation preview disabled after a safe failure'),'boot failure must leave the game usable');
 
 assert(css.includes('.cm-deepcut-page'),'Deep Cut must have a dedicated animated-page visual system');
 assert(css.includes('.cm-is-urgent #deepCutTimer'),'final-five-second urgency treatment must exist');
 assert(css.includes('.cm-flash-rare'),'rarity-tier feedback styling must exist');
 assert(css.includes('@media(prefers-reduced-motion:reduce)'),'CSS animation must respect reduced-motion preferences');
-assert(css.includes('.cm-rive-layer'),'Rive canvas layer must be styled independently of HTML gameplay');
+assert(css.includes('.cm-rive-layer'),'future Rive canvas layer must remain independent of HTML gameplay');
+assert(css.includes('contain:paint'),'ambient layer must contain paint work');
+assert(css.includes('.cm-scene-paper-b,.cm-scene-pencil,.cm-steam-b,.cm-steam-c,.cm-scene-ring{display:none}'),'mobile preview must shed nonessential ambient animation');
+assert(css.includes('animation-play-state:paused'),'inactive Deep Cut panels must pause ambient loops');
 
-assert(worker.includes('/animation-overhaul.css?v=1'),'worker must inject animation CSS on the app shell');
-assert(worker.includes('/animation-overhaul.js?v=1'),'worker must inject animation JS on the app shell');
-assert(sw.includes("clue-morning-pwa-v8"),'service-worker cache must be bumped for the animation release');
-assert(sw.includes("'/animation-overhaul.css'")&&sw.includes("'/animation-overhaul.js'"),'animation assets must be cached in the PWA shell');
-assert(pkg.scripts?.test?.includes('node tools/audit-animation-overhaul.mjs'),'full regression suite must gate the animation overhaul');
+assert(worker.includes("url.searchParams.get('motion-preview')==='deepcut'"),'worker must gate preview injection by explicit Deep Cut query parameter');
+assert(worker.includes('/animation-overhaul.css?v=2'),'preview CSS must use a versioned asset');
+assert(worker.includes('/animation-overhaul.js?v=2'),'preview JS must use a versioned asset');
+assert(worker.includes("headers.set('cache-control','no-store')"),'preview HTML must not be cached into the normal homepage path');
+assert(worker.includes("headers.set('x-clue-motion-preview','deepcut')"),'preview response must expose a smoke-test marker');
+
+const cacheVersion=Number(sw.match(/const CACHE = 'clue-morning-pwa-v(\d+)'/)?.[1]||0);
+assert(cacheVersion>=9,'service-worker cache must advance beyond the failed animation rollout');
+assert(!sw.includes("'/animation-overhaul.css'")&&!sw.includes("'/animation-overhaul.js'"),'normal PWA app shell must not preload preview animation assets');
+assert(pkg.scripts?.test?.includes('node tools/audit-animation-overhaul.mjs'),'full regression suite must gate the animation preview');
 assert(pkg.scripts?.['audit:animation']==='node tools/audit-animation-overhaul.mjs','animation audit script must be directly runnable');
 
 for(const input of ['Start','Prompt','CorrectCommon','CorrectUncommon','CorrectRare','Wrong','Urgent','Complete']){
@@ -39,4 +53,4 @@ for(const input of ['Start','Prompt','CorrectCommon','CorrectUncommon','CorrectR
 }
 assert(brief.includes("state machine name: `DeepCut`")||brief.includes("State machine name: `DeepCut`"),'Rive production brief must lock the DeepCut state-machine name');
 
-console.log('Animation overhaul audit passed.');
+console.log('Animation preview audit passed: dependency-free WAAPI, explicit preview gate, fail-open boot, mobile load shedding, no PWA preload, and inert Rive bridge.');
