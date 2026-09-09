@@ -201,6 +201,14 @@
       urgentRound: ''
     };
 
+    function positionBurstOrigin() {
+      if (!promptCard || !burstLayer) return;
+      const promptRect = promptCard.getBoundingClientRect();
+      const atmosphereRect = atmosphere.getBoundingClientRect();
+      burstLayer.style.setProperty('--burst-origin-x', `${promptRect.left - atmosphereRect.left + promptRect.width / 2}px`);
+      burstLayer.style.setProperty('--burst-origin-y', `${promptRect.top - atmosphereRect.top + promptRect.height / 2}px`);
+    }
+
     function animateEntrance() {
       if (reducedMotion.matches) return;
       const head = panel.querySelector('.panel-head');
@@ -249,6 +257,7 @@
       motion(score, {
         transform: ['scale(1)', 'scale(1.15)', 'scale(1)']
       }, { duration: .38, ease: 'ease-out' });
+      positionBurstOrigin();
       createBurst(burstLayer, tier);
     }
 
@@ -317,6 +326,7 @@
     contentObserver.observe(panel, { subtree: true, childList: true, characterData: true });
     const panelObserver = new MutationObserver(sync);
     panelObserver.observe(panel, { attributes: true, attributeFilter: ['class'] });
+    window.addEventListener('resize', positionBurstOrigin, { passive: true });
     sync();
   }
 
