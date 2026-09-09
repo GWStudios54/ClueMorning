@@ -20,6 +20,7 @@ on:
       - 'package.json'
       - 'schema.sql'
       - 'wrangler.jsonc'
+      - '.github/workflows/site-regression.yml'
 
 permissions:
   contents: read
@@ -36,3 +37,5 @@ jobs:
         run: npm install
       - name: Run regression suite
         run: npm test
+      - name: Verify Wrangler production bundle
+        run: npx wrangler deploy --dry-run --outdir .wrangler-dry-run
