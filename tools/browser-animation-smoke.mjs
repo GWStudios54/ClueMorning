@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import http from 'node:http';
-import {spawnSync} from 'node:child_process';
+import {spawn,spawnSync} from 'node:child_process';
 
 const js=fs.readFileSync(new URL('../public/animation-overhaul.js',import.meta.url),'utf8');
 const css=fs.readFileSync(new URL('../public/animation-overhaul.css',import.meta.url),'utf8');
@@ -60,26 +60,37 @@ function chromePath(){
 }
 
 function dump(path){
-  const result=spawnSync(chromePath(),[
-    '--headless=new','--no-sandbox','--disable-gpu','--disable-background-networking','--disable-default-apps','--disable-extensions','--disable-sync','--metrics-recording-only','--mute-audio','--no-first-run','--virtual-time-budget=900','--dump-dom',`http://127.0.0.1:${port}/${path}`
-  ],{encoding:'utf8',timeout:20000});
-  if(result.status!==0)throw new Error(`Chrome smoke failed: ${result.stderr||result.stdout}`);
-  return result.stdout;
+  return new Promise((resolve,reject)=>{
+    const child=spawn(chromePath(),[
+      '--headless=new','--no-sandbox','--disable-gpu','--disable-background-networking','--disable-default-apps','--disable-extensions','--disable-sync','--metrics-recording-only','--mute-audio','--no-first-run','--virtual-time-budget=1200','--dump-dom',`http://127.0.0.1:${port}/${path}`
+    ],{stdio:['ignore','pipe','pipe']});
+    let stdout='',stderr='';
+    const timer=setTimeout(()=>{child.kill('SIGKILL');reject(new Error('Chrome smoke timed out'))},20000);
+    child.stdout.setEncoding('utf8');child.stderr.setEncoding('utf8');
+    child.stdout.on('data',chunk=>{stdout+=chunk});
+    child.stderr.on('data',chunk=>{stderr+=chunk});
+    child.on('error',error=>{clearTimeout(timer);reject(error)});
+    child.on('close',code=>{
+      clearTimeout(timer);
+      if(code!==0){reject(new Error(`Chrome smoke failed: ${stderr||stdout}`));return}
+      resolve(stdout);
+    });
+  });
 }
 
 try{
-  const enabled=dump('?motion-preview=deepcut');
+  const enabled=await dump('?motion-preview=deepcut');
   if(!enabled.includes('data-motion-installed="true"'))throw new Error('Preview did not install in Chromium');
   if(!enabled.includes('data-motion-state="live"'))throw new Error('Preview did not react to live state in Chromium');
   if(!enabled.includes('data-engine="waapi"'))throw new Error('Preview did not use WAAPI in Chromium');
   if(!enabled.includes('data-external-scripts="0"'))throw new Error('Preview loaded an external script in Chromium');
   if(enabled.includes('data-runtime-error='))throw new Error('Preview raised a browser runtime error');
 
-  const disabled=dump('');
+  const disabled=await dump('');
   if(!disabled.includes('data-motion-installed="false"'))throw new Error('Client preview gate failed when query parameter was absent');
   if(disabled.includes('data-runtime-error='))throw new Error('Disabled preview path raised a browser runtime error');
 
   console.log('Browser animation smoke passed: Chromium install/state reactions work, no external scripts load, and the client gate stays off by default.');
 } finally {
-  server.close();
+  await new Promise(resolve=>server.close(resolve));
 }
