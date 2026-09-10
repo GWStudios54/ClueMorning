@@ -1,0 +1,331 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="7000" viewBox="0 0 1200 7000" shape-rendering="crispEdges">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#3a2949"/><stop offset=".18" stop-color="#2d223b"/>
+    <stop offset=".48" stop-color="#20182c"/><stop offset=".72" stop-color="#151421"/><stop offset="1" stop-color="#090a10"/>
+  </linearGradient>
+  <linearGradient id="shaft" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#14151c"/><stop offset=".08" stop-color="#60697c"/>
+    <stop offset=".13" stop-color="#252936"/><stop offset=".87" stop-color="#252936"/>
+    <stop offset=".92" stop-color="#60697c"/><stop offset="1" stop-color="#14151c"/>
+  </linearGradient>
+  <linearGradient id="sunset" x1="0" y1="0" x2="0" y2="1">
+    <stop stop-color="#f8bf76"/><stop offset=".45" stop-color="#b76b72"/><stop offset="1" stop-color="#5d466f"/>
+  </linearGradient>
+  <linearGradient id="blueDeep" x1="0" y1="0" x2="0" y2="1">
+    <stop stop-color="#12374b"/><stop offset=".55" stop-color="#0e2537"/><stop offset="1" stop-color="#08131d"/>
+  </linearGradient>
+  <linearGradient id="purpleDeep" x1="0" y1="0" x2="0" y2="1">
+    <stop stop-color="#201740"/><stop offset=".5" stop-color="#17102f"/><stop offset="1" stop-color="#080612"/>
+  </linearGradient>
+
+  <pattern id="brick" width="48" height="28" patternUnits="userSpaceOnUse">
+    <rect width="48" height="28" fill="#231b2a"/>
+    <path d="M0 0H48M0 28H48M0 14H24M32 14H48M24 0V14M8 14V28M40 14V28" stroke="#34283b" stroke-width="3"/>
+  </pattern>
+  <pattern id="books" width="96" height="80" patternUnits="userSpaceOnUse">
+    <rect width="96" height="80" fill="#362417"/>
+    <rect x="6" y="18" width="12" height="56" fill="#76566f"/>
+    <rect x="20" y="8" width="11" height="66" fill="#5b788d"/>
+    <rect x="34" y="22" width="10" height="52" fill="#7f6f4d"/>
+    <rect x="47" y="4" width="14" height="70" fill="#7b4f45"/>
+    <rect x="64" y="15" width="10" height="59" fill="#60704a"/>
+    <rect x="77" y="11" width="13" height="63" fill="#6c6084"/>
+    <rect x="4" y="74" width="88" height="5" fill="#24170f"/>
+  </pattern>
+  <pattern id="filedrawers" width="92" height="74" patternUnits="userSpaceOnUse">
+    <rect width="92" height="74" fill="#5b4634"/>
+    <rect x="5" y="5" width="38" height="28" fill="#715842" stroke="#302216" stroke-width="3"/>
+    <rect x="49" y="5" width="38" height="28" fill="#6b513d" stroke="#302216" stroke-width="3"/>
+    <rect x="5" y="40" width="38" height="28" fill="#654c39" stroke="#302216" stroke-width="3"/>
+    <rect x="49" y="40" width="38" height="28" fill="#705540" stroke="#302216" stroke-width="3"/>
+    <path d="M19 18h10M63 18h10M19 53h10M63 53h10" stroke="#d0af73" stroke-width="3"/>
+  </pattern>
+
+  <symbol id="shelf" viewBox="0 0 300 190">
+    <rect x="8" y="8" width="284" height="174" fill="#2c1c14" stroke="#120d0a" stroke-width="8"/>
+    <rect x="20" y="18" width="260" height="146" fill="url(#books)"/>
+    <path d="M20 62h260M20 112h260M20 162h260" stroke="#17100b" stroke-width="8"/>
+    <rect x="10" y="166" width="280" height="16" fill="#4c321f"/>
+  </symbol>
+
+  <symbol id="desk" viewBox="0 0 340 200">
+    <rect x="22" y="90" width="296" height="28" fill="#6a4b31" stroke="#2a1b11" stroke-width="8"/>
+    <rect x="42" y="118" width="24" height="72" fill="#4a321f"/>
+    <rect x="274" y="118" width="24" height="72" fill="#4a321f"/>
+    <rect x="76" y="130" width="188" height="48" fill="#3d2b1c" stroke="#21160f" stroke-width="6"/>
+    <rect x="118" y="50" width="106" height="44" fill="#d9c58d" stroke="#3e3424" stroke-width="5"/>
+    <path d="M128 64h82M128 74h70M128 84h76" stroke="#756649" stroke-width="4"/>
+    <rect x="238" y="64" width="32" height="30" fill="#5f6574" stroke="#282b35" stroke-width="5"/>
+    <rect x="246" y="46" width="16" height="18" fill="#d8a85e"/>
+  </symbol>
+
+  <symbol id="lamp" viewBox="0 0 90 150">
+    <rect x="41" y="52" width="8" height="72" fill="#827456"/>
+    <path d="M18 52h54L60 18H30Z" fill="#f5c66f" stroke="#70552a" stroke-width="6"/>
+    <rect x="30" y="124" width="30" height="10" fill="#5b4933"/>
+    <rect x="20" y="134" width="50" height="8" fill="#3d3024"/>
+  </symbol>
+
+  <symbol id="typewriter" viewBox="0 0 180 110">
+    <rect x="22" y="46" width="136" height="50" fill="#232732" stroke="#11141a" stroke-width="7"/>
+    <rect x="42" y="28" width="96" height="28" fill="#d4c18c" stroke="#2e3035" stroke-width="5"/>
+    <path d="M40 68h100M48 80h84" stroke="#81899b" stroke-width="5"/>
+    <circle cx="48" cy="93" r="6" fill="#0c0e12"/><circle cx="132" cy="93" r="6" fill="#0c0e12"/>
+  </symbol>
+
+  <symbol id="statue" viewBox="0 0 140 240">
+    <rect x="30" y="188" width="80" height="20" fill="#7c7b72"/>
+    <rect x="20" y="208" width="100" height="22" fill="#5e5f5a"/>
+    <path d="M48 186c0-34 4-68 20-86h4c16 18 20 52 20 86Z" fill="#a6a399" stroke="#5a5a55" stroke-width="5"/>
+    <circle cx="70" cy="74" r="30" fill="#b4b1a5" stroke="#62615b" stroke-width="5"/>
+    <path d="M48 65c10-25 35-32 50-8-18 1-33 4-50 8Z" fill="#77746e"/>
+  </symbol>
+
+  <symbol id="globe" viewBox="0 0 170 220">
+    <circle cx="84" cy="88" r="62" fill="#49768c" stroke="#263a48" stroke-width="8"/>
+    <path d="M42 54c20 12 30 7 42 26 12 20 28 12 38 30M60 120c14-14 30-8 40 0 14 10 26 5 34-8" fill="none" stroke="#a89b61" stroke-width="8"/>
+    <path d="M84 150v38M56 194h56" stroke="#8b6f48" stroke-width="10"/>
+  </symbol>
+
+  <symbol id="microfilm" viewBox="0 0 260 230">
+    <rect x="72" y="70" width="116" height="112" fill="#242833" stroke="#0e1015" stroke-width="8"/>
+    <circle cx="66" cy="62" r="44" fill="#4a4f5c" stroke="#161922" stroke-width="8"/>
+    <circle cx="194" cy="62" r="44" fill="#4a4f5c" stroke="#161922" stroke-width="8"/>
+    <circle cx="66" cy="62" r="12" fill="#191c25"/><circle cx="194" cy="62" r="12" fill="#191c25"/>
+    <path d="M110 182v28M150 182v28M92 210h76" stroke="#5b6070" stroke-width="10"/>
+  </symbol>
+
+  <symbol id="fossil" viewBox="0 0 380 230">
+    <path d="M38 156c52-74 130-95 210-62 42 17 65 50 90 88" fill="none" stroke="#b6b0a0" stroke-width="12"/>
+    <path d="M64 132l-30-42M98 108L82 56M142 94l-2-56M188 94l20-50M232 108l34-36M278 132l42-22" stroke="#9d9789" stroke-width="9"/>
+    <path d="M258 88c30-44 70-56 100-34l-22 18 28 12-36 17-12 28Z" fill="#c0b8a5" stroke="#6f6a60" stroke-width="7"/>
+    <circle cx="329" cy="73" r="5" fill="#17171a"/>
+  </symbol>
+
+  <symbol id="portal" viewBox="0 0 300 300">
+    <rect x="38" y="34" width="224" height="236" rx="100" fill="#0d0a18" stroke="#625099" stroke-width="12"/>
+    <rect x="62" y="58" width="176" height="188" rx="84" fill="#22144d"/>
+    <path d="M78 196c42-84 100-93 145-130M92 226c35-70 88-83 124-112M82 146c50-20 94-15 140 14" fill="none" stroke="#8759d6" stroke-width="12"/>
+    <circle cx="92" cy="94" r="7" fill="#d5b8ff"/><circle cx="205" cy="92" r="8" fill="#ab8cff"/><circle cx="192" cy="202" r="6" fill="#e4d4ff"/>
+  </symbol>
+
+  <symbol id="tentacles" viewBox="0 0 420 260">
+    <path d="M16 244c44-84 60-166 30-232 72 44 68 130 48 184 44-76 98-102 146-114-62 58-74 108-66 166 28-74 88-112 144-122-58 44-76 92-74 138" fill="none" stroke="#26536a" stroke-width="24"/>
+    <path d="M30 220c28-60 38-116 26-162M186 226c22-62 52-92 102-112" fill="none" stroke="#4f8aa0" stroke-width="6"/>
+  </symbol>
+
+  <symbol id="arch" viewBox="0 0 420 310">
+    <path d="M16 302V112Q16 18 210 18t194 94v190" fill="none" stroke="#57445c" stroke-width="28"/>
+    <path d="M42 302V118Q42 46 210 46t168 72v184" fill="none" stroke="#201925" stroke-width="12"/>
+  </symbol>
+
+  <symbol id="stairsL" viewBox="0 0 360 190">
+    <path d="M10 172h44v-22h42v-22h42v-22h42V84h42V62h42V40h42V18h44" fill="none" stroke="#5f4a5e" stroke-width="16"/>
+    <path d="M10 156h44v-22h42v-22h42v-22h42V68h42V46h42V24h42V2" fill="none" stroke="#211921" stroke-width="5"/>
+  </symbol>
+
+  <symbol id="stairsR" viewBox="0 0 360 190">
+    <g transform="translate(360 0) scale(-1 1)"><use href="#stairsL"/></g>
+  </symbol>
+
+  <symbol id="banner" viewBox="0 0 180 250">
+    <path d="M10 10h160v210l-80 24-80-24Z" fill="#203044" stroke="#8b6d43" stroke-width="7"/>
+    <path d="M34 56h112M34 92h112M50 128h80" stroke="#b9975b" stroke-width="7"/>
+  </symbol>
+</defs>
+
+<rect width="1200" height="7000" fill="url(#bg)"/>
+<rect x="0" y="0" width="1200" height="7000" fill="url(#brick)" opacity=".62"/>
+
+<!-- central shaft -->
+<rect x="504" y="0" width="192" height="7000" fill="url(#shaft)" stroke="#0d0e13" stroke-width="14"/>
+<rect x="538" y="0" width="14" height="7000" fill="#171920"/>
+<rect x="648" y="0" width="14" height="7000" fill="#171920"/>
+<path d="M545 0v7000M655 0v7000" stroke="#8990a0" stroke-width="4" stroke-dasharray="18 26" opacity=".65"/>
+<path d="M600 0v7000" stroke="#111319" stroke-width="10"/>
+<path d="M518 0v7000M682 0v7000" stroke="#8990a0" stroke-width="6" opacity=".65"/>
+
+<!-- ZONE 1 surface -->
+<g transform="translate(0 80)">
+  <rect x="0" y="0" width="500" height="520" fill="url(#sunset)" opacity=".95"/>
+  <rect x="700" y="0" width="500" height="520" fill="#2d2134"/>
+  <path d="M0 290l80-58 60 35 76-72 88 45 80-82 116 54v308H0Z" fill="#6c5367"/>
+  <path d="M0 340l100-40 70 46 84-54 96 50 70-44 80 52v210H0Z" fill="#493846"/>
+  <path d="M720 0v520M782 0v520M844 0v520M906 0v520M968 0v520M1030 0v520M1092 0v520" stroke="#17131c" stroke-width="14"/>
+  <path d="M700 116h500M700 250h500M700 382h500" stroke="#17131c" stroke-width="14"/>
+  <use href="#shelf" x="720" y="274" width="220" height="140"/>
+  <use href="#shelf" x="950" y="274" width="220" height="140"/>
+  <use href="#desk" x="70" y="290" width="300" height="170"/>
+  <use href="#lamp" x="330" y="270" width="70" height="120"/>
+  <use href="#globe" x="982" y="104" width="150" height="190"/>
+  <use href="#banner" x="390" y="80" width="105" height="148"/>
+  <text x="58" y="60" fill="#f0dca8" font-size="28" font-family="monospace" font-weight="700">SURFACE INTAKE</text>
+  <text x="58" y="95" fill="#f3e8ca" font-size="17" font-family="monospace">Daily clippings · Current events</text>
+  <text x="742" y="72" fill="#f0dca8" font-size="23" font-family="monospace" font-weight="700">REFERENCE HALL</text>
+  <text x="742" y="102" fill="#cdbed4" font-size="16" font-family="monospace">Known answers live here.</text>
+  <use href="#arch" x="40" y="118" width="420" height="310" opacity=".35"/>
+  <use href="#arch" x="740" y="92" width="420" height="310" opacity=".28"/>
+</g>
+
+<!-- ZONE 2 -->
+<g transform="translate(0 690)">
+  <rect x="0" y="0" width="500" height="540" fill="#211b2a"/>
+  <rect x="700" y="0" width="500" height="540" fill="#261b28"/>
+  <use href="#arch" x="35" y="34" width="430" height="320"/>
+  <use href="#statue" x="58" y="190" width="120" height="205"/>
+  <use href="#shelf" x="186" y="178" width="268" height="170"/>
+  <use href="#stairsL" x="8" y="350" width="430" height="190"/>
+  <use href="#desk" x="760" y="282" width="330" height="195"/>
+  <use href="#lamp" x="1080" y="242" width="78" height="130"/>
+  <use href="#typewriter" x="808" y="246" width="160" height="95"/>
+  <rect x="730" y="84" width="390" height="142" fill="#17121b" stroke="#5f4a5c" stroke-width="8"/>
+  <path d="M750 110h350M750 150h320M750 190h280" stroke="#79656f" stroke-width="7"/>
+  <text x="62" y="72" fill="#e5c985" font-size="24" font-family="monospace" font-weight="700">REFERENCE STACKS</text>
+  <text x="738" y="62" fill="#e5c985" font-size="24" font-family="monospace" font-weight="700">INTERVIEW FILES</text>
+  <text x="758" y="116" fill="#cdbed4" font-size="15" font-family="monospace">Voices. Perspectives. Contradictions.</text>
+</g>
+
+<!-- ZONE 3 case files -->
+<g transform="translate(0 1300)">
+  <rect x="0" y="0" width="500" height="540" fill="#1b2526"/>
+  <rect x="700" y="0" width="500" height="540" fill="#27181b"/>
+  <rect x="32" y="54" width="425" height="318" fill="url(#filedrawers)" stroke="#14100c" stroke-width="10"/>
+  <use href="#desk" x="92" y="304" width="320" height="184"/>
+  <use href="#lamp" x="380" y="280" width="72" height="124"/>
+  <path d="M40 48L170 12l32 50 122-24 110 44" fill="none" stroke="#76694f" stroke-width="7"/>
+  <path d="M84 32v70M214 34v64M352 46v68" stroke="#76694f" stroke-width="5"/>
+  <rect x="760" y="64" width="350" height="390" rx="10" fill="#191416" stroke="#632f36" stroke-width="12"/>
+  <rect x="800" y="120" width="270" height="250" fill="#281719" stroke="#8f3f48" stroke-width="10"/>
+  <rect x="832" y="170" width="206" height="58" fill="#4f1f25" stroke="#a84952" stroke-width="6"/>
+  <text x="870" y="207" fill="#f07d79" font-size="24" font-family="monospace">RESTRICTED</text>
+  <path d="M810 400h250M820 424h230" stroke="#5f2b30" stroke-width="8"/>
+  <use href="#statue" x="722" y="228" width="100" height="176" opacity=".7"/>
+  <text x="50" y="36" fill="#d8ce92" font-size="25" font-family="monospace" font-weight="700">CASE FILES</text>
+  <text x="742" y="36" fill="#d87979" font-size="25" font-family="monospace" font-weight="700">RESTRICTED WING</text>
+</g>
+
+<!-- ZONE 4 microfilm -->
+<g transform="translate(0 1910)">
+  <rect x="0" y="0" width="500" height="540" fill="#191d22"/>
+  <rect x="700" y="0" width="500" height="540" fill="#16202a"/>
+  <use href="#microfilm" x="80" y="140" width="310" height="280"/>
+  <use href="#shelf" x="22" y="40" width="190" height="118"/>
+  <use href="#shelf" x="286" y="40" width="190" height="118"/>
+  <use href="#lamp" x="390" y="345" width="74" height="126"/>
+  <path d="M720 80h450v352H720Z" fill="#0d1720" stroke="#28465a" stroke-width="10"/>
+  <path d="M736 96h418v318H736Z" fill="#13364a"/>
+  <path d="M736 290c80-60 160-85 228-60 68 24 112 80 190 34v150H736Z" fill="#0d2634"/>
+  <use href="#fossil" x="746" y="145" width="390" height="235"/>
+  <use href="#lamp" x="714" y="320" width="66" height="112"/>
+  <text x="50" y="38" fill="#d0c58d" font-size="24" font-family="monospace" font-weight="700">MICROFILM VAULT</text>
+  <text x="742" y="48" fill="#91d2ef" font-size="24" font-family="monospace" font-weight="700">SEALED RECORDS</text>
+</g>
+
+<!-- ZONE 5 lost media -->
+<g transform="translate(0 2520)">
+  <rect x="0" y="0" width="500" height="540" fill="#151c27"/>
+  <rect x="700" y="0" width="500" height="540" fill="#14182a"/>
+  <use href="#shelf" x="42" y="70" width="390" height="240"/>
+  <rect x="78" y="328" width="310" height="130" fill="#242833" stroke="#11141a" stroke-width="8"/>
+  <circle cx="144" cy="388" r="34" fill="#4e5565" stroke="#151820" stroke-width="7"/>
+  <circle cx="322" cy="388" r="34" fill="#4e5565" stroke="#151820" stroke-width="7"/>
+  <path d="M178 388h110" stroke="#7c8598" stroke-width="10"/>
+  <use href="#stairsR" x="748" y="322" width="410" height="200"/>
+  <use href="#banner" x="764" y="66" width="110" height="160"/>
+  <use href="#banner" x="1012" y="66" width="110" height="160"/>
+  <use href="#statue" x="894" y="150" width="130" height="225"/>
+  <text x="50" y="42" fill="#9fcff0" font-size="24" font-family="monospace" font-weight="700">LOST MEDIA</text>
+  <text x="746" y="42" fill="#9fcff0" font-size="24" font-family="monospace" font-weight="700">ARCHIVIST'S LANDING</text>
+</g>
+
+<!-- ZONE 6 redacted -->
+<g transform="translate(0 3130)">
+  <rect x="0" y="0" width="500" height="540" fill="#17171c"/>
+  <rect x="700" y="0" width="500" height="540" fill="#231316"/>
+  <rect x="44" y="74" width="408" height="320" fill="#d6c29a" stroke="#4c4030" stroke-width="9"/>
+  <path d="M72 120h340M72 164h280M72 208h330M72 252h300M72 296h326M72 340h210" stroke="#393238" stroke-width="14"/>
+  <path d="M88 126h164M210 170h182M104 214h230M150 258h230M82 302h132M246 346h150" stroke="#0b0a0d" stroke-width="19"/>
+  <use href="#desk" x="72" y="358" width="340" height="188"/>
+  <rect x="754" y="82" width="390" height="350" fill="#180e10" stroke="#6d2930" stroke-width="10"/>
+  <path d="M786 112h326v288H786Z" fill="#291417" stroke="#9a3d47" stroke-width="8"/>
+  <path d="M816 142h266v36H816ZM816 198h240v36H816ZM816 254h280v36H816ZM816 310h224v36H816" fill="#0d090b"/>
+  <text x="54" y="42" fill="#d3c299" font-size="24" font-family="monospace" font-weight="700">REDACTED WING</text>
+  <text x="756" y="42" fill="#d16b70" font-size="24" font-family="monospace" font-weight="700">CLASSIFIED INDEX</text>
+</g>
+
+<!-- ZONE 7 abyss -->
+<g transform="translate(0 3740)">
+  <rect x="0" y="0" width="500" height="540" fill="url(#blueDeep)"/>
+  <rect x="700" y="0" width="500" height="540" fill="url(#blueDeep)"/>
+  <use href="#tentacles" x="10" y="170" width="450" height="290"/>
+  <use href="#stairsL" x="36" y="360" width="420" height="190"/>
+  <rect x="746" y="68" width="408" height="348" fill="#0d1d29" stroke="#2d5368" stroke-width="10"/>
+  <path d="M776 104h348M776 150h310M776 196h328M776 242h280M776 288h340M776 334h302" stroke="#5a7f8d" stroke-width="7" opacity=".7"/>
+  <use href="#lamp" x="1060" y="330" width="70" height="118" opacity=".75"/>
+  <text x="52" y="48" fill="#8fd7ff" font-size="25" font-family="monospace" font-weight="700">THE ABYSS</text>
+  <text x="744" y="48" fill="#8fd7ff" font-size="25" font-family="monospace" font-weight="700">OBSCURE FACTS</text>
+</g>
+
+<!-- ZONE 8 forbidden stacks -->
+<g transform="translate(0 4350)">
+  <rect x="0" y="0" width="500" height="540" fill="#10141b"/>
+  <rect x="700" y="0" width="500" height="540" fill="#15101f"/>
+  <use href="#shelf" x="40" y="70" width="410" height="250"/>
+  <use href="#shelf" x="750" y="70" width="410" height="250"/>
+  <path d="M62 334h366v130H62Z" fill="#171116" stroke="#51405d" stroke-width="8"/>
+  <path d="M772 334h366v130H772Z" fill="#171116" stroke="#51405d" stroke-width="8"/>
+  <path d="M94 366h300M94 398h260M806 366h300M806 398h260" stroke="#74627e" stroke-width="8"/>
+  <use href="#statue" x="384" y="286" width="100" height="170" opacity=".65"/>
+  <use href="#statue" x="716" y="286" width="100" height="170" opacity=".65"/>
+  <text x="52" y="44" fill="#b7a7cf" font-size="24" font-family="monospace" font-weight="700">FORBIDDEN STACKS</text>
+  <text x="748" y="44" fill="#b7a7cf" font-size="24" font-family="monospace" font-weight="700">UNSORTED SHELVES</text>
+</g>
+
+<!-- ZONE 9 black shelf -->
+<g transform="translate(0 4960)">
+  <rect x="0" y="0" width="500" height="540" fill="#0c0d12"/>
+  <rect x="700" y="0" width="500" height="540" fill="#0c0d12"/>
+  <rect x="36" y="70" width="430" height="360" fill="#0a0a0d" stroke="#292331" stroke-width="10"/>
+  <rect x="734" y="70" width="430" height="360" fill="#0a0a0d" stroke="#292331" stroke-width="10"/>
+  <path d="M66 104h370M66 156h326M66 208h350M66 260h294M66 312h338M66 364h270" stroke="#24202a" stroke-width="14"/>
+  <path d="M764 104h370M764 156h326M764 208h350M764 260h294M764 312h338M764 364h270" stroke="#24202a" stroke-width="14"/>
+  <circle cx="250" cy="248" r="78" fill="#171220" stroke="#3f3152" stroke-width="10"/>
+  <circle cx="950" cy="248" r="78" fill="#171220" stroke="#3f3152" stroke-width="10"/>
+  <text x="92" y="480" fill="#8c7a9d" font-size="18" font-family="monospace">Some questions should stay buried.</text>
+  <text x="738" y="480" fill="#8c7a9d" font-size="18" font-family="monospace">The index ends. Curiosity does not.</text>
+  <text x="52" y="44" fill="#a797bb" font-size="25" font-family="monospace" font-weight="700">BLACK SHELF</text>
+  <text x="748" y="44" fill="#a797bb" font-size="25" font-family="monospace" font-weight="700">THE LAST CATALOG</text>
+</g>
+
+<!-- ZONE 10 final -->
+<g transform="translate(0 5570)">
+  <rect x="0" y="0" width="500" height="650" fill="url(#purpleDeep)"/>
+  <rect x="700" y="0" width="500" height="650" fill="url(#purpleDeep)"/>
+  <use href="#portal" x="94" y="138" width="320" height="320"/>
+  <use href="#portal" x="786" y="138" width="320" height="320"/>
+  <path d="M30 500h440M730 500h440" stroke="#5b3d7d" stroke-width="8"/>
+  <path d="M64 526h372M764 526h372" stroke="#33234c" stroke-width="12"/>
+  <text x="50" y="58" fill="#d0b6ff" font-size="25" font-family="monospace" font-weight="700">THE FINAL SHELF</text>
+  <text x="746" y="58" fill="#d0b6ff" font-size="25" font-family="monospace" font-weight="700">UNANSWERED</text>
+  <text x="84" y="594" fill="#9b83b8" font-size="18" font-family="monospace">Undefined. Uncatalogued. Maybe tomorrow.</text>
+</g>
+
+<!-- cross beams / architectural separators -->
+<g fill="#33263a" stroke="#130f17" stroke-width="7">
+  <rect x="0" y="620" width="500" height="34"/><rect x="700" y="620" width="500" height="34"/>
+  <rect x="0" y="1230" width="500" height="34"/><rect x="700" y="1230" width="500" height="34"/>
+  <rect x="0" y="1840" width="500" height="34"/><rect x="700" y="1840" width="500" height="34"/>
+  <rect x="0" y="2450" width="500" height="34"/><rect x="700" y="2450" width="500" height="34"/>
+  <rect x="0" y="3060" width="500" height="34"/><rect x="700" y="3060" width="500" height="34"/>
+  <rect x="0" y="3670" width="500" height="34"/><rect x="700" y="3670" width="500" height="34"/>
+  <rect x="0" y="4280" width="500" height="34"/><rect x="700" y="4280" width="500" height="34"/>
+  <rect x="0" y="4890" width="500" height="34"/><rect x="700" y="4890" width="500" height="34"/>
+  <rect x="0" y="5500" width="500" height="34"/><rect x="700" y="5500" width="500" height="34"/>
+</g>
+
+<!-- shaft cross braces -->
+<g stroke="#4a5060" stroke-width="8" opacity=".7">
+  <path d="M510 620l180-120M510 500l180 120M510 1230l180-120M510 1110l180 120M510 1840l180-120M510 1720l180 120M510 2450l180-120M510 2330l180 120M510 3060l180-120M510 2940l180 120M510 3670l180-120M510 3550l180 120M510 4280l180-120M510 4160l180 120M510 4890l180-120M510 4770l180 120M510 5500l180-120M510 5380l180 120"/>
+</g>
+</svg>
