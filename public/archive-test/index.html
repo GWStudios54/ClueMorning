@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#100d16">
-<title>Deep Archive Art + Motion Test</title>
+<title>Deep Archive Pixel-Art Motion Test</title>
 <style>
 :root{--gold:#e0b763;--ink:#100d16;--panel:#17121fcc;--line:#6e5a7c;--muted:#c3b5cf}
 *{box-sizing:border-box}
@@ -12,11 +12,18 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--ink);color:#f6ee
 button{font:inherit}
 .stage{position:fixed;inset:0;overflow:hidden;background:radial-gradient(circle at 50% 20%,#2c2138 0,#16111d 45%,#09080d 100%)}
 .world{
-  position:absolute;top:0;left:50%;width:1200px;height:7000px;margin-left:-600px;
-  transform:translate3d(0,0,0);will-change:transform;
-  transition:transform 980ms cubic-bezier(.22,.9,.22,1)
+  position:absolute;top:0;left:50%;
+  width:clamp(680px,165vw,980px);
+  transform:translate3d(-50%,0,0);will-change:transform;
+  transition:transform 980ms cubic-bezier(.22,.9,.22,1);
+  image-rendering:pixelated
 }
-.world img{display:block;width:1200px;height:7000px;user-select:none;pointer-events:none;image-rendering:pixelated}
+.world img{
+  display:block;width:100%;height:auto;
+  user-select:none;pointer-events:none;
+  image-rendering:pixelated;
+  image-rendering:crisp-edges
+}
 .vignette{position:fixed;inset:0;pointer-events:none;z-index:6;box-shadow:inset 0 0 120px rgba(0,0,0,.55)}
 .elevator{position:fixed;left:50%;top:50%;width:134px;height:166px;transform:translate(-50%,-50%);z-index:10;pointer-events:none}
 .elevator::before{content:"";position:absolute;left:18px;right:18px;top:-38px;height:44px;border-left:6px solid #7c8498;border-right:6px solid #7c8498;background:repeating-linear-gradient(to bottom,#242731 0 8px,#5f6678 8px 13px)}
@@ -44,7 +51,7 @@ button{font:inherit}
 .burst{position:fixed;left:50%;top:50%;z-index:29;pointer-events:none}
 .spark{position:absolute;width:7px;height:7px;background:var(--gold);opacity:0;transition:transform 520ms cubic-bezier(.2,.9,.2,1),opacity 520ms ease}
 @media(max-width:700px){
-  .world{width:1200px;margin-left:-600px}
+  .world{width:clamp(680px,165vw,760px)}
   .elevator{width:112px;height:145px}
   .window{left:19px;top:25px;width:74px;height:43px}
   .badge{top:80px;font-size:8px}
@@ -55,14 +62,14 @@ button{font:inherit}
 </head>
 <body>
 <div class="stage">
-  <div class="world" id="world"><img src="/archive-test/archive-world.svg" width="1200" height="7000" alt=""></div>
+  <div class="world" id="world"><img id="archiveArt" src="/archive-test/archive-panorama.png" width="320" height="716" alt="A sprawling pixel-art archive descending through increasingly strange collections"></div>
 </div>
 <div class="vignette"></div>
 
 <div class="hud">
   <div class="card">
-    <h1>DEEP ARCHIVE — ART + MOTION TEST</h1>
-    <p>This version uses one illustrated archive world as a static asset. The browser only moves that world when a result happens.</p>
+    <h1>DEEP ARCHIVE — PIXEL ART MOTION TEST</h1>
+    <p>The actual generated pixel-art archive is the world. No procedural shelves or boxes: the browser only moves the finished artwork when a result happens.</p>
   </div>
 </div>
 
@@ -95,19 +102,22 @@ button{font:inherit}
   const badge=document.getElementById('badge');
   const flash=document.getElementById('flash');
   const burst=document.getElementById('burst');
-  const H=610;
+  const art=document.getElementById('archiveArt');
   const zones=[
-    'Surface Intake','Reference Stacks','Case Files','Microfilm Vault',
-    'Lost Media','Redacted Wing','The Abyss','Forbidden Stacks',
-    'Black Shelf','The Final Shelf'
+    'Surface','Reference Hall','Maps & Atlas','Interviews','Case Files',
+    'Restricted','Microfilm','The Vault','The Abyss','The Final Shelf'
   ];
-  let depth=0;
-  const max=(zones.length-1)*H;
+  let progress=0;
 
+  function maxTravel(){
+    return Math.max(0,world.getBoundingClientRect().height-window.innerHeight+190);
+  }
   function apply(){
-    world.style.transform='translate3d(0,'+(-depth)+'px,0)';
-    const idx=Math.max(0,Math.min(zones.length-1,Math.floor((depth+H*.35)/H)));
-    depthEl.textContent=Math.round(depth).toLocaleString();
+    const travel=maxTravel();
+    const depth=travel*(progress/(zones.length-1));
+    world.style.transform='translate3d(-50%,'+(-depth)+'px,0)';
+    const idx=Math.max(0,Math.min(zones.length-1,Math.round(progress)));
+    depthEl.textContent=Math.round(progress*610).toLocaleString();
     zoneEl.textContent=zones[idx];
     badge.textContent=zones[idx];
   }
@@ -130,12 +140,15 @@ button{font:inherit}
   }
 
   document.querySelectorAll('[data-drop]').forEach(btn=>btn.addEventListener('click',()=>{
-    depth=Math.min(max,depth+Number(btn.dataset.drop||0));
+    const amount=Number(btn.dataset.drop||0);
+    const step=amount>=600?1.45:amount>=300?.82:.42;
+    progress=Math.min(zones.length-1,progress+step);
     apply();
     if(btn.dataset.rare)rareBurst();
   }));
-  document.getElementById('reset').addEventListener('click',()=>{depth=0;apply()});
-  apply();
+  document.getElementById('reset').addEventListener('click',()=>{progress=0;apply()});
+  window.addEventListener('resize',apply,{passive:true});
+  if(art.complete)apply(); else art.addEventListener('load',apply,{once:true});
 })();
 </script>
 </body>
