@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#14101d">
+<title>Deep Archive Motion Test</title>
+<style>
+:root{
+  --ink:#14101d;--ink2:#21192c;--plum:#3b2a45;--plum2:#59405f;
+  --paper:#d7c59b;--paper2:#b49a68;--wood:#69492f;--wood2:#3e2a1d;
+  --steel:#677087;--steel2:#3d4353;--gold:#e0b763;--blue:#8fd7ff;
+  --muted:#b9adc6;--danger:#d96262;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--ink);color:#f5edd9;font-family:"Courier New",monospace}
+button{font:inherit}
+.stage{position:fixed;inset:0;overflow:hidden;background:#120f19;image-rendering:pixelated}
+.sky,.world,.dust{position:absolute;left:0;top:-980px;width:100%;height:7600px;transform:translate3d(0,0,0);will-change:transform}
+.sky{background:
+  radial-gradient(circle at 20% 8%,rgba(255,214,135,.12) 0 90px,transparent 92px),
+  radial-gradient(circle at 78% 28%,rgba(143,215,255,.07) 0 120px,transparent 124px),
+  linear-gradient(#39294a 0%,#2c213b 22%,#211a30 46%,#181421 72%,#0d0c13 100%);
+  transition:transform 980ms cubic-bezier(.22,.9,.22,1)}
+.world{transition:transform 980ms cubic-bezier(.22,.9,.22,1)}
+.dust{pointer-events:none;opacity:.26;background:repeating-linear-gradient(to bottom,transparent 0 198px,rgba(255,255,255,.025) 198px 202px);transition:transform 980ms cubic-bezier(.22,.9,.22,1)}
+.shaft{position:absolute;top:0;bottom:0;left:50%;width:210px;transform:translateX(-50%);background:
+ linear-gradient(90deg,#181821 0 15px,#73798d 15px 21px,#292b37 21px 189px,#73798d 189px 195px,#181821 195px 210px);
+ border-left:4px solid #8f96a9;border-right:4px solid #8f96a9}
+.rail{position:absolute;top:0;bottom:0;width:8px;background:repeating-linear-gradient(to bottom,#15151c 0 18px,#8b91a3 18px 30px);opacity:.65}
+.rail.a{left:calc(50% - 72px)} .rail.b{left:calc(50% + 64px)}
+.floor{position:absolute;left:50%;width:min(1060px,96vw);height:610px;transform:translateX(-50%);display:grid;grid-template-columns:1fr 210px 1fr;gap:28px;align-items:center}
+.floor::before{content:"";position:absolute;left:0;right:0;bottom:30px;height:22px;background:#2b2030;border-top:4px solid #594861;border-bottom:4px solid #0e0c12}
+.zone{position:absolute;left:50%;top:20px;transform:translateX(-50%);z-index:2;padding:7px 12px;background:#17121f;border:3px solid #735c7c;box-shadow:0 0 0 3px #0c0910;color:var(--gold);font-size:12px;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.stack{display:grid;gap:13px;padding:0 10px}
+.shelf{position:relative;height:104px;background:linear-gradient(var(--wood) 0 14px,var(--wood2) 14px);border:4px solid #271910;overflow:hidden}
+.shelf::after{content:"";position:absolute;left:6px;right:6px;bottom:5px;height:6px;background:#2e1d13}
+.books{position:absolute;left:9px;right:9px;bottom:12px;top:20px;display:flex;gap:3px;align-items:flex-end}
+.book{width:13px;border:2px solid rgba(0,0,0,.28);background:#746a8d}
+.book:nth-child(3n){background:#8c665b}.book:nth-child(4n){background:#6f8051}.book:nth-child(5n){background:#55768b}.book:nth-child(7n){background:#87556f}
+.cabinet{height:126px;background:repeating-linear-gradient(to bottom,#66503b 0 34px,#3e2c20 34px 38px);border:4px solid #281a12;position:relative}
+.cabinet::after{content:"";position:absolute;left:50%;top:14px;bottom:14px;width:3px;background:#2e2119}
+.notice{width:150px;height:104px;margin:auto;background:#55472f;border:4px solid #271d12;position:relative}
+.notice i{position:absolute;background:var(--paper);border:2px solid #826f50}
+.notice i:nth-child(1){width:48px;height:30px;left:12px;top:13px}.notice i:nth-child(2){width:62px;height:24px;right:9px;bottom:13px;background:var(--paper2)}.notice i:nth-child(3){width:38px;height:18px;right:16px;top:12px}
+.boxes{display:flex;gap:8px;justify-content:center;align-items:flex-end;height:110px}
+.box{width:58px;height:48px;background:#6d5637;border:4px solid #342716}.box:nth-child(2){height:70px}.box:nth-child(3){height:58px}
+.pipe{height:112px;position:relative}.pipe::before{content:"";position:absolute;left:22%;right:22%;top:12px;height:16px;background:#5f6576;border:3px solid #252733}.pipe::after{content:"";position:absolute;left:47%;top:12px;bottom:8px;width:16px;background:#5f6576;border:3px solid #252733}
+.elevator{position:fixed;left:50%;top:50%;width:132px;height:154px;transform:translate(-50%,-50%);z-index:10;pointer-events:none}
+.car{position:absolute;inset:0;background:linear-gradient(#747d93 0 13px,#444b5c 13px 100%);border:4px solid #171820;box-shadow:0 0 0 4px #929aad}
+.window{position:absolute;left:23px;top:27px;width:86px;height:44px;background:#102333;border:4px solid #191b23;overflow:hidden}
+.window::after{content:"";position:absolute;inset:6px;background:linear-gradient(90deg,transparent 0 44%,rgba(143,215,255,.2) 44% 54%,transparent 54%)}
+.badge{position:absolute;left:50%;top:86px;transform:translateX(-50%);padding:5px 7px;background:#251d2c;border:3px solid #8a7393;color:var(--gold);font-size:10px;white-space:nowrap}
+.lamp{position:fixed;left:50%;top:calc(50% - 204px);width:18px;height:72px;transform:translateX(-50%);background:#595f70;z-index:8;pointer-events:none}
+.lamp::after{content:"";position:absolute;left:50%;bottom:-9px;width:78px;height:26px;transform:translateX(-50%);background:#ffd887;border:4px solid #765e32;box-shadow:0 0 30px rgba(255,216,135,.22)}
+.hud{position:fixed;top:max(12px,env(safe-area-inset-top));left:12px;right:12px;z-index:20;display:flex;justify-content:space-between;gap:10px;pointer-events:none}
+.card{pointer-events:auto;background:rgba(18,14,26,.92);border:3px solid #695677;box-shadow:0 0 0 3px #0b0910;padding:10px 12px;max-width:360px}
+.card h1{font-size:15px;color:var(--gold);margin:0 0 5px}.card p{font-size:10px;line-height:1.4;color:#ded3e7;margin:0}
+.readout{position:fixed;left:50%;bottom:calc(82px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:20;background:rgba(18,14,26,.94);border:3px solid #695677;box-shadow:0 0 0 3px #0b0910;padding:8px 13px;text-align:center;min-width:220px;font-size:11px}
+.readout strong{color:var(--gold);font-size:14px}
+.controls{position:fixed;left:10px;right:10px;bottom:max(10px,env(safe-area-inset-bottom));z-index:25;display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:7px}
+.controls button{min-height:52px;border:3px solid #76658b;box-shadow:0 0 0 3px #0a0810;background:#342943;color:#fff4dd;padding:7px 9px;font-weight:900;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.controls button:active{transform:translateY(2px)}
+.controls .uncommon{background:#3d394c}.controls .rare{background:#60324f;border-color:#9b6484;color:#ffe2b1}.controls .reset{width:58px;background:#27444e}
+.flash{position:fixed;inset:0;background:rgba(255,230,173,.14);opacity:0;pointer-events:none;z-index:30;transition:opacity 130ms linear}.flash.on{opacity:1}
+.burst{position:fixed;left:50%;top:50%;z-index:24;pointer-events:none}
+.spark{position:absolute;width:7px;height:7px;background:var(--gold);opacity:0;transition:transform 520ms cubic-bezier(.2,.9,.2,1),opacity 520ms ease}
+@media(max-width:700px){
+ .card{max-width:260px}.card p{display:none}.floor{grid-template-columns:1fr 154px 1fr;gap:12px}.shaft{width:154px}.rail.a{left:calc(50% - 52px)}.rail.b{left:calc(50% + 44px)}
+ .elevator{width:112px;height:138px}.window{left:18px;width:76px}.badge{font-size:9px}.stack{padding:0 2px}.shelf{height:92px}.notice{width:112px}.cabinet{height:112px}
+}
+@media(prefers-reduced-motion:reduce){.sky,.world,.dust{transition-duration:1ms}.spark,.flash{transition-duration:1ms}}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="sky" id="sky"></div>
+  <div class="world" id="world"></div>
+  <div class="dust" id="dust"></div>
+</div>
+
+<div class="hud">
+  <div class="card">
+    <h1>DEEP ARCHIVE — MOTION TEST</h1>
+    <p>Temporary prototype. The archive is mostly static art; only three layers move with GPU-friendly transforms when you press a result button.</p>
+  </div>
+</div>
+
+<div class="lamp"></div>
+<div class="elevator">
+  <div class="car"></div>
+  <div class="window"></div>
+  <div class="badge" id="badge">Surface Intake</div>
+</div>
+
+<div class="readout">
+  DEPTH <strong id="depth">0</strong> ft · <span id="zone">Surface Intake</span>
+</div>
+
+<div class="controls">
+  <button data-drop="170">Common<br><small>small drop</small></button>
+  <button data-drop="340" class="uncommon">Uncommon<br><small>medium drop</small></button>
+  <button data-drop="610" data-rare="1" class="rare">Rare<br><small>big drop</small></button>
+  <button id="reset" class="reset" aria-label="Reset">↺</button>
+</div>
+
+<div class="flash" id="flash"></div>
+<div class="burst" id="burst"></div>
+
+<script>
+(()=>{
+  const world=document.getElementById('world');
+  const sky=document.getElementById('sky');
+  const dust=document.getElementById('dust');
+  const depthEl=document.getElementById('depth');
+  const zoneEl=document.getElementById('zone');
+  const badge=document.getElementById('badge');
+  const flash=document.getElementById('flash');
+  const burst=document.getElementById('burst');
+
+  const H=610;
+  const zones=[
+    'Surface Intake','Daily Clippings','Reference Stacks','Interview Files',
+    'Restricted Reading','Microfilm Vault','Sealed Records','Lost Media',
+    'Redacted Wing','Black Shelf'
+  ];
+
+  function books(seed,count=18){
+    let out='';
+    for(let i=0;i<count;i++){
+      const h=24+((seed*19+i*17)%50);
+      out+='<i class="book" style="height:'+h+'px"></i>';
+    }
+    return '<div class="books">'+out+'</div>';
+  }
+
+  function leftSet(i){
+    const types=[
+      '<div class="shelf">'+books(i+2,18)+'</div><div class="shelf">'+books(i+5,15)+'</div><div class="notice"><i></i><i></i><i></i></div>',
+      '<div class="cabinet"></div><div class="shelf">'+books(i+3,20)+'</div><div class="boxes"><div class="box"></div><div class="box"></div><div class="box"></div></div>',
+      '<div class="shelf">'+books(i+1,16)+'</div><div class="pipe"></div><div class="shelf">'+books(i+7,19)+'</div>'
+    ];
+    return types[i%types.length];
+  }
+
+  function rightSet(i){
+    const types=[
+      '<div class="notice"><i></i><i></i><i></i></div><div class="shelf">'+books(i+9,17)+'</div><div class="cabinet"></div>',
+      '<div class="shelf">'+books(i+4,16)+'</div><div class="boxes"><div class="box"></div><div class="box"></div><div class="box"></div></div><div class="shelf">'+books(i+8,18)+'</div>',
+      '<div class="pipe"></div><div class="shelf">'+books(i+6,20)+'</div><div class="notice"><i></i><i></i><i></i></div>'
+    ];
+    return types[(i+1)%types.length];
+  }
+
+  world.innerHTML='<div class="shaft"></div><div class="rail a"></div><div class="rail b"></div>'+
+    zones.map((z,i)=>'<section class="floor" style="top:'+(980+i*H)+'px"><div class="zone">'+z+'</div><div class="stack">'+leftSet(i)+'</div><div></div><div class="stack">'+rightSet(i)+'</div></section>').join('');
+
+  let depth=0;
+  const max=(zones.length-1)*H;
+
+  function apply(){
+    const y=-depth;
+    world.style.transform='translate3d(0,'+y+'px,0)';
+    sky.style.transform='translate3d(0,'+(y*.34)+'px,0)';
+    dust.style.transform='translate3d(0,'+(y*.12)+'px,0)';
+    const idx=Math.max(0,Math.min(zones.length-1,Math.floor((depth+H*.32)/H)));
+    depthEl.textContent=Math.round(depth).toLocaleString();
+    zoneEl.textContent=zones[idx];
+    badge.textContent=zones[idx];
+  }
+
+  function rareBurst(){
+    burst.innerHTML='';
+    const sparks=[];
+    for(let i=0;i<16;i++){
+      const p=document.createElement('i');p.className='spark';burst.appendChild(p);
+      const a=(Math.PI*2*i)/16,dist=42+(i%4)*16;
+      sparks.push([p,Math.cos(a)*dist,Math.sin(a)*dist]);
+    }
+    requestAnimationFrame(()=>{
+      sparks.forEach(([p,x,y])=>{p.style.opacity='1';p.style.transform='translate3d('+x+'px,'+y+'px,0)'});
+      setTimeout(()=>sparks.forEach(([p])=>p.style.opacity='0'),120);
+    });
+    flash.classList.add('on');
+    setTimeout(()=>flash.classList.remove('on'),120);
+    setTimeout(()=>burst.innerHTML='',700);
+  }
+
+  document.querySelectorAll('[data-drop]').forEach(btn=>btn.addEventListener('click',()=>{
+    depth=Math.min(max,depth+Number(btn.dataset.drop||0));
+    apply();
+    if(btn.dataset.rare)rareBurst();
+  }));
+
+  document.getElementById('reset').addEventListener('click',()=>{depth=0;apply()});
+  apply();
+})();
+</script>
+</body>
+</html>
