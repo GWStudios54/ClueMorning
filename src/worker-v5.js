@@ -8,6 +8,7 @@ const PLAY_TARGETS={
 };
 const OWNER_ADMIN_COOKIE='cm_owner_admin';
 const OWNER_ADMIN_HASH='6616d27148a3b24037d545e8befbcd0ce77a1ba8b1eb3abbfd0aa690e1da371c';
+const DAILY_COMPARE_COLUMNS={grid:'grid_score',groups:'groups_score',trail:'trail_score',link:'link_score',steps:'steps_score',deepcut:'deepcut_score'};
 
 function json(data,status=200,extraHeaders={}){
   return new Response(JSON.stringify(data),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store',...extraHeaders}});
@@ -17,6 +18,8 @@ function pacificDateKey(d=new Date()){
   const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d),get=t=>parts.find(p=>p.type===t)?.value||'';
   return `${get('year')}-${get('month')}-${get('day')}`;
 }
+function safePlayerId(value){const id=String(value||'');return /^[A-Za-z0-9-]{8,64}$/.test(id)?id:''}
+function safeScore(value){const score=Number(value);return Number.isFinite(score)&&score>=0&&score<=1000000?Math.round(score):null}
 function normalizeAdminCode(value){return String(value||'').trim().toUpperCase().replace(/\s+/g,'')}
 async function sha256Hex(value){
   const bytes=new TextEncoder().encode(String(value));
@@ -41,6 +44,75 @@ async function ownerAdminActive(request){return validOwnerAdminCode(cookieValue(
 function ownerAdminCookie(code){
   return `${OWNER_ADMIN_COOKIE}=${encodeURIComponent(normalizeAdminCode(code))}; Path=/; Max-Age=31536000; HttpOnly; Secure; SameSite=Strict`;
 }
+
+async function competitionApi(request,env){
+  if(request.method!=='GET')return json({error:'Method not allowed.'},405);
+  if(!env.DB)return json({enabled:false,reason:'Leaderboard database is unavailable.'},503);
+  const url=new URL(request.url),board=String(url.searchParams.get('board')||'').toLowerCase();
+  const rawDate=String(url.searchParams.get('date')||pacificDateKey()),date=/^\d{4}-\d{2}-\d{2}$/.test(rawDate)?rawDate:pacificDateKey();
+  const playerId=safePlayerId(url.searchParams.get('playerId')),score=safeScore(url.searchParams.get('score'));
+  if(!playerId)return json({error:'Invalid player ID.'},400);
+  if(score===null)return json({error:'Invalid score.'},400);
+  if(board!=='today'&&board!=='lastcall'&&!DAILY_COMPARE_COLUMNS[board])return json({error:'Unknown daily leaderboard.'},400);
+  try{
+    let row;
+    if(board==='today'){
+      row=await env.DB.prepare(`WITH players AS (
+          SELECT player_id FROM leaderboard WHERE date=?
+          UNION
+          SELECT player_id FROM leaderboard_game_scores WHERE date=? AND game IN ('grid','groups','trail','link','steps','deepcut','lastcall')
+        ), legacy AS (
+          SELECT * FROM leaderboard WHERE date=?
+        ), games AS (
+          SELECT player_id,
+            MAX(CASE WHEN game='grid' THEN score END) AS grid_score,
+            MAX(CASE WHEN game='groups' THEN score END) AS groups_score,
+            MAX(CASE WHEN game='trail' THEN score END) AS trail_score,
+            MAX(CASE WHEN game='link' THEN score END) AS link_score,
+            MAX(CASE WHEN game='steps' THEN score END) AS steps_score,
+            MAX(CASE WHEN game='deepcut' THEN score END) AS deepcut_score,
+            MAX(CASE WHEN game='lastcall' THEN score END) AS lastcall_score
+          FROM leaderboard_game_scores WHERE date=? AND game IN ('grid','groups','trail','link','steps','deepcut','lastcall') GROUP BY player_id
+        ), daily AS (
+          SELECT p.player_id,
+            COALESCE(g.grid_score,l.grid_score,0)+COALESCE(g.groups_score,l.groups_score,0)+COALESCE(g.trail_score,l.trail_score,0)+
+            COALESCE(g.link_score,l.link_score,0)+COALESCE(g.steps_score,l.steps_score,0)+COALESCE(g.deepcut_score,l.deepcut_score,0)+COALESCE(g.lastcall_score,0) AS score
+          FROM players p LEFT JOIN legacy l ON l.player_id=p.player_id LEFT JOIN games g ON g.player_id=p.player_id
+        )
+        SELECT COUNT(*) AS opponents,
+          COALESCE(SUM(CASE WHEN score>? THEN 1 ELSE 0 END),0) AS better,
+          COALESCE(SUM(CASE WHEN score<? THEN 1 ELSE 0 END),0) AS lower,
+          COALESCE(SUM(CASE WHEN score=? THEN 1 ELSE 0 END),0) AS tied
+        FROM daily WHERE player_id<>?`).bind(date,date,date,date,score,score,score,playerId).first();
+    }else if(board==='lastcall'){
+      row=await env.DB.prepare(`SELECT COUNT(*) AS opponents,
+          COALESCE(SUM(CASE WHEN score>? THEN 1 ELSE 0 END),0) AS better,
+          COALESCE(SUM(CASE WHEN score<? THEN 1 ELSE 0 END),0) AS lower,
+          COALESCE(SUM(CASE WHEN score=? THEN 1 ELSE 0 END),0) AS tied
+        FROM leaderboard_game_scores WHERE date=? AND game='lastcall' AND player_id<>?`).bind(score,score,score,date,playerId).first();
+    }else{
+      const column=DAILY_COMPARE_COLUMNS[board];
+      row=await env.DB.prepare(`WITH scores AS (
+          SELECT player_id,score FROM leaderboard_game_scores WHERE date=? AND game=?
+          UNION ALL
+          SELECT player_id,${column} AS score FROM leaderboard WHERE date=?
+        ), ranked AS (
+          SELECT player_id,MAX(score) AS score FROM scores GROUP BY player_id
+        )
+        SELECT COUNT(*) AS opponents,
+          COALESCE(SUM(CASE WHEN score>? THEN 1 ELSE 0 END),0) AS better,
+          COALESCE(SUM(CASE WHEN score<? THEN 1 ELSE 0 END),0) AS lower,
+          COALESCE(SUM(CASE WHEN score=? THEN 1 ELSE 0 END),0) AS tied
+        FROM ranked WHERE player_id<>?`).bind(date,board,date,score,score,score,playerId).first();
+    }
+    const opponents=Number(row?.opponents||0),better=Number(row?.better||0),lower=Number(row?.lower||0),otherTies=Number(row?.tied||0);
+    return json({enabled:true,board,date,score,rank:better+1,total:opponents+1,opponents,tied:otherTies+1,beatPercent:opponents?Math.round(lower*100/opponents):null});
+  }catch(error){
+    console.error('Leaderboard comparison failed',error);
+    return json({enabled:false,reason:'Comparison is unavailable right now.'},503);
+  }
+}
+
 async function adminApi(request,env,path){
   if(path==='/api/admin/claim'){
     if(request.method!=='POST')return json({error:'Method not allowed.'},405);
@@ -111,6 +183,9 @@ async function polishDeepLinks(response,path){
     if(!html.includes('/retention-hooks.js')){
       html=html.replace('</body>','<script src="/retention-hooks.js?v=2" defer></script>\n</body>');
     }
+    if(!html.includes('/competition.js')){
+      html=html.replace('</body>','<script src="/competition.js?v=1" defer></script>\n</body>');
+    }
   }
   const headers=new Headers(response.headers);
   headers.delete('content-length');
@@ -121,6 +196,7 @@ async function polishDeepLinks(response,path){
 export default {
   async fetch(request,env,ctx){
     const url=new URL(request.url),path=url.pathname;
+    if(path==='/api/leaderboard/compare')return competitionApi(request,env);
     if(path.startsWith('/api/admin/'))return adminApi(request,env,path);
     if(request.method==='GET'&&(path==='/'||path==='/index.html')&&url.searchParams.has('play'))return legacyPlayRedirect(url);
     const response=await core.fetch(request,env,ctx);
