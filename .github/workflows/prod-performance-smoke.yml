@@ -1,0 +1,29 @@
+name: Production performance smoke
+
+on:
+  push:
+    branches: [prod-performance-smoke]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify optimized runtime is live
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 30); do
+            html="$(curl -fsSL --max-time 15 https://cluemorning.com/ || true)"
+            bridge="$(curl -fsSL --max-time 15 https://cluemorning.com/performance-bridge.js || true)"
+            if [[ "$html" == *"/performance-bridge.js"* ]] \
+              && [[ "$html" != *"daily-run-v2.js"* ]] \
+              && [[ "$bridge" == *"NativeMutationObserver"* ]] \
+              && [[ "$bridge" == *"clue:statechange"* ]]; then
+              echo "Optimized production runtime is live."
+              exit 0
+            fi
+            echo "Attempt $attempt: optimized runtime not visible yet"
+            sleep 5
+          done
+          echo "Optimized runtime never became visible in production."
+          exit 1
