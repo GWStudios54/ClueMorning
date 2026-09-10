@@ -1,0 +1,25 @@
+name: Production generated archive smoke
+on:
+  push:
+    branches: [prod-generated-archive-smoke]
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify generated pixel art is live
+        shell: bash
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 24); do
+            page="$(curl -fsSL https://cluemorning.com/archive-test/ || true)"
+            headers="$(curl -fsSI https://cluemorning.com/archive-test/archive-panorama.png || true)"
+            if grep -q 'archive-panorama.png' <<<"$page" \
+              && grep -q 'PIXEL ART MOTION TEST' <<<"$page" \
+              && grep -qi 'content-type: image/png' <<<"$headers"; then
+              echo "Generated pixel-art panorama is live."
+              exit 0
+            fi
+            echo "Waiting for production deploy ($i/24)..."
+            sleep 5
+          done
+          exit 1
