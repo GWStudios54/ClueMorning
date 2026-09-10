@@ -3,92 +3,350 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#100d16">
-<title>Deep Archive Pixel-Art Motion Test</title>
+<meta name="theme-color" content="#090a12">
+<title>Deep Archive — Stacked Pixel Test</title>
+<link rel="preload" as="image" href="/archive-test/archive-top.webp" type="image/webp">
+<link rel="preload" as="image" href="/archive-test/archive-middle.webp" type="image/webp">
+<link rel="preload" as="image" href="/archive-test/archive-bottom.webp" type="image/webp">
 <style>
-:root{--gold:#e0b763;--ink:#100d16;--panel:#17121fcc;--line:#6e5a7c;--muted:#c3b5cf}
+:root{
+  --ink:#090a12;
+  --panel:rgba(11,12,20,.88);
+  --line:#6b587a;
+  --gold:#e1b55e;
+  --text:#f4ead6;
+}
 *{box-sizing:border-box}
-html,body{margin:0;height:100%;overflow:hidden;background:var(--ink);color:#f6eedb;font-family:"Courier New",monospace}
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:var(--ink);
+  color:var(--text);
+  font-family:"Courier New",monospace;
+}
 button{font:inherit}
-.stage{position:fixed;inset:0;overflow:hidden;background:radial-gradient(circle at 50% 20%,#2c2138 0,#16111d 45%,#09080d 100%)}
+.stage{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 12%,#27314b 0,#151827 44%,#090a12 100%);
+}
 .world{
-  position:absolute;top:0;left:50%;
-  width:clamp(680px,165vw,980px);
-  transform:translate3d(-50%,0,0);will-change:transform;
-  transition:transform 980ms cubic-bezier(.22,.9,.22,1);
-  image-rendering:pixelated
+  position:absolute;
+  top:0;
+  left:50%;
+  width:min(1180px,112vw);
+  transform:translate3d(-50%,0,0);
+  will-change:transform;
+  transition:transform 960ms cubic-bezier(.22,.9,.22,1);
+  backface-visibility:hidden;
 }
-.world img{
-  display:block;width:100%;height:auto;
-  user-select:none;pointer-events:none;
+.stack{display:block;width:100%}
+.scene{
+  position:relative;
+  display:block;
+  width:100%;
+  margin-top:-2px;
+  overflow:hidden;
+  background:#0b0d15;
+}
+.scene:first-child{margin-top:0}
+.scene img{
+  display:block;
+  width:100%;
+  height:auto;
+  user-select:none;
+  pointer-events:none;
   image-rendering:pixelated;
-  image-rendering:crisp-edges
+  image-rendering:crisp-edges;
 }
-.vignette{position:fixed;inset:0;pointer-events:none;z-index:6;box-shadow:inset 0 0 120px rgba(0,0,0,.55)}
-.elevator{position:fixed;left:50%;top:50%;width:134px;height:166px;transform:translate(-50%,-50%);z-index:10;pointer-events:none}
-.elevator::before{content:"";position:absolute;left:18px;right:18px;top:-38px;height:44px;border-left:6px solid #7c8498;border-right:6px solid #7c8498;background:repeating-linear-gradient(to bottom,#242731 0 8px,#5f6678 8px 13px)}
-.car{position:absolute;inset:0;background:linear-gradient(#7d8598 0 12px,#4c5263 12px 100%);border:4px solid #12141a;box-shadow:0 0 0 4px #9aa2b5,0 8px 28px rgba(0,0,0,.45)}
-.car::before,.car::after{content:"";position:absolute;top:16px;bottom:12px;width:10px;background:#353a48;border:2px solid #1a1d25}
-.car::before{left:8px}.car::after{right:8px}
-.window{position:absolute;left:24px;top:30px;width:86px;height:48px;background:#102433;border:4px solid #171a22;overflow:hidden}
-.window::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:4px;background:#263847}
-.window::after{content:"";position:absolute;inset:6px;background:linear-gradient(90deg,transparent 0 42%,rgba(143,215,255,.2) 42% 55%,transparent 55%)}
-.badge{position:absolute;left:50%;top:92px;transform:translateX(-50%);padding:5px 7px;background:#241c2c;border:3px solid #8c7397;color:var(--gold);font-size:9px;white-space:nowrap}
-.lamp{position:absolute;left:50%;bottom:12px;width:54px;height:12px;transform:translateX(-50%);background:#d8ad60;border:3px solid #5e4728}
-.lamp::after{content:"";position:absolute;left:50%;bottom:-17px;width:86px;height:22px;transform:translateX(-50%);background:rgba(255,210,120,.13);clip-path:polygon(28% 0,72% 0,100% 100%,0 100%)}
-.hud{position:fixed;top:max(10px,env(safe-area-inset-top));left:10px;right:10px;z-index:20;pointer-events:none}
-.card{width:min(390px,calc(100vw - 20px));background:var(--panel);border:3px solid var(--line);box-shadow:0 0 0 3px #09070d;padding:10px 12px;pointer-events:auto}
-.card h1{margin:0 0 4px;font-size:15px;color:var(--gold);letter-spacing:.04em}
-.card p{margin:0;color:#dfd3e7;font-size:10px;line-height:1.4}
-.readout{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:20;background:#17121fee;border:3px solid var(--line);box-shadow:0 0 0 3px #09070d;padding:8px 14px;text-align:center;min-width:238px;font-size:11px}
-.readout strong{color:var(--gold);font-size:15px}
-.controls{position:fixed;left:10px;right:10px;bottom:max(10px,env(safe-area-inset-bottom));z-index:25;display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:7px}
-.controls button{min-height:54px;border:3px solid #76658b;box-shadow:0 0 0 3px #09070d;background:#342943;color:#fff4dd;padding:7px 8px;font-weight:900;font-size:10px;text-transform:uppercase;letter-spacing:.04em}
+.scene + .scene::before{
+  content:"";
+  position:absolute;
+  z-index:2;
+  left:0;
+  right:0;
+  top:0;
+  height:24px;
+  pointer-events:none;
+  background:linear-gradient(to bottom,rgba(5,7,13,.72),rgba(5,7,13,0));
+}
+.vignette{
+  position:fixed;
+  inset:0;
+  z-index:6;
+  pointer-events:none;
+  box-shadow:inset 0 0 100px rgba(0,0,0,.42);
+}
+.depth-tint{
+  position:fixed;
+  inset:0;
+  z-index:5;
+  pointer-events:none;
+  background:linear-gradient(to bottom,rgba(8,16,30,0),rgba(9,10,25,.08) 55%,rgba(8,3,24,.18));
+}
+.elevator{
+  position:fixed;
+  left:50%;
+  top:50%;
+  width:126px;
+  height:156px;
+  z-index:10;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+  filter:drop-shadow(0 8px 12px rgba(0,0,0,.32));
+}
+.elevator::before{
+  content:"";
+  position:absolute;
+  left:18px;
+  right:18px;
+  top:-40px;
+  height:44px;
+  border-left:5px solid #777f90;
+  border-right:5px solid #777f90;
+  background:repeating-linear-gradient(to bottom,#1a1d27 0 8px,#596173 8px 12px);
+}
+.car{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(#7c8497 0 11px,#454c5c 11px 100%);
+  border:4px solid #10131a;
+  box-shadow:0 0 0 3px #8e96aa;
+}
+.car::before,.car::after{
+  content:"";
+  position:absolute;
+  top:14px;
+  bottom:12px;
+  width:9px;
+  background:#313745;
+  border:2px solid #171a22;
+}
+.car::before{left:8px}
+.car::after{right:8px}
+.window{
+  position:absolute;
+  left:22px;
+  top:28px;
+  width:82px;
+  height:48px;
+  overflow:hidden;
+  background:#102533;
+  border:4px solid #151922;
+}
+.window::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:#263b4c;
+}
+.window::after{
+  content:"";
+  position:absolute;
+  inset:6px;
+  background:linear-gradient(90deg,transparent 0 42%,rgba(150,220,255,.2) 42% 55%,transparent 55%);
+}
+.badge{
+  position:absolute;
+  left:50%;
+  top:91px;
+  transform:translateX(-50%);
+  min-width:88px;
+  padding:5px 7px;
+  white-space:nowrap;
+  text-align:center;
+  background:#211926;
+  color:var(--gold);
+  border:3px solid #8a7394;
+  font-size:8px;
+  font-weight:700;
+}
+.car-light{
+  position:absolute;
+  left:50%;
+  bottom:12px;
+  width:50px;
+  height:10px;
+  transform:translateX(-50%);
+  background:#dbad56;
+  border:3px solid #5d4324;
+}
+.hud{
+  position:fixed;
+  z-index:20;
+  top:max(10px,env(safe-area-inset-top));
+  left:10px;
+  right:10px;
+  pointer-events:none;
+}
+.card{
+  width:min(410px,calc(100vw - 20px));
+  padding:10px 12px;
+  pointer-events:auto;
+  background:var(--panel);
+  border:3px solid var(--line);
+  box-shadow:0 0 0 3px #07080d;
+  backdrop-filter:blur(3px);
+}
+.card h1{
+  margin:0 0 4px;
+  color:var(--gold);
+  font-size:14px;
+  letter-spacing:.04em;
+}
+.card p{
+  margin:0;
+  color:#d9cfe0;
+  font-size:10px;
+  line-height:1.4;
+}
+.readout{
+  position:fixed;
+  z-index:20;
+  left:50%;
+  bottom:calc(82px + env(safe-area-inset-bottom));
+  min-width:236px;
+  padding:8px 13px;
+  transform:translateX(-50%);
+  text-align:center;
+  background:rgba(11,12,20,.92);
+  border:3px solid var(--line);
+  box-shadow:0 0 0 3px #07080d;
+  font-size:10px;
+}
+.readout strong{
+  color:var(--gold);
+  font-size:14px;
+}
+.controls{
+  position:fixed;
+  z-index:25;
+  left:10px;
+  right:10px;
+  bottom:max(10px,env(safe-area-inset-bottom));
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr auto;
+  gap:7px;
+}
+.controls button{
+  min-height:54px;
+  padding:7px 8px;
+  color:#fff2dd;
+  background:#30263f;
+  border:3px solid #725f88;
+  box-shadow:0 0 0 3px #07080d;
+  font-size:10px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.035em;
+  touch-action:manipulation;
+}
 .controls button:active{transform:translateY(2px)}
 .controls small{font-size:8px;opacity:.72}
-.uncommon{background:#33474a!important}.rare{background:#60324f!important;border-color:#a0688b!important;color:#ffe0a2!important}.reset{width:58px;background:#294c57!important}
-.flash{position:fixed;inset:0;pointer-events:none;z-index:30;background:rgba(255,227,171,.16);opacity:0;transition:opacity 130ms linear}.flash.on{opacity:1}
-.burst{position:fixed;left:50%;top:50%;z-index:29;pointer-events:none}
-.spark{position:absolute;width:7px;height:7px;background:var(--gold);opacity:0;transition:transform 520ms cubic-bezier(.2,.9,.2,1),opacity 520ms ease}
-@media(max-width:700px){
-  .world{width:clamp(680px,165vw,760px)}
-  .elevator{width:112px;height:145px}
-  .window{left:19px;top:25px;width:74px;height:43px}
-  .badge{top:80px;font-size:8px}
-  .card p{display:none}
+.controls .uncommon{background:#28404a}
+.controls .rare{
+  color:#ffe2a3;
+  background:#5b2d4d;
+  border-color:#a16787;
 }
-@media(prefers-reduced-motion:reduce){.world{transition-duration:1ms}.spark,.flash{transition-duration:1ms}}
+.controls .reset{
+  width:58px;
+  background:#244653;
+}
+.flash{
+  position:fixed;
+  z-index:30;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  background:rgba(255,224,164,.15);
+  transition:opacity 120ms linear;
+}
+.flash.on{opacity:1}
+.burst{
+  position:fixed;
+  z-index:29;
+  left:50%;
+  top:50%;
+  pointer-events:none;
+}
+.spark{
+  position:absolute;
+  width:7px;
+  height:7px;
+  opacity:0;
+  background:var(--gold);
+  transition:transform 500ms cubic-bezier(.2,.9,.2,1),opacity 500ms ease;
+}
+@media(max-width:700px){
+  .world{width:max(680px,165vw)}
+  .elevator{width:108px;height:140px}
+  .elevator::before{left:15px;right:15px}
+  .window{left:18px;top:24px;width:72px;height:42px}
+  .badge{top:78px;font-size:7px;min-width:76px}
+  .car-light{bottom:10px}
+  .card p{display:none}
+  .vignette{box-shadow:inset 0 0 60px rgba(0,0,0,.36)}
+}
+@media(max-height:620px){
+  .card{display:none}
+  .readout{bottom:76px}
+}
+@media(prefers-reduced-motion:reduce){
+  .world,.flash,.spark{transition-duration:1ms}
+}
 </style>
 </head>
 <body>
 <div class="stage">
-  <div class="world" id="world"><img id="archiveArt" src="/archive-test/archive-panorama.png" width="320" height="716" alt="A sprawling pixel-art archive descending through increasingly strange collections"></div>
+  <div class="world" id="world">
+    <div class="stack" id="stack">
+      <section class="scene" aria-label="Upper archive">
+        <img src="/archive-test/archive-top.webp" width="1600" height="900" alt="" loading="eager" decoding="async" fetchpriority="high">
+      </section>
+      <section class="scene" aria-label="Museum depths">
+        <img src="/archive-test/archive-middle.webp" width="1600" height="900" alt="" loading="eager" decoding="async">
+      </section>
+      <section class="scene" aria-label="Cosmic archive">
+        <img src="/archive-test/archive-bottom.webp" width="1600" height="900" alt="" loading="eager" decoding="async">
+      </section>
+    </div>
+  </div>
 </div>
+
+<div class="depth-tint"></div>
 <div class="vignette"></div>
 
 <div class="hud">
   <div class="card">
-    <h1>DEEP ARCHIVE — PIXEL ART MOTION TEST</h1>
-    <p>The actual generated pixel-art archive is the world. No procedural shelves or boxes: the browser only moves the finished artwork when a result happens.</p>
+    <h1>DEEP ARCHIVE — STACKED PIXEL TEST</h1>
+    <p>Three finished pixel-art scenes form one descending archive. The artwork stays static; only the world container moves.</p>
   </div>
 </div>
 
-<div class="elevator">
+<div class="elevator" aria-hidden="true">
   <div class="car"></div>
   <div class="window"></div>
-  <div class="badge" id="badge">Surface Intake</div>
-  <div class="lamp"></div>
+  <div class="badge" id="badge">Surface Archive</div>
+  <div class="car-light"></div>
 </div>
 
-<div class="readout">
-  DEPTH <strong id="depth">0</strong> ft · <span id="zone">Surface Intake</span>
+<div class="readout" aria-live="polite">
+  DEPTH <strong id="depth">0</strong> ft · <span id="zone">Surface Archive</span>
 </div>
 
 <div class="controls">
-  <button data-drop="170">Common<br><small>small drop</small></button>
-  <button data-drop="340" class="uncommon">Uncommon<br><small>medium drop</small></button>
-  <button data-drop="610" data-rare="1" class="rare">Rare<br><small>big drop</small></button>
-  <button id="reset" class="reset" aria-label="Reset">↺</button>
+  <button type="button" data-step=".55">Common<br><small>small drop</small></button>
+  <button type="button" data-step="1.05" class="uncommon">Uncommon<br><small>medium drop</small></button>
+  <button type="button" data-step="1.80" data-rare="1" class="rare">Rare<br><small>big drop</small></button>
+  <button type="button" id="reset" class="reset" aria-label="Reset archive depth">↺</button>
 </div>
 
 <div class="flash" id="flash"></div>
@@ -97,58 +355,94 @@ button{font:inherit}
 <script>
 (()=>{
   const world=document.getElementById('world');
+  const stack=document.getElementById('stack');
   const depthEl=document.getElementById('depth');
   const zoneEl=document.getElementById('zone');
   const badge=document.getElementById('badge');
   const flash=document.getElementById('flash');
   const burst=document.getElementById('burst');
-  const art=document.getElementById('archiveArt');
-  const zones=[
-    'Surface','Reference Hall','Maps & Atlas','Interviews','Case Files',
-    'Restricted','Microfilm','The Vault','The Abyss','The Final Shelf'
-  ];
-  let progress=0;
+  const images=[...stack.querySelectorAll('img')];
 
-  function maxTravel(){
-    return Math.max(0,world.getBoundingClientRect().height-window.innerHeight+190);
+  const zones=[
+    'Surface Archive',
+    'Grand Reading Hall',
+    'Atlas Gallery',
+    'Natural History',
+    'Clockwork Museum',
+    'Specimen Vault',
+    'Deep Sanctuary',
+    'Astral Archive',
+    'The Final Shelf'
+  ];
+
+  const maxProgress=zones.length-1;
+  let progress=0;
+  let travel=0;
+  let resizeTimer=0;
+
+  function measure(){
+    travel=Math.max(0,stack.offsetHeight-window.innerHeight+150);
+    apply();
   }
+
   function apply(){
-    const travel=maxTravel();
-    const depth=travel*(progress/(zones.length-1));
-    world.style.transform='translate3d(-50%,'+(-depth)+'px,0)';
-    const idx=Math.max(0,Math.min(zones.length-1,Math.round(progress)));
-    depthEl.textContent=Math.round(progress*610).toLocaleString();
-    zoneEl.textContent=zones[idx];
-    badge.textContent=zones[idx];
+    const ratio=progress/maxProgress;
+    const y=travel*ratio;
+    world.style.transform='translate3d(-50%,'+(-y)+'px,0)';
+    const zoneIndex=Math.max(0,Math.min(maxProgress,Math.round(progress)));
+    const zone=zones[zoneIndex];
+    depthEl.textContent=Math.round(ratio*5400).toLocaleString();
+    zoneEl.textContent=zone;
+    badge.textContent=zone;
   }
 
   function rareBurst(){
-    burst.innerHTML='';
+    burst.replaceChildren();
     const sparks=[];
     for(let i=0;i<16;i++){
-      const p=document.createElement('i');p.className='spark';burst.appendChild(p);
-      const a=(Math.PI*2*i)/16,dist=44+(i%4)*16;
-      sparks.push([p,Math.cos(a)*dist,Math.sin(a)*dist]);
+      const p=document.createElement('i');
+      p.className='spark';
+      burst.appendChild(p);
+      const angle=(Math.PI*2*i)/16;
+      const distance=42+(i%4)*15;
+      sparks.push([p,Math.cos(angle)*distance,Math.sin(angle)*distance]);
     }
     requestAnimationFrame(()=>{
-      sparks.forEach(([p,x,y])=>{p.style.opacity='1';p.style.transform='translate3d('+x+'px,'+y+'px,0)'});
-      setTimeout(()=>sparks.forEach(([p])=>p.style.opacity='0'),120);
+      for(const [p,x,y] of sparks){
+        p.style.opacity='1';
+        p.style.transform='translate3d('+x+'px,'+y+'px,0)';
+      }
+      setTimeout(()=>{for(const [p] of sparks)p.style.opacity='0'},110);
     });
     flash.classList.add('on');
-    setTimeout(()=>flash.classList.remove('on'),120);
-    setTimeout(()=>burst.innerHTML='',700);
+    setTimeout(()=>flash.classList.remove('on'),110);
+    setTimeout(()=>burst.replaceChildren(),620);
   }
 
-  document.querySelectorAll('[data-drop]').forEach(btn=>btn.addEventListener('click',()=>{
-    const amount=Number(btn.dataset.drop||0);
-    const step=amount>=600?1.45:amount>=300?.82:.42;
-    progress=Math.min(zones.length-1,progress+step);
+  document.querySelectorAll('[data-step]').forEach(button=>{
+    button.addEventListener('click',()=>{
+      progress=Math.min(maxProgress,progress+Number(button.dataset.step||0));
+      apply();
+      if(button.dataset.rare)rareBurst();
+    });
+  });
+
+  document.getElementById('reset').addEventListener('click',()=>{
+    progress=0;
     apply();
-    if(btn.dataset.rare)rareBurst();
-  }));
-  document.getElementById('reset').addEventListener('click',()=>{progress=0;apply()});
-  window.addEventListener('resize',apply,{passive:true});
-  if(art.complete)apply(); else art.addEventListener('load',apply,{once:true});
+  });
+
+  window.addEventListener('resize',()=>{
+    clearTimeout(resizeTimer);
+    resizeTimer=setTimeout(measure,100);
+  },{passive:true});
+
+  Promise.all(images.map(img=>img.complete
+    ? Promise.resolve()
+    : new Promise(resolve=>img.addEventListener('load',resolve,{once:true}))
+  )).then(measure);
+
+  measure();
 })();
 </script>
 </body>
