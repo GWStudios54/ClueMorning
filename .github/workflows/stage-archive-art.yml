@@ -1,0 +1,47 @@
+name: Stage archive art assets
+
+on:
+  push:
+    branches:
+      - archive-stacked-high-quality-art
+
+permissions:
+  contents: write
+
+jobs:
+  stage-assets:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: archive-stacked-high-quality-art
+      - name: Download approved archive panels
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public/archive-test
+          curl -fL --retry 3 --retry-delay 2 \
+            'https://lh7-us.googleusercontent.com/docsdf/AFQj2d5Y5kEOjUw2aubPZ3wo8aWhLZxPwWeE2Tc7M1CXc_BOHUKtr05ywsxapvNpC7PF0kmA33BGwvBg-ajU3bYt4z3TN3PDlFy_bf9AHZspokbr0u3m8crJvM8XpYLTH5lJ-1eAwP6MY59Pe2JH0U1RrG8hg_6sXzj3PI1XWd1xehW3ja3r=s1600' \
+            -o public/archive-test/archive-top.png
+          curl -fL --retry 3 --retry-delay 2 \
+            'https://lh7-us.googleusercontent.com/docsdf/AFQj2d6lJSMbpovvj0q87esgVirFt5IXrmVUhO4P2sYJ3jYulCMffdLSiRUsMRvcd3G2ZehprPpvN00sEENF7mE1G9RtB9CV6iOinD4r7tKUAVIvhdzXceTdyJWBXa3JiiwluXEtTLHUpYuhdvU9BpPHDhN-XgdfOJpidcFsYwnq4DfGbxlo=s1600' \
+            -o public/archive-test/archive-middle.png
+          curl -fL --retry 3 --retry-delay 2 \
+            'https://lh7-us.googleusercontent.com/docsdf/AFQj2d6xV8ahmN45pjK7GvLmyTYKDOqrrf3WDfy4Ev-B4Zc5QwUOnvBnJI_ttB448bMZa03fjTRPMmMwmof9gFMwV-YEKukriZzRUzK4fuS5oegs3YMaHv5DqvPkfLacFa-Mdb9NM845u22nkxfklVGeCiFxyMYYKhPKpgYSLMcKI6dreCdw=s1600' \
+            -o public/archive-test/archive-bottom.png
+          file public/archive-test/archive-top.png
+          file public/archive-test/archive-middle.png
+          file public/archive-test/archive-bottom.png
+          test "$(wc -c < public/archive-test/archive-top.png)" -gt 100000
+          test "$(wc -c < public/archive-test/archive-middle.png)" -gt 100000
+          test "$(wc -c < public/archive-test/archive-bottom.png)" -gt 100000
+      - name: Commit archive panels
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/archive-test/archive-top.png public/archive-test/archive-middle.png public/archive-test/archive-bottom.png
+          git commit -m "Add high-quality stacked archive panels"
+          git push origin HEAD:archive-stacked-high-quality-art
