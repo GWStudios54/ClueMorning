@@ -1,0 +1,28 @@
+name: Production competition smoke
+
+on:
+  push:
+    branches: [prod-competition-smoke]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify competitive feedback is live
+        shell: bash
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 24); do
+            html="$(curl -fsS https://cluemorning.com/)"
+            if grep -q '/competition.js?v=1' <<<"$html"; then
+              body="$(curl -fsS 'https://cluemorning.com/api/leaderboard/compare?board=deepcut&date=2026-09-10&playerId=TESTPLAYER1234&score=400')"
+              grep -q '"enabled":true' <<<"$body"
+              grep -q '"rank":' <<<"$body"
+              grep -q '"beatPercent":' <<<"$body"
+              echo "Production competitive feedback is live."
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "Competitive feedback was not visible in production after 2 minutes."
+          exit 1
