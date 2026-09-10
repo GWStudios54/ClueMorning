@@ -2,6 +2,7 @@
   const CORE_STORE='clue-morning-state-v2.4';
   const LAST_STORE='clue-morning-last-call-v1';
   const TZ='America/Los_Angeles';
+  const LAST_CALL_START='2026-08-31';
   const GAMES=[
     {id:'letter',name:'Letter Grid',tab:'letter'},
     {id:'groups',name:'Four Groups',tab:'groups'},
@@ -11,6 +12,7 @@
     {id:'deepcut',name:'Deep Cut',tab:'deepcut'},
     {id:'lastcall',name:'Last Call',tab:'lastcall'}
   ];
+  const CORE_IDS=GAMES.filter(g=>g.id!=='lastcall').map(g=>g.id);
   const DAILY_IDS=new Set(['today',...GAMES.map(g=>g.tab)]);
   const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
   let currentDate='';
@@ -18,6 +20,7 @@
   let previousLastCallDone=null;
   let lastSignature='';
   let toastTimer=0;
+  let renderQueued=false;
 
   function read(key){try{return JSON.parse(localStorage.getItem(key)||'{}')||{}}catch{return {}}}
   function pacificDateKey(d=new Date()){
@@ -35,42 +38,44 @@
     const name=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][Math.max(0,month-1)]||'';
     return `${name} ${day}`.trim();
   }
-  function coreDay(key){return read(CORE_STORE).days?.[key]||{}}
-  function lastDay(key){return read(LAST_STORE).days?.[key]||{}}
-  function gameState(key,id){return id==='lastcall'?lastDay(key):coreDay(key)?.[id]||{}}
-  function gameScore(key,id){return Number(gameState(key,id)?.score||0)}
-  function gameDone(key,id){return !!gameState(key,id)?.done}
-  function completeDay(key){return GAMES.every(g=>gameDone(key,g.id))}
-  function totalFor(key){return GAMES.reduce((n,g)=>n+gameScore(key,g.id),0)}
-  function allKnownDates(){
-    return [...new Set([
-      ...Object.keys(read(CORE_STORE).days||{}),
-      ...Object.keys(read(LAST_STORE).days||{})
-    ])].filter(k=>/^\d{4}-\d{2}-\d{2}$/.test(k)).sort();
+  function coreState(){return read(CORE_STORE)}
+  function lastState(){return read(LAST_STORE)}
+  function coreDay(key,core=coreState()){return core.days?.[key]||{}}
+  function lastDay(key,last=lastState()){return last.days?.[key]||{}}
+  function gameState(key,id,core,last){return id==='lastcall'?lastDay(key,last):coreDay(key,core)?.[id]||{}}
+  function completeDay(key,core,last){
+    const c=coreDay(key,core);
+    if(!CORE_IDS.every(id=>c[id]?.done))return false;
+    return key<LAST_CALL_START?true:!!lastDay(key,last).done;
   }
-  function streakFor(key){
+  function allKnownDates(core,last){
+    return [...new Set([...Object.keys(core.days||{}),...Object.keys(last.days||{})])]
+      .filter(k=>/^\d{4}-\d{2}-\d{2}$/.test(k)).sort();
+  }
+  function totalFor(key,core,last){return GAMES.reduce((n,g)=>n+Number(gameState(key,g.id,core,last)?.score||0),0)}
+  function streakFor(key,core,last){
     if(!key)return 0;
     let cursor=key,streak=0;
     for(let i=0;i<730;i++){
-      if(completeDay(cursor)){streak++;cursor=shiftDateKey(cursor,-1);continue}
+      if(completeDay(cursor,core,last)){streak++;cursor=shiftDateKey(cursor,-1);continue}
       if(i===0){cursor=shiftDateKey(cursor,-1);continue}
       break;
     }
     return streak;
   }
-  function previousBest(key){
+  function previousBest(key,core,last){
     let best=0;
-    for(const d of allKnownDates()){
-      if(d===key||!completeDay(d))continue;
-      best=Math.max(best,totalFor(d));
+    for(const d of allKnownDates(core,last)){
+      if(d===key||!completeDay(d,core,last))continue;
+      best=Math.max(best,totalFor(d,core,last));
     }
     return best;
   }
   function metrics(){
-    const date=currentDate||pacificDateKey();
-    const rows=GAMES.map(g=>({...g,done:gameDone(date,g.id),score:gameScore(date,g.id)}));
+    const date=currentDate||pacificDateKey(),core=coreState(),last=lastState();
+    const rows=GAMES.map(g=>({...g,done:!!gameState(date,g.id,core,last)?.done,score:Number(gameState(date,g.id,core,last)?.score||0)}));
     const done=rows.filter(r=>r.done).length;
-    return {date,rows,done,total:rows.reduce((n,r)=>n+r.score,0),streak:streakFor(date),best:previousBest(date)};
+    return {date,rows,done,total:rows.reduce((n,r)=>n+r.score,0),streak:streakFor(date,core,last),best:previousBest(date,core,last)};
   }
   function activeId(){return $('.panel.active')?.id||$('.tab.active')?.dataset.tab||'today'}
   function nextGame(m,from=activeId()){
@@ -84,7 +89,7 @@
   }
   function milestone(done){
     if(done>=7)return 'Morning cleared';
-    if(done>=4)return `${7-done} to Super Streak`;
+    if(done>=4)return `${7-done} to SUPER STREAK`;
     if(done>=2)return `${4-done} to Hot Streak`;
     if(done===1)return '1 more to a streak';
     return 'Start today’s run';
@@ -98,6 +103,7 @@
     location.hash=`play=${game.tab}`;
   }
   function openLeaders(){const b=$('.tab[data-tab="leaders"]');if(b)b.click()}
+  function setText(selector,value){const el=$(selector);if(el&&el.textContent!==String(value))el.textContent=String(value)}
 
   function ensureStrip(){
     if($('#retentionRunStrip')||!$('.tabs'))return;
@@ -150,19 +156,13 @@
     ensureReport();
     const m=metrics(),rows=$('#morningReportRows');
     if(!rows)return;
-    $('#morningReportTotal').textContent=m.total.toLocaleString();
-    $('#morningReportStreak').textContent=m.streak.toLocaleString();
-    const best=$('#morningReportBest');
-    if(best)best.hidden=!(m.best>0&&m.total>m.best);
+    setText('#morningReportTotal',m.total.toLocaleString());
+    setText('#morningReportStreak',m.streak.toLocaleString());
+    const best=$('#morningReportBest');if(best)best.hidden=!(m.best>0&&m.total>m.best);
     rows.innerHTML=m.rows.map(r=>`<div class="morning-report-row"><span>${r.name}</span><strong>${r.done?r.score.toLocaleString():'—'}</strong><b>${r.done?'✓':''}</b></div>`).join('');
-    const status=$('#morningReportShareStatus');if(status)status.textContent='';
+    setText('#morningReportShareStatus','');
   }
-  function showReport(){
-    renderReport();
-    const d=$('#morningReportDialog');
-    if(d&&!d.open)d.showModal();
-  }
-
+  function showReport(){renderReport();const d=$('#morningReportDialog');if(d&&!d.open)d.showModal()}
   function reportShareText(m){
     const best=m.best>0&&m.total>m.best?' · PERSONAL BEST':'';
     return [
@@ -183,8 +183,7 @@
     const a=document.createElement('textarea');a.value=text;a.setAttribute('readonly','');a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();
   }
   async function shareReport(){
-    const m=metrics(),text=reportShareText(m),status=$('#morningReportShareStatus');
-    if(status)status.textContent='';
+    const m=metrics(),text=reportShareText(m),status=$('#morningReportShareStatus');if(status)status.textContent='';
     try{
       if(navigator.share){await navigator.share({title:'Clue Morning — Morning Report',text,url:'https://cluemorning.com/'});if(status)status.textContent='Shared.';return}
       await copy(text);if(status)status.textContent='Morning Report copied.';
@@ -196,73 +195,70 @@
 
   function ensureToast(){
     if($('#retentionToast'))return $('#retentionToast');
-    const t=document.createElement('div');t.id='retentionToast';t.className='retention-toast';t.hidden=true;
-    document.body.appendChild(t);return t;
+    const t=document.createElement('div');t.id='retentionToast';t.className='retention-toast';t.hidden=true;document.body.appendChild(t);return t;
   }
   function showToast(m){
-    const t=ensureToast(),next=nextGame(m);
-    if(!next)return;
+    const t=ensureToast(),next=nextGame(m);if(!next)return;
     t.innerHTML=`<div><span class="retention-kicker">RUN CONTINUES</span><strong>${m.done}/7 complete</strong><small>${milestone(m.done)}</small></div><button type="button">Next: ${next.name}</button>`;
     t.hidden=false;
     t.querySelector('button')?.addEventListener('click',()=>{t.hidden=true;openGame(next)},{once:true});
     clearTimeout(toastTimer);toastTimer=setTimeout(()=>{t.hidden=true},6500);
   }
 
-  function wireScoreDialog(m){
+  function syncScoreDialog(m){
     const button=$('#dailyScoreMore');
     if(!button)return;
-    if(!button.dataset.retentionWired){
-      button.dataset.retentionWired='1';
-      button.addEventListener('click',event=>{
-        const now=metrics();
-        event.preventDefault();event.stopImmediatePropagation();
-        $('#dailyScoreDialog')?.close();
-        if(now.done>=7)showReport();else openGame(nextGame(now));
-      },true);
-    }
     if(m.done>=7)button.textContent='View Morning Report';
-    else{
-      const next=nextGame(m);
-      button.textContent=next?`Next: ${next.name}`:'Play More Games';
-    }
-    const copy=$('#dailyScoreDialog .daily-score-copy');
-    if(copy&&m.done<7)copy.textContent=`${m.done}/7 complete. ${milestone(m.done)}.`;
-    else if(copy)copy.textContent='All seven are in. Your Morning Report is ready.';
+    else{const next=nextGame(m);button.textContent=next?`Next: ${next.name}`:'Play More Games'}
+    const copyEl=$('#dailyScoreDialog .daily-score-copy');
+    if(copyEl)copyEl.textContent=m.done>=7?'All seven are in. Your Morning Report is ready.':`${m.done}/7 complete. ${milestone(m.done)}.`;
   }
 
   function render(){
+    const pacificToday=pacificDateKey();
+    if(!currentDate||currentDate!==pacificToday){currentDate=pacificToday;previousDone=-1;previousLastCallDone=null;lastSignature=''}
     ensureStrip();ensureReport();
-    const m=metrics(),lastCallDone=gameDone(m.date,'lastcall');
-    const sig=`${m.date}:${m.done}:${m.total}:${m.rows.map(r=>r.done?'1':'0').join('')}:${activeId()}`;
-    if(sig===lastSignature){wireScoreDialog(m);return}
+    const m=metrics(),lastCallDone=!!m.rows.find(r=>r.id==='lastcall')?.done;
+    syncScoreDialog(m);
+    const sig=`${m.date}:${m.done}:${m.total}:${m.streak}:${m.rows.map(r=>r.done?'1':'0').join('')}:${activeId()}`;
+    if(sig===lastSignature)return;
     lastSignature=sig;
-    const strip=$('#retentionRunStrip');
-    if(strip)strip.hidden=!DAILY_IDS.has(activeId());
-    const status=$('#retentionRunStatus');if(status)status.textContent=`${m.done}/7 · ${milestone(m.done)}`;
+    const strip=$('#retentionRunStrip');if(strip)strip.hidden=!DAILY_IDS.has(activeId());
+    setText('#retentionRunStatus',`${m.done}/7 · ${milestone(m.done)}`);
     $$('#retentionSegments i').forEach((el,i)=>el.classList.toggle('done',i<m.done));
     const nextButton=$('#retentionNext');
     if(nextButton){
       if(m.done>=7)nextButton.textContent='Morning Report';
       else{const next=nextGame(m);nextButton.textContent=next?`Next: ${next.name}`:'Start a game'}
     }
-    wireScoreDialog(m);
-    if(previousDone>=0&&m.done>previousDone&&previousLastCallDone===false&&lastCallDone){
-      if(m.done>=7)setTimeout(showReport,260);else showToast(m);
+    setText('#todayTotal',m.total.toLocaleString());setText('#homeTotalScore',m.total.toLocaleString());setText('#streakCount',m.streak.toLocaleString());
+    if(previousDone>=0&&m.done>previousDone){
+      if(previousLastCallDone===false&&lastCallDone&&m.done>=7)setTimeout(showReport,180);
+      else if(m.done>=7)setTimeout(showReport,180);
+      else showToast(m);
     }
-    previousDone=m.done;
-    previousLastCallDone=lastCallDone;
+    previousDone=m.done;previousLastCallDone=lastCallDone;
   }
+  function schedule(){if(renderQueued)return;renderQueued=true;requestAnimationFrame(()=>{renderQueued=false;render()})}
+
+  document.addEventListener('click',event=>{
+    const more=event.target?.closest?.('#dailyScoreMore');
+    if(more){
+      const m=metrics();event.preventDefault();event.stopImmediatePropagation();$('#dailyScoreDialog')?.close();if(m.done>=7)showReport();else openGame(nextGame(m));return;
+    }
+    if(event.target?.closest?.('.tab,[data-open],[data-lastcall-home]'))setTimeout(schedule,0);
+  },true);
+  document.addEventListener('submit',()=>setTimeout(schedule,0),true);
+  window.addEventListener('clue:statechange',schedule);
+  window.addEventListener('clue-lastcall-update',schedule);
+  window.addEventListener('storage',schedule);
+  window.addEventListener('hashchange',schedule);
+  window.addEventListener('pageshow',schedule);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)schedule()});
 
   function boot(){
-    currentDate=pacificDateKey();
-    try{fetch('/api/daily',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(j?.date){currentDate=j.date;lastSignature='';render()}}).catch(()=>{})}catch{}
-    render();
-    const observer=new MutationObserver(()=>requestAnimationFrame(render));
-    observer.observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['class','open']});
-    window.addEventListener('storage',()=>{lastSignature='';render()});
-    window.addEventListener('clue-lastcall-update',()=>{lastSignature='';render()});
-    window.addEventListener('hashchange',()=>{lastSignature='';render()});
-    setInterval(()=>{const key=pacificDateKey();if(key!==currentDate){currentDate=key;previousDone=-1;previousLastCallDone=null;lastSignature=''}render()},1500);
+    currentDate=pacificDateKey();render();
+    try{fetch('/api/daily',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(j?.date&&j.date!==currentDate){currentDate=j.date;previousDone=-1;previousLastCallDone=null;lastSignature='';schedule()}}).catch(()=>{})}catch{}
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();

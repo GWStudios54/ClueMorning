@@ -1,9 +1,10 @@
-const CACHE = 'clue-morning-pwa-v9';
+const CACHE = 'clue-morning-pwa-v10';
 const APP_SHELL = [
   '/',
   '/index.html',
   '/styles.css',
   '/styles-base.css',
+  '/performance-bridge.js',
   '/app.js',
   '/app-core.js',
   '/pwa.js',
@@ -13,7 +14,6 @@ const APP_SHELL = [
   '/daily-expansion.css',
   '/daily-presentation-fix.css',
   '/daily-presentation-fix.js',
-  '/daily-run-v2.js',
   '/last-call.css',
   '/last-call.js',
   '/presentation-v1.css',
@@ -63,8 +63,7 @@ self.addEventListener('fetch', event => {
   event.respondWith((async () => {
     try {
       const response = await fetch(request);
-      const previewRequest = url.searchParams.has('motion-preview');
-      if (response.ok && !previewRequest) {
+      if (response.ok) {
         const cache = await caches.open(CACHE);
         cache.put(request, response.clone()).catch(() => {});
       }
