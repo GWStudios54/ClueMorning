@@ -1,5 +1,5 @@
 // Competitive completion feedback for Clue Morning.
-// Event-driven only: no MutationObserver, no polling loop.
+// Event-driven only: no broad DOM observers or polling loop.
 (()=>{
   const CORE_STORE='clue-morning-state-v2.4';
   const LAST_STORE='clue-morning-last-call-v1';
