@@ -1,0 +1,29 @@
+name: Production archive art smoke
+
+on:
+  push:
+    branches:
+      - prod-archive-motion-smoke
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify upgraded archive art is live
+        shell: bash
+        run: |
+          set -euo pipefail
+          page="https://cluemorning.com/archive-test/"
+          art="https://cluemorning.com/archive-test/archive-world.svg"
+          for i in $(seq 1 24); do
+            body="$(curl -fsSL "$page" || true)"
+            svg="$(curl -fsSL "$art" || true)"
+            if grep -q "DEEP ARCHIVE — ART + MOTION TEST" <<<"$body"               && grep -q "archive-world.svg" <<<"$body"               && grep -q "THE FINAL SHELF" <<<"$svg"               && grep -q "fossil" <<<"$svg"               && grep -q "tentacles" <<<"$svg"; then
+              echo "Upgraded archive art is live."
+              exit 0
+            fi
+            echo "Waiting for production deploy ($i/24)..."
+            sleep 5
+          done
+          echo "Upgraded prototype did not become live within the retry window."
+          exit 1
