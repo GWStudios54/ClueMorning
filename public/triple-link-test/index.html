@@ -361,7 +361,7 @@
 
     .attempt.on,.success .attempt{opacity:1}
 
-    /* Light the baked-off bulb itself; no drawn bulb and no visible circular ring. */
+    /* Emissive light only: a tiny blurred source creates glow, never a replacement bulb shape. */
     .attempt.on,.success .attempt{
       opacity:1;
       box-shadow:none!important;
@@ -370,34 +370,35 @@
     .attempt.on::before,.success .attempt::before{
       content:""!important;
       position:absolute;
-      left:27%;
-      top:17%;
-      width:46%;
-      height:48%;
+      left:46%;
+      top:30%;
+      width:8%;
+      height:8%;
       border-radius:50%;
-      background:rgba(255,224,145,.025);
-      -webkit-backdrop-filter:brightness(1.85) saturate(1.35) contrast(1.04);
-      backdrop-filter:brightness(1.85) saturate(1.35) contrast(1.04);
+      background:rgba(255,245,205,.82);
       box-shadow:
-        0 0 6px rgba(255,235,166,.42),
-        0 0 15px rgba(255,190,83,.25),
-        0 0 28px rgba(255,137,37,.11);
+        0 0 5px 3px rgba(255,236,169,.62),
+        0 0 11px 7px rgba(255,203,103,.40),
+        0 0 20px 12px rgba(255,159,55,.22),
+        0 0 31px 18px rgba(255,116,28,.10);
+      filter:blur(2.8px);
+      mix-blend-mode:screen;
       pointer-events:none;
     }
     .attempt.on::after,.success .attempt::after{
       content:""!important;
       position:absolute;
-      left:-55%;
-      top:-45%;
-      width:210%;
-      height:190%;
+      left:20%;
+      top:4%;
+      width:60%;
+      height:72%;
       border-radius:50%;
       background:radial-gradient(ellipse at center,
-        rgba(255,225,140,.16) 0%,
-        rgba(255,188,78,.10) 26%,
-        rgba(255,143,42,.055) 44%,
-        transparent 70%);
-      filter:blur(11px);
+        rgba(255,238,177,.12) 0%,
+        rgba(255,204,110,.08) 35%,
+        rgba(255,159,62,.035) 56%,
+        transparent 74%);
+      filter:blur(5px);
       mix-blend-mode:screen;
       pointer-events:none;
     }
@@ -660,6 +661,6 @@
     requestAnimationFrame(fitSwitchboardText);
   })();
   </script>
-  <!-- switchboard-test-build: 2026-09-11n backdrop-light -->
+  <!-- switchboard-test-build: 2026-09-11o emissive-glow -->
 </body>
 </html>
