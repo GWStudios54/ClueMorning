@@ -46,6 +46,12 @@
     .water-tower{position:absolute;right:9%;top:-54px;width:80px;height:54px;border-radius:6px 6px 18px 18px;background:#1f2636;border:2px solid #333d53}
     .water-tower::before,.water-tower::after{content:"";position:absolute;top:50px;width:4px;height:65px;background:#2b3346}
     .water-tower::before{left:16px;transform:rotate(6deg)}.water-tower::after{right:16px;transform:rotate(-6deg)}
+    .scene-camera{
+      position:absolute;inset:0;pointer-events:none;
+      transform:translateY(var(--camera-shift,0px));
+      transition:transform 850ms cubic-bezier(.2,.8,.2,1);
+      will-change:transform;
+    }
     .fire-escape{position:absolute;left:19%;bottom:7%;width:72%;height:84%;pointer-events:none}
     .rail{position:absolute;left:0;right:0;height:2px;background:#6d7280;box-shadow:0 0 0 1px rgba(0,0,0,.6)}
     .rail::before,.rail::after{content:"";position:absolute;bottom:0;width:2px;height:22px;background:#6d7280}
@@ -62,24 +68,38 @@
       border-top:4px solid #3a4154;border-bottom:2px solid rgba(0,0,0,.5);
     }
     .ledge::before{content:"";position:absolute;left:0;right:0;top:3px;height:5px;background:repeating-linear-gradient(90deg,#202636 0 28px,#1a2030 28px 31px)}
-    .ledge.l0{bottom:0}.ledge.l1{bottom:20%}.ledge.l2{bottom:40%}.ledge.l3{bottom:60%}.ledge.l4{bottom:80%}
+    .ledge.l0{bottom:0}.ledge.l1{bottom:10%}.ledge.l2{bottom:20%}.ledge.l3{bottom:30%}.ledge.l4{bottom:40%}
+    .ledge.l5{bottom:50%}.ledge.l6{bottom:60%}.ledge.l7{bottom:70%}.ledge.l8{bottom:80%}
     .word-sign{
-      position:absolute;left:50%;transform:translate(-50%,50%);bottom:var(--y);
-      min-width:126px;padding:8px 13px;border:2px solid #6b6177;border-radius:8px;
+      position:absolute;transform:translate(-50%,50%);
+      min-width:112px;padding:7px 11px;border:2px solid #6b6177;border-radius:8px;
       background:rgba(10,12,20,.92);box-shadow:0 4px 0 #05070d,0 8px 18px rgba(0,0,0,.28);
-      color:#e9ddca;text-align:center;font:900 .82rem/1 "Courier New",monospace;letter-spacing:.16em;
-      opacity:.25;transition:opacity .28s ease,transform .45s ease,filter .28s ease;
+      color:#e9ddca;text-align:center;font:900 .73rem/1 "Courier New",monospace;letter-spacing:.14em;
+      opacity:.16;transition:opacity .28s ease,transform .45s ease,filter .28s ease,border-color .25s ease,color .25s ease;
     }
     .word-sign.active{opacity:1;color:#fff3d8;border-color:#a88e62;filter:drop-shadow(0 0 8px rgba(244,198,107,.23))}
-    .word-sign.current{color:var(--gold);transform:translate(-50%,50%) scale(1.06);border-color:var(--gold)}
+    .word-sign.current{color:var(--gold);transform:translate(-50%,50%) scale(1.08);border-color:var(--gold)}
+    .word-sign.target{opacity:.42;border-style:dashed}
+    .word-sign.target.active{opacity:1;border-style:solid}
     .climber{
-      position:absolute;left:calc(50% - 82px);bottom:var(--climb,0%);
-      width:25px;height:44px;transition:bottom .75s cubic-bezier(.2,.8,.2,1),left .75s ease;
-      z-index:8;filter:drop-shadow(0 5px 5px rgba(0,0,0,.45));
+      position:absolute;left:50%;bottom:0;
+      width:32px;height:54px;transform:translate(-50%,4px);
+      transition:left 360ms linear,bottom 520ms cubic-bezier(.2,.8,.2,1),transform 190ms ease;
+      z-index:8;filter:drop-shadow(0 6px 6px rgba(0,0,0,.45));
     }
-    .climber::before{content:"";position:absolute;left:7px;top:0;width:11px;height:11px;border-radius:50%;background:#e6c5a5}
-    .climber::after{content:"";position:absolute;left:4px;top:10px;width:17px;height:28px;border-radius:5px 5px 3px 3px;background:#8e5c4e;box-shadow:0 13px 0 -5px #2e3b54}
-    .bag{position:absolute;left:18px;top:17px;width:8px;height:13px;border-radius:3px;background:#38475e}
+    .climber-sprite{position:relative;width:100%;height:100%;transform-origin:center center}
+    .climber.facing-left .climber-sprite{transform:scaleX(-1)}
+    .climber-head{position:absolute;left:10px;top:1px;width:12px;height:12px;border-radius:50%;background:#e6c5a5}
+    .climber-body{position:absolute;left:7px;top:13px;width:18px;height:30px;border-radius:6px 6px 4px 4px;background:#8e5c4e;box-shadow:0 13px 0 -5px #2e3b54}
+    .climber-bag{position:absolute;left:21px;top:18px;width:8px;height:13px;border-radius:3px;background:#38475e}
+    .climber-scarf{position:absolute;left:21px;top:16px;width:13px;height:4px;border-radius:999px;background:#d6ba7c;transform-origin:left center}
+    .climber.walking .climber-sprite{animation:climber-bob .28s infinite alternate}
+    .climber.climbing .climber-sprite{animation:climber-climb .22s infinite alternate}
+    .climber.hopping{transform:translate(-50%,-10px)}
+    .climber.walking .climber-scarf,.climber.hopping .climber-scarf{animation:scarf-flick .24s infinite alternate}
+    @keyframes climber-bob{from{margin-top:0}to{margin-top:-3px}}
+    @keyframes climber-climb{from{margin-top:0}to{margin-top:-4px}}
+    @keyframes scarf-flick{from{transform:rotate(-7deg)}to{transform:rotate(10deg)}}
     .topbar{
       position:absolute;z-index:20;top:max(10px,env(safe-area-inset-top));left:10px;right:10px;
       display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;pointer-events:none
@@ -139,8 +159,8 @@
       .prompt{font-size:.58rem}
       form{grid-template-columns:minmax(0,1fr) 92px}
       .add{min-width:0}
-      .word-sign{min-width:108px;font-size:.72rem}
-      .climber{left:calc(50% - 70px)}
+      .word-sign{min-width:96px;font-size:.66rem}
+      .climber{width:30px;height:51px}
     }
     @media(max-height:700px){
       .climb-track{top:25%;bottom:29%}
@@ -149,6 +169,7 @@
       .stat{min-height:45px}
       .controls{padding:9px}
       .actions button{min-height:34px}
+      .scene-camera{transform:translateY(var(--camera-shift-compact,var(--camera-shift,0px)))}
     }
   </style>
 </head>
@@ -162,19 +183,25 @@
     <div class="skyline near" aria-hidden="true">
       <i class="n1"></i><i class="n2"></i><i class="n3"><span class="water-tower"></span></i><i class="n4"></i><i class="n5"></i>
     </div>
-    <div class="fire-escape" aria-hidden="true">
-      <span class="rail r1"></span><span class="rail r2"></span><span class="rail r3"></span><span class="rail r4"></span><span class="rail r5"></span>
-      <span class="stairs s1"></span><span class="stairs s2"></span><span class="stairs s3"></span><span class="stairs s4"></span>
-    </div>
+    <div class="scene-camera" id="camera" aria-hidden="true">
+      <div class="fire-escape">
+        <span class="rail r1"></span><span class="rail r2"></span><span class="rail r3"></span><span class="rail r4"></span><span class="rail r5"></span>
+        <span class="stairs s1"></span><span class="stairs s2"></span><span class="stairs s3"></span><span class="stairs s4"></span>
+      </div>
 
-    <div class="climb-track" id="track" aria-hidden="true">
-      <div class="ledge l0"></div><div class="ledge l1"></div><div class="ledge l2"></div><div class="ledge l3"></div><div class="ledge l4"></div>
-      <div class="word-sign active current" data-floor="0" style="--y:0%">COLD</div>
-      <div class="word-sign" data-floor="1" style="--y:20%">----</div>
-      <div class="word-sign" data-floor="2" style="--y:40%">----</div>
-      <div class="word-sign" data-floor="3" style="--y:60%">----</div>
-      <div class="word-sign" data-floor="4" style="--y:80%">WARM</div>
-      <div class="climber" id="climber" style="--climb:0%"><span class="bag"></span></div>
+      <div class="climb-track" id="track">
+        <div class="ledge l0"></div><div class="ledge l1"></div><div class="ledge l2"></div><div class="ledge l3"></div><div class="ledge l4"></div>
+        <div class="ledge l5"></div><div class="ledge l6"></div><div class="ledge l7"></div><div class="ledge l8"></div>
+        <div id="pathSigns"></div>
+        <div class="climber" id="climber">
+          <div class="climber-sprite">
+            <span class="climber-head"></span>
+            <span class="climber-body"></span>
+            <span class="climber-bag"></span>
+            <span class="climber-scarf"></span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="topbar">
@@ -222,90 +249,161 @@
       const WORDS=new Set([
         'COLD','CORD','CARD','WARD','WARM','WORD','WORE','CORE','CARE','CURE','CURL','CURD',
         'GOLD','TOLD','BOLD','FOLD','HOLD','MOLD','COLT','COLE','CODE','CONE','CORK','CORN',
-        'WOLD','WORE','WORM','FORM','FARM','HARM','HARD','WARY','WARP','WARN','WART'
+        'WOLD','WORM','FORM','FARM','HARM','HARD','WARY','WARP','WARN','WART'
       ]);
-      let path=[START], demoTimer=null;
-      const $=s=>document.querySelector(s);
-      const signs=[...document.querySelectorAll('.word-sign')];
+      const NODES=[
+        {x:50,y:0,edge:'ladder'},
+        {x:36,y:10,edge:'walk'},
+        {x:64,y:20,edge:'hop'},
+        {x:42,y:30,edge:'ladder'},
+        {x:61,y:40,edge:'walk'},
+        {x:37,y:50,edge:'hop'},
+        {x:65,y:60,edge:'ladder'},
+        {x:43,y:70,edge:'walk'},
+        {x:50,y:80,edge:null}
+      ];
+      const CAMERA=[0,0,12,30,52,78,106,136,168];
+      const CAMERA_COMPACT=[0,0,8,22,38,58,80,104,132];
 
-      function diffOne(a,b){
-        let n=0;
-        for(let i=0;i<4;i++) if(a[i]!==b[i]) n++;
-        return n===1;
+      let path=[START], placements=[{word:START,node:0}], currentNode=0, demoTimer=null, animating=false;
+      const $=s=>document.querySelector(s),climber=$('#climber'),camera=$('#camera'),signLayer=$('#pathSigns');
+
+      function diffOne(a,b){let n=0;for(let i=0;i<4;i++)if(a[i]!==b[i])n++;return n===1}
+      function score(){const moves=path.length-1;return Math.max(400,1000-Math.max(0,moves-PAR)*100)}
+      function setMessage(text,type=''){const el=$('#message');el.textContent=text;el.className='message'+(type?' '+type:'')}
+      function sleep(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
+      function setPosition(nodeIndex,xOverride=null,yOverride=null){
+        const n=NODES[nodeIndex];
+        climber.style.left=`${xOverride??n.x}%`;
+        climber.style.bottom=`${yOverride??n.y}%`;
       }
-      function score(){
-        const moves=path.length-1;
-        return Math.max(400,1000-Math.max(0,moves-PAR)*100);
+      function panCamera(nodeIndex){
+        camera.style.setProperty('--camera-shift',`${CAMERA[nodeIndex]}px`);
+        camera.style.setProperty('--camera-shift-compact',`${CAMERA_COMPACT[nodeIndex]}px`);
       }
-      function setMessage(text,type=''){
-        const el=$('#message'); el.textContent=text; el.className='message'+(type?' '+type:'');
+      function face(fromIndex,toIndex){
+        climber.classList.toggle('facing-left',NODES[toIndex].x<NODES[fromIndex].x);
       }
-      function render(){
-        const moves=path.length-1;
-        $('#moves').textContent=`${moves}/${MAX}`;
-        $('#score').textContent=score();
-
-        signs.forEach((el,i)=>{
-          if(i===4){
-            el.textContent=TARGET;
-            el.classList.toggle('active', path.at(-1)===TARGET || moves>=3);
-            el.classList.toggle('current', path.at(-1)===TARGET);
-            return;
-          }
-          const word=path[i]||'----';
-          el.textContent=word;
-          el.classList.toggle('active',i<path.length);
-          el.classList.toggle('current',i===path.length-1);
-        });
-
-        const visualFloor=Math.min(4,moves);
-        $('#climber').style.setProperty('--climb',`${visualFloor*20}%`);
-        $('#undo').disabled=path.length<=1;
-
-        if(path.at(-1)===TARGET){
-          $('#playUi').style.display='none';
-          $('#complete').classList.add('show');
-          $('#finalLine').textContent=`${TARGET} in ${moves} move${moves===1?'':'s'} · ${score()} points`;
-        } else {
-          $('#playUi').style.display='';
-          $('#complete').classList.remove('show');
+      function renderSigns(){
+        signLayer.innerHTML='';
+        const occupied=new Map(placements.map(p=>[p.node,p.word]));
+        for(let i=0;i<NODES.length;i++){
+          const n=NODES[i],word=occupied.get(i);
+          if(!word && i!==NODES.length-1)continue;
+          const el=document.createElement('div');
+          el.className='word-sign';
+          if(word)el.classList.add('active');
+          if(i===currentNode)el.classList.add('current');
+          if(i===NODES.length-1)el.classList.add('target');
+          el.style.left=`${n.x}%`;el.style.bottom=`${n.y}%`;
+          el.textContent=word||TARGET;
+          signLayer.appendChild(el);
         }
       }
-      function addWord(raw,quiet=false){
+      function renderHud(){
+        const moves=path.length-1;
+        $('#moves').textContent=`${moves}/${MAX}`;$('#score').textContent=score();
+        $('#undo').disabled=path.length<=1||animating;$('#demo').disabled=animating;$('#guess').disabled=animating;
+        document.querySelector('.add').disabled=animating;
+      }
+      function renderComplete(){
+        const won=path.at(-1)===TARGET,moves=path.length-1;
+        if(won){
+          $('#playUi').style.display='none';$('#complete').classList.add('show');
+          $('#finalLine').textContent=`${TARGET} in ${moves} move${moves===1?'':'s'} · ${score()} points`;
+        }else{$('#playUi').style.display='';$('#complete').classList.remove('show')}
+      }
+      function renderAll(){renderSigns();renderHud();renderComplete();setPosition(currentNode);panCamera(currentNode)}
+
+      async function moveCharacter(toIndex,mode,fast=false){
+        if(toIndex===currentNode)return;
+        const fromIndex=currentNode,from=NODES[fromIndex],to=NODES[toIndex],factor=fast ? .65 : 1;
+        face(fromIndex,toIndex);animating=true;renderHud();
+        climber.classList.remove('walking','climbing','hopping');
+
+        if(mode==='ladder'){
+          climber.classList.add('climbing');
+          climber.style.bottom=`${to.y}%`;await sleep(430*factor);
+          climber.classList.remove('climbing');climber.classList.add('walking');
+          climber.style.left=`${to.x}%`;await sleep(260*factor);
+        }else if(mode==='walk'){
+          climber.classList.add('walking');
+          climber.style.left=`${to.x}%`;await sleep(300*factor);
+          climber.style.bottom=`${to.y}%`;await sleep(330*factor);
+        }else{
+          climber.classList.add('hopping');
+          climber.style.left=`${to.x}%`;climber.style.bottom=`${to.y}%`;await sleep(430*factor);
+        }
+
+        currentNode=toIndex;panCamera(currentNode);
+        climber.classList.remove('walking','climbing','hopping');
+        animating=false;renderHud();
+      }
+
+      async function summitRun(){
+        while(currentNode<NODES.length-1){
+          const next=currentNode+1,mode=NODES[currentNode].edge||'walk';
+          await moveCharacter(next,mode,true);
+        }
+      }
+
+      async function addWord(raw,quiet=false){
+        if(animating)return false;
         const guess=String(raw||'').toUpperCase().replace(/[^A-Z]/g,'').slice(0,4);
-        if(guess.length!==4){ if(!quiet)setMessage('Enter exactly four letters.','bad'); return false; }
-        if(path.includes(guess)){ if(!quiet)setMessage('That rooftop is already in your path.','bad'); return false; }
-        if(!WORDS.has(guess)){ if(!quiet)setMessage(`${guess} is outside this small prototype dictionary.`,'bad'); return false; }
-        if(!diffOne(path.at(-1),guess)){ if(!quiet)setMessage(`Change exactly one letter from ${path.at(-1)}.`,'bad'); return false; }
-        if(path.length-1>=MAX){ if(!quiet)setMessage('Eight moves used. Reset the test to try again.','bad'); return false; }
-        path.push(guess);
-        $('#guess').value='';
-        if(guess===TARGET)setMessage('You made the roof.','good');
-        else if(!quiet)setMessage(`${guess} holds. Keep climbing.`,'good');
-        render();
-        return true;
+        if(guess.length!==4){if(!quiet)setMessage('Enter exactly four letters.','bad');return false}
+        if(path.includes(guess)){if(!quiet)setMessage('That rooftop is already in your path.','bad');return false}
+        if(!WORDS.has(guess)){if(!quiet)setMessage(`${guess} is outside this small prototype dictionary.`,'bad');return false}
+        if(!diffOne(path.at(-1),guess)){if(!quiet)setMessage(`Change exactly one letter from ${path.at(-1)}.`,'bad');return false}
+        if(path.length-1>=MAX){if(!quiet)setMessage('Eight moves used. Reset the test to try again.','bad');return false}
+
+        path.push(guess);$('#guess').value='';
+        if(guess===TARGET){
+          placements.push({word:TARGET,node:NODES.length-1});renderSigns();renderHud();
+          if(!quiet)setMessage('Target found. Take the roof.','good');
+          await summitRun();
+          setMessage('You made the roof.','good');
+        }else{
+          const next=Math.min(currentNode+1,NODES.length-1);
+          placements.push({word:guess,node:next});renderSigns();renderHud();
+          await moveCharacter(next,NODES[currentNode].edge||'walk');
+          if(!quiet)setMessage(`${guess} holds. Keep climbing.`,'good');
+        }
+        renderAll();return true;
       }
+
+      async function undo(){
+        if(path.length<=1||animating||path.at(-1)===TARGET)return;
+        path.pop();placements.pop();
+        const target=placements.at(-1)?.node??0;
+        const reverseMode=target<currentNode?'ladder':'walk';
+        await moveCharacter(target,reverseMode,true);
+        setMessage('Dropped back one rooftop.');renderAll();
+      }
+
       function reset(){
-        if(demoTimer) clearTimeout(demoTimer);
-        demoTimer=null; path=[START]; $('#guess').value=''; setMessage('One word closer to a higher view.'); render(); $('#guess').focus();
+        if(demoTimer)clearTimeout(demoTimer);
+        demoTimer=null;path=[START];placements=[{word:START,node:0}];currentNode=0;animating=false;
+        $('#guess').value='';setMessage('One word closer to a higher view.');renderAll();$('#guess').focus();
       }
+
       function playDemo(){
         reset();
-        const demo=['CORD','CARD','WARD','WARM'];
+        const demo=['BOLD','FOLD','GOLD','HOLD','WOLD','WORD','WARD','WARM'];
         let i=0;
-        const tick=()=>{
-          if(i>=demo.length){demoTimer=null;return;}
-          addWord(demo[i++],true);
-          demoTimer=setTimeout(tick,650);
+        const tick=async()=>{
+          if(i>=demo.length){demoTimer=null;return}
+          await addWord(demo[i++],true);
+          if(i<demo.length)demoTimer=setTimeout(tick,280);else demoTimer=null;
         };
         demoTimer=setTimeout(tick,350);
       }
-      $('#form').addEventListener('submit',e=>{e.preventDefault();addWord($('#guess').value);});
-      $('#undo').addEventListener('click',()=>{if(path.length>1){path.pop();setMessage('Dropped back one rooftop.');render();}});
+
+      $('#form').addEventListener('submit',async e=>{e.preventDefault();await addWord($('#guess').value)});
+      $('#undo').addEventListener('click',undo);
       $('#demo').addEventListener('click',playDemo);
       $('#again').addEventListener('click',reset);
       $('#resetTop').addEventListener('click',reset);
-      render();
+      renderAll();
     })();
   </script>
 </body>
