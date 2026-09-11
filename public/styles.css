@@ -776,3 +776,442 @@ html.deepcut-immersive #deepCutHistory{display:none}
     bottom:188px;
   }
 }
+
+
+/* Word Steps Rooftops — production immersive scene */
+.steps-immersive-topbar{display:none}
+
+html.steps-immersive,
+html.steps-immersive body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  overscroll-behavior:none;
+  background:#070a12;
+}
+html.steps-immersive .sunrise-bar,
+html.steps-immersive .masthead,
+html.steps-immersive .tabs,
+html.steps-immersive .retention-run-strip,
+html.steps-immersive footer{
+  display:none!important;
+}
+html.steps-immersive .app{
+  width:100%;
+  max-width:none;
+  height:100%;
+  margin:0;
+  padding:0;
+}
+html.steps-immersive #steps.panel.active{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:block;
+  width:100%;
+  height:100dvh;
+  margin:0;
+  padding:0;
+  overflow:hidden;
+  animation:none;
+  isolation:isolate;
+  background:#070a12;
+  color:#f4ead6;
+}
+html.steps-immersive #steps.panel.active::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  background:linear-gradient(to bottom,rgba(4,6,13,.72),rgba(4,6,13,.18) 24%,transparent 41%,transparent 72%,rgba(4,6,13,.72));
+}
+html.steps-immersive #steps.panel.active::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+  opacity:.075;
+  background:repeating-linear-gradient(to bottom,rgba(255,239,205,.05) 0 1px,rgba(0,0,0,.04) 1px 3px);
+  mix-blend-mode:soft-light;
+}
+html.steps-immersive #steps>.panel-head,
+html.steps-immersive #steps>.unlimited-play-bar{
+  display:none!important;
+}
+
+html.steps-immersive .steps-immersive-topbar{
+  position:absolute;
+  z-index:50;
+  top:max(10px,env(safe-area-inset-top));
+  left:10px;
+  right:10px;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:9px;
+  align-items:center;
+  pointer-events:none;
+}
+html.steps-immersive .steps-immersive-topbar>strong{
+  justify-self:center;
+  color:#edc779;
+  font:900 .63rem/1 "Courier New",monospace;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  text-shadow:0 3px 8px rgba(0,0,0,.75);
+}
+html.steps-immersive .steps-immersive-topbar button{
+  pointer-events:auto;
+  min-height:46px;
+  border:2px solid rgba(116,91,132,.93);
+  border-radius:14px;
+  background:rgba(9,10,18,.92);
+  color:#f6ead8;
+  box-shadow:0 0 0 2px rgba(3,4,9,.68),0 8px 22px rgba(0,0,0,.28);
+  backdrop-filter:blur(8px);
+}
+html.steps-immersive .steps-immersive-exit{
+  justify-self:start;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:0 13px;
+  font:800 .72rem/1 "Courier New",monospace;
+}
+html.steps-immersive .steps-immersive-exit .icon{transform:rotate(180deg)}
+html.steps-immersive .steps-immersive-help{
+  justify-self:end;
+  display:grid;
+  place-items:center;
+  width:46px;
+  padding:0;
+}
+
+html.steps-immersive .steps-rooftops-title{
+  position:absolute;
+  z-index:38;
+  top:calc(max(10px,env(safe-area-inset-top)) + 55px);
+  left:50%;
+  width:min(540px,88vw);
+  transform:translateX(-50%);
+  text-align:center;
+  pointer-events:none;
+  text-shadow:0 3px 10px rgba(0,0,0,.75);
+}
+html.steps-immersive .steps-rooftops-title small{
+  display:block;
+  margin-bottom:2px;
+  color:#c7b8cc;
+  font:900 .55rem/1 "Courier New",monospace;
+  letter-spacing:.19em;
+}
+html.steps-immersive .steps-rooftops-title strong{
+  display:block;
+  color:#f0d7a2;
+  font:700 clamp(1.1rem,5vw,1.45rem)/1 Georgia,"Times New Roman",serif;
+  letter-spacing:.07em;
+}
+
+html.steps-immersive .steps-rooftops-stats{
+  position:absolute;
+  z-index:39;
+  top:calc(max(10px,env(safe-area-inset-top)) + 101px);
+  left:50%;
+  width:min(470px,calc(100vw - 40px));
+  transform:translateX(-50%);
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:7px;
+  margin:0;
+}
+html.steps-immersive .steps-rooftops-stats .steps-rooftops-status{display:none}
+html.steps-immersive .steps-rooftops-stats .stat{
+  min-width:0;
+  padding:9px 6px 8px;
+  border:2px solid rgba(111,88,127,.92);
+  border-radius:12px;
+  background:rgba(10,11,19,.93);
+  box-shadow:0 0 0 2px rgba(4,5,10,.62),0 8px 18px rgba(0,0,0,.24);
+  text-align:center;
+  backdrop-filter:blur(8px);
+}
+html.steps-immersive .steps-rooftops-stats .stat strong{
+  display:block;
+  color:#f2d7a0;
+  font:900 .88rem/1 "Courier New",monospace;
+}
+html.steps-immersive .steps-rooftops-stats .stat span{
+  display:block;
+  margin-top:6px;
+  color:#cabfd0;
+  font:800 .52rem/1 "Courier New",monospace;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+}
+
+html.steps-immersive .steps-goal{
+  position:absolute;
+  z-index:39;
+  top:calc(max(10px,env(safe-area-inset-top)) + 168px);
+  left:50%;
+  width:auto;
+  max-width:none;
+  margin:0;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  gap:9px;
+  white-space:nowrap;
+  padding:9px 14px;
+  border:2px solid rgba(108,87,122,.9);
+  border-radius:13px;
+  background:rgba(9,10,18,.93);
+  box-shadow:0 0 0 2px rgba(4,5,10,.55),0 9px 20px rgba(0,0,0,.24);
+}
+html.steps-immersive .steps-goal>div{text-align:center}
+html.steps-immersive .steps-goal span{
+  display:inline;
+  color:#d4c8d6;
+  font:800 .61rem/1.2 "Courier New",monospace;
+  letter-spacing:0;
+}
+html.steps-immersive .steps-goal strong{
+  display:inline;
+  margin:0 0 0 5px;
+  color:#f1c86f;
+  font:900 .78rem/1.2 "Courier New",monospace;
+  letter-spacing:.08em;
+}
+html.steps-immersive .steps-goal>.icon{
+  width:1em;
+  height:1em;
+  color:#c6b6ca;
+  font-size:.8rem;
+}
+
+html.steps-immersive .steps-rooftops-stage{
+  position:absolute;
+  z-index:5;
+  left:50%;
+  top:calc(max(10px,env(safe-area-inset-top)) + 208px);
+  width:min(100vw,650px);
+  aspect-ratio:600/514;
+  transform:translateX(-50%);
+  overflow:hidden;
+  background:#08101b;
+  box-shadow:0 24px 55px rgba(0,0,0,.34);
+}
+html.steps-immersive .steps-rooftops-stage::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:18;
+  pointer-events:none;
+  box-shadow:inset 0 0 72px rgba(2,4,10,.24);
+}
+html.steps-immersive .steps-rooftops-world{
+  position:absolute;
+  z-index:6;
+  left:0;
+  top:0;
+  width:100%;
+  aspect-ratio:420/746;
+  transform:translateY(-51.2%);
+  transition:transform 620ms cubic-bezier(.2,.75,.2,1);
+  will-change:transform;
+}
+html.steps-immersive .steps-rooftops-image{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity .25s ease;
+  pointer-events:none;
+  user-select:none;
+}
+html.steps-immersive .steps-rooftops-stage.ready .steps-rooftops-image{opacity:1}
+html.steps-immersive .steps-rooftops-loading{
+  position:absolute;
+  z-index:20;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  padding:7px 10px;
+  border:1px solid rgba(205,154,73,.45);
+  border-radius:9px;
+  background:rgba(8,12,20,.88);
+  color:#dbc493;
+  font:800 .56rem/1 "Courier New",monospace;
+  letter-spacing:.08em;
+  transition:opacity .2s;
+}
+html.steps-immersive .steps-rooftops-stage.ready .steps-rooftops-loading{
+  opacity:0;
+  pointer-events:none;
+}
+
+html.steps-immersive .steps-rooftops-path{
+  position:absolute;
+  inset:0;
+  z-index:12;
+  display:block;
+  margin:0;
+  pointer-events:none;
+}
+html.steps-immersive .steps-rooftops-path .step-word{
+  position:absolute;
+  min-width:72px;
+  padding:5px 9px;
+  transform:translate(-50%,-50%);
+  border:1px solid rgba(205,154,73,.92);
+  border-radius:5px;
+  background:linear-gradient(180deg,rgba(15,22,34,.96),rgba(6,11,19,.98));
+  color:#ddd0d9;
+  box-shadow:0 0 0 2px rgba(3,7,12,.8),0 5px 15px rgba(0,0,0,.42),inset 0 0 0 1px rgba(245,207,132,.08);
+  text-align:center;
+  font:900 clamp(.52rem,2.45vw,.67rem)/1 "Courier New",monospace;
+  letter-spacing:.13em;
+  transition:transform .3s ease,color .3s ease,border-color .3s ease,box-shadow .3s ease;
+}
+html.steps-immersive .steps-rooftops-path .step-word.micro{
+  min-width:62px;
+  padding:4px 7px;
+  font-size:.49rem;
+  opacity:.92;
+}
+html.steps-immersive .steps-rooftops-path .step-word.current{
+  color:#f3c974;
+  border-color:#f0c76f;
+  transform:translate(-50%,-50%) scale(1.06);
+  box-shadow:0 0 0 2px rgba(3,7,12,.88),0 0 18px rgba(240,199,111,.24),0 7px 18px rgba(0,0,0,.46);
+}
+html.steps-immersive .steps-rooftops-path .step-word.target{
+  color:#f0d79d;
+  border-color:#a78a62;
+}
+
+html.steps-immersive .steps-rooftops-climber{
+  position:absolute;
+  z-index:16;
+  width:8.7%;
+  height:auto;
+  transform:translate(-50%,-100%);
+  transform-origin:50% 92%;
+  transition:left 340ms linear,top 540ms cubic-bezier(.2,.78,.2,1),filter 180ms ease;
+  filter:drop-shadow(0 5px 5px rgba(0,0,0,.72));
+  pointer-events:none;
+  user-select:none;
+}
+html.steps-immersive .steps-rooftops-climber.facing-left{transform:translate(-50%,-100%) scaleX(-1)}
+html.steps-immersive .steps-rooftops-climber.walking,
+html.steps-immersive .steps-rooftops-climber.climbing{animation:stepsPcBob .25s ease-in-out infinite alternate}
+html.steps-immersive .steps-rooftops-climber.hopping{animation:stepsPcHop .38s ease-out 1}
+@keyframes stepsPcBob{from{margin-top:0}to{margin-top:-4px}}
+@keyframes stepsPcHop{0%{margin-top:0}45%{margin-top:-15px}100%{margin-top:0}}
+
+html.steps-immersive .steps-rooftops-controls{
+  position:absolute;
+  z-index:45;
+  left:50%;
+  bottom:max(10px,env(safe-area-inset-bottom));
+  width:min(660px,calc(100vw - 18px));
+  transform:translateX(-50%);
+  padding:12px;
+  border:2px solid rgba(113,91,128,.96);
+  border-radius:18px;
+  background:linear-gradient(180deg,rgba(10,11,19,.97),rgba(8,9,16,.98));
+  box-shadow:0 0 0 2px rgba(5,6,11,.78),0 16px 40px rgba(0,0,0,.44);
+  backdrop-filter:blur(9px);
+}
+html.steps-immersive .steps-rooftops-form{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 104px;
+  gap:8px;
+  margin:0;
+}
+html.steps-immersive .steps-rooftops-form .text-input{
+  min-width:0;
+  min-height:54px;
+  padding:0 14px;
+  border:2px solid #765f8b;
+  border-radius:14px;
+  background:rgba(15,16,28,.97);
+  color:#fff2dc;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.025);
+  font:900 1rem/1 "Courier New",monospace;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+html.steps-immersive .steps-rooftops-form .text-input::placeholder{color:#897d91}
+html.steps-immersive .steps-rooftops-form .primary-button{
+  min-height:54px;
+  justify-content:center;
+  border:1px solid #c09c5e;
+  border-radius:12px;
+  background:linear-gradient(180deg,#315458,#223b40);
+  color:#f5dfb7;
+  box-shadow:0 0 0 2px #070910,0 0 0 3px rgba(127,92,49,.48),inset 0 0 0 1px rgba(255,225,169,.1);
+  font:900 .76rem/1 "Courier New",monospace;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+html.steps-immersive .steps-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:8px;
+}
+html.steps-immersive .steps-actions .secondary-button{
+  min-height:38px;
+  justify-content:center;
+  border:1px solid rgba(118,95,139,.82);
+  border-radius:10px;
+  background:rgba(18,18,31,.9);
+  color:#d6cbd8;
+  box-shadow:none;
+  font:800 .62rem/1 "Courier New",monospace;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+html.steps-immersive #stepsMessage{
+  min-height:1.3em;
+  margin:8px 0 0;
+  padding:0;
+  border:0;
+  background:none;
+  box-shadow:none;
+  color:#cbbfd0;
+  text-align:center;
+  font:800 .62rem/1.25 "Courier New",monospace;
+}
+html.steps-immersive #stepsMessage.good{color:#d9c17e}
+html.steps-immersive #stepsMessage.bad{color:#e09a94}
+html.steps-immersive #stepsMessage .solution-note{
+  margin:5px 0 0;
+  padding:0;
+  border:0;
+  background:none;
+  color:#e3d7c6;
+  font-size:.6rem;
+}
+
+@media(max-width:420px){
+  html.steps-immersive .steps-immersive-topbar{gap:7px}
+  html.steps-immersive .steps-immersive-exit{width:46px;padding:0;justify-content:center;font-size:0}
+  html.steps-immersive .steps-immersive-exit .icon{font-size:1.1rem}
+  html.steps-immersive .steps-immersive-topbar>strong{font-size:.57rem}
+  html.steps-immersive .steps-rooftops-title strong{font-size:1.18rem}
+  html.steps-immersive .steps-rooftops-form{grid-template-columns:minmax(0,1fr) 96px}
+}
+@media(max-height:690px){
+  html.steps-immersive .steps-rooftops-title{top:calc(max(7px,env(safe-area-inset-top)) + 48px)}
+  html.steps-immersive .steps-rooftops-stats{top:calc(max(7px,env(safe-area-inset-top)) + 88px)}
+  html.steps-immersive .steps-goal{top:calc(max(7px,env(safe-area-inset-top)) + 148px)}
+  html.steps-immersive .steps-rooftops-stage{top:calc(max(7px,env(safe-area-inset-top)) + 186px)}
+  html.steps-immersive .steps-rooftops-controls{padding:9px}
+  html.steps-immersive .steps-actions{margin-top:6px}
+  html.steps-immersive #stepsMessage{margin-top:6px}
+}
