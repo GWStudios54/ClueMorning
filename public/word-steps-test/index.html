@@ -332,7 +332,7 @@
 
     <div class="painted-frame" id="paintedFrame" aria-label="Painted rooftop climb">
       <div class="world-track" id="worldTrack">
-        <img id="paintedWorld" class="painted-world" src="./assets/rooftops-clean.webp" alt="">
+        <img id="paintedWorld" class="painted-world" alt="">
         <div id="pathLayer" class="path-layer"></div>
         <img class="climber" id="climber" src="./assets/rooftops-pc.webp" alt="" aria-hidden="true">
       </div>
@@ -370,11 +370,27 @@
     let path=[START],currentNode=0,demoTimer=null,animating=false;
     const $=s=>document.querySelector(s),climber=$('#climber'),layer=$('#pathLayer'),worldTrack=$('#worldTrack');
 
-    function armPaintedWorld(){
+    async function armPaintedWorld(){
       const img=$('#paintedWorld');
-      const ready=()=>document.documentElement.classList.add('painted-ready');
-      if(img.complete&&img.naturalWidth)ready();
-      else img.addEventListener('load',ready,{once:true});
+      const files=[
+        './clean-bg20/bg-00.b64',
+        './clean-bg20/bg-01.b64',
+        './clean-bg20/bg-02.b64'
+      ];
+      try{
+        const chunks=await Promise.all(files.map(async url=>{
+          const res=await fetch(url,{cache:'no-store'});
+          if(!res.ok)throw new Error('Rooftops background chunk '+res.status);
+          return (await res.text()).trim();
+        }));
+        const ready=()=>document.documentElement.classList.add('painted-ready');
+        img.addEventListener('load',ready,{once:true});
+        img.addEventListener('error',ready,{once:true});
+        img.src='data:image/webp;base64,'+chunks.join('');
+      }catch(err){
+        console.error('Rooftops background failed to assemble',err);
+        document.documentElement.classList.add('painted-ready');
+      }
     }
 
     function diffOne(a,b){let n=0;for(let i=0;i<4;i++)if(a[i]!==b[i])n++;return n===1}
@@ -447,6 +463,6 @@
     armPaintedWorld();renderAll();
   })();
   </script>
-  <!-- painted-world-build: 2026-09-11d clean-art-live-pc -->
+  <!-- painted-world-build: 2026-09-11e full-background-chunks -->
 </body>
 </html>
