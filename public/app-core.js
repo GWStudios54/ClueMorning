@@ -288,22 +288,203 @@ $('#linkForm').addEventListener('submit',async e=>{
   try{const attempt=s.guesses+1,r=await api('/api/link/guess',{guess,attempt});s.guesses++;input.value='';if(r.solved){s.won=true;s.done=true;s.answer=r.answer;s.note=r.note;s.score=[0,600,400,250][s.guesses]||250;$('#linkMessage').className='message good';$('#linkMessage').textContent=`${r.answer} — ${r.note}`}else if(s.guesses>=3){s.done=true;s.answer=r.answer||'';s.note=r.note||''}else{$('#linkMessage').className='message';$('#linkMessage').textContent='Not the link. Try again.'}renderLink()}catch(err){$('#linkMessage').textContent=err.message}
 });
 
-// Word Steps
+// Word Steps — Rooftops
+const STEPS_ROOFTOPS_NODES=[
+  {x:50,y:97.03,edge:'ladder'},{x:50,y:85.00,edge:'ladder'},{x:50,y:72.19,edge:'ladder'},
+  {x:50,y:61.09,edge:'ladder'},{x:50,y:50.94,edge:'ladder'},{x:50,y:40.63,edge:'ladder'},
+  {x:50,y:30.78,edge:'ladder'},{x:50,y:22.19,edge:'ladder'},{x:50,y:17.50,edge:null}
+];
+const STEPS_ROOFTOPS_LANDING_TWEAK=[0.00,0.06,0.10,0.12,0.12,0.10,0.08,0.05,0.00];
+const STEPS_ROOFTOPS_CAMERA=[-51.2,-46.2,-40.0,-33.5,-27.0,-20.5,-14.0,-7.0,0];
+let stepsRooftopsPromise=null,stepsRooftopsReady=false,stepsAnimating=false,stepsCurrentNode=0;
+
 function wordStepsScore(moves,par){return Math.max(400,1000-Math.max(0,moves-par)*100)}
+function stepsSleep(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
+async function warmStepsRooftops(){
+  const stage=$('#stepsRooftopsStage'),img=$('#stepsRooftopsImage');
+  if(!stage||!img)return;
+  if(stepsRooftopsReady){stage.classList.add('ready');return}
+  if(stepsRooftopsPromise)return stepsRooftopsPromise;
+  stepsRooftopsPromise=(async()=>{
+    try{
+      const urls=['/word-steps-rooftops/bg-00.b64','/word-steps-rooftops/bg-01.b64','/word-steps-rooftops/bg-02.b64'];
+      const chunks=await Promise.all(urls.map(async url=>{
+        const response=await fetch(url,{cache:'force-cache'});
+        if(!response.ok)throw new Error('Rooftops background '+response.status);
+        return (await response.text()).trim();
+      }));
+      await new Promise((resolve,reject)=>{
+        const done=()=>{img.removeEventListener('load',done);img.removeEventListener('error',fail);resolve()};
+        const fail=()=>{img.removeEventListener('load',done);img.removeEventListener('error',fail);reject(new Error('Rooftops image decode failed'))};
+        img.addEventListener('load',done,{once:true});
+        img.addEventListener('error',fail,{once:true});
+        img.src='data:image/webp;base64,'+chunks.join('');
+        if(img.complete&&img.naturalWidth)done();
+      });
+      stepsRooftopsReady=true;
+      stage.classList.add('ready');
+    }catch(err){
+      console.error('Word Steps Rooftops failed to load',err);
+      stage.classList.add('ready');
+    }
+  })();
+  return stepsRooftopsPromise;
+}
+function stepsNodeForState(){
+  const s=day?.steps;if(!s)return 0;
+  if(s.won&&s.path?.at(-1)===daily?.steps?.target)return 8;
+  return Math.min(Math.max(0,(s.path?.length||1)-1),7);
+}
+function stepsSetCamera(i){
+  const world=$('#stepsRooftopsWorld');if(!world)return;
+  const node=Math.max(0,Math.min(8,i));
+  world.style.transform='translateY('+STEPS_ROOFTOPS_CAMERA[node]+'%)';
+}
+function stepsSetPosition(i){
+  const climber=$('#stepsClimber');if(!climber)return;
+  const node=Math.max(0,Math.min(8,i)),n=STEPS_ROOFTOPS_NODES[node];
+  climber.style.left=n.x+'%';
+  climber.style.top=(n.y+STEPS_ROOFTOPS_LANDING_TWEAK[node])+'%';
+}
+function stepsSyncRooftopsPosition(){
+  if(!day?.steps||stepsAnimating)return;
+  stepsCurrentNode=stepsNodeForState();
+  stepsSetPosition(stepsCurrentNode);
+  stepsSetCamera(stepsCurrentNode);
+}
+function stepsFace(from,to){
+  const climber=$('#stepsClimber');if(!climber)return;
+  climber.classList.toggle('facing-left',STEPS_ROOFTOPS_NODES[to].x<STEPS_ROOFTOPS_NODES[from].x);
+}
+function stepsRenderRooftopsPath(){
+  const s=day?.steps,layer=$('#stepsPath');if(!s||!layer||!daily?.steps)return;
+  layer.innerHTML='';
+  const targetWord=daily.steps.target;
+  s.path.forEach((word,i)=>{
+    const node=word===targetWord?8:Math.min(i,7),n=STEPS_ROOFTOPS_NODES[node],el=document.createElement('span');
+    el.className='step-word'+(node===stepsCurrentNode?' current':'')+(node!==0&&node!==4&&node!==8?' micro':'');
+    el.textContent=word;
+    const side=node===0||node===8?50:(node%2?35.5:64.5);
+    el.style.left=side+'%';
+    el.style.top=n.y+'%';
+    layer.appendChild(el);
+  });
+  if(s.path.at(-1)!==targetWord){
+    const n=STEPS_ROOFTOPS_NODES[8],target=document.createElement('span');
+    target.className='step-word target';
+    target.textContent=targetWord;
+    target.style.left='50%';
+    target.style.top=n.y+'%';
+    layer.appendChild(target);
+  }
+}
+function stepsDisableControls(disabled=true){
+  const s=day?.steps;
+  const input=$('#stepsInput'),submit=$('#stepsForm button'),undo=$('#stepsUndo'),giveUp=$('#stepsGiveUp');
+  if(input)input.disabled=disabled||!!s?.done;
+  if(submit)submit.disabled=disabled||!!s?.done;
+  if(undo)undo.disabled=disabled||!!s?.done||(s?.path?.length||0)<=1;
+  if(giveUp)giveUp.disabled=disabled||!!s?.done;
+}
+async function stepsMoveCharacter(to,{fast=false}={}){
+  const climber=$('#stepsClimber');
+  to=Math.max(0,Math.min(8,to));
+  if(to===stepsCurrentNode){stepsSetPosition(to);stepsSetCamera(to);return}
+  if(!climber){stepsCurrentNode=to;return}
+  const from=stepsCurrentNode,factor=fast?.68:1;
+  stepsAnimating=true;
+  stepsDisableControls(true);
+  stepsFace(from,to);
+  climber.classList.remove('walking','climbing','hopping');
+  const mode=STEPS_ROOFTOPS_NODES[Math.min(from,7)].edge||'ladder';
+  if(mode==='walk')climber.classList.add('walking');
+  else if(mode==='hop')climber.classList.add('hopping');
+  else climber.classList.add('climbing');
+  stepsSetCamera(to);
+  stepsSetPosition(to);
+  await stepsSleep((mode==='hop'?390:560)*factor);
+  stepsCurrentNode=to;
+  climber.classList.remove('walking','climbing','hopping');
+  stepsAnimating=false;
+}
+async function stepsSummitRun(){
+  while(stepsCurrentNode<8)await stepsMoveCharacter(stepsCurrentNode+1,{fast:true});
+}
 function renderSteps(){
-  const s=day.steps,moves=Math.max(0,s.path.length-1);$('#stepsMoves').textContent=`${moves}/${daily.steps.maxMoves}`;$('#stepsPar').textContent=daily.steps.par;$('#stepsScore').textContent=s.score.toLocaleString();$('#stepsStatus').textContent=s.done?(s.won?'SOLVED':'REVEALED'):'OPEN';$('#stepsStart').textContent=daily.steps.start;$('#stepsTarget').textContent=daily.steps.target;
-  $('#stepsPath').innerHTML=s.path.map((w,i)=>`${i?'<span class="step-arrow">→</span>':''}<span class="step-word ${i===s.path.length-1?'current':''}">${escapeHtml(w)}</span>`).join('');
-  $('#stepsInput').disabled=s.done;$('#stepsForm button').disabled=s.done;$('#stepsUndo').disabled=s.done||s.path.length<=1;$('#stepsGiveUp').disabled=s.done;
-  if(s.done){const msg=$('#stepsMessage');msg.className=`message ${s.won?'good':'bad'}`;msg.innerHTML=s.won?`Reached ${daily.steps.target} in ${moves} move${moves===1?'':'s'} — ${s.score.toLocaleString()} points.`:`Path revealed.${s.solution?.length?`<div class="solution-note">${s.solution.map(escapeHtml).join(' → ')}</div>`:''}`}
+  const s=day.steps,moves=Math.max(0,s.path.length-1),shownScore=s.done?s.score:wordStepsScore(moves,daily.steps.par);
+  $('#stepsMoves').textContent=`${moves}/${daily.steps.maxMoves}`;
+  $('#stepsPar').textContent=daily.steps.par;
+  $('#stepsScore').textContent=shownScore.toLocaleString();
+  $('#stepsStatus').textContent=s.done?(s.won?'SOLVED':'REVEALED'):'OPEN';
+  $('#stepsStart').textContent=daily.steps.start;
+  $('#stepsTarget').textContent=daily.steps.target;
+  void warmStepsRooftops();
+  if(!stepsAnimating)stepsSyncRooftopsPosition();
+  stepsRenderRooftopsPath();
+  stepsDisableControls(stepsAnimating);
+  if(s.done){
+    const msg=$('#stepsMessage');
+    msg.className=`message ${s.won?'good':'bad'}`;
+    msg.innerHTML=s.won?`Reached ${daily.steps.target} in ${moves} move${moves===1?'':'s'} — ${s.score.toLocaleString()} points.`:`Path revealed.${s.solution?.length?`<div class="solution-note">${s.solution.map(escapeHtml).join(' → ')}</div>`:''}`;
+  }
   updateHome();
 }
-async function revealSteps(){const s=day.steps;if(s.done&&s.solution?.length){renderSteps();return}try{const r=await api('/api/steps/reveal',{finished:true});s.solution=r.solution||[]}catch{}s.done=true;s.won=false;s.score=0;renderSteps()}
+async function revealSteps(){
+  const s=day.steps;
+  if(s.done&&s.solution?.length){renderSteps();return}
+  try{const r=await api('/api/steps/reveal',{finished:true});s.solution=r.solution||[]}catch{}
+  s.done=true;s.won=false;s.score=0;renderSteps();
+}
 $('#stepsForm').addEventListener('submit',async e=>{
-  e.preventDefault();const s=day.steps;if(s.done)return;const input=$('#stepsInput'),guess=input.value.trim().toUpperCase().replace(/[^A-Z]/g,'');if(guess.length!==4){$('#stepsMessage').className='message bad';$('#stepsMessage').textContent='Enter exactly four letters.';return}const previous=s.path.at(-1);if(s.path.includes(guess)){$('#stepsMessage').className='message bad';$('#stepsMessage').textContent='That word is already in your path.';return}
-  try{const r=await api('/api/steps/check',{previous,guess});if(!r.accepted){$('#stepsMessage').className='message bad';$('#stepsMessage').textContent=r.reason==='change'?`Change exactly one letter from ${previous}.`:`${guess} isn't in the Word Steps dictionary.`;return}s.path.push(guess);input.value='';const moves=s.path.length-1;if(r.solved){s.done=true;s.won=true;s.score=wordStepsScore(moves,daily.steps.par);$('#stepsMessage').className='message good'}else if(moves>=daily.steps.maxMoves){await revealSteps();return}else{$('#stepsMessage').className='message good';$('#stepsMessage').textContent=`${guess} works. Keep going.`}renderSteps()}catch(err){$('#stepsMessage').className='message bad';$('#stepsMessage').textContent=err.message}
+  e.preventDefault();
+  const s=day.steps;if(s.done||stepsAnimating)return;
+  const input=$('#stepsInput'),guess=input.value.trim().toUpperCase().replace(/[^A-Z]/g,'');
+  if(guess.length!==4){$('#stepsMessage').className='message bad';$('#stepsMessage').textContent='Enter exactly four letters.';return}
+  const previous=s.path.at(-1);
+  if(s.path.includes(guess)){$('#stepsMessage').className='message bad';$('#stepsMessage').textContent='That word is already in your path.';return}
+  try{
+    const r=await api('/api/steps/check',{previous,guess});
+    if(!r.accepted){
+      $('#stepsMessage').className='message bad';
+      $('#stepsMessage').textContent=r.reason==='change'?`Change exactly one letter from ${previous}.`:`${guess} isn't in the Word Steps dictionary.`;
+      return;
+    }
+    s.path.push(guess);input.value='';
+    const moves=s.path.length-1;
+    stepsRenderRooftopsPath();
+    stepsDisableControls(true);
+    if(r.solved){
+      $('#stepsMessage').className='message good';
+      $('#stepsMessage').textContent='Target found. Take the roof.';
+      await stepsSummitRun();
+      s.done=true;s.won=true;s.score=wordStepsScore(moves,daily.steps.par);
+      renderSteps();
+      return;
+    }
+    const next=Math.min(moves,7);
+    await stepsMoveCharacter(next);
+    if(moves>=daily.steps.maxMoves){await revealSteps();return}
+    $('#stepsMessage').className='message good';
+    $('#stepsMessage').textContent=`${guess} holds. Keep climbing.`;
+    renderSteps();
+  }catch(err){
+    stepsAnimating=false;
+    $('#stepsMessage').className='message bad';
+    $('#stepsMessage').textContent=err.message;
+    renderSteps();
+  }
 });
-$('#stepsUndo').addEventListener('click',()=>{const s=day.steps;if(s.done||s.path.length<=1)return;s.path.pop();$('#stepsMessage').className='message';$('#stepsMessage').textContent='Last step removed.';renderSteps()});
-$('#stepsGiveUp').addEventListener('click',()=>{if(day.steps.done)return;if(confirm('Reveal one shortest path and finish Word Steps for today?'))void revealSteps()});
+$('#stepsUndo').addEventListener('click',async()=>{
+  const s=day.steps;if(s.done||s.path.length<=1||stepsAnimating)return;
+  s.path.pop();
+  stepsRenderRooftopsPath();
+  stepsDisableControls(true);
+  await stepsMoveCharacter(Math.max(0,stepsCurrentNode-1),{fast:true});
+  $('#stepsMessage').className='message';
+  $('#stepsMessage').textContent='Dropped back one rooftop.';
+  renderSteps();
+});
+$('#stepsGiveUp').addEventListener('click',()=>{if(day.steps.done||stepsAnimating)return;if(confirm('Reveal one shortest path and finish Word Steps for today?'))void revealSteps()});
 
 // Deep Cut
 const DEEPCUT_ARCHIVE_LANDINGS=[
