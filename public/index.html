@@ -182,11 +182,70 @@
   </section>
 
   <section id="deepcut" class="panel">
-    <div class="panel-head"><div><span class="game-label">TODAY'S RARITY TRIVIA</span><h2>Deep Cut</h2><p>Give one valid answer. The less obvious it is, the more it scores.</p></div><button class="round-button" data-help="deepcut" type="button" aria-label="Deep Cut help"><svg class="icon"><use href="#i-help"/></svg></button></div>
-    <div class="stats-row four"><div class="stat"><strong id="deepCutRound">1/8</strong><span>prompt</span></div><div class="stat"><strong id="deepCutScore">0</strong><span>score</span></div><div class="stat"><strong id="deepCutTimer">0:25</strong><span>time</span></div><div class="stat"><strong id="deepCutStatus">READY</strong><span>status</span></div></div>
-    <div id="deepCutIntro" class="start-card"><p>Eight open-answer prompts. You get 25 seconds for each. Invalid guesses do not end the prompt — keep trying until you land a valid answer. Familiar valid answers score, but the deeper cuts are worth more.</p><button id="deepCutStart" class="primary-button" type="button"><svg class="icon"><use href="#i-play"/></svg><span>Start Deep Cut</span></button></div>
-    <div id="deepCutPlay" hidden><div class="deepcut-prompt-card"><span>YOUR PROMPT</span><h3 id="deepCutPrompt">Ready?</h3></div><form id="deepCutForm" class="guess-form"><input id="deepCutInput" class="text-input" placeholder="Try an answer" autocomplete="off" spellcheck="false"><button class="primary-button" type="submit"><svg class="icon"><use href="#i-check"/></svg><span>Submit</span></button></form><p class="deepcut-hint">Wrong or invalid? Keep guessing until the clock runs out.</p></div>
-    <div id="deepCutDone" class="start-card" hidden><p>Today's eight are complete.</p><strong class="deepcut-final"><span id="deepCutDoneScore">0</span> points</strong></div>
+    <div class="panel-head"><div><span class="game-label">TODAY'S RARITY TRIVIA</span><h2>Deep Cut</h2><p>Give one valid answer. The less obvious it is, the deeper the Archive takes you.</p></div><button class="round-button" data-help="deepcut" type="button" aria-label="Deep Cut help"><svg class="icon"><use href="#i-help"/></svg></button></div>
+
+    <div class="deepcut-archive-stage" id="deepCutArchiveStage" aria-label="Deep Archive descent">
+      <div class="deepcut-archive-world" id="deepCutArchiveWorld" aria-hidden="true">
+        <div class="deepcut-archive-stack" id="deepCutArchiveStack">
+          <section class="deepcut-archive-scene deepcut-archive-new" data-pitch=".19">
+            <img src="/archive-test/archive-newsroom-25.webp" width="960" height="1200" alt="" loading="eager" decoding="async">
+            <div class="deepcut-archive-shaft"></div>
+          </section>
+          <section class="deepcut-archive-scene" data-pitch=".25">
+            <img src="/archive-test/archive-top.webp" width="1600" height="900" alt="" loading="eager" decoding="async">
+            <div class="deepcut-archive-shaft"></div>
+          </section>
+          <section class="deepcut-archive-scene" data-pitch=".26">
+            <img src="/archive-test/archive-middle.webp" width="1600" height="900" alt="" loading="lazy" decoding="async">
+            <div class="deepcut-archive-shaft"></div>
+          </section>
+          <section class="deepcut-archive-scene deepcut-archive-new" data-pitch=".17">
+            <img src="/archive-test/archive-museum-25.webp" width="960" height="1200" alt="" loading="lazy" decoding="async">
+            <div class="deepcut-archive-shaft"></div>
+          </section>
+          <section class="deepcut-archive-scene" data-pitch=".27">
+            <img src="/archive-test/archive-bottom.webp" width="1600" height="900" alt="" loading="lazy" decoding="async">
+            <div class="deepcut-archive-shaft"></div>
+          </section>
+          <section class="deepcut-archive-scene deepcut-archive-new" data-pitch=".17">
+            <img src="/archive-test/archive-cosmic-25.webp" width="960" height="1200" alt="" loading="lazy" decoding="async">
+            <div class="deepcut-archive-shaft"></div>
+          </section>
+          <div class="deepcut-archive-tail"></div>
+        </div>
+      </div>
+
+      <div class="deepcut-archive-retro"></div>
+      <div class="deepcut-archive-scanlines"></div>
+      <div class="deepcut-archive-vignette"></div>
+      <div class="deepcut-archive-flash" id="deepCutArchiveFlash"></div>
+
+      <div class="deepcut-archive-elevator" id="deepCutArchiveElevator" aria-hidden="true">
+        <img src="/archive-test/archive-elevator-25.webp" width="140" height="185" alt="">
+      </div>
+
+      <div class="deepcut-archive-readout">
+        <span>DEPTH <strong id="deepCutArchiveDepth">0</strong> ft</span>
+        <span id="deepCutArchiveZone">Newsroom Lobby</span>
+      </div>
+    </div>
+
+    <div class="stats-row four deepcut-stats"><div class="stat"><strong id="deepCutRound">1/8</strong><span>prompt</span></div><div class="stat"><strong id="deepCutScore">0</strong><span>score</span></div><div class="stat"><strong id="deepCutTimer">0:25</strong><span>time</span></div><div class="stat"><strong id="deepCutStatus">READY</strong><span>status</span></div></div>
+
+    <div id="deepCutIntro" class="start-card deepcut-start-card"><p>Eight open-answer prompts. You get 25 seconds for each. Invalid guesses do not end the prompt. Familiar valid answers descend one floor; stronger cuts go two; the rarest answers plunge three. Eight perfect answers reach the Final Shelf.</p><button id="deepCutStart" class="primary-button" type="button"><svg class="icon"><use href="#i-play"/></svg><span>Enter the Archive</span></button></div>
+
+    <div id="deepCutPlay" hidden>
+      <div class="deepcut-prompt-card"><span>YOUR PROMPT</span><h3 id="deepCutPrompt">Ready?</h3></div>
+      <form id="deepCutForm" class="guess-form"><input id="deepCutInput" class="text-input" placeholder="Try an answer" autocomplete="off" spellcheck="false"><button class="primary-button" type="submit"><svg class="icon"><use href="#i-check"/></svg><span>Submit</span></button></form>
+      <p class="deepcut-hint">Invalid answer? Keep guessing. The clock keeps running.</p>
+    </div>
+
+    <div id="deepCutDone" class="start-card deepcut-done-card" hidden>
+      <p>The Archive has your final record.</p>
+      <strong class="deepcut-final"><span id="deepCutDoneScore">0</span> points</strong>
+      <span class="deepcut-final-depth"><span id="deepCutDoneDepth">0</span> floors · <span id="deepCutDoneZone">Newsroom Lobby</span></span>
+    </div>
+
     <div id="deepCutMessage" class="message"></div><div id="deepCutHistory" class="deepcut-history"></div>
   </section>
 
