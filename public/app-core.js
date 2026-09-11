@@ -68,6 +68,7 @@ function selectTab(id){
   if(id==="archive")renderArchive();
   if(id==="leaders")loadLeaderboard();
   if(id==="unlimited")renderUnlimitedLibrary();
+  if(id==="deepcut"){warmDeepCutArchive();requestAnimationFrame(renderDeepCutArchive)}
 }
 $$('.tab').forEach(b=>b.addEventListener('click',()=>selectTab(b.dataset.tab)));
 $$('[data-open]').forEach(b=>b.addEventListener('click',()=>selectTab(b.dataset.open)));
@@ -266,6 +267,76 @@ $('#stepsUndo').addEventListener('click',()=>{const s=day.steps;if(s.done||s.pat
 $('#stepsGiveUp').addEventListener('click',()=>{if(day.steps.done)return;if(confirm('Reveal one shortest path and finish Word Steps for today?'))void revealSteps()});
 
 // Deep Cut
+const DEEPCUT_ARCHIVE_LANDINGS=[
+  {scene:0,y:.185,zone:'Newsroom Lobby'},
+  {scene:0,y:.375,zone:'City Desk'},
+  {scene:0,y:.565,zone:'Copy Desk'},
+  {scene:0,y:.755,zone:'Print Floor'},
+  {scene:0,y:.945,zone:'Morgue Files'},
+  {scene:1,y:.941,zone:'Reference Hall'},
+  {scene:2,y:.227,zone:'Natural History'},
+  {scene:2,y:.488,zone:'Clockwork Museum'},
+  {scene:2,y:.756,zone:'Specimen Vault'},
+  {scene:2,y:.987,zone:'Deep Stacks'},
+  {scene:3,y:.158,zone:'Atlas Gallery'},
+  {scene:3,y:.326,zone:'Fossil Hall'},
+  {scene:3,y:.495,zone:'Botanical Cabinet'},
+  {scene:3,y:.671,zone:'Orrery Hall'},
+  {scene:3,y:.832,zone:'Submerged Collection'},
+  {scene:3,y:.985,zone:'Abyssal Zoology'},
+  {scene:4,y:.289,zone:'Forbidden Observatory'},
+  {scene:4,y:.547,zone:'Relic Gallery'},
+  {scene:4,y:.842,zone:'Astral Stacks'},
+  {scene:5,y:.132,zone:'Celestial Archive'},
+  {scene:5,y:.286,zone:'Meteor Vault'},
+  {scene:5,y:.405,zone:'Impossible Index'},
+  {scene:5,y:.575,zone:'Black Shelf'},
+  {scene:5,y:.724,zone:'Final Catalog'},
+  {scene:5,y:.865,zone:'The Final Shelf'}
+];
+const DEEPCUT_ARCHIVE_FEET_PER_FLOOR=675;
+
+function deepCutArchiveFloorsForScore(score){
+  score=Number(score)||0;
+  if(score>=85)return 3;
+  if(score>=60)return 2;
+  if(score>=30)return 1;
+  return 0;
+}
+function deepCutArchiveStop(s=day?.deepcut){
+  return Math.min(24,(s?.answers||[]).reduce((n,a)=>n+(a?.accepted?deepCutArchiveFloorsForScore(a.score):0),0));
+}
+function renderDeepCutArchive(){
+  const s=day?.deepcut,stage=$('#deepCutArchiveStage'),world=$('#deepCutArchiveWorld'),stack=$('#deepCutArchiveStack'),elevator=$('#deepCutArchiveElevator');
+  if(!s||!stage||!world||!stack||!elevator||stage.clientWidth<2||stage.clientHeight<2)return;
+  const scenes=[...stack.querySelectorAll('.deepcut-archive-scene')],stop=deepCutArchiveStop(s),item=DEEPCUT_ARCHIVE_LANDINGS[stop],scene=scenes[item.scene];
+  if(!scene||scene.offsetHeight<2)return;
+  const landingY=scene.offsetTop+(scene.offsetHeight*item.y),pitch=scene.offsetHeight*Number(scene.dataset.pitch||.2);
+  const carHeight=Math.max(92,Math.min(210,pitch*.86));
+  elevator.style.height=Math.round(carHeight)+'px';
+  const anchor=Math.min(stage.clientHeight*.53,stage.clientHeight-112),desiredWorldY=anchor-landingY,worldY=Math.min(8,desiredWorldY);
+  world.style.transform='translate3d(-50%,'+Math.round(worldY)+'px,0)';
+  const landingScreenY=worldY+landingY;
+  elevator.style.top=Math.round(landingScreenY-(carHeight/2)+2)+'px';
+  const depth=$('#deepCutArchiveDepth'),zone=$('#deepCutArchiveZone'),doneDepth=$('#deepCutDoneDepth'),doneZone=$('#deepCutDoneZone');
+  if(depth)depth.textContent=(stop*DEEPCUT_ARCHIVE_FEET_PER_FLOOR).toLocaleString();
+  if(zone)zone.textContent=item.zone;
+  if(doneDepth)doneDepth.textContent=String(stop);
+  if(doneZone)doneZone.textContent=item.zone;
+}
+let deepCutArchiveWarmed=false,deepCutArchiveResizeRaf=0;
+function warmDeepCutArchive(){
+  if(deepCutArchiveWarmed)return;
+  const stack=$('#deepCutArchiveStack');if(!stack)return;
+  deepCutArchiveWarmed=true;
+  for(const img of stack.querySelectorAll('img[loading="lazy"]')){const preload=new Image();preload.src=img.src}
+}
+function deepCutArchivePulse(score){
+  if((Number(score)||0)<85)return;
+  const flash=$('#deepCutArchiveFlash');if(!flash)return;
+  flash.classList.remove('on');
+  requestAnimationFrame(()=>{flash.classList.add('on');setTimeout(()=>flash.classList.remove('on'),120)});
+}
 function remainingDeepCut(){const s=day.deepcut;return s?.deadline?Math.max(0,(s.deadline-Date.now())/1000):(daily?.deepcut?.seconds||25)}
 function deepCutPrompt(){return daily.deepcut.prompts[day.deepcut.round]||null}
 function renderDeepCut(){
@@ -274,15 +345,19 @@ function renderDeepCut(){
   $('#deepCutIntro').hidden=s.started||s.done;$('#deepCutPlay').hidden=!s.started||s.done;$('#deepCutDone').hidden=!s.done;
   const current=deepCutPrompt();if(current)$('#deepCutPrompt').textContent=current.prompt;
   const history=$('#deepCutHistory');history.innerHTML='';
-  for(const a of s.answers){const row=document.createElement('div');row.className='deepcut-result';const badge=a.accepted?(a.tier||'ACCEPTED'):(a.timedOut?'TIME':'MISS');row.innerHTML=`<div><span class="deepcut-tier ${String(badge).toLowerCase()}">${escapeHtml(badge)}</span><strong>${escapeHtml(a.answer||'No answer')}</strong><small>${escapeHtml(a.prompt||'')}</small></div><b>+${Number(a.score||0)}</b>`;history.appendChild(row)}
+  for(const a of s.answers){
+    const row=document.createElement('div'),floors=a.accepted?deepCutArchiveFloorsForScore(a.score):0;row.className='deepcut-result';const badge=a.accepted?(a.tier||'ACCEPTED'):(a.timedOut?'TIME':'MISS');
+    row.innerHTML=`<div><span class="deepcut-tier ${String(badge).toLowerCase()}">${escapeHtml(badge)}</span><strong>${escapeHtml(a.answer||'No answer')}</strong><small>${escapeHtml(a.prompt||'')}</small></div><b>+${Number(a.score||0)}${floors?` · ↓${floors}`:''}</b>`;history.appendChild(row)
+  }
   const input=$('#deepCutInput'),button=$('#deepCutForm button');input.disabled=!s.started||s.done||deepCutBusy;button.disabled=input.disabled;
   if(s.done){$('#deepCutDoneScore').textContent=(s.score||0).toLocaleString();const msg=$('#deepCutMessage');msg.className='message good';msg.textContent=`${unlimitedSession?'Unlimited':'Daily'} Deep Cut complete — ${s.score.toLocaleString()} points.`}
   updateHome();
+  requestAnimationFrame(renderDeepCutArchive);
 }
 function armDeepCutTimer(){clearInterval(deepCutTick);deepCutTick=setInterval(()=>{const s=day?.deepcut;if(!s?.started||s.done){clearInterval(deepCutTick);return}const left=remainingDeepCut();$('#deepCutTimer').textContent=fmtTime(left);if(left<=0)void timeoutDeepCut()},250)}
 function finishDeepCut(){const s=day.deepcut;s.started=false;s.done=true;s.deadline=0;clearInterval(deepCutTick);renderDeepCut()}
-async function timeoutDeepCut(){const s=day.deepcut;if(deepCutBusy||!s.started||s.done||remainingDeepCut()>0)return;deepCutBusy=true;const prompt=deepCutPrompt();s.answers.push({promptId:prompt?.id||'',prompt:prompt?.prompt||'',answer:'',accepted:false,timedOut:true,tier:'TIME',score:0});s.round++;$('#deepCutMessage').className='message bad';$('#deepCutMessage').textContent='Time. No points for that prompt.';if(s.round>=daily.deepcut.rounds){deepCutBusy=false;finishDeepCut();return}s.deadline=Date.now()+daily.deepcut.seconds*1000;deepCutBusy=false;renderDeepCut();$('#deepCutInput').focus()}
-$('#deepCutStart').addEventListener('click',()=>{const s=day.deepcut;if(s.done)return;s.started=true;s.deadline=Date.now()+daily.deepcut.seconds*1000;$('#deepCutMessage').className='message';$('#deepCutMessage').textContent='Think past the first obvious answer.';renderDeepCut();armDeepCutTimer();$('#deepCutInput').focus()});
+async function timeoutDeepCut(){const s=day.deepcut;if(deepCutBusy||!s.started||s.done||remainingDeepCut()>0)return;deepCutBusy=true;const prompt=deepCutPrompt();s.answers.push({promptId:prompt?.id||'',prompt:prompt?.prompt||'',answer:'',accepted:false,timedOut:true,tier:'TIME',score:0});s.round++;$('#deepCutMessage').className='message bad';$('#deepCutMessage').textContent='Time. No descent for that prompt.';if(s.round>=daily.deepcut.rounds){deepCutBusy=false;finishDeepCut();return}s.deadline=Date.now()+daily.deepcut.seconds*1000;deepCutBusy=false;renderDeepCut();$('#deepCutInput').focus()}
+$('#deepCutStart').addEventListener('click',()=>{const s=day.deepcut;if(s.done)return;warmDeepCutArchive();s.started=true;s.deadline=Date.now()+daily.deepcut.seconds*1000;$('#deepCutMessage').className='message';$('#deepCutMessage').textContent='Think past the first obvious answer. The Archive rewards deeper cuts.';renderDeepCut();armDeepCutTimer();$('#deepCutInput').focus()});
 $('#deepCutForm').addEventListener('submit',async e=>{
   e.preventDefault();const s=day.deepcut;if(deepCutBusy||!s.started||s.done)return;const prompt=deepCutPrompt(),input=$('#deepCutInput'),answer=input.value.trim();if(!answer){$('#deepCutMessage').className='message bad';$('#deepCutMessage').textContent='Type one answer before you submit.';return}deepCutBusy=true;input.disabled=true;
   try{
@@ -292,11 +367,18 @@ $('#deepCutForm').addEventListener('submit',async e=>{
       if(remainingDeepCut()<=0){void timeoutDeepCut();return}input.focus();return;
     }
     const item={promptId:prompt.id,prompt:prompt.prompt,answer:r.canonical||answer,accepted:true,tier:r.tier||'COMMON',score:Number(r.score||0)};
-    s.answers.push(item);s.score+=item.score;s.round++;input.value='';msg.className='message good';msg.textContent=`${item.tier}: ${item.answer} — +${item.score}`;
-    if(s.round>=daily.deepcut.rounds){deepCutBusy=false;finishDeepCut();return}
-    s.deadline=Date.now()+daily.deepcut.seconds*1000;deepCutBusy=false;renderDeepCut();$('#deepCutInput').focus();
+    const floors=deepCutArchiveFloorsForScore(item.score);
+    s.answers.push(item);s.score+=item.score;s.round++;input.value='';msg.className='message good';msg.textContent=`${item.tier}: ${item.answer} — +${item.score} · ${floors} floor${floors===1?'':'s'} deeper`;
+    if(s.round>=daily.deepcut.rounds){deepCutBusy=false;finishDeepCut();deepCutArchivePulse(item.score);return}
+    s.deadline=Date.now()+daily.deepcut.seconds*1000;deepCutBusy=false;renderDeepCut();deepCutArchivePulse(item.score);$('#deepCutInput').focus();
   }catch(err){deepCutBusy=false;input.disabled=false;$('#deepCutMessage').className='message bad';$('#deepCutMessage').textContent=err.message}
 });
+window.addEventListener('resize',()=>{
+  if(!$('#deepcut')?.classList.contains('active'))return;
+  cancelAnimationFrame(deepCutArchiveResizeRaf);
+  deepCutArchiveResizeRaf=requestAnimationFrame(renderDeepCutArchive);
+},{passive:true});
+
 
 // Leaderboard
 function leaderboardName(){try{return localStorage.getItem(NAME_KEY)||''}catch{return ''}}
@@ -420,7 +502,7 @@ const help={
   trail:'<h2>Letter Trail</h2><p>Trace any dictionary English word of at least three letters by tapping or smoothly dragging toward touching tiles. Horizontal, vertical, and diagonal moves count; a tile cannot repeat inside one word. Drag back one tile to correct a path. Every valid word scores.</p>',
   link:'<h2>Triple Link</h2><p>One word makes a familiar phrase or compound with all three clues. You get three guesses. If you miss, the answer and all three completed links are revealed.</p>',
   steps:'<h2>Word Steps</h2><p>Start with one four-letter word and reach the target by changing exactly one letter at a time. Every intermediate step must be a recognized word. You can undo moves; solve within eight moves for points.</p>',
-  deepcut:'<h2>Deep Cut</h2><p>Eight quick open-answer trivia prompts. You get 25 seconds for each one. Invalid guesses do not end the prompt, so keep trying until you find a valid answer or time runs out. Correct answers score from 30 to 100 points: familiar answers score less, while less-obvious valid answers score more.</p>'
+  deepcut:'<h2>Deep Cut</h2><p>Eight quick open-answer trivia prompts. You get 25 seconds for each one. Invalid guesses do not end the prompt, so keep trying until you find a valid answer or time runs out. Correct answers score from 30 to 100 points. Common answers descend one Archive floor, stronger cuts descend two, and answers worth 85–100 descend three. Eight perfect answers reach the Final Shelf.</p>'
 };
 $$('[data-help]').forEach(b=>b.addEventListener('click',()=>{$('#helpContent').innerHTML=help[b.dataset.help];$('#helpDialog').showModal()}));
 
