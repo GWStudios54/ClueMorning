@@ -1,4 +1,4 @@
-const CACHE = 'clue-morning-pwa-v13';
+const CACHE = 'clue-morning-pwa-v14';
 const APP_SHELL = [
   '/',
   '/index.html',
@@ -74,7 +74,10 @@ self.addEventListener('fetch', event => {
 
   event.respondWith((async () => {
     try {
-      const response = await fetch(request);
+      const networkRequest = url.pathname.startsWith('/triple-link-test/')
+        ? new Request(request, { cache: 'no-store' })
+        : request;
+      const response = await fetch(networkRequest);
       if (response.ok) {
         const cache = await caches.open(CACHE);
         cache.put(request, response.clone()).catch(() => {});
