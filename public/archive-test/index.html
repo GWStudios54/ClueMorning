@@ -3,146 +3,174 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#090a12">
-<title>Deep Archive — Landing Test</title>
-<link rel="preload" as="image" href="/archive-test/archive-top.webp" type="image/webp">
-<link rel="preload" as="image" href="/archive-test/archive-middle.webp" type="image/webp">
-<link rel="preload" as="image" href="/archive-test/archive-bottom.webp" type="image/webp">
+<meta name="theme-color" content="#090913">
+<title>Deep Archive — 25 Floor Landing Test</title>
 <style>
 :root{
-  --ink:#090a12;
-  --panel:rgba(11,12,20,.9);
-  --line:#6b587a;
-  --gold:#e1b55e;
-  --text:#f4ead6;
+  --bg:#090913;
+  --panel:rgba(10,11,20,.92);
+  --line:#6e5b7b;
+  --gold:#ddb35d;
+  --text:#f4ead7;
+  --floor-h:156px;
+  --shaft-w:170px;
+  --world-w:1180px;
+  --platform-y:126px;
+  --platform-h:14px;
+  --elevator-h:156px;
+  --elevator-w:122px;
+  --burst:#f0c76f;
 }
 *{box-sizing:border-box}
 html,body{
   margin:0;width:100%;height:100%;overflow:hidden;
-  background:var(--ink);color:var(--text);
+  background:var(--bg);color:var(--text);
   font-family:"Courier New",monospace;
 }
 button{font:inherit}
 .stage{
   position:fixed;inset:0;overflow:hidden;
-  background:radial-gradient(circle at 50% 12%,#27314b 0,#151827 44%,#090a12 100%);
+  background:radial-gradient(circle at 50% 10%,#21314e 0%,#151726 34%,#0a0a12 72%,#06070d 100%);
 }
 .world{
-  position:absolute;top:0;left:50%;
-  width:min(1280px,120vw);
+  position:absolute;left:50%;top:0;
+  width:min(var(--world-w),180vw);
   transform:translate3d(-50%,0,0);
   will-change:transform;
   transition:transform 920ms cubic-bezier(.18,.88,.22,1);
   backface-visibility:hidden;
+  image-rendering:pixelated;
 }
-.stack{display:block;width:100%}
-.scene{
-  position:relative;display:block;width:100%;
-  margin-top:-2px;overflow:hidden;background:#0b0d15;
-}
-.scene:first-child{margin-top:0}
-.scene img{
-  display:block;width:100%;height:auto;
-  user-select:none;pointer-events:none;
-  image-rendering:pixelated;image-rendering:crisp-edges;
-}
-.scene.mirror img{transform:scaleX(-1)}
-.scene.deep::after{
-  content:"";position:absolute;z-index:1;inset:0;pointer-events:none;
-  background:linear-gradient(to bottom,rgba(14,8,28,.08),rgba(5,4,18,.28));
-}
-.scene + .scene::before{
-  content:"";position:absolute;z-index:2;left:0;right:0;top:0;height:28px;
-  pointer-events:none;
-  background:linear-gradient(to bottom,rgba(5,7,13,.76),rgba(5,7,13,0));
-}
-.tail{
-  height:260px;
-  margin-top:-2px;
+.floor-list{position:relative;width:100%}
+.shaft{
+  position:absolute;inset:0 auto 0 50%;
+  width:var(--shaft-w);
+  transform:translateX(-50%);
   background:
-    linear-gradient(to bottom,rgba(9,10,20,.1),rgba(5,6,12,.96)),
-    repeating-linear-gradient(90deg,#0b0d18 0 18px,#0e1120 18px 36px);
+    linear-gradient(90deg,
+      #090a10 0 7%,#30374a 7% 12%,#14192a 12% 24%,
+      #a57a2c 24% 26%,#20283b 26% 50%,#b78932 50% 52%,
+      #20283b 52% 74%,#a57a2c 74% 76%,#14192a 76% 88%,
+      #30374a 88% 93%,#090a10 93%);
+  box-shadow:inset 6px 0 0 rgba(230,187,83,.12),inset -6px 0 0 rgba(230,187,83,.12);
 }
+.shaft::before,.shaft::after{
+  content:"";position:absolute;top:0;bottom:0;width:3px;
+  background:linear-gradient(#7f5d24,#d7a84a 50%,#7f5d24);
+  opacity:.85;
+}
+.shaft::before{left:38%}
+.shaft::after{right:38%}
+.floor{
+  position:relative;height:var(--floor-h);
+  display:grid;grid-template-columns:1fr var(--shaft-w) 1fr;
+  align-items:stretch;
+}
+.floor::after{
+  content:"";position:absolute;
+  left:0;right:0;top:var(--platform-y);height:var(--platform-h);
+  background:
+    linear-gradient(to bottom,rgba(245,202,108,.22),rgba(245,202,108,.03)),
+    linear-gradient(90deg,#0d101b 0 4%,#283148 4% 96%,#0d101b 96%);
+  border-top:2px solid rgba(243,194,89,.38);
+  border-bottom:2px solid rgba(10,12,19,.7);
+  z-index:3;
+}
+.floor .room{
+  position:relative;margin:8px 12px 18px;overflow:hidden;
+  border:3px solid #1a1e2c;
+  box-shadow:inset 0 0 0 2px rgba(0,0,0,.18);
+  image-rendering:pixelated;
+}
+.room::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:18px;
+  background:linear-gradient(to bottom,#141927,#0e1220);
+  border-top:2px solid rgba(228,179,78,.18);
+}
+.floor .shaft-gap{position:relative}
+.floor .shaft-gap::before,.floor .shaft-gap::after{
+  content:"";position:absolute;
+  top:calc(var(--platform-y) - 2px);
+  width:22px;height:20px;
+  background:#1a2132;
+  border-top:2px solid rgba(242,191,90,.32);
+  border-bottom:2px solid rgba(0,0,0,.55);
+  z-index:4;
+}
+.floor .shaft-gap::before{left:0}
+.floor .shaft-gap::after{right:0}
+.floor .label{
+  position:absolute;left:16px;top:10px;z-index:6;
+  padding:4px 8px;font-size:10px;line-height:1;
+  letter-spacing:.06em;text-transform:uppercase;
+  color:#f6e6c0;background:rgba(9,10,18,.78);
+  border:2px solid rgba(125,102,145,.72);
+}
+
+/* One-floor-tall elevator. */
+.elevator{
+  position:fixed;left:50%;top:50%;
+  width:var(--elevator-w);height:var(--elevator-h);
+  transform:translate(-50%,-50%);
+  z-index:12;pointer-events:none;
+}
+.elevator .arch{
+  position:absolute;left:14px;right:14px;top:-18px;height:26px;
+  background:linear-gradient(to bottom,#d8b166 0 8px,#845f25 8px 100%);
+  border:4px solid #141821;border-bottom:none;border-radius:16px 16px 0 0;
+}
+.elevator .car{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,#8d6c2b 0 8px,#252c3b 8px 16px,#596277 16px 100%);
+  border:4px solid #141821;
+  box-shadow:0 0 0 4px rgba(214,173,89,.62),0 10px 26px rgba(0,0,0,.44);
+}
+.elevator .window{
+  position:absolute;left:18px;right:18px;top:22px;height:54px;
+  background:#0f2435;border:4px solid #141821;overflow:hidden;
+}
+.elevator .window::before{
+  content:"";position:absolute;left:50%;top:0;bottom:0;width:4px;
+  transform:translateX(-50%);background:#31475d;
+}
+.elevator .window::after{
+  content:"";position:absolute;inset:6px;
+  background:linear-gradient(90deg,transparent 0 40%,rgba(165,227,255,.18) 40% 55%,transparent 55%);
+}
+.elevator .trim{
+  position:absolute;left:18px;right:18px;bottom:16px;height:14px;
+  background:#d2a454;border:3px solid #5f4526;
+}
+.elevator .trim2{
+  position:absolute;left:24px;right:24px;top:86px;height:18px;
+  background:#2b2431;border:3px solid #8c7396;
+}
+
 .depth-tint{
   position:fixed;inset:0;z-index:5;pointer-events:none;
-  background:linear-gradient(to bottom,rgba(8,16,30,0),rgba(9,10,25,.07) 52%,rgba(8,3,24,.2));
+  background:linear-gradient(to bottom,rgba(16,20,40,0) 0%,rgba(12,13,29,.06) 38%,rgba(15,8,38,.22) 100%);
 }
 .vignette{
   position:fixed;inset:0;z-index:6;pointer-events:none;
-  box-shadow:inset 0 0 96px rgba(0,0,0,.4);
+  box-shadow:inset 0 0 90px rgba(0,0,0,.42);
 }
-
-/* Covers the AI-art elevator cars so there is only one elevator in the scene. */
-.shaft-mask{
-  position:fixed;z-index:7;top:0;bottom:0;left:50%;
-  width:152px;transform:translateX(-50%);
-  pointer-events:none;
-  background:
-    linear-gradient(90deg,
-      #0a0d15 0 7%,
-      #30394d 7% 12%,
-      #111827 12% 37%,
-      #876126 37% 39%,
-      #1d2638 39% 49%,
-      #b07b27 49% 51%,
-      #1d2638 51% 61%,
-      #876126 61% 63%,
-      #111827 63% 88%,
-      #30394d 88% 93%,
-      #0a0d15 93%);
-  box-shadow:
-    inset 7px 0 0 rgba(215,172,82,.18),
-    inset -7px 0 0 rgba(215,172,82,.18),
-    0 0 18px rgba(0,0,0,.42);
-}
-.shaft-mask::before,
-.shaft-mask::after{
-  content:"";position:absolute;top:0;bottom:0;width:3px;
-  background:linear-gradient(#805b24,#d5a84a 50%,#805b24);
-  opacity:.78;
-}
-.shaft-mask::before{left:43%}
-.shaft-mask::after{right:43%}
-
-/* Exact elevator artwork cropped from the same top archive art. */
-.elevator{
-  position:fixed;z-index:10;left:50%;top:50%;
-  width:144px;aspect-ratio:180/220;
-  transform:translate(-50%,-50%);
-  pointer-events:none;
-  background-image:url("/archive-test/archive-top.webp");
-  background-repeat:no-repeat;
-  background-size:930% auto;
-  background-position:50% 65%;
-  filter:drop-shadow(0 10px 12px rgba(0,0,0,.36));
-  border-radius:3px;
-}
-.elevator::after{
-  content:"";position:absolute;inset:0;
-  border:1px solid rgba(238,193,91,.18);
-  box-shadow:inset 0 0 18px rgba(4,5,9,.25);
-}
-
 .hud{
   position:fixed;z-index:20;
   top:max(10px,env(safe-area-inset-top));left:10px;right:10px;
   pointer-events:none;
 }
 .card{
-  width:min(410px,calc(100vw - 20px));
-  padding:10px 12px;pointer-events:auto;
+  width:min(420px,calc(100vw - 20px));padding:10px 12px;
   background:var(--panel);border:3px solid var(--line);
-  box-shadow:0 0 0 3px #07080d;
-  backdrop-filter:blur(3px);
+  box-shadow:0 0 0 3px #07080d;pointer-events:auto;
 }
-.card h1{margin:0 0 4px;color:var(--gold);font-size:14px;letter-spacing:.04em}
-.card p{margin:0;color:#d9cfe0;font-size:10px;line-height:1.4}
+.card h1{margin:0 0 4px;font-size:14px;letter-spacing:.05em;color:var(--gold)}
+.card p{margin:0;font-size:10px;line-height:1.4;color:#dbd0e3}
 .readout{
   position:fixed;z-index:20;left:50%;
   bottom:calc(82px + env(safe-area-inset-bottom));
-  min-width:236px;padding:8px 13px;
-  transform:translateX(-50%);text-align:center;
-  background:rgba(11,12,20,.94);
+  transform:translateX(-50%);min-width:244px;padding:8px 13px;
+  text-align:center;background:rgba(10,11,20,.94);
   border:3px solid var(--line);box-shadow:0 0 0 3px #07080d;
   font-size:10px;
 }
@@ -153,8 +181,7 @@ button{font:inherit}
   display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:7px;
 }
 .controls button{
-  min-height:54px;padding:7px 8px;
-  color:#fff2dd;background:#30263f;
+  min-height:54px;padding:7px 8px;color:#fff2dd;background:#30263f;
   border:3px solid #725f88;box-shadow:0 0 0 3px #07080d;
   font-size:10px;font-weight:900;text-transform:uppercase;
   letter-spacing:.035em;touch-action:manipulation;
@@ -162,26 +189,221 @@ button{font:inherit}
 .controls button:active{transform:translateY(2px)}
 .controls small{font-size:8px;opacity:.72}
 .controls .uncommon{background:#28404a}
-.controls .rare{color:#ffe2a3;background:#5b2d4d;border-color:#a16787}
+.controls .rare{background:#5b2d4d;border-color:#a16787;color:#ffe2a3}
 .controls .reset{width:58px;background:#244653}
 .flash{
-  position:fixed;z-index:30;inset:0;pointer-events:none;
-  opacity:0;background:rgba(255,224,164,.15);
-  transition:opacity 120ms linear;
+  position:fixed;z-index:30;inset:0;pointer-events:none;opacity:0;
+  background:rgba(255,224,164,.15);transition:opacity 120ms linear;
 }
 .flash.on{opacity:1}
 .burst{position:fixed;z-index:29;left:50%;top:50%;pointer-events:none}
 .spark{
-  position:absolute;width:7px;height:7px;opacity:0;background:var(--gold);
+  position:absolute;width:7px;height:7px;background:var(--burst);opacity:0;
   transition:transform 500ms cubic-bezier(.2,.9,.2,1),opacity 500ms ease;
 }
+
+/* Progressive floor palettes */
+.theme-news{background:linear-gradient(#465c78 0 18%,#202a3b 18% 100%)}
+.theme-reference{background:linear-gradient(#4d4030 0 18%,#231a18 18% 100%)}
+.theme-library{background:linear-gradient(#4d3a2c 0 18%,#201712 18% 100%)}
+.theme-map{background:linear-gradient(#51606e 0 18%,#1d232c 18% 100%)}
+.theme-museum{background:linear-gradient(#2d4554 0 18%,#14202a 18% 100%)}
+.theme-clockwork{background:linear-gradient(#53402f 0 18%,#21160f 18% 100%)}
+.theme-vault{background:linear-gradient(#4d3336 0 18%,#1b1012 18% 100%)}
+.theme-occult{background:linear-gradient(#2e2d58 0 18%,#0f1025 18% 100%)}
+.theme-cosmic{background:linear-gradient(#22345b 0 18%,#070d1f 18% 100%)}
+.theme-black{background:linear-gradient(#262235 0 18%,#07070b 18% 100%)}
+
+.city-window,.notice-board,.news-racks,.cabinets,.press,.desk,.mapcase,.display-case,.fossil,.gear,.safe-wall,.microfilm,.portal,.crystals,.stars,.tentacles,.black-shelf,.archive-sign,.typewriter,.planetary,.restricted-stamp{
+  position:absolute;image-rendering:pixelated;
+}
+.city-window{
+  left:10px;right:10px;top:10px;height:32px;
+  background:linear-gradient(#101826,#15233b);
+  border:3px solid #171d29;
+}
+.city-window::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:12px;
+  background:repeating-linear-gradient(90deg,#0f1320 0 10px,#d8a54c 10px 14px,#0f1320 14px 22px);
+}
+.notice-board{
+  left:10px;top:48px;width:110px;height:54px;
+  background:#665135;border:3px solid #23190f;
+}
+.notice-board::before,.notice-board::after{
+  content:"";position:absolute;background:#dac58e;border:2px solid #7b6849;
+}
+.notice-board::before{left:10px;top:10px;width:38px;height:18px}
+.notice-board::after{right:10px;bottom:10px;width:50px;height:20px}
+.news-racks{
+  left:126px;right:8px;top:48px;height:56px;
+  background:#1d2230;border:3px solid #0e121b;
+}
+.news-racks::before{
+  content:"";position:absolute;inset:6px;
+  background:repeating-linear-gradient(90deg,#d7bf84 0 18px,#70543b 18px 21px,#c8cfd8 21px 39px,#70543b 39px 42px);
+}
+.desk{
+  left:10px;right:10px;bottom:20px;height:48px;
+  background:#5c422d;border:3px solid #261910;
+}
+.desk::before{
+  content:"";position:absolute;left:10px;right:10px;top:10px;height:12px;
+  background:#d8c38b;border:2px solid #766649;
+}
+.desk::after{
+  content:"";position:absolute;right:16px;top:3px;width:18px;height:18px;
+  background:#4f596b;border:2px solid #222733;
+}
+.typewriter{
+  right:18px;top:8px;width:34px;height:22px;
+  background:#272d37;border:3px solid #12161d;
+}
+.typewriter::before{
+  content:"";position:absolute;left:4px;right:4px;top:-10px;height:10px;
+  background:#d5c089;border:2px solid #40372a;
+}
+.cabinets{
+  left:10px;right:10px;top:48px;height:56px;
+  background:repeating-linear-gradient(90deg,#624b39 0 34px,#39281c 34px 38px);
+  border:3px solid #21160e;
+}
+.cabinets::before{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent 0 24px,#342419 24px 28px);
+}
+.press{
+  left:12px;right:12px;bottom:24px;height:54px;
+  background:#394252;border:3px solid #131821;
+}
+.press::before{
+  content:"";position:absolute;left:10px;right:10px;top:10px;height:10px;background:#848c9e;
+}
+.press::after{
+  content:"";position:absolute;left:20px;right:20px;bottom:10px;height:18px;
+  background:repeating-linear-gradient(90deg,#202632 0 10px,#70798e 10px 14px);
+}
+.archive-sign{
+  left:12px;right:12px;top:50px;height:28px;
+  background:#213348;border:3px solid #0f1621;
+}
+.archive-sign::after{
+  content:"ARCHIVE";position:absolute;inset:0;display:grid;place-items:center;
+  color:#eed79f;font-size:12px;font-weight:700;letter-spacing:.08em;
+}
+.shelves{
+  position:absolute;left:10px;right:10px;top:46px;bottom:22px;
+  background:
+    repeating-linear-gradient(0deg,#281b14 0 22px,#5d4128 22px 28px),
+    repeating-linear-gradient(90deg,#71566f 0 12px,#5d7a8c 12px 22px,#8a7851 22px 30px,#6f4b43 30px 44px,#6a844e 44px 54px,#7b628f 54px 64px);
+  border:3px solid #1a110d;
+}
+.mapcase{
+  left:10px;right:10px;top:46px;bottom:22px;background:#30404a;border:3px solid #111821;
+}
+.mapcase::before{
+  content:"";position:absolute;inset:8px;
+  background:
+    linear-gradient(#d7c38d,#d7c38d),
+    linear-gradient(90deg,#8b7758 0 1px,transparent 1px 24px),
+    linear-gradient(#8b7758 0 1px,transparent 1px 20px);
+  background-size:100% 100%,24px 100%,100% 20px;border:2px solid #78684b;
+}
+.mapcase::after{
+  content:"";position:absolute;right:12px;bottom:10px;width:26px;height:26px;
+  border:4px solid #c8a557;border-radius:50%;
+}
+.display-case{
+  left:12px;right:12px;top:42px;bottom:20px;background:#1b2431;border:3px solid #121822;
+}
+.display-case::before{
+  content:"";position:absolute;left:16px;right:16px;top:12px;bottom:16px;
+  background:rgba(118,204,255,.18);border:2px solid rgba(129,179,212,.42);
+}
+.fossil{left:18px;right:18px;top:54px;height:42px}
+.fossil::before{
+  content:"";position:absolute;left:0;right:0;top:16px;height:8px;background:#bcb4a2;
+  box-shadow:10px -12px 0 #a9a18f,24px -18px 0 #a9a18f,42px -20px 0 #a9a18f,62px -20px 0 #a9a18f,80px -16px 0 #a9a18f,104px -4px 0 #a9a18f,114px 8px 0 #a9a18f;
+}
+.gear{
+  left:50%;top:52px;width:62px;height:62px;transform:translateX(-50%);
+  border:6px solid #c49944;border-radius:50%;
+}
+.gear::before,.gear::after{
+  content:"";position:absolute;left:50%;top:50%;background:#c49944;transform:translate(-50%,-50%);
+}
+.gear::before{width:6px;height:62px}
+.gear::after{width:62px;height:6px}
+.safe-wall{
+  left:10px;right:10px;top:46px;bottom:22px;
+  background:repeating-linear-gradient(90deg,#4d3538 0 34px,#241417 34px 38px);
+  border:3px solid #120c0d;
+}
+.safe-wall::after{
+  content:"";position:absolute;left:50%;top:50%;width:36px;height:36px;transform:translate(-50%,-50%);
+  border:4px solid #d1a458;border-radius:50%;
+}
+.restricted-stamp{
+  right:12px;top:12px;padding:3px 6px;background:#4a191f;
+  border:2px solid #a84a55;color:#ff949a;font-size:9px;font-weight:700;
+}
+.microfilm{
+  left:16px;right:16px;top:50px;height:56px;background:#252b36;border:3px solid #0f1319;
+}
+.microfilm::before,.microfilm::after{
+  content:"";position:absolute;top:-14px;width:34px;height:34px;border-radius:50%;
+  background:#49515e;border:4px solid #171b23;
+}
+.microfilm::before{left:12px}
+.microfilm::after{right:12px}
+.portal{
+  left:50%;top:42px;width:92px;height:76px;transform:translateX(-50%);
+  background:radial-gradient(circle at 50% 46%,#89a6ff 0%,#523fb2 28%,#22144d 62%,#080912 100%);
+  border:4px solid #6f59b5;border-radius:48px;box-shadow:0 0 14px rgba(119,105,220,.35);
+}
+.crystals{left:10px;right:10px;bottom:26px;height:70px}
+.crystals::before{
+  content:"";position:absolute;left:18px;bottom:0;width:24px;height:52px;
+  background:#61aaf1;clip-path:polygon(50% 0,100% 42%,74% 100%,26% 100%,0 42%);
+  box-shadow:38px 10px 0 #6b68e3,78px -2px 0 #69d6d2,116px 14px 0 #8b8fe8;
+}
+.stars{
+  left:0;right:0;top:0;bottom:0;
+  background:
+    radial-gradient(circle at 18% 24%,rgba(255,255,255,.9) 0 1px,transparent 2px),
+    radial-gradient(circle at 36% 52%,rgba(255,255,255,.75) 0 1px,transparent 2px),
+    radial-gradient(circle at 70% 18%,rgba(255,255,255,.85) 0 1px,transparent 2px),
+    radial-gradient(circle at 82% 66%,rgba(255,255,255,.85) 0 1px,transparent 2px),
+    radial-gradient(circle at 56% 74%,rgba(255,255,255,.55) 0 1px,transparent 2px);
+}
+.planetary{
+  left:50%;top:44px;width:78px;height:78px;transform:translateX(-50%);
+  border:3px solid rgba(222,180,92,.65);border-radius:50%;
+}
+.planetary::before,.planetary::after{
+  content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;
+}
+.planetary::before{width:34px;height:34px;background:#efcf84}
+.planetary::after{width:100px;height:24px;border:3px solid rgba(222,180,92,.55)}
+.tentacles{left:0;right:0;bottom:18px;height:76px}
+.tentacles::before{
+  content:"";position:absolute;left:10px;right:10px;bottom:0;height:76px;
+  background:linear-gradient(100deg,transparent 0 12%,#2c6377 12% 16%,transparent 16% 26%,#2c6377 26% 30%,transparent 30% 44%,#2c6377 44% 48%,transparent 48% 60%,#2c6377 60% 64%,transparent 64% 100%);
+}
+.black-shelf{
+  left:12px;right:12px;top:44px;bottom:22px;background:#050508;border:3px solid #2b2531;
+}
+.black-shelf::after{
+  content:"";position:absolute;left:50%;top:50%;width:78px;height:78px;transform:translate(-50%,-50%);
+  border-radius:50%;background:radial-gradient(circle,#191424 0 28%,#0a0911 29% 58%,transparent 59%);
+  border:4px solid #493b59;
+}
+
 @media(max-width:700px){
-  .world{width:max(760px,185vw)}
-  .shaft-mask{width:138px}
-  .elevator{width:124px}
+  .world{width:185vw}
   .card p{display:none}
-  .vignette{box-shadow:inset 0 0 60px rgba(0,0,0,.34)}
-  .tail{height:300px}
+  .vignette{box-shadow:inset 0 0 56px rgba(0,0,0,.32)}
+  :root{--shaft-w:154px;--elevator-w:110px;--elevator-h:156px}
 }
 @media(max-height:620px){
   .card{display:none}
@@ -195,53 +417,39 @@ button{font:inherit}
 <body>
 <div class="stage">
   <div class="world" id="world">
-    <div class="stack" id="stack">
-      <section class="scene" aria-label="Upper archive">
-        <img src="/archive-test/archive-top.webp" width="1600" height="900" alt="" loading="eager" decoding="async" fetchpriority="high">
-      </section>
-      <section class="scene" aria-label="Natural history and clockwork archive">
-        <img src="/archive-test/archive-middle.webp" width="1600" height="900" alt="" loading="eager" decoding="async">
-      </section>
-      <section class="scene" aria-label="Astral archive">
-        <img src="/archive-test/archive-bottom.webp" width="1600" height="900" alt="" loading="eager" decoding="async">
-      </section>
-      <section class="scene mirror deep" aria-label="Lower museum wing">
-        <img src="/archive-test/archive-middle.webp" width="1600" height="900" alt="" loading="eager" decoding="async">
-      </section>
-      <section class="scene mirror deep" aria-label="Forbidden astral stacks">
-        <img src="/archive-test/archive-bottom.webp" width="1600" height="900" alt="" loading="eager" decoding="async">
-      </section>
-      <section class="scene deep" aria-label="Deep specimen wing">
-        <img src="/archive-test/archive-middle.webp" width="1600" height="900" alt="" loading="eager" decoding="async">
-      </section>
-      <section class="scene mirror deep" aria-label="Bottomless archive">
-        <img src="/archive-test/archive-bottom.webp" width="1600" height="900" alt="" loading="eager" decoding="async">
-      </section>
-      <div class="tail" aria-hidden="true"></div>
+    <div class="floor-list" id="floorList">
+      <div class="shaft" aria-hidden="true"></div>
     </div>
   </div>
 </div>
 
 <div class="depth-tint"></div>
 <div class="vignette"></div>
-<div class="shaft-mask" aria-hidden="true"></div>
-<div class="elevator" id="elevator" aria-hidden="true"></div>
+
+<div class="elevator" id="elevator" aria-hidden="true">
+  <div class="arch"></div>
+  <div class="car">
+    <div class="window"></div>
+    <div class="trim2"></div>
+    <div class="trim"></div>
+  </div>
+</div>
 
 <div class="hud">
   <div class="card">
-    <h1>DEEP ARCHIVE — 22 LANDING TEST</h1>
-    <p>Same single elevator, now with roughly three times the descent. Every move still snaps to a real balcony line.</p>
+    <h1>DEEP ARCHIVE — 25 FLOOR TEST</h1>
+    <p>Starts in a normal newsroom, then descends through archives, museums, vaults, and stranger depths. The elevator is exactly one floor tall.</p>
   </div>
 </div>
 
 <div class="readout" aria-live="polite">
-  DEPTH <strong id="depth">0</strong> ft · <span id="zone">Surface Archive</span>
+  DEPTH <strong id="depth">0</strong> ft · <span id="zone">Newsroom Lobby</span>
 </div>
 
 <div class="controls">
-  <button type="button" data-jump="1">Common<br><small>1 landing</small></button>
-  <button type="button" data-jump="2" class="uncommon">Uncommon<br><small>2 landings</small></button>
-  <button type="button" data-jump="3" data-rare="1" class="rare">Rare<br><small>3 landings</small></button>
+  <button type="button" data-jump="1">Common<br><small>1 floor</small></button>
+  <button type="button" data-jump="2" class="uncommon">Uncommon<br><small>2 floors</small></button>
+  <button type="button" data-jump="3" data-rare="1" class="rare">Rare<br><small>3 floors</small></button>
   <button type="button" id="reset" class="reset" aria-label="Reset archive depth">↺</button>
 </div>
 
@@ -250,72 +458,100 @@ button{font:inherit}
 
 <script>
 (()=>{
+  const floors=[
+    {zone:'Newsroom Lobby',theme:'news',left:['city-window','notice-board','desk','typewriter'],right:['city-window','news-racks','desk']},
+    {zone:'City Desk',theme:'news',left:['notice-board','desk','typewriter'],right:['news-racks','cabinets']},
+    {zone:'Copy Desk',theme:'news',left:['desk','typewriter'],right:['desk','news-racks']},
+    {zone:'Print Floor',theme:'news',left:['press'],right:['press']},
+    {zone:'Morgue Files',theme:'reference',left:['cabinets','archive-sign'],right:['cabinets','desk']},
+    {zone:'Reference Desk',theme:'reference',left:['desk','notice-board'],right:['shelves']},
+    {zone:'Stacks South',theme:'library',left:['shelves'],right:['shelves']},
+    {zone:'Map Room',theme:'map',left:['mapcase'],right:['mapcase','desk']},
+    {zone:'Atlas Hall',theme:'map',left:['mapcase','archive-sign'],right:['shelves']},
+    {zone:'Specimen Wing',theme:'museum',left:['display-case','fossil'],right:['display-case']},
+    {zone:'Clockwork Floor',theme:'clockwork',left:['gear','display-case'],right:['gear','desk']},
+    {zone:'Relic Gallery',theme:'museum',left:['display-case'],right:['fossil','display-case']},
+    {zone:'Submerged Records',theme:'museum',left:['display-case','crystals'],right:['microfilm','crystals']},
+    {zone:'Restricted Vault',theme:'vault',left:['safe-wall','restricted-stamp'],right:['safe-wall']},
+    {zone:'Redacted Wing',theme:'vault',left:['cabinets','restricted-stamp'],right:['safe-wall','desk']},
+    {zone:'Microfilm Vault',theme:'vault',left:['microfilm'],right:['microfilm']},
+    {zone:'Forbidden Texts',theme:'occult',left:['shelves','restricted-stamp'],right:['shelves','portal']},
+    {zone:'Occult Reading',theme:'occult',left:['portal'],right:['portal','crystals']},
+    {zone:'Observatory',theme:'cosmic',left:['stars','planetary'],right:['stars','planetary']},
+    {zone:'Astral Stacks',theme:'cosmic',left:['stars','shelves'],right:['stars','shelves']},
+    {zone:'Cosmic Reliquary',theme:'cosmic',left:['crystals','display-case'],right:['portal','crystals']},
+    {zone:'Abyss Archive',theme:'cosmic',left:['tentacles','stars'],right:['tentacles','crystals']},
+    {zone:'Impossible Index',theme:'black',left:['black-shelf'],right:['portal','black-shelf']},
+    {zone:'Black Shelf',theme:'black',left:['black-shelf'],right:['black-shelf']},
+    {zone:'The Final Shelf',theme:'black',left:['portal','stars'],right:['black-shelf','crystals']}
+  ];
+
+  const floorList=document.getElementById('floorList');
   const world=document.getElementById('world');
-  const stack=document.getElementById('stack');
-  const scenes=[...stack.querySelectorAll('.scene')];
-  const images=[...stack.querySelectorAll('img')];
   const elevator=document.getElementById('elevator');
   const depthEl=document.getElementById('depth');
   const zoneEl=document.getElementById('zone');
   const flash=document.getElementById('flash');
   const burst=document.getElementById('burst');
 
-  /*
-    These are the actual strong horizontal balcony lines measured from the
-    generated 1672x941 source art, expressed as a fraction of each scene.
-    The first visible stop is the lowest balcony in the upper archive; that
-    keeps the initial page filled while putting the car on a real floor.
-  */
-  const landings=[
-    {scene:0,y:.941,zone:'Surface Archive'},
-
-    {scene:1,y:.227,zone:'Natural History'},
-    {scene:1,y:.488,zone:'Clockwork Museum'},
-    {scene:1,y:.756,zone:'Specimen Vault'},
-    {scene:1,y:.987,zone:'Deep Stacks'},
-
-    {scene:2,y:.289,zone:'Astral Archive'},
-    {scene:2,y:.547,zone:'Relic Gallery'},
-    {scene:2,y:.842,zone:'Cosmic Reading Room'},
-
-    {scene:3,y:.227,zone:'Lower Fossil Hall'},
-    {scene:3,y:.488,zone:'Mechanical Index'},
-    {scene:3,y:.756,zone:'Preservation Lab'},
-    {scene:3,y:.987,zone:'Restricted Museum'},
-
-    {scene:4,y:.289,zone:'Forbidden Observatory'},
-    {scene:4,y:.547,zone:'Black Star Stacks'},
-    {scene:4,y:.842,zone:'Void Collection'},
-
-    {scene:5,y:.227,zone:'Buried Natural History'},
-    {scene:5,y:.488,zone:'Lost Machinery'},
-    {scene:5,y:.756,zone:'Sealed Specimens'},
-    {scene:5,y:.987,zone:'Archive Below Archive'},
-
-    {scene:6,y:.289,zone:'Outer Dark'},
-    {scene:6,y:.547,zone:'Abyssal Catalog'},
-    {scene:6,y:.842,zone:'The Final Shelf'}
-  ];
-
+  const FLOOR_H=156;
+  const PLATFORM_Y=126;
+  const FEET_PER_FLOOR=675;
+  const MAX_STOP=floors.length-1;
   let stop=0;
   let resizeTimer=0;
 
-  function landingWorldY(item){
-    const scene=scenes[item.scene];
-    return scene.offsetTop+(scene.offsetHeight*item.y);
+  function comp(name){
+    switch(name){
+      case 'city-window': return '<div class="city-window"></div>';
+      case 'notice-board': return '<div class="notice-board"></div>';
+      case 'news-racks': return '<div class="news-racks"></div>';
+      case 'desk': return '<div class="desk"></div>';
+      case 'typewriter': return '<div class="typewriter"></div>';
+      case 'cabinets': return '<div class="cabinets"></div>';
+      case 'press': return '<div class="press"></div>';
+      case 'archive-sign': return '<div class="archive-sign"></div>';
+      case 'shelves': return '<div class="shelves"></div>';
+      case 'mapcase': return '<div class="mapcase"></div>';
+      case 'display-case': return '<div class="display-case"></div>';
+      case 'fossil': return '<div class="fossil"></div>';
+      case 'gear': return '<div class="gear"></div>';
+      case 'safe-wall': return '<div class="safe-wall"></div>';
+      case 'restricted-stamp': return '<div class="restricted-stamp">RESTRICTED</div>';
+      case 'microfilm': return '<div class="microfilm"></div>';
+      case 'portal': return '<div class="portal"></div>';
+      case 'crystals': return '<div class="crystals"></div>';
+      case 'stars': return '<div class="stars"></div>';
+      case 'planetary': return '<div class="planetary"></div>';
+      case 'tentacles': return '<div class="tentacles"></div>';
+      case 'black-shelf': return '<div class="black-shelf"></div>';
+      default: return '';
+    }
   }
 
+  function room(theme,parts){
+    return '<div class="room theme-'+theme+'">'+parts.map(comp).join('')+'</div>';
+  }
+
+  floorList.insertAdjacentHTML('beforeend',floors.map((f,i)=>[
+    '<section class="floor" data-floor="'+i+'">',
+    '<div class="label">'+(i===24?'Final':'Floor '+String(i).padStart(2,'0'))+'</div>',
+    room(f.theme,f.left),
+    '<div class="shaft-gap" aria-hidden="true"></div>',
+    room(f.theme,f.right),
+    '</section>'
+  ].join('')).join(''));
+
+  function landingWorldY(index){return index*FLOOR_H+PLATFORM_Y}
   function targetFloorY(){
     const rect=elevator.getBoundingClientRect();
     return rect.bottom-8;
   }
-
   function apply(){
-    const item=landings[stop];
-    const y=targetFloorY()-landingWorldY(item);
+    const y=targetFloorY()-landingWorldY(stop);
     world.style.transform='translate3d(-50%,'+Math.round(y)+'px,0)';
-    depthEl.textContent=Math.round((stop/(landings.length-1))*16200).toLocaleString();
-    zoneEl.textContent=item.zone;
+    depthEl.textContent=(stop*FEET_PER_FLOOR).toLocaleString();
+    zoneEl.textContent=floors[stop].zone;
   }
 
   function rareBurst(){
@@ -343,7 +579,7 @@ button{font:inherit}
 
   document.querySelectorAll('[data-jump]').forEach(button=>{
     button.addEventListener('click',()=>{
-      stop=Math.min(landings.length-1,stop+Number(button.dataset.jump||1));
+      stop=Math.min(MAX_STOP,stop+Number(button.dataset.jump||1));
       apply();
       if(button.dataset.rare)rareBurst();
     });
@@ -358,11 +594,6 @@ button{font:inherit}
     clearTimeout(resizeTimer);
     resizeTimer=setTimeout(apply,100);
   },{passive:true});
-
-  Promise.all(images.map(img=>img.complete
-    ? Promise.resolve()
-    : new Promise(resolve=>img.addEventListener('load',resolve,{once:true}))
-  )).then(apply);
 
   apply();
 })();
