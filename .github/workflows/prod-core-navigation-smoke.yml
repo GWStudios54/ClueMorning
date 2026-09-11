@@ -1,0 +1,22 @@
+name: Production core navigation smoke
+on:
+  push:
+    branches: [prod-core-navigation-smoke]
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify core daily navigation is live
+        shell: bash
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 30); do
+            core="$(curl -fsSL 'https://cluemorning.com/app-core.js' || true)"
+            if grep -Fq 'document.querySelectorAll(".tab").forEach' <<<"$core"               && grep -Fq 'document.querySelectorAll(".panel").forEach' <<<"$core"               && grep -Fq "document.querySelectorAll('[data-open]').forEach" <<<"$core"               && grep -Fq 'syncDeepCutImmersive' <<<"$core"; then
+              echo "Core daily navigation fix is live."
+              exit 0
+            fi
+            echo "Waiting for production deploy ($i/30)..."
+            sleep 5
+          done
+          exit 1
