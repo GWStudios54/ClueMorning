@@ -1,0 +1,23 @@
+name: Production Deep Cut navigation smoke
+on:
+  push:
+    branches: [prod-deepcut-navfix-smoke]
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify fixed Deep Cut navigation is live
+        shell: bash
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 30); do
+            core="$(curl -fsSL 'https://cluemorning.com/app-core.js' || true)"
+            if grep -Fq '$$(".tab").forEach' <<<"$core"               && grep -Fq '$$(".panel").forEach' <<<"$core"               && grep -Fq '$$("[data-open]").forEach' <<<"$core" || grep -Fq "$$('[data-open]').forEach" <<<"$core"; then
+              if grep -q 'syncDeepCutImmersive' <<<"$core"; then
+                echo "Deep Cut navigation fix is live."
+                exit 0
+              fi
+            fi
+            sleep 5
+          done
+          exit 1
