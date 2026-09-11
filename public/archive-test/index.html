@@ -112,7 +112,10 @@ button{font:inherit}
 }
 .elevator{
   position:fixed;z-index:12;left:50%;top:50%;
-  transform:translate(-50%,-50%);\n  transition:top 930ms cubic-bezier(.18,.88,.22,1);\n  pointer-events:none;\n  display:grid;place-items:center;
+  transform:translate(-50%,-50%);
+  transition:top 930ms cubic-bezier(.18,.88,.22,1);
+  pointer-events:none;
+  display:grid;place-items:center;
   filter:sepia(.08) saturate(.92) drop-shadow(0 7px 8px rgba(0,0,0,.38));
 }
 .elevator img{
@@ -271,7 +274,8 @@ button{font:inherit}
   const depthEl=document.getElementById('depth');
   const zoneEl=document.getElementById('zone');
   const flash=document.getElementById('flash');
-  const burst=document.getElementById('burst');\n  const card=document.querySelector('.card');
+  const burst=document.getElementById('burst');
+  const card=document.querySelector('.card');
 
   const CROP_SOURCE_H=1346;
   const FIRST_LANDING_SOURCE_Y=49;
