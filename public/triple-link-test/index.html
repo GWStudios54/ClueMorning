@@ -361,7 +361,7 @@
 
     .attempt.on,.success .attempt{opacity:1}
 
-    /* Light only: zero visible source, just warm shadow emission from the filament point. */
+    /* Light only: centered in the glass, stable and bright, with no visible source object. */
     .attempt.on,.success .attempt{
       opacity:1;
       box-shadow:none!important;
@@ -371,39 +371,23 @@
       content:""!important;
       position:absolute;
       left:50%;
-      top:39%;
+      top:49%;
       width:0;
       height:0;
       border:0;
       background:transparent!important;
       box-shadow:
-        0 0 4px 3px rgba(255,224,150,.40),
-        0 0 9px 6px rgba(255,190,92,.28),
-        0 0 16px 10px rgba(255,150,52,.18),
-        0 0 24px 14px rgba(255,111,28,.08);
+        0 0 3px 3px rgba(255,244,198,.72),
+        0 0 8px 6px rgba(255,218,130,.54),
+        0 0 14px 10px rgba(255,179,78,.34),
+        0 0 23px 15px rgba(255,136,40,.18),
+        0 0 34px 21px rgba(255,102,24,.08);
       transform:translate(-50%,-50%);
-      filter:blur(1.2px);
+      filter:blur(.85px);
       mix-blend-mode:screen;
       pointer-events:none;
-      animation:attemptGlow 1.9s ease-in-out infinite alternate;
     }
     .attempt.on::after,.success .attempt::after{content:none!important}
-    @keyframes attemptGlow{
-      from{
-        box-shadow:
-          0 0 4px 3px rgba(255,224,150,.34),
-          0 0 9px 6px rgba(255,190,92,.23),
-          0 0 16px 10px rgba(255,150,52,.14),
-          0 0 24px 14px rgba(255,111,28,.06);
-      }
-      to{
-        box-shadow:
-          0 0 5px 3px rgba(255,229,158,.46),
-          0 0 10px 7px rgba(255,194,96,.32),
-          0 0 17px 11px rgba(255,154,55,.20),
-          0 0 25px 15px rgba(255,114,30,.09);
-      }
-    }
 
     .feedback{
       left:13%;top:64.0%;width:74%;min-height:2.5%;
@@ -663,6 +647,6 @@
     requestAnimationFrame(fitSwitchboardText);
   })();
   </script>
-  <!-- switchboard-test-build: 2026-09-11r shadow-only-light -->
+  <!-- switchboard-test-build: 2026-09-11s centered-bright-glow -->
 </body>
 </html>
