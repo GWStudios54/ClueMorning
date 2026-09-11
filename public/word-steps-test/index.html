@@ -4,356 +4,89 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="robots" content="noindex,nofollow">
-  <meta name="theme-color" content="#111827">
-  <title>Word Steps — Rooftops Test | Clue Morning</title>
+  <meta name="theme-color" content="#080b14">
+  <title>Word Steps — Rooftops Painted Test | Clue Morning</title>
   <style>
-    :root{
-      --ink:#f8f1df;
-      --muted:#c7bed0;
-      --night:#0a0d16;
-      --panel:rgba(12,15,25,.90);
-      --line:#776688;
-      --gold:#f3c974;
-      --mint:#9dc8b1;
-      --danger:#d98f88;
-    }
+    :root{--gold:#f0c76f;--ink:#f6ead8;--muted:#cfc2d4;--purple:#765f8b;--panel:rgba(9,10,18,.94)}
     *{box-sizing:border-box}
-    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--night);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#070a12;color:var(--ink);font-family:Georgia,"Times New Roman",serif}
     button,input{font:inherit}
     button{cursor:pointer}
-    .scene{
-      position:fixed;inset:0;overflow:hidden;
-      background:
-        radial-gradient(circle at 72% 13%,rgba(255,193,115,.16),transparent 17%),
-        linear-gradient(#162238 0 38%,#131a2b 58%,#090c14 100%);
-    }
-    .moon{
-      position:absolute;right:10vw;top:9vh;width:74px;height:74px;border-radius:50%;
-      background:#f4e4b8;box-shadow:0 0 38px rgba(245,217,151,.25);
-      opacity:.82;
-    }
-    .cloud{position:absolute;height:22px;border-radius:999px;background:rgba(206,214,232,.08);filter:blur(.5px)}
-    .cloud.c1{width:180px;left:8vw;top:14vh}.cloud.c2{width:240px;right:16vw;top:28vh;opacity:.55}.cloud.c3{width:130px;left:46vw;top:7vh;opacity:.35}
-    .skyline{position:absolute;inset:0;pointer-events:none}
-    .far{position:absolute;left:0;right:0;bottom:0;height:48%;opacity:.48}
-    .far i,.near i{position:absolute;bottom:0;display:block;background:linear-gradient(90deg,#111827,#182033);border-top:2px solid rgba(255,255,255,.03)}
-    .far i::after,.near i::after{content:"";position:absolute;inset:9px 7px;background:repeating-linear-gradient(to bottom,rgba(246,194,105,.25) 0 5px,transparent 5px 18px),repeating-linear-gradient(to right,rgba(246,194,105,.18) 0 4px,transparent 4px 15px);mix-blend-mode:screen}
-    .far .b1{left:0;width:13%;height:38%}.far .b2{left:12%;width:11%;height:56%}.far .b3{left:22%;width:16%;height:43%}.far .b4{left:36%;width:9%;height:64%}.far .b5{left:44%;width:14%;height:48%}.far .b6{left:57%;width:12%;height:60%}.far .b7{left:68%;width:16%;height:46%}.far .b8{left:82%;width:18%;height:58%}
-    .near{position:absolute;left:0;right:0;bottom:-2vh;height:66%;filter:drop-shadow(0 -16px 30px rgba(0,0,0,.2))}
-    .near i{background:linear-gradient(90deg,#0c1019,#111827 55%,#0a0d15)}
-    .near .n1{left:-3%;width:24%;height:54%}.near .n2{left:18%;width:27%;height:70%}.near .n3{left:43%;width:20%;height:60%}.near .n4{left:61%;width:21%;height:78%}.near .n5{left:80%;width:24%;height:62%}
-    .near i::before{content:"";position:absolute;left:-4px;right:-4px;top:-9px;height:9px;background:#090c13;border-top:2px solid #30364a}
-    .water-tower{position:absolute;right:9%;top:-54px;width:80px;height:54px;border-radius:6px 6px 18px 18px;background:#1f2636;border:2px solid #333d53}
-    .water-tower::before,.water-tower::after{content:"";position:absolute;top:50px;width:4px;height:65px;background:#2b3346}
-    .water-tower::before{left:16px;transform:rotate(6deg)}.water-tower::after{right:16px;transform:rotate(-6deg)}
-    .scene-camera{
-      position:absolute;inset:0;pointer-events:none;
-      transform:translateY(var(--camera-shift,0px));
-      transition:transform 850ms cubic-bezier(.2,.8,.2,1);
-      will-change:transform;
-    }
-    .fire-escape{position:absolute;left:19%;bottom:7%;width:72%;height:84%;pointer-events:none}
-    .rail{position:absolute;left:0;right:0;height:2px;background:#6d7280;box-shadow:0 0 0 1px rgba(0,0,0,.6)}
-    .rail::before,.rail::after{content:"";position:absolute;bottom:0;width:2px;height:22px;background:#6d7280}
-    .rail::before{left:0}.rail::after{right:0}
-    .rail.r1{bottom:8%}.rail.r2{bottom:28%}.rail.r3{bottom:48%}.rail.r4{bottom:68%}.rail.r5{bottom:88%}
-    .stairs{position:absolute;width:24%;height:19%;border-left:3px solid #686f7d;border-bottom:3px solid #686f7d;transform:skewY(-28deg);opacity:.92}
-    .stairs.s1{left:12%;bottom:9%}.stairs.s2{left:53%;bottom:29%}.stairs.s3{left:20%;bottom:49%}.stairs.s4{left:57%;bottom:69%}
-    .climb-track{
-      position:absolute;left:50%;top:17%;bottom:23%;width:min(580px,86vw);transform:translateX(-50%);
-      pointer-events:none;
-    }
-    .ledge{
-      position:absolute;left:50%;transform:translateX(-50%);width:min(430px,78vw);height:42px;
-      border-top:4px solid #3a4154;border-bottom:2px solid rgba(0,0,0,.5);
-    }
-    .ledge::before{content:"";position:absolute;left:0;right:0;top:3px;height:5px;background:repeating-linear-gradient(90deg,#202636 0 28px,#1a2030 28px 31px)}
-    .ledge.l0{bottom:0}.ledge.l1{bottom:10%}.ledge.l2{bottom:20%}.ledge.l3{bottom:30%}.ledge.l4{bottom:40%}
-    .ledge.l5{bottom:50%}.ledge.l6{bottom:60%}.ledge.l7{bottom:70%}.ledge.l8{bottom:80%}
-    .word-sign{
-      position:absolute;transform:translate(-50%,50%);
-      min-width:112px;padding:7px 11px;border:2px solid #6b6177;border-radius:8px;
-      background:rgba(10,12,20,.92);box-shadow:0 4px 0 #05070d,0 8px 18px rgba(0,0,0,.28);
-      color:#e9ddca;text-align:center;font:900 .73rem/1 "Courier New",monospace;letter-spacing:.14em;
-      opacity:.16;transition:opacity .28s ease,transform .45s ease,filter .28s ease,border-color .25s ease,color .25s ease;
-    }
-    .word-sign.active{opacity:1;color:#fff3d8;border-color:#a88e62;filter:drop-shadow(0 0 8px rgba(244,198,107,.23))}
-    .word-sign.current{color:var(--gold);transform:translate(-50%,50%) scale(1.08);border-color:var(--gold)}
-    .word-sign.target{opacity:.42;border-style:dashed}
-    .word-sign.target.active{opacity:1;border-style:solid}
-    .climber{
-      position:absolute;left:50%;bottom:0;
-      width:32px;height:54px;transform:translate(-50%,4px);
-      transition:left 360ms linear,bottom 520ms cubic-bezier(.2,.8,.2,1),transform 190ms ease;
-      z-index:8;filter:drop-shadow(0 6px 6px rgba(0,0,0,.45));
-    }
-    .climber-sprite{position:relative;width:100%;height:100%;transform-origin:center center}
-    .climber.facing-left .climber-sprite{transform:scaleX(-1)}
-    .climber-head{position:absolute;left:10px;top:1px;width:12px;height:12px;border-radius:50%;background:#e6c5a5}
-    .climber-body{position:absolute;left:7px;top:13px;width:18px;height:30px;border-radius:6px 6px 4px 4px;background:#8e5c4e;box-shadow:0 13px 0 -5px #2e3b54}
-    .climber-bag{position:absolute;left:21px;top:18px;width:8px;height:13px;border-radius:3px;background:#38475e}
-    .climber-scarf{position:absolute;left:21px;top:16px;width:13px;height:4px;border-radius:999px;background:#d6ba7c;transform-origin:left center}
-    .climber.walking .climber-sprite{animation:climber-bob .28s infinite alternate}
-    .climber.climbing .climber-sprite{animation:climber-climb .22s infinite alternate}
-    .climber.hopping{transform:translate(-50%,-10px)}
-    .climber.walking .climber-scarf,.climber.hopping .climber-scarf{animation:scarf-flick .24s infinite alternate}
-    @keyframes climber-bob{from{margin-top:0}to{margin-top:-3px}}
-    @keyframes climber-climb{from{margin-top:0}to{margin-top:-4px}}
-    @keyframes scarf-flick{from{transform:rotate(-7deg)}to{transform:rotate(10deg)}}
-    .topbar{
-      position:absolute;z-index:20;top:max(10px,env(safe-area-inset-top));left:10px;right:10px;
-      display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;pointer-events:none
-    }
-    .topbar button,.topbar .badge{pointer-events:auto;min-height:42px;border:2px solid rgba(117,102,136,.88);border-radius:12px;background:rgba(10,12,20,.86);color:#f6ead6;box-shadow:0 0 0 2px rgba(0,0,0,.28);backdrop-filter:blur(7px)}
-    .back{justify-self:start;padding:0 12px}.badge{display:grid;place-items:center;padding:0 13px;font:900 .68rem/1 "Courier New",monospace;letter-spacing:.12em;color:#efd59d!important}
-    .reset{justify-self:end;width:44px;padding:0;font-weight:900}
-    .title{
-      position:absolute;z-index:18;top:calc(max(10px,env(safe-area-inset-top)) + 55px);left:50%;transform:translateX(-50%);
-      text-align:center;text-shadow:0 2px 8px rgba(0,0,0,.6);pointer-events:none
-    }
-    .title small{display:block;color:#c8b9d2;font:800 .59rem/1.1 "Courier New",monospace;letter-spacing:.18em}
-    .title strong{display:block;margin-top:5px;font:800 1rem/1 Georgia,serif;letter-spacing:.12em}
-    .stats{
-      position:absolute;z-index:19;top:calc(max(10px,env(safe-area-inset-top)) + 93px);left:50%;transform:translateX(-50%);
-      display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:min(430px,calc(100vw - 20px))
-    }
-    .stat{min-height:50px;padding:7px 5px;border:2px solid rgba(95,80,108,.8);border-radius:11px;background:rgba(10,11,19,.80);text-align:center;backdrop-filter:blur(6px)}
-    .stat strong{display:block;color:var(--gold);font:800 1.02rem/1 Georgia,serif}.stat span{display:block;margin-top:5px;color:#c6bacb;font:800 .52rem/1 "Courier New",monospace;letter-spacing:.07em}
-    .goal{
-      position:absolute;z-index:18;left:50%;top:calc(max(10px,env(safe-area-inset-top)) + 153px);transform:translateX(-50%);
-      display:flex;gap:10px;align-items:center;padding:7px 11px;border-radius:10px;background:rgba(9,11,18,.76);border:1px solid rgba(118,104,133,.65);
-      font:800 .61rem/1.2 "Courier New",monospace;color:#c8bdd0;backdrop-filter:blur(5px)
-    }
-    .goal b{color:#f2d698;font-size:.75rem;letter-spacing:.08em}.goal .arrow{opacity:.65}
-    .controls{
-      position:absolute;z-index:25;left:50%;bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(-50%);
-      width:min(640px,calc(100vw - 20px));padding:12px;border:2px solid rgba(113,91,128,.92);border-radius:15px;background:var(--panel);
-      box-shadow:0 0 0 2px rgba(5,6,11,.72),0 14px 34px rgba(0,0,0,.32);backdrop-filter:blur(9px)
-    }
-    .prompt{margin:0 0 9px;text-align:center;color:#d6c9da;font:800 .61rem/1.25 "Courier New",monospace;letter-spacing:.03em}
-    .prompt b{color:#fff0d2}
-    form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px}
-    input{min-width:0;min-height:52px;padding:0 14px;border:2px solid #725f88;border-radius:12px;background:#111522;color:#fff3df;box-shadow:0 0 0 2px rgba(5,6,11,.7);font:900 18px/1 "Courier New",monospace;letter-spacing:.14em;text-transform:uppercase;outline:none}
-    input:focus{border-color:#a992bf}
-    .add{min-width:102px;border:2px solid #6f8b91;border-radius:12px;background:#294248;color:#fff3df;font:900 .75rem/1 "Courier New",monospace}
-    .actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:7px}
-    .actions button{min-height:38px;border:1px solid #51485e;border-radius:10px;background:#191825;color:#d8ccda;font:800 .64rem/1 "Courier New",monospace}
-    .message{min-height:1.25em;margin:8px 2px 0;text-align:center;color:#c9bdcd;font:800 .61rem/1.25 "Courier New",monospace}
-    .message.good{color:#b9d7c6}.message.bad{color:#e4aaa4}
-    .complete{display:none;text-align:center;padding:6px 4px 1px}
-    .complete.show{display:block}.complete strong{display:block;color:var(--gold);font:800 1.55rem/1 Georgia,serif}.complete span{display:block;margin-top:7px;color:#c9bed0;font:800 .65rem/1.2 "Courier New",monospace}
-    .complete button{margin-top:10px;min-height:42px;padding:0 15px;border:2px solid #6b8790;border-radius:10px;background:#294248;color:#fff3df;font-weight:900}
-    .test-note{
-      position:absolute;z-index:16;right:12px;bottom:170px;max-width:180px;padding:7px 9px;border-radius:8px;
-      background:rgba(9,11,18,.64);color:#a9a0b3;font:700 .54rem/1.3 "Courier New",monospace;backdrop-filter:blur(5px)
-    }
-    @media(max-width:560px){
-      .moon{right:6vw;top:12vh;width:56px;height:56px}
-      .near{height:70%}.near .n2{left:13%;width:33%}.near .n3{left:44%;width:25%}.near .n4{left:67%;width:28%}.near .n1,.near .n5{display:none}
-      .fire-escape{left:7%;width:86%}.climb-track{top:22%;bottom:26%}
-      .title{top:calc(max(10px,env(safe-area-inset-top)) + 52px)}
-      .stats{top:calc(max(10px,env(safe-area-inset-top)) + 89px)}
-      .goal{top:calc(max(10px,env(safe-area-inset-top)) + 148px)}
-      .test-note{display:none}
-      .controls{padding:10px}
-      .prompt{font-size:.58rem}
-      form{grid-template-columns:minmax(0,1fr) 92px}
-      .add{min-width:0}
-      .word-sign{min-width:96px;font-size:.66rem}
-      .climber{width:30px;height:51px}
-    }
-    @media(max-height:700px){
-      .climb-track{top:25%;bottom:29%}
-      .goal{display:none}
-      .stats{top:calc(max(7px,env(safe-area-inset-top)) + 84px)}
-      .stat{min-height:45px}
-      .controls{padding:9px}
-      .actions button{min-height:34px}
-      .scene-camera{transform:translateY(var(--camera-shift-compact,var(--camera-shift,0px)))}
-    }
-
-    /* Rooftops art pass — match Deep Cut's illustrated, immersive presentation. */
-    .scene{
-      background:#080b13 url('./rooftops-world.svg') center center/cover no-repeat;
-      isolation:isolate;
-    }
-    .scene::before{
-      content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-      background:
-        linear-gradient(to bottom,rgba(4,7,15,.64) 0,rgba(4,7,15,.18) 27%,transparent 43%,transparent 72%,rgba(4,6,12,.62) 100%),
-        radial-gradient(circle at 50% 49%,transparent 36%,rgba(2,4,10,.36) 100%);
-    }
-    .scene::after{
-      content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.075;
-      background:repeating-linear-gradient(to bottom,rgba(255,239,205,.05) 0 1px,rgba(0,0,0,.035) 1px 3px);
-      mix-blend-mode:soft-light;
-    }
-    .moon,.cloud,.skyline,.fire-escape,.water-tower,.ledge{display:none!important}
-    .scene-camera{z-index:5}
-    .climb-track{
-      top:31%;bottom:25%;width:min(520px,80vw);
-      filter:drop-shadow(0 10px 18px rgba(0,0,0,.25));
-    }
-    .word-sign{
-      min-width:104px;padding:8px 12px;
-      border:2px solid rgba(121,96,139,.92);
-      border-radius:11px;
-      background:linear-gradient(180deg,rgba(13,14,24,.96),rgba(8,10,18,.96));
-      color:#ddd0d9;
-      box-shadow:0 0 0 2px rgba(4,5,10,.72),0 8px 18px rgba(0,0,0,.34);
-      backdrop-filter:blur(5px);
-    }
-    .word-sign.active{
-      color:#fff0d1;border-color:#a78a62;
-      box-shadow:0 0 0 2px rgba(4,5,10,.72),0 0 18px rgba(242,190,99,.16),0 8px 18px rgba(0,0,0,.34);
-    }
-    .word-sign.current{
-      color:#f3c974;border-color:#f0c36e;
-      box-shadow:0 0 0 2px rgba(4,5,10,.75),0 0 22px rgba(242,190,99,.27),0 8px 18px rgba(0,0,0,.38);
-    }
-    .word-sign.target{opacity:.65;border-style:solid}
-    .climber{
-      width:38px;height:63px;z-index:14;
-      filter:drop-shadow(0 7px 6px rgba(0,0,0,.58));
-    }
-    .climber-head{left:12px;width:14px;height:14px;background:#e8c9a5}
-    .climber-body{
-      left:7px;top:14px;width:23px;height:36px;
-      border:1px solid rgba(255,220,176,.14);
-      background:linear-gradient(90deg,#73483f,#9a6251 55%,#704238);
-      box-shadow:0 17px 0 -6px #26334c;
-    }
-    .climber-bag{left:27px;top:22px;background:#31415b}
-    .climber-scarf{left:25px;top:18px;width:17px;background:#d9b56d}
-    .topbar{z-index:40}
-    .topbar button,.topbar .badge{
-      min-height:48px;border:2px solid rgba(116,91,132,.92);
-      border-radius:14px;background:rgba(9,10,18,.91);
-      box-shadow:0 0 0 2px rgba(3,4,9,.68),0 8px 22px rgba(0,0,0,.25);
-      color:#f6ead8;backdrop-filter:blur(8px);
-    }
-    .back{font-family:Georgia,serif;font-size:.94rem}
-    .badge{color:#edc779!important;font-size:.64rem}
-    .reset{font-size:1.05rem}
-    .title{
-      z-index:38;top:calc(max(10px,env(safe-area-inset-top)) + 59px);
-      width:min(520px,78vw);
-    }
-    .title small{
-      color:#cfc2d4;font:900 .6rem/1 "Courier New",monospace;
-      letter-spacing:.26em;text-shadow:0 2px 8px rgba(0,0,0,.8);
-    }
-    .title strong{
-      color:#f0c76f;margin-top:7px;
-      font:800 clamp(1.28rem,5.2vw,1.72rem)/1 Georgia,serif;
-      letter-spacing:.08em;text-shadow:0 3px 10px rgba(0,0,0,.7);
-    }
-    .stats{
-      z-index:39;top:calc(max(10px,env(safe-area-inset-top)) + 111px);
-      gap:8px;width:min(600px,calc(100vw - 20px));
-    }
-    .stat{
-      min-height:64px;padding:9px 5px;
-      border:2px solid rgba(101,80,113,.94);border-radius:13px;
-      background:linear-gradient(180deg,rgba(13,14,23,.93),rgba(8,9,16,.94));
-      box-shadow:0 0 0 2px rgba(4,5,10,.58),0 9px 24px rgba(0,0,0,.22);
-    }
-    .stat strong{color:#f0c76f;font:800 1.24rem/1 Georgia,serif}
-    .stat span{color:#cabfd0;font-size:.54rem;letter-spacing:.09em}
-    .goal{
-      z-index:39;top:calc(max(10px,env(safe-area-inset-top)) + 184px);
-      padding:10px 15px;border:2px solid rgba(108,87,122,.88);
-      border-radius:13px;background:rgba(9,10,18,.91);
-      box-shadow:0 0 0 2px rgba(4,5,10,.55),0 9px 20px rgba(0,0,0,.22);
-      color:#d4c8d6;font-size:.64rem;
-    }
-    .goal b{color:#f1c86f;font-size:.8rem}
-    .controls{
-      z-index:45;width:min(660px,calc(100vw - 20px));padding:14px;
-      border:2px solid rgba(113,91,128,.95);border-radius:18px;
-      background:linear-gradient(180deg,rgba(10,11,19,.96),rgba(8,9,16,.97));
-      box-shadow:0 0 0 2px rgba(5,6,11,.78),0 16px 40px rgba(0,0,0,.42);
-    }
-    .prompt{color:#d9ceda;font-size:.64rem}.prompt b{color:#f4dfb2}
-    input{
-      min-height:58px;border:2px solid #765f8b;border-radius:14px;
-      background:rgba(15,16,28,.96);
-      box-shadow:0 0 0 2px rgba(5,6,11,.74),inset 0 1px 0 rgba(255,255,255,.03);
-      color:#fff2dc;font-size:18px;
-    }
-    .add{
-      min-width:108px;border:2px solid #8aa0a5;border-radius:14px;
-      background:linear-gradient(180deg,#35545a,#263f45);
-      color:#f5e5c9;box-shadow:0 0 0 2px rgba(5,6,11,.7);
-    }
-    .actions button{
-      min-height:42px;border:1px solid #55495f;border-radius:11px;
-      background:linear-gradient(180deg,#1a1926,#12121d);color:#dcd0dc;
-    }
-    .message{color:#d0c2ce}
-    .test-note{display:none}
-    @media(max-width:560px){
-      .climb-track{top:32%;bottom:26%;width:82vw}
-      .title{top:calc(max(10px,env(safe-area-inset-top)) + 58px)}
-      .stats{top:calc(max(10px,env(safe-area-inset-top)) + 108px)}
-      .goal{top:calc(max(10px,env(safe-area-inset-top)) + 181px)}
-      .controls{padding:12px}
-      .word-sign{min-width:92px;font-size:.65rem}
-    }
-    @media(max-height:700px){
-      .title strong{font-size:1.18rem}
-      .stats{top:calc(max(7px,env(safe-area-inset-top)) + 101px)}
-      .stat{min-height:56px}
-      .climb-track{top:31%;bottom:28%}
-    }
+    button:disabled,input:disabled{opacity:.56;cursor:default}
+    .scene{position:fixed;inset:0;overflow:hidden;background:#080b13;isolation:isolate}
+    .scene::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(to bottom,rgba(4,6,13,.72),rgba(4,6,13,.18) 24%,transparent 41%,transparent 72%,rgba(4,6,13,.72))}
+    .scene::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.075;background:repeating-linear-gradient(to bottom,rgba(255,239,205,.05) 0 1px,rgba(0,0,0,.04) 1px 3px);mix-blend-mode:soft-light}
+    .topbar{position:absolute;z-index:40;top:max(10px,env(safe-area-inset-top));left:10px;right:10px;display:grid;grid-template-columns:1fr auto 1fr;gap:9px;align-items:center;pointer-events:none}
+    .topbar button,.badge{pointer-events:auto;min-height:46px;border:2px solid rgba(116,91,132,.93);border-radius:14px;background:rgba(9,10,18,.92);color:#f6ead8;box-shadow:0 0 0 2px rgba(3,4,9,.68),0 8px 22px rgba(0,0,0,.28);backdrop-filter:blur(8px)}
+    .back{justify-self:start;padding:0 13px;font-size:.86rem}.badge{display:grid;place-items:center;padding:0 14px;color:#edc779!important;font:800 .63rem/1 "Courier New",monospace;letter-spacing:.16em}.reset{justify-self:end;width:46px;padding:0;font-size:1.05rem}
+    .title{position:absolute;z-index:38;top:calc(max(10px,env(safe-area-inset-top)) + 55px);left:50%;width:min(540px,88vw);transform:translateX(-50%);text-align:center;pointer-events:none;text-shadow:0 3px 10px rgba(0,0,0,.75)}
+    .title small{display:block;color:#cfc2d4;font:900 .59rem/1 "Courier New",monospace;letter-spacing:.27em}.title strong{display:block;margin-top:7px;color:var(--gold);font:800 clamp(1.18rem,5.1vw,1.7rem)/1 Georgia,serif;letter-spacing:.08em}
+    .stats{position:absolute;z-index:39;top:calc(max(10px,env(safe-area-inset-top)) + 104px);left:50%;width:min(600px,calc(100vw - 20px));transform:translateX(-50%);display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+    .stat{min-height:61px;padding:8px 4px;border:2px solid rgba(101,80,113,.94);border-radius:13px;background:linear-gradient(180deg,rgba(13,14,23,.94),rgba(8,9,16,.95));box-shadow:0 0 0 2px rgba(4,5,10,.58),0 9px 24px rgba(0,0,0,.22);text-align:center;backdrop-filter:blur(6px)}
+    .stat strong{display:block;color:var(--gold);font:800 1.2rem/1 Georgia,serif}.stat span{display:block;margin-top:6px;color:#cabfd0;font:800 .52rem/1 "Courier New",monospace;letter-spacing:.09em}
+    .goal{position:absolute;z-index:39;top:calc(max(10px,env(safe-area-inset-top)) + 173px);left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:9px;white-space:nowrap;padding:9px 14px;border:2px solid rgba(108,87,122,.9);border-radius:13px;background:rgba(9,10,18,.93);box-shadow:0 0 0 2px rgba(4,5,10,.55),0 9px 20px rgba(0,0,0,.24);color:#d4c8d6;font:800 .61rem/1.2 "Courier New",monospace}.goal b{color:#f1c86f;font-size:.78rem;letter-spacing:.08em}
+    .painted-frame{position:absolute;z-index:5;left:50%;top:calc(max(10px,env(safe-area-inset-top)) + 208px);width:min(100vw,650px);aspect-ratio:600/514;transform:translateX(-50%);overflow:hidden;background:#0a0e18 url('./rooftops-world.svg') center/cover no-repeat;box-shadow:0 24px 55px rgba(0,0,0,.34)}
+    .painted-world{position:absolute;left:0;top:0;width:100%;height:auto;transform:translateY(-7.52%);opacity:0;transition:opacity .26s ease;pointer-events:none;user-select:none}
+    html.painted-ready .painted-world{opacity:1}
+    .painted-frame::after{content:"";position:absolute;inset:0;z-index:5;pointer-events:none;box-shadow:inset 0 0 72px rgba(2,4,10,.24)}
+    .art-character-cover{position:absolute;z-index:7;left:36.8%;top:37.5%;width:13.5%;height:18.5%;border:1px solid rgba(184,139,67,.46);border-radius:4px 4px 16px 16px;background:linear-gradient(180deg,rgba(13,34,62,.98),rgba(8,22,43,.98));box-shadow:inset 0 0 22px rgba(0,0,0,.38),0 5px 15px rgba(0,0,0,.24)}
+    .art-character-cover::before{content:"✦";position:absolute;left:50%;top:18%;transform:translateX(-50%);color:#c49449;font:700 1.25rem/1 Georgia,serif;opacity:.82}
+    .art-character-cover::after{content:"";position:absolute;left:50%;bottom:-12px;transform:translateX(-50%);border-left:18px solid transparent;border-right:18px solid transparent;border-top:12px solid #08162b}
+    .plate-cover{position:absolute;z-index:8;left:50%;transform:translate(-50%,-50%);width:31%;height:8.8%;border:2px solid rgba(121,96,139,.9);border-radius:10px;background:linear-gradient(180deg,rgba(13,14,24,.98),rgba(8,10,18,.99));box-shadow:0 0 0 2px rgba(4,5,10,.7),0 6px 16px rgba(0,0,0,.35)}
+    .plate-cover.top{top:13.1%;width:29%}.plate-cover.mid{top:57.2%;width:31%}.plate-cover.bottom{top:84.1%;width:31%}
+    .path-layer{position:absolute;inset:0;z-index:12;pointer-events:none}
+    .word-sign{position:absolute;transform:translate(-50%,-50%);min-width:92px;padding:7px 9px;border:2px solid rgba(121,96,139,.94);border-radius:10px;background:linear-gradient(180deg,rgba(13,14,24,.98),rgba(8,10,18,.99));color:#ddd0d9;text-align:center;font:900 clamp(.58rem,2.7vw,.75rem)/1 "Courier New",monospace;letter-spacing:.13em;box-shadow:0 0 0 2px rgba(4,5,10,.7),0 6px 16px rgba(0,0,0,.35);transition:transform .3s ease,color .3s ease,border-color .3s ease,box-shadow .3s ease}
+    .word-sign.current{color:#f3c974;border-color:#f0c36e;transform:translate(-50%,-50%) scale(1.07);box-shadow:0 0 0 2px rgba(4,5,10,.75),0 0 20px rgba(242,190,99,.25),0 8px 18px rgba(0,0,0,.38)}
+    .word-sign.target{color:#f0d79d;border-color:#a78a62}
+    .word-sign.micro{min-width:72px;padding:5px 7px;font-size:.54rem;opacity:.92}
+    .climber{position:absolute;z-index:15;width:34px;height:57px;transform:translate(-50%,-50%);transition:left 330ms linear,top 510ms cubic-bezier(.2,.8,.2,1),transform 190ms ease;filter:drop-shadow(0 7px 6px rgba(0,0,0,.58))}
+    .climber-sprite{position:relative;width:100%;height:100%;transform-origin:center}.climber.facing-left .climber-sprite{transform:scaleX(-1)}
+    .climber-head{position:absolute;left:10px;top:1px;width:13px;height:13px;border-radius:50%;background:#e8c9a5}
+    .climber-body{position:absolute;left:6px;top:13px;width:22px;height:34px;border:1px solid rgba(255,220,176,.14);border-radius:7px 7px 4px 4px;background:linear-gradient(90deg,#73483f,#9a6251 55%,#704238);box-shadow:0 16px 0 -6px #26334c}
+    .climber-bag{position:absolute;left:25px;top:21px;width:8px;height:13px;border-radius:3px;background:#31415b}.climber-scarf{position:absolute;left:24px;top:17px;width:16px;height:4px;border-radius:999px;background:#d9b56d;transform-origin:left center}
+    .climber.walking .climber-sprite{animation:bob .27s infinite alternate}.climber.climbing .climber-sprite{animation:climb .22s infinite alternate}.climber.hopping{transform:translate(-50%,-58%)}.climber.walking .climber-scarf,.climber.hopping .climber-scarf{animation:scarf .24s infinite alternate}
+    @keyframes bob{from{margin-top:0}to{margin-top:-3px}}@keyframes climb{from{margin-top:0}to{margin-top:-4px}}@keyframes scarf{from{transform:rotate(-7deg)}to{transform:rotate(10deg)}}
+    .controls{position:absolute;z-index:45;left:50%;bottom:max(10px,env(safe-area-inset-bottom));width:min(660px,calc(100vw - 18px));transform:translateX(-50%);padding:12px;border:2px solid rgba(113,91,128,.96);border-radius:18px;background:linear-gradient(180deg,rgba(10,11,19,.97),rgba(8,9,16,.98));box-shadow:0 0 0 2px rgba(5,6,11,.78),0 16px 40px rgba(0,0,0,.44);backdrop-filter:blur(9px)}
+    .prompt{margin:0 0 9px;color:#d9ceda;text-align:center;font:800 .61rem/1.3 "Courier New",monospace}.prompt b{color:#f4dfb2}
+    form{display:grid;grid-template-columns:minmax(0,1fr) 104px;gap:8px}
+    input{min-width:0;min-height:54px;padding:0 14px;border:2px solid #765f8b;border-radius:14px;background:rgba(15,16,28,.97);box-shadow:0 0 0 2px rgba(5,6,11,.74),inset 0 1px 0 rgba(255,255,255,.03);color:#fff2dc;font:900 16px/1 "Courier New",monospace;letter-spacing:.13em;text-transform:uppercase;outline:none}.add{border:2px solid #8aa0a5;border-radius:14px;background:linear-gradient(180deg,#35545a,#263f45);color:#f5e5c9;font:900 .75rem/1 "Courier New",monospace;box-shadow:0 0 0 2px rgba(5,6,11,.7)}
+    .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.actions button{min-height:38px;border:1px solid #55495f;border-radius:11px;background:linear-gradient(180deg,#1a1926,#12121d);color:#dcd0dc;font:800 .61rem/1 "Courier New",monospace}.message{min-height:1.2em;margin:8px 0 0;text-align:center;color:#d0c2ce;font:800 .59rem/1.25 "Courier New",monospace}.message.good{color:#e5cc8d}.message.bad{color:#e2a4a0}
+    .complete{display:none;text-align:center;padding:5px}.complete.show{display:block}.complete strong{display:block;color:var(--gold);font:800 1.35rem/1 Georgia,serif}.complete span{display:block;margin-top:7px;color:#cfc2d4;font:800 .63rem/1.25 "Courier New",monospace}.complete button{margin-top:10px;min-height:42px;padding:0 15px;border:2px solid #6b8790;border-radius:10px;background:#294248;color:#fff3df;font-weight:900}
+    .loading-note{position:absolute;z-index:13;left:50%;top:52%;transform:translate(-50%,-50%);padding:7px 10px;border-radius:9px;background:rgba(8,10,18,.82);color:#c9bccd;font:800 .56rem/1 "Courier New",monospace;letter-spacing:.08em;transition:opacity .2s}
+    html.painted-ready .loading-note{opacity:0;pointer-events:none}
+    @media(max-width:420px){.topbar{gap:7px}.back{width:46px;padding:0;font-size:0}.back::after{content:"←";font-size:1.1rem}.badge{padding:0 10px;font-size:.57rem}.title strong{font-size:1.18rem}.stats{top:calc(max(10px,env(safe-area-inset-top)) + 101px)}.goal{top:calc(max(10px,env(safe-area-inset-top)) + 168px)}.painted-frame{top:calc(max(10px,env(safe-area-inset-top)) + 201px)}.controls{padding:10px}.word-sign.micro{min-width:62px;font-size:.49rem}}
+    @media(max-height:690px){.title{top:calc(max(6px,env(safe-area-inset-top)) + 49px)}.stats{top:calc(max(6px,env(safe-area-inset-top)) + 94px)}.stat{min-height:54px}.goal{top:calc(max(6px,env(safe-area-inset-top)) + 154px)}.painted-frame{top:calc(max(6px,env(safe-area-inset-top)) + 188px)}.controls{padding:9px}.prompt{margin-bottom:6px}.actions{margin-top:6px}.message{margin-top:6px}}
   </style>
 </head>
 <body>
-  <main class="scene" aria-label="Word Steps Rooftops visual test">
-    <div class="moon"></div>
-    <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
-    <div class="skyline far" aria-hidden="true">
-      <i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i><i class="b5"></i><i class="b6"></i><i class="b7"></i><i class="b8"></i>
-    </div>
-    <div class="skyline near" aria-hidden="true">
-      <i class="n1"></i><i class="n2"></i><i class="n3"><span class="water-tower"></span></i><i class="n4"></i><i class="n5"></i>
-    </div>
-    <div class="scene-camera" id="camera" aria-hidden="true">
-      <div class="fire-escape">
-        <span class="rail r1"></span><span class="rail r2"></span><span class="rail r3"></span><span class="rail r4"></span><span class="rail r5"></span>
-        <span class="stairs s1"></span><span class="stairs s2"></span><span class="stairs s3"></span><span class="stairs s4"></span>
-      </div>
-
-      <div class="climb-track" id="track">
-        <div class="ledge l0"></div><div class="ledge l1"></div><div class="ledge l2"></div><div class="ledge l3"></div><div class="ledge l4"></div>
-        <div class="ledge l5"></div><div class="ledge l6"></div><div class="ledge l7"></div><div class="ledge l8"></div>
-        <div id="pathSigns"></div>
-        <div class="climber" id="climber">
-          <div class="climber-sprite">
-            <span class="climber-head"></span>
-            <span class="climber-body"></span>
-            <span class="climber-bag"></span>
-            <span class="climber-scarf"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-
+  <main class="scene" aria-label="Word Steps Rooftops painted test">
     <div class="topbar">
       <button class="back" type="button" onclick="location.href='/'">← Morning Run</button>
       <div class="badge">ROOFTOPS · TEST</div>
       <button class="reset" id="resetTop" type="button" aria-label="Reset test">↻</button>
     </div>
-
     <div class="title"><small>WORD STEPS</small><strong>THE ROOFTOPS</strong></div>
-
     <div class="stats">
       <div class="stat"><strong id="moves">0/8</strong><span>MOVES</span></div>
       <div class="stat"><strong>4</strong><span>PAR</span></div>
       <div class="stat"><strong id="score">1000</strong><span>SCORE</span></div>
     </div>
+    <div class="goal"><span>START <b>COLD</b></span><span>→</span><span>TARGET <b>WARM</b></span></div>
 
-    <div class="goal"><span>START <b>COLD</b></span><span class="arrow">→</span><span>TARGET <b>WARM</b></span></div>
+    <div class="painted-frame" id="paintedFrame" aria-label="Painted rooftop climb">
+      <img id="paintedWorld" class="painted-world" alt="">
+      <div class="art-character-cover" aria-hidden="true"></div>
+      <div class="plate-cover top" aria-hidden="true"></div>
+      <div class="plate-cover mid" aria-hidden="true"></div>
+      <div class="plate-cover bottom" aria-hidden="true"></div>
+      <div id="pathLayer" class="path-layer"></div>
+      <div class="climber" id="climber" aria-hidden="true">
+        <div class="climber-sprite">
+          <span class="climber-head"></span><span class="climber-body"></span><span class="climber-bag"></span><span class="climber-scarf"></span>
+        </div>
+      </div>
+      <div class="loading-note">OPENING THE ROOFTOPS…</div>
+    </div>
 
     <div class="controls">
       <div id="playUi">
@@ -362,184 +95,107 @@
           <input id="guess" maxlength="4" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="NEXT WORD" aria-label="Next four-letter word">
           <button class="add" type="submit">CLIMB</button>
         </form>
-        <div class="actions">
-          <button id="undo" type="button">UNDO STEP</button>
-          <button id="demo" type="button">PLAY DEMO PATH</button>
-        </div>
+        <div class="actions"><button id="undo" type="button">UNDO STEP</button><button id="demo" type="button">PLAY DEMO PATH</button></div>
         <div class="message" id="message">One word closer to a higher view.</div>
       </div>
       <div class="complete" id="complete">
         <strong>ROOFTOP REACHED</strong>
-        <span id="finalLine">WARM in 4 moves · 1000 points</span>
+        <span id="finalLine">WARM in 8 moves · 600 points</span>
         <button id="again" type="button">Run the test again</button>
       </div>
     </div>
-
-    <div class="test-note">Prototype only. No production Word Steps code or daily state is touched.</div>
   </main>
 
   <script>
-    (() => {
-      const START='COLD', TARGET='WARM', PAR=4, MAX=8;
-      const WORDS=new Set([
-        'COLD','CORD','CARD','WARD','WARM','WORD','WORE','CORE','CARE','CURE','CURL','CURD',
-        'GOLD','TOLD','BOLD','FOLD','HOLD','MOLD','COLT','COLE','CODE','CONE','CORK','CORN',
-        'WOLD','WORM','FORM','FARM','HARM','HARD','WARY','WARP','WARN','WART'
-      ]);
-      const NODES=[
-        {x:50,y:0,edge:'ladder'},
-        {x:36,y:10,edge:'walk'},
-        {x:64,y:20,edge:'hop'},
-        {x:42,y:30,edge:'ladder'},
-        {x:61,y:40,edge:'walk'},
-        {x:37,y:50,edge:'hop'},
-        {x:65,y:60,edge:'ladder'},
-        {x:43,y:70,edge:'walk'},
-        {x:50,y:80,edge:null}
-      ];
-      const CAMERA=[0,0,12,30,52,78,106,136,168];
-      const CAMERA_COMPACT=[0,0,8,22,38,58,80,104,132];
+  (() => {
+    const START='COLD',TARGET='WARM',PAR=4,MAX=8;
+    const WORDS=new Set(['COLD','CORD','CARD','WARD','WARM','WORD','WORE','CORE','CARE','CURE','CURL','CURD','GOLD','TOLD','BOLD','FOLD','HOLD','MOLD','COLT','COLE','CODE','CONE','CORK','CORN','WOLD','WORM','FORM','FARM','HARM','HARD','WARY','WARP','WARN','WART']);
+    const NODES=[
+      {x:50,y:80.3,edge:'ladder'},{x:50,y:72.8,edge:'ladder'},{x:50,y:65.2,edge:'walk'},
+      {x:47,y:58.7,edge:'ladder'},{x:43.5,y:50.5,edge:'walk'},{x:50,y:42.8,edge:'ladder'},
+      {x:50,y:34.2,edge:'ladder'},{x:50,y:24.8,edge:'ladder'},{x:50,y:13.2,edge:null}
+    ];
+    let path=[START],currentNode=0,demoTimer=null,animating=false;
+    const $=s=>document.querySelector(s),climber=$('#climber'),layer=$('#pathLayer');
 
-      let path=[START], placements=[{word:START,node:0}], currentNode=0, demoTimer=null, animating=false;
-      const $=s=>document.querySelector(s),climber=$('#climber'),camera=$('#camera'),signLayer=$('#pathSigns');
+    async function loadPaintedWorld(){
+      try{
+        const names=['00','01','02','03','04','05','06','07','08','09a','09b','10','11a','11b','12'];
+        const urls=names.map(name=>'./painted/rooftops-'+name+'.b64');
+        const parts=await Promise.all(urls.map(async url=>{const r=await fetch(url,{cache:'force-cache'});if(!r.ok)throw new Error('Art load failed');return (await r.text()).trim()}));
+        const img=$('#paintedWorld');img.src='data:image/webp;base64,'+parts.join('');
+        try{await img.decode()}catch{}
+        document.documentElement.classList.add('painted-ready');
+      }catch(err){console.warn(err)}
+    }
 
-      function diffOne(a,b){let n=0;for(let i=0;i<4;i++)if(a[i]!==b[i])n++;return n===1}
-      function score(){const moves=path.length-1;return Math.max(400,1000-Math.max(0,moves-PAR)*100)}
-      function setMessage(text,type=''){const el=$('#message');el.textContent=text;el.className='message'+(type?' '+type:'')}
-      function sleep(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
-      function setPosition(nodeIndex,xOverride=null,yOverride=null){
-        const n=NODES[nodeIndex];
-        climber.style.left=`${xOverride??n.x}%`;
-        climber.style.bottom=`${yOverride??n.y}%`;
-      }
-      function panCamera(nodeIndex){
-        camera.style.setProperty('--camera-shift',`${CAMERA[nodeIndex]}px`);
-        camera.style.setProperty('--camera-shift-compact',`${CAMERA_COMPACT[nodeIndex]}px`);
-      }
-      function face(fromIndex,toIndex){
-        climber.classList.toggle('facing-left',NODES[toIndex].x<NODES[fromIndex].x);
-      }
-      function renderSigns(){
-        signLayer.innerHTML='';
-        const occupied=new Map(placements.map(p=>[p.node,p.word]));
-        for(let i=0;i<NODES.length;i++){
-          const n=NODES[i],word=occupied.get(i);
-          if(!word && i!==NODES.length-1)continue;
-          const el=document.createElement('div');
-          el.className='word-sign';
-          if(word)el.classList.add('active');
-          if(i===currentNode)el.classList.add('current');
-          if(i===NODES.length-1)el.classList.add('target');
-          el.style.left=`${n.x}%`;el.style.bottom=`${n.y}%`;
-          el.textContent=word||TARGET;
-          signLayer.appendChild(el);
-        }
-      }
-      function renderHud(){
-        const moves=path.length-1;
-        $('#moves').textContent=`${moves}/${MAX}`;$('#score').textContent=score();
-        $('#undo').disabled=path.length<=1||animating;$('#demo').disabled=animating;$('#guess').disabled=animating;
-        document.querySelector('.add').disabled=animating;
-      }
-      function renderComplete(){
-        const won=path.at(-1)===TARGET,moves=path.length-1;
-        if(won){
-          $('#playUi').style.display='none';$('#complete').classList.add('show');
-          $('#finalLine').textContent=`${TARGET} in ${moves} move${moves===1?'':'s'} · ${score()} points`;
-        }else{$('#playUi').style.display='';$('#complete').classList.remove('show')}
-      }
-      function renderAll(){renderSigns();renderHud();renderComplete();setPosition(currentNode);panCamera(currentNode)}
+    function diffOne(a,b){let n=0;for(let i=0;i<4;i++)if(a[i]!==b[i])n++;return n===1}
+    function score(){const m=path.length-1;return Math.max(400,1000-Math.max(0,m-PAR)*100)}
+    function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+    function setMessage(text,type=''){const el=$('#message');el.textContent=text;el.className='message'+(type?' '+type:'')}
+    function face(a,b){climber.classList.toggle('facing-left',NODES[b].x<NODES[a].x)}
+    function setPosition(i){const n=NODES[i];climber.style.left=n.x+'%';climber.style.top=n.y+'%'}
 
-      async function moveCharacter(toIndex,mode,fast=false){
-        if(toIndex===currentNode)return;
-        const fromIndex=currentNode,from=NODES[fromIndex],to=NODES[toIndex],factor=fast ? .65 : 1;
-        face(fromIndex,toIndex);animating=true;renderHud();
-        climber.classList.remove('walking','climbing','hopping');
-
-        if(mode==='ladder'){
-          climber.classList.add('climbing');
-          climber.style.bottom=`${to.y}%`;await sleep(430*factor);
-          climber.classList.remove('climbing');climber.classList.add('walking');
-          climber.style.left=`${to.x}%`;await sleep(260*factor);
-        }else if(mode==='walk'){
-          climber.classList.add('walking');
-          climber.style.left=`${to.x}%`;await sleep(300*factor);
-          climber.style.bottom=`${to.y}%`;await sleep(330*factor);
-        }else{
-          climber.classList.add('hopping');
-          climber.style.left=`${to.x}%`;climber.style.bottom=`${to.y}%`;await sleep(430*factor);
-        }
-
-        currentNode=toIndex;panCamera(currentNode);
-        climber.classList.remove('walking','climbing','hopping');
-        animating=false;renderHud();
+    function renderSigns(){
+      layer.innerHTML='';
+      path.forEach((word,i)=>{
+        const node=word===TARGET?8:Math.min(i,7),n=NODES[node],el=document.createElement('div');
+        el.className='word-sign'+(node===currentNode?' current':'')+(node!==0&&node!==4&&node!==8?' micro':'');
+        el.textContent=word;el.style.left=n.x+'%';el.style.top=n.y+'%';layer.appendChild(el);
+      });
+      if(path.at(-1)!==TARGET){
+        const n=NODES[8],target=document.createElement('div');target.className='word-sign target';target.textContent=TARGET;target.style.left=n.x+'%';target.style.top=n.y+'%';layer.appendChild(target);
       }
+    }
+    function renderHud(){
+      const moves=path.length-1;$('#moves').textContent=moves+'/'+MAX;$('#score').textContent=score();
+      $('#undo').disabled=animating||path.length<=1||path.at(-1)===TARGET;$('#demo').disabled=animating;$('#guess').disabled=animating;document.querySelector('.add').disabled=animating;
+    }
+    function renderComplete(){
+      const won=path.at(-1)===TARGET,m=path.length-1;
+      $('#playUi').style.display=won?'none':'';$('#complete').classList.toggle('show',won);
+      if(won)$('#finalLine').textContent=TARGET+' in '+m+' move'+(m===1?'':'s')+' · '+score()+' points';
+    }
+    function renderAll(){renderSigns();renderHud();renderComplete();setPosition(currentNode)}
 
-      async function summitRun(){
-        while(currentNode<NODES.length-1){
-          const next=currentNode+1,mode=NODES[currentNode].edge||'walk';
-          await moveCharacter(next,mode,true);
-        }
-      }
+    async function moveCharacter(to,mode='ladder',fast=false){
+      if(to===currentNode)return;const from=currentNode,f=fast ? .68 : 1;face(from,to);animating=true;renderHud();climber.classList.remove('walking','climbing','hopping');
+      if(mode==='walk')climber.classList.add('walking');else if(mode==='hop')climber.classList.add('hopping');else climber.classList.add('climbing');
+      const n=NODES[to];climber.style.left=n.x+'%';climber.style.top=n.y+'%';await sleep((mode==='hop'?390:530)*f);
+      currentNode=to;climber.classList.remove('walking','climbing','hopping');animating=false;renderHud();
+    }
+    async function summitRun(){
+      while(currentNode<8){const next=currentNode+1;await moveCharacter(next,NODES[currentNode].edge||'ladder',true)}
+    }
+    async function addWord(raw,quiet=false){
+      if(animating)return false;const word=String(raw||'').toUpperCase().replace(/[^A-Z]/g,'').slice(0,4);
+      if(word.length!==4){if(!quiet)setMessage('Enter exactly four letters.','bad');return false}
+      if(path.includes(word)){if(!quiet)setMessage('That rooftop is already in your path.','bad');return false}
+      if(!WORDS.has(word)){if(!quiet)setMessage(word+' is outside this small prototype dictionary.','bad');return false}
+      if(!diffOne(path.at(-1),word)){if(!quiet)setMessage('Change exactly one letter from '+path.at(-1)+'.','bad');return false}
+      if(path.length-1>=MAX){if(!quiet)setMessage('Eight moves used. Reset the test to try again.','bad');return false}
+      path.push(word);$('#guess').value='';renderSigns();renderHud();
+      if(word===TARGET){if(!quiet)setMessage('Target found. Take the roof.','good');await summitRun();setMessage('You made the roof.','good')}
+      else{const next=Math.min(currentNode+1,7);await moveCharacter(next,NODES[currentNode].edge||'ladder');if(!quiet)setMessage(word+' holds. Keep climbing.','good')}
+      renderAll();return true;
+    }
+    async function undo(){
+      if(path.length<=1||animating||path.at(-1)===TARGET)return;path.pop();const target=Math.max(0,currentNode-1);await moveCharacter(target,'ladder',true);setMessage('Dropped back one rooftop.');renderAll();
+    }
+    function reset(){
+      if(demoTimer)clearTimeout(demoTimer);demoTimer=null;path=[START];currentNode=0;animating=false;$('#guess').value='';setMessage('One word closer to a higher view.');renderAll();$('#guess').focus();
+    }
+    function playDemo(){
+      reset();const demo=['BOLD','FOLD','GOLD','HOLD','WOLD','WORD','WARD','WARM'];let i=0;
+      const tick=async()=>{if(i>=demo.length){demoTimer=null;return}await addWord(demo[i++],true);if(i===3)setMessage('GOLD holds. Keep climbing.','good');if(i<demo.length)demoTimer=setTimeout(tick,300);else demoTimer=null};
+      demoTimer=setTimeout(tick,350);
+    }
 
-      async function addWord(raw,quiet=false){
-        if(animating)return false;
-        const guess=String(raw||'').toUpperCase().replace(/[^A-Z]/g,'').slice(0,4);
-        if(guess.length!==4){if(!quiet)setMessage('Enter exactly four letters.','bad');return false}
-        if(path.includes(guess)){if(!quiet)setMessage('That rooftop is already in your path.','bad');return false}
-        if(!WORDS.has(guess)){if(!quiet)setMessage(`${guess} is outside this small prototype dictionary.`,'bad');return false}
-        if(!diffOne(path.at(-1),guess)){if(!quiet)setMessage(`Change exactly one letter from ${path.at(-1)}.`,'bad');return false}
-        if(path.length-1>=MAX){if(!quiet)setMessage('Eight moves used. Reset the test to try again.','bad');return false}
-
-        path.push(guess);$('#guess').value='';
-        if(guess===TARGET){
-          placements.push({word:TARGET,node:NODES.length-1});renderSigns();renderHud();
-          if(!quiet)setMessage('Target found. Take the roof.','good');
-          await summitRun();
-          setMessage('You made the roof.','good');
-        }else{
-          const next=Math.min(currentNode+1,NODES.length-1);
-          placements.push({word:guess,node:next});renderSigns();renderHud();
-          await moveCharacter(next,NODES[currentNode].edge||'walk');
-          if(!quiet)setMessage(`${guess} holds. Keep climbing.`,'good');
-        }
-        renderAll();return true;
-      }
-
-      async function undo(){
-        if(path.length<=1||animating||path.at(-1)===TARGET)return;
-        path.pop();placements.pop();
-        const target=placements.at(-1)?.node??0;
-        const reverseMode=target<currentNode?'ladder':'walk';
-        await moveCharacter(target,reverseMode,true);
-        setMessage('Dropped back one rooftop.');renderAll();
-      }
-
-      function reset(){
-        if(demoTimer)clearTimeout(demoTimer);
-        demoTimer=null;path=[START];placements=[{word:START,node:0}];currentNode=0;animating=false;
-        $('#guess').value='';setMessage('One word closer to a higher view.');renderAll();$('#guess').focus();
-      }
-
-      function playDemo(){
-        reset();
-        const demo=['BOLD','FOLD','GOLD','HOLD','WOLD','WORD','WARD','WARM'];
-        let i=0;
-        const tick=async()=>{
-          if(i>=demo.length){demoTimer=null;return}
-          await addWord(demo[i++],true);
-          if(i<demo.length)demoTimer=setTimeout(tick,280);else demoTimer=null;
-        };
-        demoTimer=setTimeout(tick,350);
-      }
-
-      $('#form').addEventListener('submit',async e=>{e.preventDefault();await addWord($('#guess').value)});
-      $('#undo').addEventListener('click',undo);
-      $('#demo').addEventListener('click',playDemo);
-      $('#again').addEventListener('click',reset);
-      $('#resetTop').addEventListener('click',reset);
-      renderAll();
-    })();
+    $('#form').addEventListener('submit',async e=>{e.preventDefault();await addWord($('#guess').value)});
+    $('#undo').addEventListener('click',undo);$('#demo').addEventListener('click',playDemo);$('#again').addEventListener('click',reset);$('#resetTop').addEventListener('click',reset);
+    loadPaintedWorld();renderAll();
+  })();
   </script>
+  <!-- painted-world-build: 2026-09-11b -->
 </body>
 </html>
