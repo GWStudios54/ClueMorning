@@ -1,0 +1,24 @@
+name: Production archive triple-depth smoke
+on:
+  push:
+    branches: [prod-archive-triple-depth-smoke]
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify 22-floor archive is live
+        shell: bash
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 24); do
+            body="$(curl -fsSL https://cluemorning.com/archive-test/ || true)"
+            if grep -q 'DEEP ARCHIVE — 22 LANDING TEST' <<<"$body" \
+              && grep -q "scene:6,y:.842" <<<"$body" \
+              && grep -q "16200" <<<"$body"; then
+              echo "22-floor archive is live."
+              exit 0
+            fi
+            echo "Waiting for production deploy ($i/24)..."
+            sleep 5
+          done
+          exit 1
