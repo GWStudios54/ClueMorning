@@ -272,7 +272,7 @@ button{font:inherit}
 <div class="hud">
   <div class="card">
     <h1>DEEP CUT — ARCHIVE TEST</h1>
-    <p>Eight open-answer test prompts. Valid answers score by rarity and send the elevator deeper.</p>
+    <p>Eight open-answer test prompts. Test mode: every non-empty answer is accepted as a Deepest Cut.</p>
   </div>
 </div>
 
@@ -286,7 +286,7 @@ button{font:inherit}
     DEPTH <strong id="depth">0</strong> ft · <span id="zone">Newsroom Lobby</span>
     &nbsp;·&nbsp; SCORE <strong id="score">0</strong>
   </div>
-  <div class="feedback" id="feedback">Any accepted answer counts. Less-obvious answers go deeper.</div>
+  <div class="feedback" id="feedback">TEST MODE · Every non-empty answer is correct and descends 3 floors.</div>
 </div>
 
 <form class="answer-controls" id="answerForm" autocomplete="off">
@@ -357,80 +357,14 @@ button{font:inherit}
   const TEST_SECONDS=25;
 
   const testQuestions=[
-    {
-      prompt:'Name a country beginning with B.',
-      answers:[
-        ['belgium',38],['brazil',42],['bolivia',55],['bulgaria',58],
-        ['bahamas',67],['bahrain',73],['barbados',78],['belize',82],
-        ['bosnia and herzegovina',86],['bosnia',86],['benin',88],
-        ['bhutan',91],['burkina faso',93],['botswana',94],['burundi',96],['brunei',100]
-      ]
-    },
-    {
-      prompt:'Name a planet or dwarf planet in our Solar System.',
-      answers:[
-        ['earth',30],['mars',35],['jupiter',38],['saturn',40],['mercury',48],['venus',50],
-        ['uranus',62],['neptune',65],['pluto',70],['ceres',88],['eris',90],
-        ['makemake',93],['haumea',96]
-      ]
-    },
-    {
-      prompt:'Name a play by William Shakespeare.',
-      answers:[
-        ['hamlet',30],['romeo and juliet',32],['macbeth',35],['othello',45],
-        ['king lear',48],['julius caesar',52],['the tempest',60],['twelfth night',65],
-        ['much ado about nothing',68],['measure for measure',82],['cymbeline',88],
-        ['coriolanus',92],['pericles',96],['timon of athens',100]
-      ]
-    },
-    {
-      prompt:'Name a moon of Jupiter.',
-      answers:[
-        ['europa',32],['io',35],['ganymede',38],['callisto',42],
-        ['amalthea',66],['himalia',72],['thebe',78],['metis',82],
-        ['elara',86],['pasiphae',90],['carme',92],['ananke',94],
-        ['sinope',96],['lysithea',98],['leda',100],['adrastea',95]
-      ]
-    },
-    {
-      prompt:'Name a dinosaur genus.',
-      answers:[
-        ['tyrannosaurus',30],['t rex',30],['trex',30],['triceratops',34],['velociraptor',38],
-        ['stegosaurus',42],['brachiosaurus',48],['ankylosaurus',52],['spinosaurus',58],
-        ['allosaurus',62],['parasaurolophus',68],['deinonychus',74],['carnotaurus',80],
-        ['therizinosaurus',86],['microraptor',92],['monolophosaurus',96],['yi',100]
-      ]
-    },
-    {
-      prompt:'Name a world capital beginning with M.',
-      answers:[
-        ['madrid',32],['moscow',36],['manila',40],['mexico city',44],
-        ['minsk',58],['muscat',64],['maputo',72],['montevideo',76],
-        ['mogadishu',82],['monrovia',86],['male',90],['malé',90],
-        ['moroni',94],['mbabane',100]
-      ]
-    },
-    {
-      prompt:'Name a country in Africa.',
-      answers:[
-        ['south africa',30],['egypt',32],['nigeria',35],['kenya',38],['morocco',42],
-        ['ethiopia',46],['ghana',52],['tanzania',58],['senegal',64],['botswana',68],
-        ['namibia',72],['rwanda',76],['lesotho',86],['benin',88],
-        ['djibouti',92],['eswatini',94],['comoros',96],['sao tome and principe',100],
-        ['são tomé and príncipe',100]
-      ]
-    },
-    {
-      prompt:'Name a U.S. national park.',
-      answers:[
-        ['yellowstone',30],['yosemite',32],['grand canyon',34],['zion',38],
-        ['glacier',42],['acadia',46],['olympic',52],['sequoia',56],
-        ['great smoky mountains',58],['joshua tree',62],['everglades',66],
-        ['great basin',82],['dry tortugas',86],['congaree',90],
-        ['guadalupe mountains',92],['isle royale',94],['kobuk valley',98],
-        ['gates of the arctic',100]
-      ]
-    }
+    {prompt:'Name something you might see on a newspaper editor’s desk.'},
+    {prompt:'Name any city you would put on a front page.'},
+    {prompt:'Name something that belongs in an archive.'},
+    {prompt:'Name any historical figure.'},
+    {prompt:'Name something you might find in a museum.'},
+    {prompt:'Name anything you could chart on a map.'},
+    {prompt:'Name something that belongs in deep space.'},
+    {prompt:'Name anything worthy of The Final Shelf.'}
   ];
 
   let stop=0;
@@ -570,7 +504,7 @@ button{font:inherit}
     questionCountEl.textContent='QUESTION '+(questionIndex+1)+' OF '+testQuestions.length;
     questionTextEl.textContent=q.prompt;
     feedbackEl.className='feedback';
-    feedbackEl.textContent='Any accepted answer counts. Invalid guesses do not end the prompt.';
+    feedbackEl.textContent='TEST MODE · Every non-empty answer is a DEEPEST CUT.';
     answerInput.disabled=false;
     submitAnswer.disabled=false;
     submitAnswer.textContent='Submit';
@@ -635,16 +569,9 @@ button{font:inherit}
   answerForm.addEventListener('submit',event=>{
     event.preventDefault();
     if(answered||questionIndex>=testQuestions.length)return;
-    const normalized=normalizeAnswer(answerInput.value);
-    if(!normalized)return;
-    const score=answerMaps[questionIndex].get(normalized);
-    if(!score){
-      feedbackEl.className='feedback bad';
-      feedbackEl.textContent='NOT IN THIS TEST SET — KEEP GUESSING';
-      answerInput.select();
-      return;
-    }
-    finishPrompt(answerInput.value.trim(),score,false);
+    const answer=answerInput.value.trim();
+    if(!answer)return;
+    finishPrompt(answer,100,false);
   });
 
   document.getElementById('reset').addEventListener('click',()=>{
