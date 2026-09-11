@@ -370,3 +370,95 @@
 @media(prefers-reduced-motion:reduce){
   .deepcut-archive-world,.deepcut-archive-elevator,.deepcut-archive-flash{transition-duration:1ms}
 }
+
+
+/* Deep Cut mobile playability — controls before spectacle */
+.deepcut-start-card{
+  margin:12px 0;
+}
+.deepcut-stats{
+  margin:10px 0 12px;
+}
+#deepCutPlay{
+  margin:10px 0 12px;
+}
+#deepCutPlay .deepcut-prompt-card{
+  margin-top:0;
+}
+
+@media(max-width:700px){
+  .deepcut-start-card{
+    padding:16px;
+    margin:10px 0;
+  }
+  .deepcut-start-card p{
+    margin-top:0;
+    font-size:.84rem;
+    line-height:1.45;
+  }
+  .deepcut-start-card .primary-button{
+    width:100%;
+    min-height:52px;
+    margin-top:8px;
+  }
+  #deepCutPlay{
+    margin:8px 0 10px;
+  }
+  #deepCutPlay .deepcut-prompt-card{
+    margin:0 0 8px;
+    padding:16px 14px;
+    border-radius:17px;
+  }
+  #deepCutPlay .deepcut-prompt-card h3{
+    font-size:1.35rem;
+  }
+  #deepCutPlay .guess-form{
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:7px;
+  }
+  #deepCutPlay .guess-form .primary-button{
+    width:auto;
+    min-width:92px;
+  }
+  .deepcut-hint{
+    margin:6px 0 0;
+    font-size:.72rem;
+  }
+
+  /* Keep all four pieces of game state visible without a giant 2x2 wall. */
+  .stats-row.four.deepcut-stats{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:6px;
+  }
+  .deepcut-stats .stat{
+    min-width:0;
+    min-height:72px;
+    padding:10px 4px;
+  }
+  .deepcut-stats .stat strong{
+    font-size:clamp(1rem,5vw,1.35rem);
+  }
+  .deepcut-stats .stat span{
+    font-size:.58rem;
+    letter-spacing:.04em;
+  }
+
+  /* The Archive is progress feedback, not the thing that hides the game. */
+  .deepcut-archive-stage{
+    height:clamp(330px,44svh,470px);
+    min-height:330px;
+    margin-top:8px;
+  }
+}
+@media(max-width:420px){
+  #deepCutPlay .guess-form{
+    grid-template-columns:1fr;
+  }
+  #deepCutPlay .guess-form .primary-button{
+    width:100%;
+  }
+  .deepcut-archive-stage{
+    height:clamp(310px,42svh,430px);
+    min-height:310px;
+  }
+}
