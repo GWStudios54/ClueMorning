@@ -361,25 +361,27 @@
 
     .attempt.on,.success .attempt{opacity:1}
 
-    /* Lighting only: no replacement bulb/object, just illumination over the baked-off glass. */
+    /* Lighting only: visible halo with a transparent center, so the baked bulb remains untouched. */
+    .attempt.on,.success .attempt{
+      opacity:1;
+      box-shadow:
+        0 0 9px 3px rgba(255,218,120,.26),
+        0 0 20px 8px rgba(255,171,61,.18),
+        0 0 34px 13px rgba(255,120,24,.08)!important;
+    }
     .attempt.on::before,.success .attempt::before{
       content:""!important;
       position:absolute;
-      inset:-125%;
+      inset:-95%;
       border-radius:50%;
-      background:
-        radial-gradient(circle,
-          rgba(255,249,207,.24) 0 13%,
-          rgba(255,221,126,.24) 20%,
-          rgba(255,182,72,.18) 31%,
-          rgba(255,141,37,.10) 44%,
-          rgba(255,112,25,.035) 57%,
-          transparent 72%);
-      box-shadow:
-        0 0 8px rgba(255,221,133,.18),
-        0 0 18px rgba(255,178,66,.13),
-        0 0 32px rgba(255,132,34,.08);
-      filter:blur(4px);
+      background:radial-gradient(circle,
+        transparent 0 24%,
+        rgba(255,247,207,.18) 31%,
+        rgba(255,221,126,.24) 39%,
+        rgba(255,177,66,.18) 49%,
+        rgba(255,132,33,.09) 60%,
+        transparent 74%);
+      filter:blur(2.2px);
       mix-blend-mode:screen;
       pointer-events:none;
     }
@@ -643,6 +645,6 @@
     requestAnimationFrame(fitSwitchboardText);
   })();
   </script>
-  <!-- switchboard-test-build: 2026-09-11l halo-only-lighting -->
+  <!-- switchboard-test-build: 2026-09-11m visible-halo -->
 </body>
 </html>
