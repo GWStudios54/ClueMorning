@@ -653,12 +653,12 @@ html.deepcut-immersive #deepCutPlay{
   padding:0;
   background:none;
 }
-html.deepcut-immersive #deepCutPlay .deepcut-prompt-card{
+html.deepcut-immersive #deepcut.panel.active #deepCutPlay .deepcut-prompt-card{
   margin:0 0 7px;
   padding:12px 13px;
   border:2px solid rgba(113,91,128,.92);
   border-radius:14px;
-  background:rgba(10,11,19,.93);
+  background:rgba(10,11,19,.94);
   color:#f4ead6;
   box-shadow:0 0 0 2px rgba(5,6,11,.72);
   backdrop-filter:blur(8px);
