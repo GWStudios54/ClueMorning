@@ -1,0 +1,29 @@
+name: Production archive landing smoke
+
+on:
+  push:
+    branches:
+      - prod-archive-landing-smoke
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify landing-aligned archive test is live
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="https://cluemorning.com/archive-test/"
+          for i in $(seq 1 24); do
+            body="$(curl -fsSL "$url" || true)"
+            if grep -q "DEEP ARCHIVE — LANDING TEST" <<<"$body" \
+              && grep -q "shaft-mask" <<<"$body" \
+              && grep -q "data-jump=\"3\"" <<<"$body" \
+              && grep -q "y:.547" <<<"$body"; then
+              echo "Landing-aligned archive test is live."
+              exit 0
+            fi
+            echo "Waiting for production deploy ($i/24)..."
+            sleep 5
+          done
+          exit 1
