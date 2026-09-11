@@ -138,7 +138,7 @@
     function renderSigns(){
       layer.innerHTML='';
       path.forEach((word,i)=>{
-        const node=Math.min(i,NODES.length-1),n=NODES[node],el=document.createElement('div');
+        const node=word===TARGET?8:Math.min(i,7),n=NODES[node],el=document.createElement('div');
         el.className='word-sign'+(node===currentNode?' current':'')+(node!==0&&node!==4&&node!==8?' micro':'');
         el.textContent=word;el.style.left=n.x+'%';el.style.top=n.y+'%';layer.appendChild(el);
       });
@@ -158,7 +158,7 @@
     function renderAll(){renderSigns();renderHud();renderComplete();setPosition(currentNode)}
 
     async function moveCharacter(to,mode='ladder',fast=false){
-      if(to===currentNode)return;const from=currentNode,f=fast?.68:1;face(from,to);animating=true;renderHud();climber.classList.remove('walking','climbing','hopping');
+      if(to===currentNode)return;const from=currentNode,f=fast ? .68 : 1;face(from,to);animating=true;renderHud();climber.classList.remove('walking','climbing','hopping');
       if(mode==='walk')climber.classList.add('walking');else if(mode==='hop')climber.classList.add('hopping');else climber.classList.add('climbing');
       const n=NODES[to];climber.style.left=n.x+'%';climber.style.top=n.y+'%';await sleep((mode==='hop'?390:530)*f);
       currentNode=to;climber.classList.remove('walking','climbing','hopping');animating=false;renderHud();
