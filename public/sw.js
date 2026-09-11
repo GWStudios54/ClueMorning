@@ -1,4 +1,4 @@
-const CACHE = 'clue-morning-pwa-v11';
+const CACHE = 'clue-morning-pwa-v12';
 const APP_SHELL = [
   '/',
   '/index.html',
@@ -33,7 +33,14 @@ const APP_SHELL = [
   '/icon-maskable.svg',
   '/icon-192.png',
   '/icon-512.png',
-  '/notification-badge.svg'
+  '/notification-badge.svg',
+  '/deepcut-archive/newsroom.webp',
+  '/deepcut-archive/upper.webp',
+  '/deepcut-archive/natural-history.webp',
+  '/deepcut-archive/museum.webp',
+  '/deepcut-archive/forbidden.webp',
+  '/deepcut-archive/cosmic.webp',
+  '/deepcut-archive/elevator.webp'
 ];
 
 self.addEventListener('install', event => {
