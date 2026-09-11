@@ -127,7 +127,14 @@
       pointer-events:none;
     }
     .attempt.a1{left:38.2%}.attempt.a2{left:47.1%}.attempt.a3{left:56.2%}
-    .attempt.off{opacity:0;transform:scale(.78);filter:none}
+    .attempt.off{
+      opacity:1;
+      transform:scale(.92);
+      filter:none;
+      background:
+        radial-gradient(circle at 50% 42%,#d8d5d2 0 14%,#aaa8aa 24%,#727078 43%,#4b4951 55%,transparent 72%);
+      box-shadow:none;
+    }
 
     .feedback{
       left:15%;top:64.55%;width:70%;height:3.25%;
@@ -333,7 +340,12 @@
       answer.textContent='';
       syncAttempts();
       if(guess===ANSWER){finish(true);return}
-      if(guesses>=3){pulseWrong();finish(false);return}
+      if(guesses>=3){
+        $('#score').textContent='0';
+        pulseWrong();
+        finish(false);
+        return;
+      }
       pulseWrong();
       $('#score').textContent=String(PROJECTED[guesses]||0);
       setFeedback(guess+' does not connect all three. Try again.','bad');
@@ -364,6 +376,6 @@
     syncAttempts();
   })();
   </script>
-  <!-- switchboard-test-build: 2026-09-11b mobile-polish -->
+  <!-- switchboard-test-build: 2026-09-11c attempt-state-fix -->
 </body>
 </html>
