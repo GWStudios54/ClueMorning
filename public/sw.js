@@ -1,4 +1,4 @@
-const CACHE = 'clue-morning-pwa-v21';
+const CACHE = 'clue-morning-pwa-v22';
 const APP_SHELL = [
   '/',
   '/index.html',
