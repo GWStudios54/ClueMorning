@@ -361,7 +361,7 @@
 
     .attempt.on,.success .attempt{opacity:1}
 
-    /* Pinpoint light source only: no visible bulb fill, just warm emission from the filament area. */
+    /* Final filament light: slightly lower, tighter core, warmer falloff. */
     .attempt.on,.success .attempt{
       opacity:1;
       box-shadow:none!important;
@@ -371,18 +371,18 @@
       content:""!important;
       position:absolute;
       left:50%;
-      top:33%;
+      top:38%;
       width:1px;
       height:1px;
       border-radius:50%;
-      background:rgba(255,250,221,.98);
+      background:rgba(255,239,190,.92);
       box-shadow:
-        0 0 3px 2px rgba(255,245,205,.72),
-        0 0 8px 5px rgba(255,216,128,.50),
-        0 0 15px 9px rgba(255,175,70,.30),
-        0 0 25px 14px rgba(255,130,35,.14);
+        0 0 2px 1px rgba(255,238,190,.64),
+        0 0 6px 4px rgba(255,204,111,.44),
+        0 0 11px 7px rgba(255,164,66,.26),
+        0 0 18px 10px rgba(255,118,34,.12);
       transform:translate(-50%,-50%);
-      filter:blur(.6px);
+      filter:blur(.45px);
       mix-blend-mode:screen;
       pointer-events:none;
     }
@@ -646,6 +646,6 @@
     requestAnimationFrame(fitSwitchboardText);
   })();
   </script>
-  <!-- switchboard-test-build: 2026-09-11p pinpoint-glow -->
+  <!-- switchboard-test-build: 2026-09-11q final-glow-tune -->
 </body>
 </html>
