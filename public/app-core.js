@@ -380,11 +380,10 @@ function stepsRenderRooftopsPath(){
 }
 function stepsDisableControls(disabled=true){
   const s=day?.steps;
-  const input=$('#stepsInput'),submit=$('#stepsForm button'),undo=$('#stepsUndo'),giveUp=$('#stepsGiveUp');
+  const input=$('#stepsInput'),submit=$('#stepsForm button'),undo=$('#stepsUndo');
   if(input)input.disabled=disabled||!!s?.done;
   if(submit)submit.disabled=disabled||!!s?.done;
   if(undo)undo.disabled=disabled||!!s?.done||(s?.path?.length||0)<=1;
-  if(giveUp)giveUp.disabled=disabled||!!s?.done;
 }
 async function stepsMoveCharacter(to,{fast=false}={}){
   const climber=$('#stepsClimber');
@@ -484,7 +483,6 @@ $('#stepsUndo').addEventListener('click',async()=>{
   $('#stepsMessage').textContent='Dropped back one rooftop.';
   renderSteps();
 });
-$('#stepsGiveUp').addEventListener('click',()=>{if(day.steps.done||stepsAnimating)return;if(confirm('Reveal one shortest path and finish Word Steps for today?'))void revealSteps()});
 
 // Deep Cut
 const DEEPCUT_ARCHIVE_LANDINGS=[

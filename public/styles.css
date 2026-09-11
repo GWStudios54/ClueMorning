@@ -1160,7 +1160,7 @@ html.steps-immersive .steps-rooftops-form .primary-button{
 }
 html.steps-immersive .steps-actions{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:1fr;
   gap:8px;
   margin-top:8px;
 }
