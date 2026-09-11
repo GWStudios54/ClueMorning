@@ -1,0 +1,29 @@
+name: Production archive all-correct smoke
+
+on:
+  push:
+    branches:
+      - prod-archive-all-correct-smoke
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify all-correct archive test is live
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="https://cluemorning.com/archive-test/"
+          for i in $(seq 1 24); do
+            body="$(curl -fsSL "$url" || true)"
+            if grep -q "every non-empty answer is accepted as a Deepest Cut" <<<"$body" \
+              && grep -q "Name something you might see on a newspaper editor’s desk." <<<"$body" \
+              && grep -q "finishPrompt(answer,100,false)" <<<"$body" \
+              && ! grep -q "NOT IN THIS TEST SET" <<<"$body"; then
+              echo "All-correct archive test is live."
+              exit 0
+            fi
+            echo "Waiting for production deploy ($i/24)..."
+            sleep 5
+          done
+          exit 1
