@@ -92,6 +92,9 @@
 
     .clue{
       top:33.65%;height:4.4%;
+      display:flex;align-items:center;justify-content:center;
+      padding:0 5%;
+      overflow:hidden;white-space:nowrap;text-align:center;
       color:#f1dba9;font:900 clamp(8px,2.8vw,16px)/1 "Courier New",monospace;
       letter-spacing:.08em;text-shadow:0 2px 0 #311c0c;
       transition:filter .22s,transform .22s,color .22s;
@@ -107,6 +110,9 @@
 
     .answer{
       left:34.7%;top:47.2%;width:30.5%;height:6.4%;
+      display:flex;align-items:center;justify-content:center;
+      padding:0 7%;
+      overflow:hidden;white-space:nowrap;text-align:center;
       color:#42230e;font:900 clamp(13px,4.4vw,25px)/1 "Courier New",monospace;
       letter-spacing:.1em;text-shadow:0 1px rgba(255,255,255,.4);
       pointer-events:none;
@@ -310,13 +316,33 @@
     }
 
     function sanitize(v){return String(v||'').toUpperCase().replace(/[^A-Z]/g,'').slice(0,24)}
+    function fitTextBox(el,minPx=8){
+      if(!el)return;
+      el.style.fontSize='';
+      const style=getComputedStyle(el);
+      let size=parseFloat(style.fontSize)||16;
+      const maxWidth=Math.max(0,el.clientWidth-10);
+      const maxHeight=Math.max(0,el.clientHeight-4);
+      while(size>minPx&&(el.scrollWidth>maxWidth||el.scrollHeight>maxHeight)){
+        size-=.5;
+        el.style.fontSize=size+'px';
+      }
+    }
+    function fitSwitchboardText(){
+      document.querySelectorAll('[data-clue]').forEach(el=>fitTextBox(el,7));
+      fitTextBox(answer,9);
+      fitTextBox(feedback,7);
+      if(result.classList.contains('show'))fitTextBox(result,7);
+    }
     function setFeedback(text,type=''){
       feedback.textContent=text;
       feedback.className='live feedback fit'+(type?' '+type:'');
+      requestAnimationFrame(fitSwitchboardText);
     }
     function syncPlate(){
       if(done&&answer.textContent)return;
       answer.textContent=sanitize(input.value);
+      requestAnimationFrame(fitSwitchboardText);
     }
     function syncAttempts(){
       const remaining=Math.max(0,3-guesses);
@@ -383,6 +409,7 @@
         answer.classList.add('locked');
       }
       result.classList.add('show');
+      requestAnimationFrame(fitSwitchboardText);
     }
     function submit(){
       if(done)return;
@@ -425,10 +452,12 @@
     $('#clear').addEventListener('click',()=>{if(done)return;input.value='';syncPlate();setFeedback('Line cleared.');input.focus()});
     $('#reset').addEventListener('click',reset);
     $('#back').addEventListener('click',()=>{location.href='/?play=link'});
+    window.addEventListener('resize',()=>requestAnimationFrame(fitSwitchboardText),{passive:true});
     loadScene();
     syncAttempts();
+    requestAnimationFrame(fitSwitchboardText);
   })();
   </script>
-  <!-- switchboard-test-build: 2026-09-11f restrained-polish -->
+  <!-- switchboard-test-build: 2026-09-11g text-fit-audit -->
 </body>
 </html>
