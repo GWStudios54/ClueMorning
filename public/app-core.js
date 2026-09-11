@@ -47,7 +47,7 @@ updateDayGreeting();
 
 let state=loadState();state.days??={};
 let daily=null,day=null,currentDateKey=null,letterTimer=null,trailTick=null,deepCutTick=null,deepCutBusy=false,trailPath=[],trailDragging=false,trailPointerId=null,leaderScope="daily",leaderAutoPosting=false;
-let dailyRoot=null,dayRoot=null,currentDateRoot=null,unlimitedSession=null,unlimitedActive=false,unlimitedCounts={},deepCutReturnTab="today";
+let dailyRoot=null,dayRoot=null,currentDateRoot=null,unlimitedSession=null,unlimitedActive=false,unlimitedCounts={},deepCutReturnTab="today",stepsReturnTab="today";
 const DAILY_GAMES=["letter","groups","trail","link","steps","deepcut"];
 
 function getPlayerId(){
@@ -67,27 +67,50 @@ function syncDeepCutImmersive({repairScroll=false}={}){
   if(repairScroll&&wasImmersive&&!shouldBeImmersive)window.scrollTo({top:0,behavior:'auto'});
   return shouldBeImmersive;
 }
+function syncStepsImmersive({repairScroll=false}={}){
+  const shouldBeImmersive=!!$('#steps')?.classList.contains('active');
+  const wasImmersive=document.documentElement.classList.contains('steps-immersive');
+  document.documentElement.classList.toggle('steps-immersive',shouldBeImmersive);
+  if(shouldBeImmersive){
+    void warmStepsRooftops();
+    requestAnimationFrame(()=>stepsSyncRooftopsPosition());
+  }
+  if(repairScroll&&wasImmersive&&!shouldBeImmersive)window.scrollTo({top:0,behavior:'auto'});
+  return shouldBeImmersive;
+}
+function syncImmersiveShell(options={}){
+  const deep=syncDeepCutImmersive(options);
+  const steps=syncStepsImmersive(options);
+  return deep||steps;
+}
 function selectTab(id){
   const previous=$(".tab.active")?.dataset.tab||"today";
   if(id==="deepcut"&&previous!=="deepcut")deepCutReturnTab=previous;
+  if(id==="steps"&&previous!=="steps")stepsReturnTab=previous;
   if(unlimitedSession&&id!==unlimitedSession.game&&id!=="unlimited")restoreDailyContext();
   document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
   document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id===id));
-  syncDeepCutImmersive();
-  window.scrollTo({top:0,behavior:id==="deepcut"?"auto":"smooth"});
+  syncImmersiveShell();
+  window.scrollTo({top:0,behavior:(id==="deepcut"||id==="steps")?"auto":"smooth"});
   if(id==="archive")renderArchive();
   if(id==="leaders")loadLeaderboard();
   if(id==="unlimited")renderUnlimitedLibrary();
   if(id==="deepcut"){warmDeepCutArchive();requestAnimationFrame(renderDeepCutArchive)}
+  if(id==="steps"){void warmStepsRooftops();requestAnimationFrame(()=>stepsSyncRooftopsPosition())}
 }
 document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>selectTab(b.dataset.tab)));
 document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>selectTab(b.dataset.open)));
 $('#deepCutExit')?.addEventListener('click',()=>{if(unlimitedSession)exitUnlimited(true);else selectTab(deepCutReturnTab||'today')});
-window.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.documentElement.classList.contains('deepcut-immersive')){$('#deepCutExit')?.click()}});
-window.addEventListener('pageshow',()=>syncDeepCutImmersive({repairScroll:true}));
-window.addEventListener('popstate',()=>requestAnimationFrame(()=>syncDeepCutImmersive({repairScroll:true})));
-window.addEventListener('hashchange',()=>requestAnimationFrame(()=>syncDeepCutImmersive({repairScroll:true})));
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncDeepCutImmersive({repairScroll:true})});
+$('#stepsExit')?.addEventListener('click',()=>{if(unlimitedSession)exitUnlimited(true);else selectTab(stepsReturnTab||'today')});
+window.addEventListener('keydown',e=>{
+  if(e.key!=='Escape')return;
+  if(document.documentElement.classList.contains('deepcut-immersive'))$('#deepCutExit')?.click();
+  else if(document.documentElement.classList.contains('steps-immersive'))$('#stepsExit')?.click();
+});
+window.addEventListener('pageshow',()=>syncImmersiveShell({repairScroll:true}));
+window.addEventListener('popstate',()=>requestAnimationFrame(()=>syncImmersiveShell({repairScroll:true})));
+window.addEventListener('hashchange',()=>requestAnimationFrame(()=>syncImmersiveShell({repairScroll:true})));
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncImmersiveShell({repairScroll:true})});
 $('.brand').addEventListener('click',e=>{e.preventDefault();selectTab('today')});
 $('#year').textContent=new Date().getFullYear();
 $('#themeButton').addEventListener('click',()=>{applyTheme(activeTheme(),false);$('#themeDialog').showModal()});
