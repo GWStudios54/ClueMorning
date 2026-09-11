@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
   <meta name="theme-color" content="#f7f1e5">
   <script>try{document.documentElement.dataset.theme=localStorage.getItem("clue-morning-theme")||"paper"}catch{}</script>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -182,6 +182,11 @@
   </section>
 
   <section id="deepcut" class="panel">
+    <div class="deepcut-immersive-topbar" aria-label="Deep Cut controls">
+      <button id="deepCutExit" class="deepcut-immersive-exit" type="button"><svg class="icon"><use href="#i-arrow"/></svg><span>Morning Run</span></button>
+      <strong>Deep Cut</strong>
+      <button class="deepcut-immersive-help" data-help="deepcut" type="button" aria-label="Deep Cut help"><svg class="icon"><use href="#i-help"/></svg></button>
+    </div>
     <div class="panel-head"><div><span class="game-label">TODAY'S RARITY TRIVIA</span><h2>Deep Cut</h2><p>Give one valid answer. The less obvious it is, the deeper the Archive takes you.</p></div><button class="round-button" data-help="deepcut" type="button" aria-label="Deep Cut help"><svg class="icon"><use href="#i-help"/></svg></button></div>
 
     <div id="deepCutIntro" class="start-card deepcut-start-card"><p>Eight open-answer prompts. You get 25 seconds for each. Invalid guesses do not end the prompt. Familiar valid answers descend one floor; stronger cuts go two; the rarest answers plunge three. Eight perfect answers reach the Final Shelf.</p><button id="deepCutStart" class="primary-button" type="button"><svg class="icon"><use href="#i-play"/></svg><span>Enter the Archive</span></button></div>
