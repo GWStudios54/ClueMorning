@@ -172,13 +172,40 @@
     <div id="linkClues" class="link-clues"></div><form id="linkForm" class="guess-form"><input id="linkInput" class="text-input" placeholder="The linking word" autocapitalize="characters" autocomplete="off" spellcheck="false"><button class="primary-button" type="submit"><svg class="icon"><use href="#i-link"/></svg><span>Link it</span></button></form><div id="linkMessage" class="message"></div>
   </section>
 
-  <section id="steps" class="panel">
-    <div class="panel-head"><div><span class="game-label">TODAY'S WORD PATH</span><h2>Word Steps</h2><p>Change exactly one letter each move. Every step must be a valid word.</p></div><button class="round-button" data-help="steps" type="button" aria-label="Word Steps help"><svg class="icon"><use href="#i-help"/></svg></button></div>
-    <div class="stats-row four"><div class="stat"><strong id="stepsMoves">0/8</strong><span>moves</span></div><div class="stat"><strong id="stepsPar">—</strong><span>par</span></div><div class="stat"><strong id="stepsScore">0</strong><span>score</span></div><div class="stat"><strong id="stepsStatus">OPEN</strong><span>status</span></div></div>
+  <section id="steps" class="panel steps-rooftops-panel">
+    <div class="steps-immersive-topbar" aria-label="Word Steps controls">
+      <button id="stepsExit" class="steps-immersive-exit" type="button"><svg class="icon"><use href="#i-arrow"/></svg><span>Morning Run</span></button>
+      <strong>Rooftops</strong>
+      <button class="steps-immersive-help" data-help="steps" type="button" aria-label="Word Steps help"><svg class="icon"><use href="#i-help"/></svg></button>
+    </div>
+
+    <div class="panel-head"><div><span class="game-label">TODAY'S WORD PATH</span><h2>Word Steps</h2><p>Change exactly one letter each move. Every valid word takes you higher.</p></div><button class="round-button" data-help="steps" type="button" aria-label="Word Steps help"><svg class="icon"><use href="#i-help"/></svg></button></div>
+
+    <div class="steps-rooftops-title" aria-hidden="true"><small>WORD STEPS</small><strong>THE ROOFTOPS</strong></div>
+
+    <div class="stats-row four steps-rooftops-stats">
+      <div class="stat"><strong id="stepsMoves">0/8</strong><span>moves</span></div>
+      <div class="stat"><strong id="stepsPar">—</strong><span>par</span></div>
+      <div class="stat"><strong id="stepsScore">0</strong><span>score</span></div>
+      <div class="stat steps-rooftops-status"><strong id="stepsStatus">OPEN</strong><span>status</span></div>
+    </div>
+
     <div class="steps-goal"><div><span>START</span><strong id="stepsStart">----</strong></div><svg class="icon"><use href="#i-arrow"/></svg><div><span>TARGET</span><strong id="stepsTarget">----</strong></div></div>
-    <div id="stepsPath" class="steps-path"></div>
-    <form id="stepsForm" class="guess-form"><input id="stepsInput" class="text-input" maxlength="4" placeholder="Next 4-letter word" autocapitalize="characters" autocomplete="off" spellcheck="false"><button class="primary-button" type="submit"><svg class="icon"><use href="#i-steps"/></svg><span>Add step</span></button></form>
-    <div class="steps-actions"><button id="stepsUndo" class="secondary-button" type="button">Undo</button><button id="stepsGiveUp" class="secondary-button" type="button">Reveal path</button></div><div id="stepsMessage" class="message"></div>
+
+    <div class="steps-rooftops-stage" id="stepsRooftopsStage" aria-label="Rooftop word climb">
+      <div class="steps-rooftops-world" id="stepsRooftopsWorld">
+        <img id="stepsRooftopsImage" class="steps-rooftops-image" alt="">
+        <div id="stepsPath" class="steps-path steps-rooftops-path"></div>
+        <img id="stepsClimber" class="steps-rooftops-climber" src="/word-steps-rooftops/pc.webp" alt="" aria-hidden="true">
+      </div>
+      <div id="stepsRooftopsLoading" class="steps-rooftops-loading">OPENING THE ROOFTOPS…</div>
+    </div>
+
+    <div class="steps-rooftops-controls">
+      <form id="stepsForm" class="guess-form steps-rooftops-form"><input id="stepsInput" class="text-input" maxlength="4" placeholder="NEXT WORD" autocapitalize="characters" autocomplete="off" spellcheck="false" aria-label="Next four-letter word"><button class="primary-button" type="submit"><svg class="icon"><use href="#i-steps"/></svg><span>Climb</span></button></form>
+      <div class="steps-actions"><button id="stepsUndo" class="secondary-button" type="button">Undo step</button><button id="stepsGiveUp" class="secondary-button" type="button">Reveal path</button></div>
+      <div id="stepsMessage" class="message">One word closer to a higher view.</div>
+    </div>
   </section>
 
   <section id="deepcut" class="panel">
