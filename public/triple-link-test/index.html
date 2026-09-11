@@ -95,7 +95,7 @@
       display:flex;align-items:center;justify-content:center;
       padding:0 5%;
       overflow:hidden;white-space:nowrap;text-align:center;
-      color:#f1dba9;font:900 clamp(8px,2.8vw,16px)/1 "Courier New",monospace;
+      color:#f1dba9;font:900 clamp(10px,2.8vw,16px)/1 "Courier New",monospace;
       letter-spacing:.08em;text-shadow:0 2px 0 #311c0c;
       transition:filter .22s,transform .22s,color .22s;
       pointer-events:none;
@@ -126,64 +126,66 @@
       color:#e9cea0;font:900 clamp(6px,1.9vw,11px)/1 "Courier New",monospace;
       letter-spacing:.12em;pointer-events:none;text-shadow:0 2px #2d190d;
     }
-    /* Base state is OFF. Live CSS lights each attempt on top of the painted board. */
+    /* The background bulb art is masked tightly; these live bulbs own the state. */
     .attempt{
       position:absolute;
       z-index:13;
-      top:57.95%;
-      width:8.5%;
+      top:58.35%;
+      width:6.15%;
       aspect-ratio:1;
       border-radius:50%;
       pointer-events:none;
       opacity:1;
       transform:scale(1);
-      transition:filter .16s ease,transform .16s ease;
-      /* masks the baked bulb/glow underneath */
+      transition:transform .16s ease,filter .16s ease;
       background:
-        radial-gradient(circle at 50% 48%,
-          rgba(19,15,14,.99) 0 46%,
-          rgba(19,15,14,.97) 57%,
-          rgba(19,15,14,.76) 67%,
-          transparent 78%);
+        radial-gradient(circle at 50% 46%,
+          rgba(18,14,13,.99) 0 45%,
+          rgba(18,14,13,.95) 56%,
+          rgba(18,14,13,.5) 66%,
+          transparent 75%);
     }
-    .attempt.a1{left:37.48%}.attempt.a2{left:45.68%}.attempt.a3{left:53.88%}
+    .attempt.a1{left:38.65%}.attempt.a2{left:46.85%}.attempt.a3{left:55.05%}
     .attempt::before{
       content:"";
       position:absolute;
       left:27%;
-      top:16%;
+      top:17%;
       width:46%;
-      height:48%;
-      border-radius:52% 52% 44% 44%;
+      height:46%;
+      border-radius:53% 53% 44% 44%;
       background:
-        radial-gradient(circle at 38% 28%,#dad7d4 0 8%,#aaa6a8 19%,#77747b 48%,#4a474e 72%,#2a282d 100%);
+        radial-gradient(circle at 38% 28%,#d7d4d2 0 8%,#a9a5a7 20%,#747178 48%,#47444a 73%,#28262b 100%);
       box-shadow:
-        inset -2px -3px 0 rgba(22,20,24,.38),
-        0 2px 3px rgba(0,0,0,.48);
+        inset -1px -2px 0 rgba(20,18,22,.38),
+        0 1px 2px rgba(0,0,0,.5);
     }
     .attempt::after{
       content:"";
       position:absolute;
       left:37%;
-      top:60%;
+      top:59%;
       width:26%;
-      height:19%;
-      border-radius:2px;
+      height:18%;
+      border-radius:1px;
       background:
-        linear-gradient(#b1884a 0 18%,#513c29 19% 38%,#97713d 39% 57%,#3e2f22 58% 76%,#8b6739 77%);
-      box-shadow:0 2px 2px rgba(0,0,0,.5);
+        linear-gradient(#a97e42 0 20%,#4c3826 21% 41%,#8e6939 42% 62%,#392b20 63% 79%,#795934 80%);
+      box-shadow:0 1px 1px rgba(0,0,0,.5);
     }
     .attempt.on::before,
     .success .attempt::before{
       background:
-        radial-gradient(circle at 38% 28%,#fffbd5 0 9%,#ffe68b 20%,#ffc54d 42%,#f08d21 67%,#b85b13 100%);
+        radial-gradient(circle at 38% 28%,#fffbd0 0 10%,#ffe37d 22%,#ffc24b 44%,#ed8b22 68%,#aa5315 100%);
       box-shadow:
-        0 0 9px rgba(255,194,73,.95),
-        0 0 18px rgba(255,157,35,.72),
-        inset -2px -3px 0 rgba(177,80,14,.22);
+        0 0 5px rgba(255,198,78,.95),
+        0 0 10px rgba(255,155,33,.55),
+        inset -1px -2px 0 rgba(173,76,13,.18);
     }
     .attempt.on,
-    .success .attempt{transform:scale(1.03)}
+    .success .attempt{
+      filter:drop-shadow(0 0 3px rgba(255,176,48,.5));
+      transform:scale(1.015);
+    }
 
 
     .feedback{
@@ -357,8 +359,8 @@
       el.style.fontSize='';
       const style=getComputedStyle(el);
       let size=parseFloat(style.fontSize)||16;
-      const maxWidth=Math.max(0,el.clientWidth-10);
-      const maxHeight=Math.max(0,el.clientHeight-4);
+      const maxWidth=el.clientWidth;
+      const maxHeight=el.clientHeight;
       while(size>minPx&&(el.scrollWidth>maxWidth||el.scrollHeight>maxHeight)){
         size-=.5;
         el.style.fontSize=size+'px';
@@ -494,6 +496,6 @@
     requestAnimationFrame(fitSwitchboardText);
   })();
   </script>
-  <!-- switchboard-test-build: 2026-09-11h live-bulbs -->
+  <!-- switchboard-test-build: 2026-09-11i scale-correction -->
 </body>
 </html>
