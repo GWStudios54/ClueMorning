@@ -166,10 +166,39 @@
     <div id="trailMessage" class="message"></div>
   </section>
 
-  <section id="link" class="panel">
-    <div class="panel-head"><div><span class="game-label">TODAY'S CLUE</span><h2>Triple Link</h2><p>Find the one word that makes all three clues work.</p></div><button class="round-button" data-help="link" type="button" aria-label="Triple Link help"><svg class="icon"><use href="#i-help"/></svg></button></div>
-    <div class="stats-row three"><div class="stat"><strong id="linkGuesses">0/3</strong><span>guesses</span></div><div class="stat"><strong id="linkScore">0</strong><span>score</span></div><div class="stat"><strong id="linkStatus">OPEN</strong><span>status</span></div></div>
-    <div id="linkClues" class="link-clues"></div><form id="linkForm" class="guess-form"><input id="linkInput" class="text-input" placeholder="The linking word" autocapitalize="characters" autocomplete="off" spellcheck="false"><button class="primary-button" type="submit"><svg class="icon"><use href="#i-link"/></svg><span>Link it</span></button></form><div id="linkMessage" class="message"></div>
+  <section id="link" class="panel link-switchboard-panel">
+    <div id="linkSwitchboardFrame" class="link-switchboard-frame" aria-label="Triple Link — The Switchboard">
+      <img id="linkSwitchboardImage" class="link-switchboard-image" alt="">
+      <div class="link-switchboard-loading">OPENING THE SWITCHBOARD…</div>
+
+      <button id="linkExit" class="link-live link-fit link-back" type="button" aria-label="Return to Morning Run"><span>MORNING RUN</span></button>
+      <div class="link-live link-fit link-title" aria-hidden="true"><small>TRIPLE LINK</small><strong>THE SWITCHBOARD</strong></div>
+      <button id="linkTopClear" class="link-live link-reset" type="button" aria-label="Clear current entry"></button>
+
+      <div class="link-live link-fit link-stat link-score"><strong id="linkScore">600</strong><span>SCORE</span></div>
+      <div class="link-live link-fit link-stat link-streak"><strong id="linkStreak">0</strong><span>STREAK</span></div>
+      <div class="link-live link-fit link-stat link-tries"><strong id="linkGuesses">3/3</strong><span>TRIES</span></div>
+
+      <div id="linkClues" class="link-live link-clues-live" aria-label="Triple Link clues"></div>
+      <div id="linkAnswer" class="link-live link-fit link-answer" aria-live="polite"></div>
+      <div class="link-live link-fit link-attempt-label">ATTEMPTS</div>
+
+      <span class="link-attempt link-attempt-1" data-link-attempt="0" aria-hidden="true"></span>
+      <span class="link-attempt link-attempt-2" data-link-attempt="1" aria-hidden="true"></span>
+      <span class="link-attempt link-attempt-3" data-link-attempt="2" aria-hidden="true"></span>
+
+      <div id="linkMessage" class="link-live link-fit link-feedback" aria-live="polite">Three lines are waiting.</div>
+
+      <form id="linkForm" class="link-live link-entry">
+        <input id="linkInput" maxlength="24" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" placeholder="ONE WORD" aria-label="Connecting word">
+      </form>
+      <button id="linkConnect" class="link-live link-fit link-connect" type="submit" form="linkForm">CONNECT</button>
+      <button id="linkClear" class="link-live link-fit link-clear" type="button">CLEAR</button>
+
+      <div id="linkResult" class="link-result" aria-live="polite"></div>
+      <div class="link-board-flash" aria-hidden="true"></div>
+      <div class="link-success-burst" aria-hidden="true"></div>
+    </div>
   </section>
 
   <section id="steps" class="panel steps-rooftops-panel">
