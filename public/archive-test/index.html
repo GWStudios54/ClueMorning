@@ -4,296 +4,179 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090a12">
-<title>Deep Archive — Stacked Pixel Test</title>
+<title>Deep Archive — Landing Test</title>
 <link rel="preload" as="image" href="/archive-test/archive-top.webp" type="image/webp">
 <link rel="preload" as="image" href="/archive-test/archive-middle.webp" type="image/webp">
 <link rel="preload" as="image" href="/archive-test/archive-bottom.webp" type="image/webp">
 <style>
 :root{
   --ink:#090a12;
-  --panel:rgba(11,12,20,.88);
+  --panel:rgba(11,12,20,.9);
   --line:#6b587a;
   --gold:#e1b55e;
   --text:#f4ead6;
 }
 *{box-sizing:border-box}
 html,body{
-  margin:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  background:var(--ink);
-  color:var(--text);
+  margin:0;width:100%;height:100%;overflow:hidden;
+  background:var(--ink);color:var(--text);
   font-family:"Courier New",monospace;
 }
 button{font:inherit}
 .stage{
-  position:fixed;
-  inset:0;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 50% 12%,#27314b 0,#151827 44%,#090a12 100%);
+  position:fixed;inset:0;overflow:hidden;
+  background:radial-gradient(circle at 50% 12%,#27314b 0,#151827 44%,#090a12 100%);
 }
 .world{
-  position:absolute;
-  top:0;
-  left:50%;
-  width:min(1180px,112vw);
+  position:absolute;top:0;left:50%;
+  width:min(1280px,120vw);
   transform:translate3d(-50%,0,0);
   will-change:transform;
-  transition:transform 960ms cubic-bezier(.22,.9,.22,1);
+  transition:transform 920ms cubic-bezier(.18,.88,.22,1);
   backface-visibility:hidden;
 }
 .stack{display:block;width:100%}
 .scene{
-  position:relative;
-  display:block;
-  width:100%;
-  margin-top:-2px;
-  overflow:hidden;
-  background:#0b0d15;
+  position:relative;display:block;width:100%;
+  margin-top:-2px;overflow:hidden;background:#0b0d15;
 }
 .scene:first-child{margin-top:0}
 .scene img{
-  display:block;
-  width:100%;
-  height:auto;
-  user-select:none;
-  pointer-events:none;
-  image-rendering:pixelated;
-  image-rendering:crisp-edges;
+  display:block;width:100%;height:auto;
+  user-select:none;pointer-events:none;
+  image-rendering:pixelated;image-rendering:crisp-edges;
 }
 .scene + .scene::before{
-  content:"";
-  position:absolute;
-  z-index:2;
-  left:0;
-  right:0;
-  top:0;
-  height:24px;
+  content:"";position:absolute;z-index:2;left:0;right:0;top:0;height:28px;
   pointer-events:none;
-  background:linear-gradient(to bottom,rgba(5,7,13,.72),rgba(5,7,13,0));
+  background:linear-gradient(to bottom,rgba(5,7,13,.76),rgba(5,7,13,0));
 }
-.vignette{
-  position:fixed;
-  inset:0;
-  z-index:6;
-  pointer-events:none;
-  box-shadow:inset 0 0 100px rgba(0,0,0,.42);
+.tail{
+  height:260px;
+  margin-top:-2px;
+  background:
+    linear-gradient(to bottom,rgba(9,10,20,.1),rgba(5,6,12,.96)),
+    repeating-linear-gradient(90deg,#0b0d18 0 18px,#0e1120 18px 36px);
 }
 .depth-tint{
-  position:fixed;
-  inset:0;
-  z-index:5;
-  pointer-events:none;
-  background:linear-gradient(to bottom,rgba(8,16,30,0),rgba(9,10,25,.08) 55%,rgba(8,3,24,.18));
+  position:fixed;inset:0;z-index:5;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(8,16,30,0),rgba(9,10,25,.07) 52%,rgba(8,3,24,.2));
 }
+.vignette{
+  position:fixed;inset:0;z-index:6;pointer-events:none;
+  box-shadow:inset 0 0 96px rgba(0,0,0,.4);
+}
+
+/* Covers the AI-art elevator cars so there is only one elevator in the scene. */
+.shaft-mask{
+  position:fixed;z-index:7;top:0;bottom:0;left:50%;
+  width:152px;transform:translateX(-50%);
+  pointer-events:none;
+  background:
+    linear-gradient(90deg,
+      #0a0d15 0 7%,
+      #30394d 7% 12%,
+      #111827 12% 37%,
+      #876126 37% 39%,
+      #1d2638 39% 49%,
+      #b07b27 49% 51%,
+      #1d2638 51% 61%,
+      #876126 61% 63%,
+      #111827 63% 88%,
+      #30394d 88% 93%,
+      #0a0d15 93%);
+  box-shadow:
+    inset 7px 0 0 rgba(215,172,82,.18),
+    inset -7px 0 0 rgba(215,172,82,.18),
+    0 0 18px rgba(0,0,0,.42);
+}
+.shaft-mask::before,
+.shaft-mask::after{
+  content:"";position:absolute;top:0;bottom:0;width:3px;
+  background:linear-gradient(#805b24,#d5a84a 50%,#805b24);
+  opacity:.78;
+}
+.shaft-mask::before{left:43%}
+.shaft-mask::after{right:43%}
+
+/* Exact elevator artwork cropped from the same top archive art. */
 .elevator{
-  position:fixed;
-  left:50%;
-  top:50%;
-  width:126px;
-  height:156px;
-  z-index:10;
+  position:fixed;z-index:10;left:50%;top:50%;
+  width:144px;aspect-ratio:180/220;
   transform:translate(-50%,-50%);
   pointer-events:none;
-  filter:drop-shadow(0 8px 12px rgba(0,0,0,.32));
+  background-image:url("/archive-test/archive-top.webp");
+  background-repeat:no-repeat;
+  background-size:930% auto;
+  background-position:50% 65%;
+  filter:drop-shadow(0 10px 12px rgba(0,0,0,.36));
+  border-radius:3px;
 }
-.elevator::before{
-  content:"";
-  position:absolute;
-  left:18px;
-  right:18px;
-  top:-40px;
-  height:44px;
-  border-left:5px solid #777f90;
-  border-right:5px solid #777f90;
-  background:repeating-linear-gradient(to bottom,#1a1d27 0 8px,#596173 8px 12px);
+.elevator::after{
+  content:"";position:absolute;inset:0;
+  border:1px solid rgba(238,193,91,.18);
+  box-shadow:inset 0 0 18px rgba(4,5,9,.25);
 }
-.car{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(#7c8497 0 11px,#454c5c 11px 100%);
-  border:4px solid #10131a;
-  box-shadow:0 0 0 3px #8e96aa;
-}
-.car::before,.car::after{
-  content:"";
-  position:absolute;
-  top:14px;
-  bottom:12px;
-  width:9px;
-  background:#313745;
-  border:2px solid #171a22;
-}
-.car::before{left:8px}
-.car::after{right:8px}
-.window{
-  position:absolute;
-  left:22px;
-  top:28px;
-  width:82px;
-  height:48px;
-  overflow:hidden;
-  background:#102533;
-  border:4px solid #151922;
-}
-.window::before{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:0;
-  bottom:0;
-  width:3px;
-  background:#263b4c;
-}
-.window::after{
-  content:"";
-  position:absolute;
-  inset:6px;
-  background:linear-gradient(90deg,transparent 0 42%,rgba(150,220,255,.2) 42% 55%,transparent 55%);
-}
-.badge{
-  position:absolute;
-  left:50%;
-  top:91px;
-  transform:translateX(-50%);
-  min-width:88px;
-  padding:5px 7px;
-  white-space:nowrap;
-  text-align:center;
-  background:#211926;
-  color:var(--gold);
-  border:3px solid #8a7394;
-  font-size:8px;
-  font-weight:700;
-}
-.car-light{
-  position:absolute;
-  left:50%;
-  bottom:12px;
-  width:50px;
-  height:10px;
-  transform:translateX(-50%);
-  background:#dbad56;
-  border:3px solid #5d4324;
-}
+
 .hud{
-  position:fixed;
-  z-index:20;
-  top:max(10px,env(safe-area-inset-top));
-  left:10px;
-  right:10px;
+  position:fixed;z-index:20;
+  top:max(10px,env(safe-area-inset-top));left:10px;right:10px;
   pointer-events:none;
 }
 .card{
   width:min(410px,calc(100vw - 20px));
-  padding:10px 12px;
-  pointer-events:auto;
-  background:var(--panel);
-  border:3px solid var(--line);
+  padding:10px 12px;pointer-events:auto;
+  background:var(--panel);border:3px solid var(--line);
   box-shadow:0 0 0 3px #07080d;
   backdrop-filter:blur(3px);
 }
-.card h1{
-  margin:0 0 4px;
-  color:var(--gold);
-  font-size:14px;
-  letter-spacing:.04em;
-}
-.card p{
-  margin:0;
-  color:#d9cfe0;
-  font-size:10px;
-  line-height:1.4;
-}
+.card h1{margin:0 0 4px;color:var(--gold);font-size:14px;letter-spacing:.04em}
+.card p{margin:0;color:#d9cfe0;font-size:10px;line-height:1.4}
 .readout{
-  position:fixed;
-  z-index:20;
-  left:50%;
+  position:fixed;z-index:20;left:50%;
   bottom:calc(82px + env(safe-area-inset-bottom));
-  min-width:236px;
-  padding:8px 13px;
-  transform:translateX(-50%);
-  text-align:center;
-  background:rgba(11,12,20,.92);
-  border:3px solid var(--line);
-  box-shadow:0 0 0 3px #07080d;
+  min-width:236px;padding:8px 13px;
+  transform:translateX(-50%);text-align:center;
+  background:rgba(11,12,20,.94);
+  border:3px solid var(--line);box-shadow:0 0 0 3px #07080d;
   font-size:10px;
 }
-.readout strong{
-  color:var(--gold);
-  font-size:14px;
-}
+.readout strong{color:var(--gold);font-size:14px}
 .controls{
-  position:fixed;
-  z-index:25;
-  left:10px;
-  right:10px;
+  position:fixed;z-index:25;left:10px;right:10px;
   bottom:max(10px,env(safe-area-inset-bottom));
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr auto;
-  gap:7px;
+  display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:7px;
 }
 .controls button{
-  min-height:54px;
-  padding:7px 8px;
-  color:#fff2dd;
-  background:#30263f;
-  border:3px solid #725f88;
-  box-shadow:0 0 0 3px #07080d;
-  font-size:10px;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:.035em;
-  touch-action:manipulation;
+  min-height:54px;padding:7px 8px;
+  color:#fff2dd;background:#30263f;
+  border:3px solid #725f88;box-shadow:0 0 0 3px #07080d;
+  font-size:10px;font-weight:900;text-transform:uppercase;
+  letter-spacing:.035em;touch-action:manipulation;
 }
 .controls button:active{transform:translateY(2px)}
 .controls small{font-size:8px;opacity:.72}
 .controls .uncommon{background:#28404a}
-.controls .rare{
-  color:#ffe2a3;
-  background:#5b2d4d;
-  border-color:#a16787;
-}
-.controls .reset{
-  width:58px;
-  background:#244653;
-}
+.controls .rare{color:#ffe2a3;background:#5b2d4d;border-color:#a16787}
+.controls .reset{width:58px;background:#244653}
 .flash{
-  position:fixed;
-  z-index:30;
-  inset:0;
-  pointer-events:none;
-  opacity:0;
-  background:rgba(255,224,164,.15);
+  position:fixed;z-index:30;inset:0;pointer-events:none;
+  opacity:0;background:rgba(255,224,164,.15);
   transition:opacity 120ms linear;
 }
 .flash.on{opacity:1}
-.burst{
-  position:fixed;
-  z-index:29;
-  left:50%;
-  top:50%;
-  pointer-events:none;
-}
+.burst{position:fixed;z-index:29;left:50%;top:50%;pointer-events:none}
 .spark{
-  position:absolute;
-  width:7px;
-  height:7px;
-  opacity:0;
-  background:var(--gold);
+  position:absolute;width:7px;height:7px;opacity:0;background:var(--gold);
   transition:transform 500ms cubic-bezier(.2,.9,.2,1),opacity 500ms ease;
 }
 @media(max-width:700px){
-  .world{width:max(680px,165vw)}
-  .elevator{width:108px;height:140px}
-  .elevator::before{left:15px;right:15px}
-  .window{left:18px;top:24px;width:72px;height:42px}
-  .badge{top:78px;font-size:7px;min-width:76px}
-  .car-light{bottom:10px}
+  .world{width:max(760px,185vw)}
+  .shaft-mask{width:138px}
+  .elevator{width:124px}
   .card p{display:none}
-  .vignette{box-shadow:inset 0 0 60px rgba(0,0,0,.36)}
+  .vignette{box-shadow:inset 0 0 60px rgba(0,0,0,.34)}
+  .tail{height:300px}
 }
 @media(max-height:620px){
   .card{display:none}
@@ -317,25 +200,21 @@ button{font:inherit}
       <section class="scene" aria-label="Cosmic archive">
         <img src="/archive-test/archive-bottom.webp" width="1600" height="900" alt="" loading="eager" decoding="async">
       </section>
+      <div class="tail" aria-hidden="true"></div>
     </div>
   </div>
 </div>
 
 <div class="depth-tint"></div>
 <div class="vignette"></div>
+<div class="shaft-mask" aria-hidden="true"></div>
+<div class="elevator" id="elevator" aria-hidden="true"></div>
 
 <div class="hud">
   <div class="card">
-    <h1>DEEP ARCHIVE — STACKED PIXEL TEST</h1>
-    <p>Three finished pixel-art scenes form one descending archive. The artwork stays static; only the world container moves.</p>
+    <h1>DEEP ARCHIVE — LANDING TEST</h1>
+    <p>One elevator, art-matched to the archive. Each move now snaps the car to a real balcony landing in the stacked scenes.</p>
   </div>
-</div>
-
-<div class="elevator" aria-hidden="true">
-  <div class="car"></div>
-  <div class="window"></div>
-  <div class="badge" id="badge">Surface Archive</div>
-  <div class="car-light"></div>
 </div>
 
 <div class="readout" aria-live="polite">
@@ -343,9 +222,9 @@ button{font:inherit}
 </div>
 
 <div class="controls">
-  <button type="button" data-step=".55">Common<br><small>small drop</small></button>
-  <button type="button" data-step="1.05" class="uncommon">Uncommon<br><small>medium drop</small></button>
-  <button type="button" data-step="1.80" data-rare="1" class="rare">Rare<br><small>big drop</small></button>
+  <button type="button" data-jump="1">Common<br><small>1 landing</small></button>
+  <button type="button" data-jump="2" class="uncommon">Uncommon<br><small>2 landings</small></button>
+  <button type="button" data-jump="3" data-rare="1" class="rare">Rare<br><small>3 landings</small></button>
   <button type="button" id="reset" class="reset" aria-label="Reset archive depth">↺</button>
 </div>
 
@@ -356,44 +235,49 @@ button{font:inherit}
 (()=>{
   const world=document.getElementById('world');
   const stack=document.getElementById('stack');
+  const scenes=[...stack.querySelectorAll('.scene')];
+  const images=[...stack.querySelectorAll('img')];
+  const elevator=document.getElementById('elevator');
   const depthEl=document.getElementById('depth');
   const zoneEl=document.getElementById('zone');
-  const badge=document.getElementById('badge');
   const flash=document.getElementById('flash');
   const burst=document.getElementById('burst');
-  const images=[...stack.querySelectorAll('img')];
 
-  const zones=[
-    'Surface Archive',
-    'Grand Reading Hall',
-    'Atlas Gallery',
-    'Natural History',
-    'Clockwork Museum',
-    'Specimen Vault',
-    'Deep Sanctuary',
-    'Astral Archive',
-    'The Final Shelf'
+  /*
+    These are the actual strong horizontal balcony lines measured from the
+    generated 1672x941 source art, expressed as a fraction of each scene.
+    The first visible stop is the lowest balcony in the upper archive; that
+    keeps the initial page filled while putting the car on a real floor.
+  */
+  const landings=[
+    {scene:0,y:.941,zone:'Surface Archive'},
+    {scene:1,y:.227,zone:'Natural History'},
+    {scene:1,y:.488,zone:'Clockwork Museum'},
+    {scene:1,y:.756,zone:'Specimen Vault'},
+    {scene:1,y:.987,zone:'Deep Stacks'},
+    {scene:2,y:.289,zone:'Astral Archive'},
+    {scene:2,y:.547,zone:'The Final Shelf'}
   ];
 
-  const maxProgress=zones.length-1;
-  let progress=0;
-  let travel=0;
+  let stop=0;
   let resizeTimer=0;
 
-  function measure(){
-    travel=Math.max(0,stack.offsetHeight-window.innerHeight+150);
-    apply();
+  function landingWorldY(item){
+    const scene=scenes[item.scene];
+    return scene.offsetTop+(scene.offsetHeight*item.y);
+  }
+
+  function targetFloorY(){
+    const rect=elevator.getBoundingClientRect();
+    return rect.bottom-8;
   }
 
   function apply(){
-    const ratio=progress/maxProgress;
-    const y=travel*ratio;
-    world.style.transform='translate3d(-50%,'+(-y)+'px,0)';
-    const zoneIndex=Math.max(0,Math.min(maxProgress,Math.round(progress)));
-    const zone=zones[zoneIndex];
-    depthEl.textContent=Math.round(ratio*5400).toLocaleString();
-    zoneEl.textContent=zone;
-    badge.textContent=zone;
+    const item=landings[stop];
+    const y=targetFloorY()-landingWorldY(item);
+    world.style.transform='translate3d(-50%,'+Math.round(y)+'px,0)';
+    depthEl.textContent=Math.round((stop/(landings.length-1))*5400).toLocaleString();
+    zoneEl.textContent=item.zone;
   }
 
   function rareBurst(){
@@ -419,30 +303,30 @@ button{font:inherit}
     setTimeout(()=>burst.replaceChildren(),620);
   }
 
-  document.querySelectorAll('[data-step]').forEach(button=>{
+  document.querySelectorAll('[data-jump]').forEach(button=>{
     button.addEventListener('click',()=>{
-      progress=Math.min(maxProgress,progress+Number(button.dataset.step||0));
+      stop=Math.min(landings.length-1,stop+Number(button.dataset.jump||1));
       apply();
       if(button.dataset.rare)rareBurst();
     });
   });
 
   document.getElementById('reset').addEventListener('click',()=>{
-    progress=0;
+    stop=0;
     apply();
   });
 
   window.addEventListener('resize',()=>{
     clearTimeout(resizeTimer);
-    resizeTimer=setTimeout(measure,100);
+    resizeTimer=setTimeout(apply,100);
   },{passive:true});
 
   Promise.all(images.map(img=>img.complete
     ? Promise.resolve()
     : new Promise(resolve=>img.addEventListener('load',resolve,{once:true}))
-  )).then(measure);
+  )).then(apply);
 
-  measure();
+  apply();
 })();
 </script>
 </body>
