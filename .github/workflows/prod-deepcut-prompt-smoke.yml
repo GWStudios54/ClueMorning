@@ -1,0 +1,21 @@
+name: Production Deep Cut prompt smoke
+on:
+  push:
+    branches: [prod-deepcut-prompt-smoke]
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify visible immersive prompt rule is live
+        shell: bash
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 30); do
+            css="$(curl -fsSL 'https://cluemorning.com/styles.css' || true)"
+            if grep -Fq 'html.deepcut-immersive #deepcut.panel.active #deepCutPlay .deepcut-prompt-card' <<<"$css"               && grep -Fq 'background:rgba(10,11,19,.94)' <<<"$css"; then
+              echo "Deep Cut prompt contrast fix is live."
+              exit 0
+            fi
+            sleep 5
+          done
+          exit 1
