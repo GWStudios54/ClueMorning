@@ -286,14 +286,14 @@
       z-index:16;
       width:8.7%;
       height:auto;
-      transform:translate(-50%,-86%);
+      transform:translate(-50%,-82%);
       transform-origin:50% 92%;
       transition:left 340ms linear,top 540ms cubic-bezier(.2,.78,.2,1),filter 180ms ease;
       filter:drop-shadow(0 5px 5px rgba(0,0,0,.72));
       pointer-events:none;
       user-select:none;
     }
-    .climber.facing-left{transform:translate(-50%,-86%) scaleX(-1)}
+    .climber.facing-left{transform:translate(-50%,-82%) scaleX(-1)}
     .climber.walking,.climber.climbing{animation:pcBob .25s ease-in-out infinite alternate}
     .climber.hopping{animation:pcHop .38s ease-out 1}
     @keyframes pcBob{
@@ -367,6 +367,7 @@
       {x:50,y:61.09,edge:'ladder'},{x:50,y:50.94,edge:'ladder'},{x:50,y:40.63,edge:'ladder'},
       {x:50,y:30.78,edge:'ladder'},{x:50,y:22.19,edge:'ladder'},{x:50,y:17.50,edge:null}
     ];
+    const LANDING_TWEAK=[0.00,0.06,0.10,0.12,0.12,0.10,0.08,0.05,0.00];
     const CAMERA=[-51.2,-46.2,-40.0,-33.5,-27.0,-20.5,-14.0,-7.0,0];
     let path=[START],currentNode=0,demoTimer=null,animating=false;
     const $=s=>document.querySelector(s),climber=$('#climber'),layer=$('#pathLayer'),worldTrack=$('#worldTrack');
@@ -399,7 +400,7 @@
     function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
     function setMessage(text,type=''){const el=$('#message');el.textContent=text;el.className='message'+(type?' '+type:'')}
     function face(a,b){climber.classList.toggle('facing-left',NODES[b].x<NODES[a].x)}
-    function setPosition(i){const n=NODES[i];climber.style.left=n.x+'%';climber.style.top=n.y+'%'}
+    function setPosition(i){const n=NODES[i];climber.style.left=n.x+'%';climber.style.top=(n.y+LANDING_TWEAK[i])+'%'}
     function setCamera(i){worldTrack.style.transform='translateY('+CAMERA[Math.max(0,Math.min(8,i))]+'%)'}
 
     function renderSigns(){
@@ -464,6 +465,6 @@
     armPaintedWorld();renderAll();
   })();
   </script>
-  <!-- painted-world-build: 2026-09-11g pc-boot-anchor -->
+  <!-- painted-world-build: 2026-09-11h pc-boot-anchor-tuned -->
 </body>
 </html>
