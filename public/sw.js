@@ -1,4 +1,4 @@
-const CACHE = 'clue-morning-pwa-v12';
+const CACHE = 'clue-morning-pwa-v13';
 const APP_SHELL = [
   '/',
   '/index.html',
@@ -40,7 +40,11 @@ const APP_SHELL = [
   '/deepcut-archive/museum.webp',
   '/deepcut-archive/forbidden.webp',
   '/deepcut-archive/cosmic.webp',
-  '/deepcut-archive/elevator.webp'
+  '/deepcut-archive/elevator.webp',
+  '/word-steps-rooftops/bg-00.b64',
+  '/word-steps-rooftops/bg-01.b64',
+  '/word-steps-rooftops/bg-02.b64',
+  '/word-steps-rooftops/pc.webp'
 ];
 
 self.addEventListener('install', event => {
