@@ -1,0 +1,37 @@
+name: Production archive retro art smoke
+
+on:
+  push:
+    branches:
+      - prod-archive-retro-art-smoke
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify cozy retro archive test is live
+        shell: bash
+        run: |
+          set -euo pipefail
+          page="https://cluemorning.com/archive-test/"
+          world="https://cluemorning.com/archive-test/deep-archive-retro-25-world.webp"
+          lift="https://cluemorning.com/archive-test/deep-archive-retro-elevator.webp"
+          for i in $(seq 1 30); do
+            body="$(curl -fsSL "$page" || true)"
+            wh="$(curl -fsSI "$world" || true)"
+            eh="$(curl -fsSI "$lift" || true)"
+            if grep -q "DEEP ARCHIVE — COZY RETRO TEST" <<<"$body" \
+              && grep -q "retro-wash" <<<"$body" \
+              && grep -q "scanlines" <<<"$body" \
+              && grep -q "Newsroom Lobby" <<<"$body" \
+              && grep -q "The Final Shelf" <<<"$body" \
+              && grep -q "deep-archive-retro-25-world.webp" <<<"$body" \
+              && grep -qi "content-type: image/webp" <<<"$wh" \
+              && grep -qi "content-type: image/webp" <<<"$eh"; then
+              echo "Cozy retro archive art is live."
+              exit 0
+            fi
+            echo "Waiting for production deploy ($i/30)..."
+            sleep 5
+          done
+          exit 1
