@@ -46,6 +46,11 @@ button{font:inherit}
   user-select:none;pointer-events:none;
   image-rendering:pixelated;image-rendering:crisp-edges;
 }
+.scene.mirror img{transform:scaleX(-1)}
+.scene.deep::after{
+  content:"";position:absolute;z-index:1;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(14,8,28,.08),rgba(5,4,18,.28));
+}
 .scene + .scene::before{
   content:"";position:absolute;z-index:2;left:0;right:0;top:0;height:28px;
   pointer-events:none;
@@ -194,10 +199,22 @@ button{font:inherit}
       <section class="scene" aria-label="Upper archive">
         <img src="/archive-test/archive-top.webp" width="1600" height="900" alt="" loading="eager" decoding="async" fetchpriority="high">
       </section>
-      <section class="scene" aria-label="Museum depths">
+      <section class="scene" aria-label="Natural history and clockwork archive">
         <img src="/archive-test/archive-middle.webp" width="1600" height="900" alt="" loading="eager" decoding="async">
       </section>
-      <section class="scene" aria-label="Cosmic archive">
+      <section class="scene" aria-label="Astral archive">
+        <img src="/archive-test/archive-bottom.webp" width="1600" height="900" alt="" loading="eager" decoding="async">
+      </section>
+      <section class="scene mirror deep" aria-label="Lower museum wing">
+        <img src="/archive-test/archive-middle.webp" width="1600" height="900" alt="" loading="eager" decoding="async">
+      </section>
+      <section class="scene mirror deep" aria-label="Forbidden astral stacks">
+        <img src="/archive-test/archive-bottom.webp" width="1600" height="900" alt="" loading="eager" decoding="async">
+      </section>
+      <section class="scene deep" aria-label="Deep specimen wing">
+        <img src="/archive-test/archive-middle.webp" width="1600" height="900" alt="" loading="eager" decoding="async">
+      </section>
+      <section class="scene mirror deep" aria-label="Bottomless archive">
         <img src="/archive-test/archive-bottom.webp" width="1600" height="900" alt="" loading="eager" decoding="async">
       </section>
       <div class="tail" aria-hidden="true"></div>
@@ -212,8 +229,8 @@ button{font:inherit}
 
 <div class="hud">
   <div class="card">
-    <h1>DEEP ARCHIVE — LANDING TEST</h1>
-    <p>One elevator, art-matched to the archive. Each move now snaps the car to a real balcony landing in the stacked scenes.</p>
+    <h1>DEEP ARCHIVE — 22 LANDING TEST</h1>
+    <p>Same single elevator, now with roughly three times the descent. Every move still snaps to a real balcony line.</p>
   </div>
 </div>
 
@@ -251,12 +268,33 @@ button{font:inherit}
   */
   const landings=[
     {scene:0,y:.941,zone:'Surface Archive'},
+
     {scene:1,y:.227,zone:'Natural History'},
     {scene:1,y:.488,zone:'Clockwork Museum'},
     {scene:1,y:.756,zone:'Specimen Vault'},
     {scene:1,y:.987,zone:'Deep Stacks'},
+
     {scene:2,y:.289,zone:'Astral Archive'},
-    {scene:2,y:.547,zone:'The Final Shelf'}
+    {scene:2,y:.547,zone:'Relic Gallery'},
+    {scene:2,y:.842,zone:'Cosmic Reading Room'},
+
+    {scene:3,y:.227,zone:'Lower Fossil Hall'},
+    {scene:3,y:.488,zone:'Mechanical Index'},
+    {scene:3,y:.756,zone:'Preservation Lab'},
+    {scene:3,y:.987,zone:'Restricted Museum'},
+
+    {scene:4,y:.289,zone:'Forbidden Observatory'},
+    {scene:4,y:.547,zone:'Black Star Stacks'},
+    {scene:4,y:.842,zone:'Void Collection'},
+
+    {scene:5,y:.227,zone:'Buried Natural History'},
+    {scene:5,y:.488,zone:'Lost Machinery'},
+    {scene:5,y:.756,zone:'Sealed Specimens'},
+    {scene:5,y:.987,zone:'Archive Below Archive'},
+
+    {scene:6,y:.289,zone:'Outer Dark'},
+    {scene:6,y:.547,zone:'Abyssal Catalog'},
+    {scene:6,y:.842,zone:'The Final Shelf'}
   ];
 
   let stop=0;
@@ -276,7 +314,7 @@ button{font:inherit}
     const item=landings[stop];
     const y=targetFloorY()-landingWorldY(item);
     world.style.transform='translate3d(-50%,'+Math.round(y)+'px,0)';
-    depthEl.textContent=Math.round((stop/(landings.length-1))*5400).toLocaleString();
+    depthEl.textContent=Math.round((stop/(landings.length-1))*16200).toLocaleString();
     zoneEl.textContent=item.zone;
   }
 
