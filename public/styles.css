@@ -572,7 +572,8 @@ html.deepcut-immersive #deepCutArchiveWorld{
 }
 html.deepcut-immersive .deepcut-archive-readout{
   z-index:26;
-  bottom:max(170px,calc(150px + env(safe-area-inset-bottom)));
+  /* Keep the archive HUD in its own lane above feedback and bottom controls. */
+  bottom:max(206px,calc(188px + env(safe-area-inset-bottom)));
 }
 html.deepcut-immersive .deepcut-archive-vignette{
   box-shadow:inset 0 0 110px rgba(0,0,0,.46);
@@ -729,6 +730,8 @@ html.deepcut-immersive #deepCutMessage{
   backdrop-filter:blur(5px);
 }
 html.deepcut-immersive #deepCutMessage:empty{display:none}
+/* The completion card already carries the final score; suppress the redundant toast so it cannot cover the archive readout. */
+html.deepcut-immersive #deepCutDone:not([hidden]) ~ #deepCutMessage{display:none}
 html.deepcut-immersive #deepCutHistory{display:none}
 
 @media(max-width:700px){
@@ -736,7 +739,7 @@ html.deepcut-immersive #deepCutHistory{display:none}
     width:max(760px,185vw);
   }
   html.deepcut-immersive .deepcut-archive-readout{
-    bottom:max(164px,calc(146px + env(safe-area-inset-bottom)));
+    bottom:max(202px,calc(184px + env(safe-area-inset-bottom)));
   }
   html.deepcut-immersive .deepcut-archive-readout{
     padding:7px 9px;
@@ -770,6 +773,6 @@ html.deepcut-immersive #deepCutHistory{display:none}
     padding:5px 3px;
   }
   html.deepcut-immersive .deepcut-archive-readout{
-    bottom:148px;
+    bottom:188px;
   }
 }
