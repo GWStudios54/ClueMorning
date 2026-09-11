@@ -1,0 +1,32 @@
+name: Production Deep Cut mobile play smoke
+
+on:
+  push:
+    branches:
+      - prod-deepcut-mobile-play-smoke
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify controls-first Deep Cut is live
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="https://cluemorning.com/"
+          for i in $(seq 1 30); do
+            body="$(curl -fsSL "$url" || true)"
+            css="$(curl -fsSL "https://cluemorning.com/styles.css" || true)"
+            intro_line="$(grep -n 'id="deepCutIntro"' <<<"$body" | head -1 | cut -d: -f1 || true)"
+            stage_line="$(grep -n 'id="deepCutArchiveStage"' <<<"$body" | head -1 | cut -d: -f1 || true)"
+            if [[ -n "$intro_line" && -n "$stage_line" && "$intro_line" -lt "$stage_line" ]] \
+              && grep -q 'controls before spectacle' <<<"$css" \
+              && grep -q '44svh' <<<"$css" \
+              && grep -q 'repeat(4,minmax(0,1fr))' <<<"$css"; then
+              echo "Mobile-playable Deep Cut is live."
+              exit 0
+            fi
+            echo "Waiting for production deploy ($i/30)..."
+            sleep 5
+          done
+          exit 1
