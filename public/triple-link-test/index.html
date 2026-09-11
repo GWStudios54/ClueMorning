@@ -361,7 +361,7 @@
 
     .attempt.on,.success .attempt{opacity:1}
 
-    /* Light only: centered in the glass, stable and bright, with no visible source object. */
+    /* Light only: centered on the baked glass bulb, brighter with no visible source object. */
     .attempt.on,.success .attempt{
       opacity:1;
       box-shadow:none!important;
@@ -371,19 +371,19 @@
       content:""!important;
       position:absolute;
       left:50%;
-      top:49%;
+      top:72%;
       width:0;
       height:0;
       border:0;
       background:transparent!important;
       box-shadow:
-        0 0 3px 3px rgba(255,244,198,.72),
-        0 0 8px 6px rgba(255,218,130,.54),
-        0 0 14px 10px rgba(255,179,78,.34),
-        0 0 23px 15px rgba(255,136,40,.18),
-        0 0 34px 21px rgba(255,102,24,.08);
+        0 0 3px 3px rgba(255,249,218,.96),
+        0 0 8px 6px rgba(255,225,146,.80),
+        0 0 14px 10px rgba(255,188,89,.58),
+        0 0 23px 15px rgba(255,143,46,.34),
+        0 0 34px 21px rgba(255,106,25,.15);
       transform:translate(-50%,-50%);
-      filter:blur(.85px);
+      filter:blur(.45px);
       mix-blend-mode:screen;
       pointer-events:none;
     }
@@ -647,6 +647,6 @@
     requestAnimationFrame(fitSwitchboardText);
   })();
   </script>
-  <!-- switchboard-test-build: 2026-09-11s centered-bright-glow -->
+  <!-- switchboard-test-build: 2026-09-11t centered-brighter-glow -->
 </body>
 </html>
