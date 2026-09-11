@@ -1,0 +1,35 @@
+name: Production Deep Cut archive smoke
+
+on:
+  push:
+    branches:
+      - prod-deepcut-archive-smoke
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify production Deep Archive is live
+        shell: bash
+        run: |
+          set -euo pipefail
+          page="https://cluemorning.com/"
+          for i in $(seq 1 30); do
+            body="$(curl -fsSL "$page" || true)"
+            core="$(curl -fsSL "https://cluemorning.com/app-core.js" || true)"
+            css="$(curl -fsSL "https://cluemorning.com/styles.css" || true)"
+            if grep -q 'id="deepCutArchiveStage"' <<<"$body" \
+              && grep -q '/deepcut-archive/newsroom.webp' <<<"$body" \
+              && grep -q 'deepCutArchiveFloorsForScore' <<<"$core" \
+              && grep -q 'DEEPCUT_ARCHIVE_LANDINGS' <<<"$core" \
+              && grep -q 'Deep Cut — production Deep Archive' <<<"$css" \
+              && curl -fsSI "https://cluemorning.com/deepcut-archive/newsroom.webp" | grep -qi 'content-type: image/webp' \
+              && curl -fsSI "https://cluemorning.com/deepcut-archive/cosmic.webp" | grep -qi 'content-type: image/webp' \
+              && curl -fsSI "https://cluemorning.com/deepcut-archive/elevator.webp" | grep -qi 'content-type: image/webp'; then
+              echo "Production Deep Archive is live."
+              exit 0
+            fi
+            echo "Waiting for production deploy ($i/30)..."
+            sleep 5
+          done
+          exit 1
