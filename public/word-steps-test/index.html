@@ -171,6 +171,141 @@
       .actions button{min-height:34px}
       .scene-camera{transform:translateY(var(--camera-shift-compact,var(--camera-shift,0px)))}
     }
+
+    /* Rooftops art pass — match Deep Cut's illustrated, immersive presentation. */
+    .scene{
+      background:#080b13 url('./rooftops-world.svg') center center/cover no-repeat;
+      isolation:isolate;
+    }
+    .scene::before{
+      content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+      background:
+        linear-gradient(to bottom,rgba(4,7,15,.64) 0,rgba(4,7,15,.18) 27%,transparent 43%,transparent 72%,rgba(4,6,12,.62) 100%),
+        radial-gradient(circle at 50% 49%,transparent 36%,rgba(2,4,10,.36) 100%);
+    }
+    .scene::after{
+      content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.075;
+      background:repeating-linear-gradient(to bottom,rgba(255,239,205,.05) 0 1px,rgba(0,0,0,.035) 1px 3px);
+      mix-blend-mode:soft-light;
+    }
+    .moon,.cloud,.skyline,.fire-escape,.water-tower,.ledge{display:none!important}
+    .scene-camera{z-index:5}
+    .climb-track{
+      top:31%;bottom:25%;width:min(520px,80vw);
+      filter:drop-shadow(0 10px 18px rgba(0,0,0,.25));
+    }
+    .word-sign{
+      min-width:104px;padding:8px 12px;
+      border:2px solid rgba(121,96,139,.92);
+      border-radius:11px;
+      background:linear-gradient(180deg,rgba(13,14,24,.96),rgba(8,10,18,.96));
+      color:#ddd0d9;
+      box-shadow:0 0 0 2px rgba(4,5,10,.72),0 8px 18px rgba(0,0,0,.34);
+      backdrop-filter:blur(5px);
+    }
+    .word-sign.active{
+      color:#fff0d1;border-color:#a78a62;
+      box-shadow:0 0 0 2px rgba(4,5,10,.72),0 0 18px rgba(242,190,99,.16),0 8px 18px rgba(0,0,0,.34);
+    }
+    .word-sign.current{
+      color:#f3c974;border-color:#f0c36e;
+      box-shadow:0 0 0 2px rgba(4,5,10,.75),0 0 22px rgba(242,190,99,.27),0 8px 18px rgba(0,0,0,.38);
+    }
+    .word-sign.target{opacity:.65;border-style:solid}
+    .climber{
+      width:38px;height:63px;z-index:14;
+      filter:drop-shadow(0 7px 6px rgba(0,0,0,.58));
+    }
+    .climber-head{left:12px;width:14px;height:14px;background:#e8c9a5}
+    .climber-body{
+      left:7px;top:14px;width:23px;height:36px;
+      border:1px solid rgba(255,220,176,.14);
+      background:linear-gradient(90deg,#73483f,#9a6251 55%,#704238);
+      box-shadow:0 17px 0 -6px #26334c;
+    }
+    .climber-bag{left:27px;top:22px;background:#31415b}
+    .climber-scarf{left:25px;top:18px;width:17px;background:#d9b56d}
+    .topbar{z-index:40}
+    .topbar button,.topbar .badge{
+      min-height:48px;border:2px solid rgba(116,91,132,.92);
+      border-radius:14px;background:rgba(9,10,18,.91);
+      box-shadow:0 0 0 2px rgba(3,4,9,.68),0 8px 22px rgba(0,0,0,.25);
+      color:#f6ead8;backdrop-filter:blur(8px);
+    }
+    .back{font-family:Georgia,serif;font-size:.94rem}
+    .badge{color:#edc779!important;font-size:.64rem}
+    .reset{font-size:1.05rem}
+    .title{
+      z-index:38;top:calc(max(10px,env(safe-area-inset-top)) + 59px);
+      width:min(520px,78vw);
+    }
+    .title small{
+      color:#cfc2d4;font:900 .6rem/1 "Courier New",monospace;
+      letter-spacing:.26em;text-shadow:0 2px 8px rgba(0,0,0,.8);
+    }
+    .title strong{
+      color:#f0c76f;margin-top:7px;
+      font:800 clamp(1.28rem,5.2vw,1.72rem)/1 Georgia,serif;
+      letter-spacing:.08em;text-shadow:0 3px 10px rgba(0,0,0,.7);
+    }
+    .stats{
+      z-index:39;top:calc(max(10px,env(safe-area-inset-top)) + 111px);
+      gap:8px;width:min(600px,calc(100vw - 20px));
+    }
+    .stat{
+      min-height:64px;padding:9px 5px;
+      border:2px solid rgba(101,80,113,.94);border-radius:13px;
+      background:linear-gradient(180deg,rgba(13,14,23,.93),rgba(8,9,16,.94));
+      box-shadow:0 0 0 2px rgba(4,5,10,.58),0 9px 24px rgba(0,0,0,.22);
+    }
+    .stat strong{color:#f0c76f;font:800 1.24rem/1 Georgia,serif}
+    .stat span{color:#cabfd0;font-size:.54rem;letter-spacing:.09em}
+    .goal{
+      z-index:39;top:calc(max(10px,env(safe-area-inset-top)) + 184px);
+      padding:10px 15px;border:2px solid rgba(108,87,122,.88);
+      border-radius:13px;background:rgba(9,10,18,.91);
+      box-shadow:0 0 0 2px rgba(4,5,10,.55),0 9px 20px rgba(0,0,0,.22);
+      color:#d4c8d6;font-size:.64rem;
+    }
+    .goal b{color:#f1c86f;font-size:.8rem}
+    .controls{
+      z-index:45;width:min(660px,calc(100vw - 20px));padding:14px;
+      border:2px solid rgba(113,91,128,.95);border-radius:18px;
+      background:linear-gradient(180deg,rgba(10,11,19,.96),rgba(8,9,16,.97));
+      box-shadow:0 0 0 2px rgba(5,6,11,.78),0 16px 40px rgba(0,0,0,.42);
+    }
+    .prompt{color:#d9ceda;font-size:.64rem}.prompt b{color:#f4dfb2}
+    input{
+      min-height:58px;border:2px solid #765f8b;border-radius:14px;
+      background:rgba(15,16,28,.96);
+      box-shadow:0 0 0 2px rgba(5,6,11,.74),inset 0 1px 0 rgba(255,255,255,.03);
+      color:#fff2dc;font-size:18px;
+    }
+    .add{
+      min-width:108px;border:2px solid #8aa0a5;border-radius:14px;
+      background:linear-gradient(180deg,#35545a,#263f45);
+      color:#f5e5c9;box-shadow:0 0 0 2px rgba(5,6,11,.7);
+    }
+    .actions button{
+      min-height:42px;border:1px solid #55495f;border-radius:11px;
+      background:linear-gradient(180deg,#1a1926,#12121d);color:#dcd0dc;
+    }
+    .message{color:#d0c2ce}
+    .test-note{display:none}
+    @media(max-width:560px){
+      .climb-track{top:32%;bottom:26%;width:82vw}
+      .title{top:calc(max(10px,env(safe-area-inset-top)) + 58px)}
+      .stats{top:calc(max(10px,env(safe-area-inset-top)) + 108px)}
+      .goal{top:calc(max(10px,env(safe-area-inset-top)) + 181px)}
+      .controls{padding:12px}
+      .word-sign{min-width:92px;font-size:.65rem}
+    }
+    @media(max-height:700px){
+      .title strong{font-size:1.18rem}
+      .stats{top:calc(max(7px,env(safe-area-inset-top)) + 101px)}
+      .stat{min-height:56px}
+      .climb-track{top:31%;bottom:28%}
+    }
   </style>
 </head>
 <body>
