@@ -60,23 +60,34 @@ function totalScore(){return day?DAILY_GAMES.reduce((n,g)=>n+(day[g]?.score||0),
 function statusMarkup(done){return `${svg(done?"i-check":"i-play")}${done?"DONE":"PLAY"}`}
 function setStatus(id,done){const el=$(id);el.classList.toggle("done",done);el.innerHTML=statusMarkup(done)}
 
+function syncDeepCutImmersive({repairScroll=false}={}){
+  const shouldBeImmersive=!!$('#deepcut')?.classList.contains('active');
+  const wasImmersive=document.documentElement.classList.contains('deepcut-immersive');
+  document.documentElement.classList.toggle('deepcut-immersive',shouldBeImmersive);
+  if(repairScroll&&wasImmersive&&!shouldBeImmersive)window.scrollTo({top:0,behavior:'auto'});
+  return shouldBeImmersive;
+}
 function selectTab(id){
   const previous=$(".tab.active")?.dataset.tab||"today";
   if(id==="deepcut"&&previous!=="deepcut")deepCutReturnTab=previous;
-  document.documentElement.classList.toggle("deepcut-immersive",id==="deepcut");
   if(unlimitedSession&&id!==unlimitedSession.game&&id!=="unlimited")restoreDailyContext();
   $(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
   $(".panel").forEach(p=>p.classList.toggle("active",p.id===id));
+  syncDeepCutImmersive();
   window.scrollTo({top:0,behavior:id==="deepcut"?"auto":"smooth"});
   if(id==="archive")renderArchive();
   if(id==="leaders")loadLeaderboard();
   if(id==="unlimited")renderUnlimitedLibrary();
   if(id==="deepcut"){warmDeepCutArchive();requestAnimationFrame(renderDeepCutArchive)}
 }
-$$('.tab').forEach(b=>b.addEventListener('click',()=>selectTab(b.dataset.tab)));
+$('.tab').forEach(b=>b.addEventListener('click',()=>selectTab(b.dataset.tab)));
 $('[data-open]').forEach(b=>b.addEventListener('click',()=>selectTab(b.dataset.open)));
 $('#deepCutExit')?.addEventListener('click',()=>{if(unlimitedSession)exitUnlimited(true);else selectTab(deepCutReturnTab||'today')});
 window.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.documentElement.classList.contains('deepcut-immersive')){$('#deepCutExit')?.click()}});
+window.addEventListener('pageshow',()=>syncDeepCutImmersive({repairScroll:true}));
+window.addEventListener('popstate',()=>requestAnimationFrame(()=>syncDeepCutImmersive({repairScroll:true})));
+window.addEventListener('hashchange',()=>requestAnimationFrame(()=>syncDeepCutImmersive({repairScroll:true})));
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncDeepCutImmersive({repairScroll:true})});
 $('.brand').addEventListener('click',e=>{e.preventDefault();selectTab('today')});
 $('#year').textContent=new Date().getFullYear();
 $('#themeButton').addEventListener('click',()=>{applyTheme(activeTheme(),false);$('#themeDialog').showModal()});
