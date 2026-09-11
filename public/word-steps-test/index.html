@@ -317,7 +317,7 @@
 
       async function moveCharacter(toIndex,mode,fast=false){
         if(toIndex===currentNode)return;
-        const fromIndex=currentNode,from=NODES[fromIndex],to=NODES[toIndex],factor=fast?.65:1;
+        const fromIndex=currentNode,from=NODES[fromIndex],to=NODES[toIndex],factor=fast ? .65 : 1;
         face(fromIndex,toIndex);animating=true;renderHud();
         climber.classList.remove('walking','climbing','hopping');
 
