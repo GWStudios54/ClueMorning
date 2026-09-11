@@ -1,0 +1,35 @@
+name: Restore last-good archive assets
+
+on:
+  push:
+    branches:
+      - restore-last-good-archive
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Restore exact archive art from last-good commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public/archive-test
+          git show 126298917514638c87adc787cc6ac77821031571:public/archive-test/archive-top.webp > public/archive-test/archive-top.webp
+          git show 126298917514638c87adc787cc6ac77821031571:public/archive-test/archive-middle.webp > public/archive-test/archive-middle.webp
+          git show 126298917514638c87adc787cc6ac77821031571:public/archive-test/archive-bottom.webp > public/archive-test/archive-bottom.webp
+          git add public/archive-test/archive-top.webp public/archive-test/archive-middle.webp public/archive-test/archive-bottom.webp
+          if git diff --cached --quiet; then
+            echo "Assets already match last-good commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Restore last-good archive art assets"
+          git push
