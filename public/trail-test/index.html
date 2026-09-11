@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#17130e">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Trail — Cartographer's Desk Test</title>
+  <style>
+    *{box-sizing:border-box}html,body{height:100%;margin:0;overflow:hidden;background:#17130e;color:#f5dfad}
+    body{font-family:Georgia,"Times New Roman",serif;touch-action:none;-webkit-user-select:none;user-select:none}
+    button{font:inherit;color:inherit}
+    .world{position:relative;height:100dvh;min-height:560px;overflow:hidden;background:
+      radial-gradient(ellipse at 50% 63%,rgba(224,151,65,.18),transparent 42%),
+      linear-gradient(180deg,#0b1010 0 19%,#342519 42%,#17110c 100%)}
+    .window{position:absolute;inset:0 0 auto;height:35%;overflow:hidden;background:linear-gradient(#13211e,#315044 69%,#d1904b 70%,#745034 74%,#171714 75%);box-shadow:inset 0 -15px 28px #080705}
+    .window:before{content:"";position:absolute;inset:0;background:
+      radial-gradient(circle at 76% 52%,#f9c86e 0 3%,#cb7441 3.5% 7%,transparent 18%),
+      linear-gradient(100deg,transparent 0 18%,rgba(238,195,114,.09) 35%,transparent 58%)}
+    .window:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 48.5%,#16120e 49% 51%,transparent 51.5%),linear-gradient(#18130e 0 5%,transparent 5% 93%,#17110d 93%);opacity:.9}
+    .hills{position:absolute;left:-5%;right:-5%;bottom:24%;height:30%;background:#14231d;clip-path:polygon(0 72%,12% 38%,22% 68%,34% 21%,45% 66%,61% 34%,74% 70%,88% 26%,100% 67%,100% 100%,0 100%)}
+    .desk{position:absolute;left:-7%;right:-7%;bottom:-9%;height:76%;transform:perspective(850px) rotateX(5deg);transform-origin:bottom;background:
+      repeating-linear-gradient(91deg,transparent 0 105px,rgba(10,4,1,.20) 106px,rgba(255,207,120,.035) 109px),
+      linear-gradient(100deg,#412817,#6b4324 40%,#4c2d19 100%);box-shadow:inset 0 20px 24px #1b1009,0 -12px 35px #080604}
+    .desk:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 52% 42%,transparent 10%,rgba(12,6,3,.58) 94%);pointer-events:none}
+    .map{position:absolute;z-index:1;left:50%;top:25%;width:min(94vw,550px);height:66%;transform:translateX(-50%) rotate(-.7deg);background:#bda273;color:#302311;clip-path:polygon(1% 3%,14% 1%,31% 3%,50% 1%,70% 3%,86% 1%,99% 4%,98% 25%,100% 48%,98% 72%,99% 97%,83% 99%,64% 97%,48% 100%,29% 98%,13% 100%,1% 97%,2% 74%,0 50%,2% 27%);box-shadow:0 9px 19px #100904,inset 0 0 50px rgba(72,46,18,.42);background-image:
+      radial-gradient(circle at 18% 22%,transparent 0 14px,rgba(73,85,59,.28) 15px 17px,transparent 18px),
+      radial-gradient(circle at 81% 69%,transparent 0 28px,rgba(61,80,58,.24) 29px 32px,transparent 33px),
+      repeating-radial-gradient(ellipse at 75% 18%,transparent 0 17px,rgba(70,53,30,.13) 18px 19px),
+      linear-gradient(108deg,transparent 47%,rgba(65,91,80,.22) 48% 49%,transparent 50%),linear-gradient(#c9b17e,#b49562)}
+    .map:before{content:"";position:absolute;inset:12px;border:1px solid rgba(70,48,23,.35);pointer-events:none}
+    .compass{position:absolute;z-index:2;right:-20px;top:19%;width:92px;aspect-ratio:1;border:7px double #b6873b;border-radius:50%;background:radial-gradient(circle,#3b2a19 0 8%,#d4ae5f 9% 11%,#594225 12% 17%,#1c1710 18% 54%,#9c7738 55% 62%,#2e2114 63%);box-shadow:0 5px 14px #100b07}
+    .compass:after{content:"N";position:absolute;inset:6px;text-align:center;font:bold 10px Georgia;color:#e2c681}
+    .lamp{position:absolute;z-index:3;left:-35px;top:5%;width:118px;height:150px;border-radius:50%;background:radial-gradient(ellipse,#ffe8a0 0 6%,#b76b2d 25%,#342115 53%,transparent 54%);filter:drop-shadow(20px 28px 35px rgba(255,181,71,.22));opacity:.9}
+    .hud{position:absolute;z-index:8;top:max(8px,env(safe-area-inset-top));left:10px;right:10px;height:58px;display:flex;align-items:flex-start;justify-content:space-between;text-shadow:0 2px 4px #000}
+    .back,.reset{border:1px solid rgba(226,190,117,.45);background:rgba(17,14,10,.62);border-radius:999px;height:35px;padding:0 13px;letter-spacing:.08em;font:bold 10px/1 sans-serif;backdrop-filter:blur(5px)}
+    .heading{text-align:center}.heading small{display:block;font:bold 9px/1.1 sans-serif;letter-spacing:.22em;color:#d6ad66}.heading strong{display:block;margin-top:4px;font-size:clamp(19px,5.4vw,27px);letter-spacing:.06em;color:#f5dfa8}
+    .stats{position:absolute;z-index:8;top:max(67px,calc(env(safe-area-inset-top) + 60px));left:50%;width:min(94vw,510px);transform:translateX(-50%);display:grid;grid-template-columns:repeat(4,1fr);background:rgba(24,19,13,.77);border:1px solid rgba(207,163,85,.38);box-shadow:0 4px 18px #0a0705;border-radius:8px;overflow:hidden;backdrop-filter:blur(6px)}
+    .stat{text-align:center;padding:7px 3px;border-right:1px solid rgba(207,163,85,.25)}.stat:last-child{border:0}.stat strong{display:block;font:bold clamp(14px,4vw,20px)/1 sans-serif;color:#ffe4a1}.stat span{display:block;margin-top:4px;font:bold 7px/1 sans-serif;letter-spacing:.15em;color:#bca475}
+    .game{position:absolute;z-index:5;left:50%;top:31%;width:min(82vw,420px);transform:translateX(-50%);text-align:center}
+    .current{height:43px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;width:88%;border:1px solid rgba(105,71,31,.48);border-radius:5px;background:rgba(216,190,132,.69);box-shadow:inset 0 0 12px rgba(69,39,14,.24);font:bold clamp(19px,5.5vw,28px)/1 "Courier New",monospace;letter-spacing:.14em;color:#34200f;text-shadow:0 1px #ead49a}
+    .current.idle{font:italic 13px Georgia;letter-spacing:.02em;color:#5b472a}
+    .board-wrap{position:relative;width:100%;aspect-ratio:1;margin:auto;padding:8%;filter:drop-shadow(0 9px 8px rgba(20,9,3,.56))}
+    .board-frame{position:absolute;inset:2%;border:9px ridge #8d632e;border-radius:12px;background:linear-gradient(135deg,#4d2e18,#936739 48%,#402513);box-shadow:inset 0 0 0 3px #25170d,inset 0 0 26px #160c06}
+    .grid{position:absolute;inset:10%;display:grid;grid-template-columns:repeat(4,1fr);gap:4.2%;touch-action:none}
+    .tile{position:relative;border:0;border-radius:9px;background:linear-gradient(145deg,#e0bf78,#ad7c3e 62%,#6c451f);box-shadow:inset 2px 2px 2px rgba(255,238,170,.65),inset -3px -4px 5px rgba(60,29,7,.55),0 3px 4px #201106;color:#33200f;font:900 clamp(25px,8vw,43px)/1 Georgia;text-shadow:0 1px #efd798;display:grid;place-items:center;transition:transform .08s,filter .12s;touch-action:none}
+    .tile:before{content:"";position:absolute;inset:8%;border:1px solid rgba(93,58,22,.35);border-radius:6px}
+    .tile.selected{transform:translateY(-3px) scale(1.035);filter:brightness(1.16);color:#291707;box-shadow:inset 2px 2px 2px #fff0b1,inset -3px -4px 5px #5d3514,0 0 6px #ffd475,0 0 17px rgba(255,169,53,.9)}
+    .tile.head{filter:brightness(1.25);box-shadow:inset 2px 2px 2px #fff6c7,inset -3px -4px 5px #5d3514,0 0 8px #fff1ae,0 0 23px #ff9f32}
+    .trace{position:absolute;inset:10%;width:80%;height:80%;pointer-events:none;overflow:visible;z-index:4}.trace polyline{fill:none;stroke:#fff1a0;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 3px #ffcf55) drop-shadow(0 0 7px #ed7e25);opacity:.92}.trace circle{fill:#fff6bc;filter:drop-shadow(0 0 5px #ff9b2c)}
+    .actions{display:flex;gap:10px;justify-content:center;margin-top:-3%}.action{height:40px;border-radius:5px;border:1px solid #7d572c;padding:0 22px;background:linear-gradient(#4d3520,#2b1d12);font:bold 11px/1 sans-serif;letter-spacing:.12em;box-shadow:0 3px 5px #1a0e07}.action.primary{background:linear-gradient(#c79648,#8b5c27);color:#261608;border-color:#e1b766}.action:disabled{opacity:.4}
+    .found{margin:9px auto 0;min-height:24px;max-width:92%;font:bold 10px/1.4 sans-serif;letter-spacing:.08em;color:#594526;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.found b{color:#2f2518}
+    .toast{position:absolute;z-index:12;left:50%;bottom:max(14px,env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);opacity:0;transition:.2s;width:max-content;max-width:86%;padding:9px 15px;border:1px solid #d4a958;border-radius:999px;background:rgba(21,15,9,.92);font:bold 10px/1.2 sans-serif;letter-spacing:.08em;color:#ffe4a5;pointer-events:none}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.toast.bad{border-color:#b66245;color:#ffd1ba}
+    .intro{position:absolute;z-index:11;inset:0;display:grid;place-items:center;background:rgba(10,8,6,.62);backdrop-filter:blur(4px);padding:20px}.intro-card{width:min(88vw,390px);padding:26px 24px;text-align:center;border:1px solid #b98d4d;border-radius:10px;background:linear-gradient(145deg,#49301b,#21170f);box-shadow:0 16px 60px #000}.intro-card small{font:bold 9px/1 sans-serif;letter-spacing:.22em;color:#cc9f58}.intro-card h1{margin:7px 0 11px;font-size:29px}.intro-card p{margin:0 auto 18px;max-width:300px;color:#d9c59d;font:15px/1.45 Georgia}.start{width:100%;height:47px;border:1px solid #e2bc6e;border-radius:6px;background:linear-gradient(#d4a454,#956329);color:#241408;font:bold 12px/1 sans-serif;letter-spacing:.13em}.hidden{display:none}
+    @media(max-height:690px){.stats{top:59px}.game{top:28%;width:min(69vh,390px)}.current{height:35px}.board-wrap{padding:9%}.actions{margin-top:-5%}.found{display:none}}
+    @media(min-width:700px){.game{top:27%;width:min(55vh,440px)}}
+  </style>
+</head>
+<body>
+  <main class="world" id="world">
+    <div class="window"><div class="hills"></div></div><div class="desk"></div>
+    <section class="map" aria-label="Cartographer's desk"><div class="lamp"></div><div class="compass"></div></section>
+    <header class="hud"><button class="back" id="back">← MORNING RUN</button><div class="heading"><small>LETTER TRAIL</small><strong>THE CARTOGRAPHER</strong></div><button class="reset" id="reset" aria-label="Reset">↻</button></header>
+    <section class="stats"><div class="stat"><strong id="words">0</strong><span>WORDS</span></div><div class="stat"><strong id="score">0</strong><span>SCORE</span></div><div class="stat"><strong id="timer">2:30</strong><span>TIME</span></div><div class="stat"><strong id="best">—</strong><span>BEST</span></div></section>
+    <section class="game">
+      <div class="current idle" id="current">Trace a route across the map</div>
+      <div class="board-wrap" id="boardWrap"><div class="board-frame"></div><div class="grid" id="grid"></div><svg class="trace" id="trace" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline id="line" points=""></polyline><g id="dots"></g></svg></div>
+      <div class="actions"><button class="action" id="clear">CLEAR</button><button class="action primary" id="submit">MARK WORD</button></div>
+      <div class="found" id="found">FOUND: <b>—</b></div>
+    </section>
+    <div class="toast" id="toast" aria-live="polite"></div>
+    <section class="intro" id="intro"><div class="intro-card"><small>TODAY'S EXPEDITION</small><h1>Chart a Trail</h1><p>Drag through touching letters to map words. Backtrack over your last tile to undo it. Every route of three letters or more can be marked.</p><button class="start" id="start">UNROLL THE MAP</button></div></section>
+  </main>
+  <script>
+  (()=>{
+    const LETTERS='SENDARETILOPMACK'.split('');
+    const WORDS=new Set('ACE ACT ALE AMP AND ANT APE APT ARC ARE ARM ART ASK ATE CAN CAP CAR CAT DEN DIE DIM DIN DIP DOE EAR EAT END ERA ICE IDEAL IMP INK IRE LAD LAP LATE LED LIE LIP LIT LOT MAP MAT MEN MET MOP NAP NET OAR OAT ODE OIL OLD ONE PAD PAN PAR PAT PEN PIE PIN PIT RAM RAN RAT RED RID RIM RIP SAD SAT SEA SET SIR SIT SON SOP SPA TAN TAP TAR TEA TEN TIE TIN TIP TOE TON TOP'.split(' '));
+    const grid=document.querySelector('#grid'),line=document.querySelector('#line'),dots=document.querySelector('#dots');
+    const current=document.querySelector('#current'),toast=document.querySelector('#toast');
+    let path=[],active=false,pointer=null,lastPoint=null,seconds=150,tick=null,started=false,done=false,found=[];
+    LETTERS.forEach((letter,i)=>{const b=document.createElement('button');b.className='tile';b.textContent=letter;b.dataset.i=i;b.setAttribute('aria-label',letter);grid.appendChild(b)});
+    const cells=()=>[...grid.children];
+    function adjacent(a,b){const ar=Math.floor(a/4),ac=a%4,br=Math.floor(b/4),bc=b%4;return a!==b&&Math.abs(ar-br)<=1&&Math.abs(ac-bc)<=1}
+    function word(){return path.map(i=>LETTERS[i]).join('')}
+    function centers(){const r=grid.getBoundingClientRect();return cells().map(el=>{const q=el.getBoundingClientRect();return{x:q.left+q.width/2,y:q.top+q.height/2,vx:(q.left+q.width/2-r.left)/r.width*100,vy:(q.top+q.height/2-r.top)/r.height*100,w:q.width}})}
+    function render(){const c=centers();cells().forEach((el,i)=>{el.classList.toggle('selected',path.includes(i));el.classList.toggle('head',i===path.at(-1))});line.setAttribute('points',path.map(i=>`${c[i].vx},${c[i].vy}`).join(' '));dots.innerHTML=path.map(i=>`<circle cx="${c[i].vx}" cy="${c[i].vy}" r="1.7"/>`).join('');current.textContent=path.length?word():'Trace a route across the map';current.classList.toggle('idle',!path.length)}
+    function add(i){if(done)return;const prev=path.at(-1);if(prev===i)return;if(path.length>1&&path.at(-2)===i){path.pop();render();return}if(path.includes(i)||prev!==undefined&&!adjacent(prev,i))return;path.push(i);render();try{navigator.vibrate?.(7)}catch{}}
+    function nearest(x,y){const c=centers();let best=-1,dist=Infinity;c.forEach((p,i)=>{const d=Math.hypot(x-p.x,y-p.y);if(d<dist&&d<p.w*.72){dist=d;best=i}});return best}
+    function sample(x,y){if(!lastPoint){const i=nearest(x,y);if(i>=0)add(i);lastPoint={x,y};return}const dx=x-lastPoint.x,dy=y-lastPoint.y,n=Math.max(1,Math.ceil(Math.hypot(dx,dy)/10));for(let s=1;s<=n;s++){const i=nearest(lastPoint.x+dx*s/n,lastPoint.y+dy*s/n);if(i>=0)add(i)}lastPoint={x,y}}
+    function startDrag(e){if(!started||done)return;const tile=e.target.closest('.tile');if(!tile)return;e.preventDefault();active=true;pointer=e.pointerId;lastPoint=null;try{grid.setPointerCapture(pointer)}catch{}sample(e.clientX,e.clientY)}
+    function move(e){if(!active||e.pointerId!==pointer)return;e.preventDefault();sample(e.clientX,e.clientY)}
+    function end(e){if(!active||e.pointerId!==pointer)return;active=false;pointer=null;lastPoint=null;try{grid.releasePointerCapture(e.pointerId)}catch{}}
+    function flash(msg,bad=false){toast.textContent=msg;toast.className='toast show'+(bad?' bad':'');clearTimeout(flash.t);flash.t=setTimeout(()=>toast.className='toast',1300)}
+    function points(w){return w.length<3?0:(w.length-2)*(w.length-2)*100}
+    function submit(){if(done)return;const w=word();if(w.length<3){flash('Chart at least three letters.',true);return}if(found.includes(w)){flash(w+' is already on your map.',true);path=[];render();return}if(!WORDS.has(w)){flash(w+' is not in this test map.',true);path=[];render();return}found.unshift(w);document.querySelector('#words').textContent=found.length;document.querySelector('#score').textContent=found.reduce((n,x)=>n+points(x),0).toLocaleString();document.querySelector('#best').textContent=found.reduce((a,b)=>b.length>a.length?b:a,'—');document.querySelector('#found').innerHTML='FOUND: <b>'+found.slice(0,5).join(' · ')+'</b>';flash('Route marked: '+w+'  +'+points(w));path=[];render()}
+    function start(){started=true;document.querySelector('#intro').classList.add('hidden');tick=setInterval(()=>{seconds--;document.querySelector('#timer').textContent=Math.floor(seconds/60)+':'+String(seconds%60).padStart(2,'0');if(seconds<=0){clearInterval(tick);done=true;path=[];render();flash('Expedition complete — '+found.length+' routes mapped.')}},1000)}
+    function reset(){clearInterval(tick);path=[];found=[];seconds=150;started=false;done=false;['words','score'].forEach(id=>document.querySelector('#'+id).textContent='0');document.querySelector('#best').textContent='—';document.querySelector('#timer').textContent='2:30';document.querySelector('#found').innerHTML='FOUND: <b>—</b>';document.querySelector('#intro').classList.remove('hidden');render()}
+    grid.addEventListener('pointerdown',startDrag);grid.addEventListener('pointermove',move,{passive:false});grid.addEventListener('pointerup',end);grid.addEventListener('pointercancel',end);
+    document.querySelector('#clear').onclick=()=>{path=[];render()};document.querySelector('#submit').onclick=submit;document.querySelector('#start').onclick=start;document.querySelector('#reset').onclick=reset;document.querySelector('#back').onclick=()=>location.href='/?play=trail';window.addEventListener('resize',render,{passive:true});render();
+  })();
+  </script>
+</body>
+</html>
