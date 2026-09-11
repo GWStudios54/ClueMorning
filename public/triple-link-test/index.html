@@ -361,31 +361,46 @@
 
     .attempt.on,.success .attempt{opacity:1}
 
-    /* Lighting only: visible halo with a transparent center, so the baked bulb remains untouched. */
+    /* Light the baked-off bulb itself; no drawn bulb and no visible circular ring. */
     .attempt.on,.success .attempt{
       opacity:1;
-      box-shadow:
-        0 0 9px 3px rgba(255,218,120,.26),
-        0 0 20px 8px rgba(255,171,61,.18),
-        0 0 34px 13px rgba(255,120,24,.08)!important;
+      box-shadow:none!important;
+      background:transparent!important;
     }
     .attempt.on::before,.success .attempt::before{
       content:""!important;
       position:absolute;
-      inset:-95%;
+      left:27%;
+      top:17%;
+      width:46%;
+      height:48%;
       border-radius:50%;
-      background:radial-gradient(circle,
-        transparent 0 24%,
-        rgba(255,247,207,.18) 31%,
-        rgba(255,221,126,.24) 39%,
-        rgba(255,177,66,.18) 49%,
-        rgba(255,132,33,.09) 60%,
-        transparent 74%);
-      filter:blur(2.2px);
+      background:rgba(255,224,145,.025);
+      -webkit-backdrop-filter:brightness(1.85) saturate(1.35) contrast(1.04);
+      backdrop-filter:brightness(1.85) saturate(1.35) contrast(1.04);
+      box-shadow:
+        0 0 6px rgba(255,235,166,.42),
+        0 0 15px rgba(255,190,83,.25),
+        0 0 28px rgba(255,137,37,.11);
+      pointer-events:none;
+    }
+    .attempt.on::after,.success .attempt::after{
+      content:""!important;
+      position:absolute;
+      left:-55%;
+      top:-45%;
+      width:210%;
+      height:190%;
+      border-radius:50%;
+      background:radial-gradient(ellipse at center,
+        rgba(255,225,140,.16) 0%,
+        rgba(255,188,78,.10) 26%,
+        rgba(255,143,42,.055) 44%,
+        transparent 70%);
+      filter:blur(11px);
       mix-blend-mode:screen;
       pointer-events:none;
     }
-    .attempt.on::after,.success .attempt::after{content:none!important}
 
     .feedback{
       left:13%;top:64.0%;width:74%;min-height:2.5%;
@@ -645,6 +660,6 @@
     requestAnimationFrame(fitSwitchboardText);
   })();
   </script>
-  <!-- switchboard-test-build: 2026-09-11m visible-halo -->
+  <!-- switchboard-test-build: 2026-09-11n backdrop-light -->
 </body>
 </html>
