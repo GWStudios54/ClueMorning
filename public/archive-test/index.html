@@ -3,17 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b0b12">
-<title>Deep Archive — Cozy Retro Art Test</title>
-<link rel="preload" as="image" href="/archive-test/deep-archive-retro-25-world.webp" type="image/webp">
-<link rel="preload" as="image" href="/archive-test/deep-archive-retro-elevator.webp" type="image/webp">
+<meta name="theme-color" content="#090a12">
+<title>Deep Archive — Landing Test</title>
+<link rel="preload" as="image" href="/archive-test/archive-top.webp" type="image/webp">
+<link rel="preload" as="image" href="/archive-test/archive-middle.webp" type="image/webp">
+<link rel="preload" as="image" href="/archive-test/archive-bottom.webp" type="image/webp">
 <style>
 :root{
-  --ink:#09090f;
-  --panel:rgba(13,11,17,.91);
-  --line:#725f76;
-  --gold:#e1b76b;
-  --text:#f3e7cf;
+  --ink:#090a12;
+  --panel:rgba(11,12,20,.9);
+  --line:#6b587a;
+  --gold:#e1b55e;
+  --text:#f4ead6;
 }
 *{box-sizing:border-box}
 html,body{
@@ -24,141 +25,120 @@ html,body{
 button{font:inherit}
 .stage{
   position:fixed;inset:0;overflow:hidden;
-  background:
-    radial-gradient(circle at 50% 13%,#463424 0,#1d1920 32%,#10111a 64%,#07070c 100%);
+  background:radial-gradient(circle at 50% 12%,#27314b 0,#151827 44%,#090a12 100%);
 }
 .world{
   position:absolute;top:0;left:50%;
-  width:min(1260px,118vw);
+  width:min(1280px,120vw);
   transform:translate3d(-50%,0,0);
   will-change:transform;
-  transition:transform 930ms cubic-bezier(.18,.88,.22,1);
+  transition:transform 920ms cubic-bezier(.18,.88,.22,1);
   backface-visibility:hidden;
 }
-.art-window{
-  position:relative;
-  width:100%;
-  aspect-ratio:1024/1346;
-  overflow:hidden;
-  background:#15131a;
+.stack{display:block;width:100%}
+.scene{
+  position:relative;display:block;width:100%;
+  margin-top:-2px;overflow:hidden;background:#0b0d15;
 }
-.art-window>img.world-art{
-  position:absolute;
-  left:0;top:0;
+.scene:first-child{margin-top:0}
+.scene img{
   display:block;width:100%;height:auto;
-  transform:none;
-  transform-origin:50% 0;
   user-select:none;pointer-events:none;
-  image-rendering:pixelated;
-  image-rendering:crisp-edges;
-  filter:sepia(.13) saturate(.88) contrast(.96) brightness(.95);
+  image-rendering:pixelated;image-rendering:crisp-edges;
 }
-.baked-car-cover{
-  position:absolute;
-  z-index:3;
-  left:50%;
-  top:37.0%;
-  width:12.5%;
-  height:12.9%;
-  transform:translateX(-50%);
+.scene + .scene::before{
+  content:"";position:absolute;z-index:2;left:0;right:0;top:0;height:28px;
+  pointer-events:none;
+  background:linear-gradient(to bottom,rgba(5,7,13,.76),rgba(5,7,13,0));
+}
+.tail{
+  height:260px;
+  margin-top:-2px;
   background:
-    linear-gradient(90deg,
-      #15151b 0 11%,
-      #5b4524 11% 14%,
-      #24252e 14% 35%,
-      #9a702c 35% 38%,
-      #20222b 38% 49%,
-      #c0913e 49% 51%,
-      #20222b 51% 62%,
-      #9a702c 62% 65%,
-      #24252e 65% 86%,
-      #5b4524 86% 89%,
-      #15151b 89%);
-  box-shadow:inset 8px 0 12px rgba(0,0,0,.18),inset -8px 0 12px rgba(0,0,0,.18);
+    linear-gradient(to bottom,rgba(9,10,20,.1),rgba(5,6,12,.96)),
+    repeating-linear-gradient(90deg,#0b0d18 0 18px,#0e1120 18px 36px);
 }
-.baked-car-cover::before,.baked-car-cover::after{
-  content:"";position:absolute;top:0;bottom:0;width:2px;
-  background:#c08d38;opacity:.55;
-}
-.baked-car-cover::before{left:43%}
-.baked-car-cover::after{right:43%}
-.retro-wash{
+.depth-tint{
   position:fixed;inset:0;z-index:5;pointer-events:none;
-  background:
-    linear-gradient(to bottom,rgba(245,178,89,.08),rgba(97,55,83,.045) 48%,rgba(50,32,88,.08)),
-    radial-gradient(circle at 50% 46%,transparent 0 46%,rgba(16,7,10,.25) 100%);
-  mix-blend-mode:soft-light;
-}
-.scanlines{
-  position:fixed;inset:0;z-index:6;pointer-events:none;
-  opacity:.21;
-  background:
-    repeating-linear-gradient(to bottom,rgba(255,239,205,.045) 0 1px,rgba(0,0,0,.045) 1px 3px);
-}
-.grain{
-  position:fixed;inset:0;z-index:7;pointer-events:none;
-  opacity:.055;
-  background:
-    radial-gradient(circle at 12% 23%,#fff 0 .6px,transparent .9px),
-    radial-gradient(circle at 68% 61%,#fff 0 .6px,transparent .9px),
-    radial-gradient(circle at 39% 84%,#fff 0 .5px,transparent .8px),
-    radial-gradient(circle at 83% 17%,#fff 0 .5px,transparent .8px);
-  background-size:7px 9px,11px 13px,13px 11px,17px 15px;
-  mix-blend-mode:overlay;
+  background:linear-gradient(to bottom,rgba(8,16,30,0),rgba(9,10,25,.07) 52%,rgba(8,3,24,.2));
 }
 .vignette{
-  position:fixed;inset:0;z-index:8;pointer-events:none;
-  box-shadow:inset 0 0 92px rgba(0,0,0,.43);
+  position:fixed;inset:0;z-index:6;pointer-events:none;
+  box-shadow:inset 0 0 96px rgba(0,0,0,.4);
 }
-.elevator{
-  position:fixed;z-index:12;left:50%;top:50%;
-  transform:translate(-50%,-50%);
-  transition:top 930ms cubic-bezier(.18,.88,.22,1);
+
+/* Covers the AI-art elevator cars so there is only one elevator in the scene. */
+.shaft-mask{
+  position:fixed;z-index:7;top:0;bottom:0;left:50%;
+  width:152px;transform:translateX(-50%);
   pointer-events:none;
-  display:grid;place-items:center;
-  filter:sepia(.08) saturate(.92) drop-shadow(0 7px 8px rgba(0,0,0,.38));
+  background:
+    linear-gradient(90deg,
+      #0a0d15 0 7%,
+      #30394d 7% 12%,
+      #111827 12% 37%,
+      #876126 37% 39%,
+      #1d2638 39% 49%,
+      #b07b27 49% 51%,
+      #1d2638 51% 61%,
+      #876126 61% 63%,
+      #111827 63% 88%,
+      #30394d 88% 93%,
+      #0a0d15 93%);
+  box-shadow:
+    inset 7px 0 0 rgba(215,172,82,.18),
+    inset -7px 0 0 rgba(215,172,82,.18),
+    0 0 18px rgba(0,0,0,.42);
 }
-.elevator img{
-  display:block;
-  height:100%;
-  width:auto;
-  image-rendering:pixelated;
-  image-rendering:crisp-edges;
+.shaft-mask::before,
+.shaft-mask::after{
+  content:"";position:absolute;top:0;bottom:0;width:3px;
+  background:linear-gradient(#805b24,#d5a84a 50%,#805b24);
+  opacity:.78;
 }
+.shaft-mask::before{left:43%}
+.shaft-mask::after{right:43%}
+
+/* Exact elevator artwork cropped from the same top archive art. */
+.elevator{
+  position:fixed;z-index:10;left:50%;top:50%;
+  width:144px;aspect-ratio:180/220;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+  background-image:url("/archive-test/archive-top.webp");
+  background-repeat:no-repeat;
+  background-size:930% auto;
+  background-position:50% 65%;
+  filter:drop-shadow(0 10px 12px rgba(0,0,0,.36));
+  border-radius:3px;
+}
+.elevator::after{
+  content:"";position:absolute;inset:0;
+  border:1px solid rgba(238,193,91,.18);
+  box-shadow:inset 0 0 18px rgba(4,5,9,.25);
+}
+
 .hud{
   position:fixed;z-index:20;
   top:max(10px,env(safe-area-inset-top));left:10px;right:10px;
   pointer-events:none;
 }
 .card{
-  width:min(430px,calc(100vw - 20px));
-  padding:10px 12px;
-  background:var(--panel);
-  border:3px solid var(--line);
-  box-shadow:0 0 0 3px #07070c;
-  pointer-events:auto;
+  width:min(410px,calc(100vw - 20px));
+  padding:10px 12px;pointer-events:auto;
+  background:var(--panel);border:3px solid var(--line);
+  box-shadow:0 0 0 3px #07080d;
+  backdrop-filter:blur(3px);
 }
-.card h1{
-  margin:0;
-  color:var(--gold);
-  font-size:14px;
-  letter-spacing:.055em;
-}
-.card p{
-  margin:4px 0 0;
-  color:#d7c7d4;
-  font-size:9px;
-  line-height:1.35;
-}
+.card h1{margin:0 0 4px;color:var(--gold);font-size:14px;letter-spacing:.04em}
+.card p{margin:0;color:#d9cfe0;font-size:10px;line-height:1.4}
 .readout{
   position:fixed;z-index:20;left:50%;
   bottom:calc(82px + env(safe-area-inset-bottom));
-  min-width:246px;
-  transform:translateX(-50%);
-  padding:8px 13px;text-align:center;
-  background:rgba(12,10,16,.94);
-  border:3px solid var(--line);
-  box-shadow:0 0 0 3px #07070c;
+  min-width:236px;padding:8px 13px;
+  transform:translateX(-50%);text-align:center;
+  background:rgba(11,12,20,.94);
+  border:3px solid var(--line);box-shadow:0 0 0 3px #07080d;
   font-size:10px;
 }
 .readout strong{color:var(--gold);font-size:14px}
@@ -169,87 +149,82 @@ button{font:inherit}
 }
 .controls button{
   min-height:54px;padding:7px 8px;
-  color:#f7ead4;background:#33293c;
-  border:3px solid #786682;
-  box-shadow:0 0 0 3px #07070c;
+  color:#fff2dd;background:#30263f;
+  border:3px solid #725f88;box-shadow:0 0 0 3px #07080d;
   font-size:10px;font-weight:900;text-transform:uppercase;
   letter-spacing:.035em;touch-action:manipulation;
 }
 .controls button:active{transform:translateY(2px)}
 .controls small{font-size:8px;opacity:.72}
-.controls .uncommon{background:#294248}
-.controls .rare{color:#ffe0a0;background:#5c314b;border-color:#a16982}
-.controls .reset{width:58px;background:#294950}
+.controls .uncommon{background:#28404a}
+.controls .rare{color:#ffe2a3;background:#5b2d4d;border-color:#a16787}
+.controls .reset{width:58px;background:#244653}
 .flash{
   position:fixed;z-index:30;inset:0;pointer-events:none;
-  opacity:0;background:rgba(255,222,156,.14);
-  transition:opacity 115ms linear;
+  opacity:0;background:rgba(255,224,164,.15);
+  transition:opacity 120ms linear;
 }
 .flash.on{opacity:1}
 .burst{position:fixed;z-index:29;left:50%;top:50%;pointer-events:none}
 .spark{
-  position:absolute;width:6px;height:6px;opacity:0;background:var(--gold);
-  transition:transform 480ms cubic-bezier(.2,.9,.2,1),opacity 480ms ease;
+  position:absolute;width:7px;height:7px;opacity:0;background:var(--gold);
+  transition:transform 500ms cubic-bezier(.2,.9,.2,1),opacity 500ms ease;
 }
 @media(max-width:700px){
-  .world{width:max(760px,175vw)}
+  .world{width:max(760px,185vw)}
+  .shaft-mask{width:138px}
+  .elevator{width:124px}
   .card p{display:none}
-  .vignette{box-shadow:inset 0 0 56px rgba(0,0,0,.34)}
-  .scanlines{opacity:.16}
+  .vignette{box-shadow:inset 0 0 60px rgba(0,0,0,.34)}
+  .tail{height:300px}
 }
 @media(max-height:620px){
   .card{display:none}
   .readout{bottom:76px}
 }
 @media(prefers-reduced-motion:reduce){
-  .world,.elevator,.flash,.spark{transition-duration:1ms}
+  .world,.flash,.spark{transition-duration:1ms}
 }
 </style>
 </head>
 <body>
 <div class="stage">
   <div class="world" id="world">
-    <div class="art-window" id="artWindow">
-      <img
-        class="world-art"
-        id="worldArt"
-        src="/archive-test/deep-archive-retro-25-world.webp"
-        width="1024"
-        height="1346"
-        alt=""
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-      >
-      <div class="baked-car-cover" aria-hidden="true"></div>
+    <div class="stack" id="stack">
+      <section class="scene" aria-label="Upper archive">
+        <img src="/archive-test/archive-top.webp" width="1600" height="900" alt="" loading="eager" decoding="async" fetchpriority="high">
+      </section>
+      <section class="scene" aria-label="Museum depths">
+        <img src="/archive-test/archive-middle.webp" width="1600" height="900" alt="" loading="eager" decoding="async">
+      </section>
+      <section class="scene" aria-label="Cosmic archive">
+        <img src="/archive-test/archive-bottom.webp" width="1600" height="900" alt="" loading="eager" decoding="async">
+      </section>
+      <div class="tail" aria-hidden="true"></div>
     </div>
   </div>
 </div>
 
-<div class="retro-wash"></div>
-<div class="scanlines"></div>
-<div class="grain"></div>
+<div class="depth-tint"></div>
 <div class="vignette"></div>
-
-<div class="elevator" id="elevator" aria-hidden="true">
-  <img src="/archive-test/deep-archive-retro-elevator.webp" width="75" height="125" alt="">
-</div>
+<div class="shaft-mask" aria-hidden="true"></div>
+<div class="elevator" id="elevator" aria-hidden="true"></div>
 
 <div class="hud">
   <div class="card">
-    <h1>DEEP ARCHIVE — COZY RETRO TEST</h1>
-    <p>Painted pixel-art tower, warm CRT-era grade, one floor-sized elevator, 25 landing positions.</p>
+    <h1>DEEP ARCHIVE — LANDING TEST</h1>
+    <p>One elevator, art-matched to the archive. Each move now snaps the car to a real balcony landing in the stacked scenes.</p>
   </div>
 </div>
 
 <div class="readout" aria-live="polite">
-  DEPTH <strong id="depth">0</strong> ft · <span id="zone">Newsroom Lobby</span>
+  DEPTH <strong id="depth">0</strong> ft · <span id="zone">Surface Archive</span>
 </div>
 
 <div class="controls">
-  <button type="button" data-jump="1">Common<br><small>1 floor</small></button>
-  <button type="button" data-jump="2" class="uncommon">Uncommon<br><small>2 floors</small></button>
-  <button type="button" data-jump="3" data-rare="1" class="rare">Rare<br><small>3 floors</small></button>
+  <button type="button" data-jump="1">Common<br><small>1 landing</small></button>
+  <button type="button" data-jump="2" class="uncommon">Uncommon<br><small>2 landings</small></button>
+  <button type="button" data-jump="3" data-rare="1" class="rare">Rare<br><small>3 landings</small></button>
   <button type="button" id="reset" class="reset" aria-label="Reset archive depth">↺</button>
 </div>
 
@@ -258,95 +233,62 @@ button{font:inherit}
 
 <script>
 (()=>{
-  const zones=[
-    'Newsroom Lobby','City Desk','Copy Desk','Print Floor','Morgue Files',
-    'Reference Desk','Stacks South','Map Room','Atlas Hall','Specimen Wing',
-    'Clockwork Floor','Relic Gallery','Submerged Records','Restricted Vault',
-    'Redacted Wing','Microfilm Vault','Forbidden Texts','Occult Reading',
-    'Observatory','Astral Stacks','Cosmic Reliquary','Abyss Archive',
-    'Impossible Index','Black Shelf','The Final Shelf'
-  ];
-
   const world=document.getElementById('world');
-  const artWindow=document.getElementById('artWindow');
-  const art=document.getElementById('worldArt');
+  const stack=document.getElementById('stack');
+  const scenes=[...stack.querySelectorAll('.scene')];
+  const images=[...stack.querySelectorAll('img')];
   const elevator=document.getElementById('elevator');
   const depthEl=document.getElementById('depth');
   const zoneEl=document.getElementById('zone');
   const flash=document.getElementById('flash');
   const burst=document.getElementById('burst');
-  const card=document.querySelector('.card');
 
-  const CROP_SOURCE_H=1346;
-  const FIRST_LANDING_SOURCE_Y=49;
-  const LAST_LANDING_SOURCE_Y=1328;
-  const MAX_STOP=24;
-  const FEET_PER_FLOOR=675;
+  /*
+    These are the actual strong horizontal balcony lines measured from the
+    generated 1672x941 source art, expressed as a fraction of each scene.
+    The first visible stop is the lowest balcony in the upper archive; that
+    keeps the initial page filled while putting the car on a real floor.
+  */
+  const landings=[
+    {scene:0,y:.941,zone:'Surface Archive'},
+    {scene:1,y:.227,zone:'Natural History'},
+    {scene:1,y:.488,zone:'Clockwork Museum'},
+    {scene:1,y:.756,zone:'Specimen Vault'},
+    {scene:1,y:.987,zone:'Deep Stacks'},
+    {scene:2,y:.289,zone:'Astral Archive'},
+    {scene:2,y:.547,zone:'The Final Shelf'}
+  ];
+
   let stop=0;
-  let floorPitchPx=56;
   let resizeTimer=0;
 
-  function sourceLandingY(index){
-    return FIRST_LANDING_SOURCE_Y+
-      ((LAST_LANDING_SOURCE_Y-FIRST_LANDING_SOURCE_Y)*(index/MAX_STOP));
+  function landingWorldY(item){
+    const scene=scenes[item.scene];
+    return scene.offsetTop+(scene.offsetHeight*item.y);
   }
 
-  function measure(){
-    const scale=artWindow.offsetHeight/CROP_SOURCE_H;
-    floorPitchPx=((LAST_LANDING_SOURCE_Y-FIRST_LANDING_SOURCE_Y)/MAX_STOP)*scale;
-
-    /* Elevator is exactly one visual floor high. */
-    elevator.style.height=Math.max(44,floorPitchPx)+'px';
-    elevator.style.width='auto';
-    apply();
-  }
-
-  function landingWorldY(index){
-    const scale=artWindow.offsetHeight/CROP_SOURCE_H;
-    return sourceLandingY(index)*scale;
-  }
-
-  function cameraAnchorY(){
-    return Math.min(window.innerHeight*.49,window.innerHeight-230);
-  }
-
-  function topWorldLimit(){
-    const cardBottom=card?card.getBoundingClientRect().bottom:86;
-    return Math.max(92,cardBottom+10);
+  function targetFloorY(){
+    const rect=elevator.getBoundingClientRect();
+    return rect.bottom-8;
   }
 
   function apply(){
-    const landingY=landingWorldY(stop);
-    const desiredWorldY=cameraAnchorY()-landingY;
-
-    /*
-      Never drag the top of the artwork down into the middle of the viewport.
-      Early floors stay pinned directly below the title; after the selected
-      landing reaches the camera anchor, the world begins scrolling normally.
-    */
-    const worldY=Math.min(topWorldLimit(),desiredWorldY);
-    world.style.transform='translate3d(-50%,'+Math.round(worldY)+'px,0)';
-
-    /*
-      While the camera is top-clamped, move the elevator to the actual floor.
-      Once scrolling begins it naturally settles at the camera anchor.
-    */
-    const landingScreenY=worldY+landingY;
-    elevator.style.top=Math.round(landingScreenY-(floorPitchPx/2)+2)+'px';
-
-    depthEl.textContent=(stop*FEET_PER_FLOOR).toLocaleString();
-    zoneEl.textContent=zones[stop];
+    const item=landings[stop];
+    const y=targetFloorY()-landingWorldY(item);
+    world.style.transform='translate3d(-50%,'+Math.round(y)+'px,0)';
+    depthEl.textContent=Math.round((stop/(landings.length-1))*5400).toLocaleString();
+    zoneEl.textContent=item.zone;
   }
 
   function rareBurst(){
     burst.replaceChildren();
     const sparks=[];
-    for(let i=0;i<14;i++){
+    for(let i=0;i<16;i++){
       const p=document.createElement('i');
       p.className='spark';
       burst.appendChild(p);
-      const angle=(Math.PI*2*i)/14;
-      const distance=38+(i%4)*13;
+      const angle=(Math.PI*2*i)/16;
+      const distance=42+(i%4)*15;
       sparks.push([p,Math.cos(angle)*distance,Math.sin(angle)*distance]);
     }
     requestAnimationFrame(()=>{
@@ -354,16 +296,16 @@ button{font:inherit}
         p.style.opacity='1';
         p.style.transform='translate3d('+x+'px,'+y+'px,0)';
       }
-      setTimeout(()=>{for(const [p] of sparks)p.style.opacity='0'},105);
+      setTimeout(()=>{for(const [p] of sparks)p.style.opacity='0'},110);
     });
     flash.classList.add('on');
-    setTimeout(()=>flash.classList.remove('on'),105);
-    setTimeout(()=>burst.replaceChildren(),590);
+    setTimeout(()=>flash.classList.remove('on'),110);
+    setTimeout(()=>burst.replaceChildren(),620);
   }
 
   document.querySelectorAll('[data-jump]').forEach(button=>{
     button.addEventListener('click',()=>{
-      stop=Math.min(MAX_STOP,stop+Number(button.dataset.jump||1));
+      stop=Math.min(landings.length-1,stop+Number(button.dataset.jump||1));
       apply();
       if(button.dataset.rare)rareBurst();
     });
@@ -376,12 +318,15 @@ button{font:inherit}
 
   window.addEventListener('resize',()=>{
     clearTimeout(resizeTimer);
-    resizeTimer=setTimeout(measure,100);
+    resizeTimer=setTimeout(apply,100);
   },{passive:true});
 
-  if(art.complete)measure();
-  else art.addEventListener('load',measure,{once:true});
-  measure();
+  Promise.all(images.map(img=>img.complete
+    ? Promise.resolve()
+    : new Promise(resolve=>img.addEventListener('load',resolve,{once:true}))
+  )).then(apply);
+
+  apply();
 })();
 </script>
 </body>
