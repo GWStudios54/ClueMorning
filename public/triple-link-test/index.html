@@ -280,6 +280,114 @@
       body{padding:18px 0}
       .shell{border-radius:10px}
     }
+  
+    /* Final clean-background alignment: all gameplay copy is live; attempt bulbs are baked OFF. */
+    .back{
+      left:3.4%;top:1.35%;width:24.4%;height:5%;
+      padding-left:15%;
+      color:#f1d69b;
+      font-size:clamp(8px,2.35vw,13px);
+    }
+    .back span{margin:0}
+    .title{
+      left:29%;top:1.35%;width:42%;height:6.6%;
+      gap:.12em;
+    }
+    .title small{font-size:clamp(6px,1.65vw,9px);letter-spacing:.16em}
+    .title strong{font-size:clamp(13px,3.9vw,22px);letter-spacing:.015em}
+    .reset{
+      left:85.4%;top:1.35%;width:11.4%;height:5.1%;
+      color:transparent;text-shadow:none;
+    }
+    .subhead,.caption{display:none}
+
+    .stat{top:11.45%;height:5.25%}
+    .score{left:15.55%;width:21.5%}
+    .streak{left:39.65%;width:20.2%}
+    .tries{left:61.55%;width:21.6%}
+    .stat strong{font-size:clamp(13px,4.15vw,23px)}
+    .stat span{font-size:clamp(5px,1.45vw,8px)}
+
+    .clue{
+      top:34.0%;height:3.45%;
+      padding:0 7%;
+      font-size:clamp(10px,2.75vw,16px);
+      letter-spacing:.07em;
+    }
+    .clue.one{left:15.25%;width:20.7%}
+    .clue.two{left:39.55%;width:20.55%}
+    .clue.three{left:63.45%;width:19.8%}
+
+    .answer{
+      left:35.85%;top:47.7%;width:26.7%;height:5.15%;
+      padding:0 8%;
+      font-size:clamp(13px,4vw,23px);
+    }
+
+    .attempt-label{
+      left:38%;top:55.45%;width:24%;height:2%;
+      font-size:clamp(6px,1.65vw,9px);
+    }
+    .attempt{
+      z-index:13;
+      top:58.2%;
+      width:7%;
+      aspect-ratio:1;
+      border-radius:50%;
+      background:transparent!important;
+      opacity:0;
+      transform:none!important;
+      filter:none!important;
+      transition:opacity .16s ease;
+    }
+    .attempt.a1{left:36.6%}
+    .attempt.a2{left:45.7%}
+    .attempt.a3{left:54.9%}
+    .attempt::before,.attempt::after{content:none}
+    .attempt.on,.success .attempt{opacity:1}
+    .attempt.on::before,.success .attempt::before{
+      content:"";
+      position:absolute;
+      inset:-45%;
+      border-radius:50%;
+      background:radial-gradient(circle,
+        rgba(255,250,201,.96) 0 10%,
+        rgba(255,220,105,.78) 16%,
+        rgba(255,174,54,.48) 27%,
+        rgba(255,129,28,.20) 43%,
+        transparent 70%);
+      box-shadow:0 0 7px rgba(255,201,74,.65);
+      filter:blur(.6px);
+      mix-blend-mode:screen;
+    }
+
+    .feedback{
+      left:13%;top:64.0%;width:74%;min-height:2.5%;
+      padding:0 .55em;
+      background:rgba(8,9,14,.58);
+      font-size:clamp(7px,1.7vw,10px);
+    }
+    .result{
+      left:13%;top:64.0%;width:74%;min-height:2.5%;
+      padding:0 .55em;
+      font-size:clamp(7px,1.7vw,10px);
+    }
+
+    .entry{left:18.35%;top:67.75%;width:62.5%;height:4.8%}
+    .entry input{
+      padding:0 6%;
+      font-size:clamp(12px,3.45vw,20px);
+      background:transparent;
+    }
+    .connect{
+      left:18.35%;top:73.7%;width:40.4%;height:4.75%;
+      font-size:clamp(10px,2.9vw,17px);
+    }
+    .clear{
+      left:61.15%;top:73.7%;width:19.3%;height:4.75%;
+      font-size:clamp(8px,2.25vw,13px);
+    }
+
   </style>
 </head>
 <body>
@@ -288,7 +396,7 @@
       <img id="scene" class="scene" alt="">
       <div class="loading">OPENING THE SWITCHBOARD…</div>
 
-      <button class="live back fit" id="back" type="button" aria-label="Return to Clue Morning">← <span>MORNING RUN</span></button>
+      <button class="live back fit" id="back" type="button" aria-label="Return to Clue Morning"><span>MORNING RUN</span></button>
       <div class="live title fit"><small>TRIPLE LINK</small><strong>THE SWITCHBOARD</strong></div>
       <button class="live reset fit" id="reset" type="button" aria-label="Reset test">↻</button>
       <div class="live subhead fit" id="subhead">One word connects all three.</div>
@@ -332,7 +440,11 @@
     const shell=$('#shell'),input=$('#guess'),answer=$('#answer'),feedback=$('#feedback'),result=$('#result');
 
     async function loadScene(){
-      const files=['./small/bg-00.b64','./small/bg-01.b64','./small/bg-02.b64'];
+      const files=[
+        './final-bg/bg-00.b64','./final-bg/bg-01.b64','./final-bg/bg-02.b64','./final-bg/bg-03.b64',
+        './final-bg/bg-04.b64','./final-bg/bg-05.b64','./final-bg/bg-06.b64','./final-bg/bg-07.b64',
+        './final-bg/bg-08.b64','./final-bg/bg-09.b64'
+      ];
       try{
         const parts=await Promise.all(files.map(async url=>{
           const r=await fetch(url,{cache:'no-store'});
@@ -496,6 +608,6 @@
     requestAnimationFrame(fitSwitchboardText);
   })();
   </script>
-  <!-- switchboard-test-build: 2026-09-11i scale-correction -->
+  <!-- switchboard-test-build: 2026-09-11j final-clean-background -->
 </body>
 </html>
