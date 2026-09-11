@@ -47,7 +47,7 @@ updateDayGreeting();
 
 let state=loadState();state.days??={};
 let daily=null,day=null,currentDateKey=null,letterTimer=null,trailTick=null,deepCutTick=null,deepCutBusy=false,trailPath=[],trailDragging=false,trailPointerId=null,leaderScope="daily",leaderAutoPosting=false;
-let dailyRoot=null,dayRoot=null,currentDateRoot=null,unlimitedSession=null,unlimitedActive=false,unlimitedCounts={},deepCutReturnTab="today",stepsReturnTab="today";
+let dailyRoot=null,dayRoot=null,currentDateRoot=null,unlimitedSession=null,unlimitedActive=false,unlimitedCounts={},linkReturnTab="today",deepCutReturnTab="today",stepsReturnTab="today";
 const DAILY_GAMES=["letter","groups","trail","link","steps","deepcut"];
 
 function getPlayerId(){
@@ -60,6 +60,14 @@ function totalScore(){return day?DAILY_GAMES.reduce((n,g)=>n+(day[g]?.score||0),
 function statusMarkup(done){return `${svg(done?"i-check":"i-play")}${done?"DONE":"PLAY"}`}
 function setStatus(id,done){const el=$(id);el.classList.toggle("done",done);el.innerHTML=statusMarkup(done)}
 
+function syncLinkImmersive({repairScroll=false}={}){
+  const shouldBeImmersive=!!$('#link')?.classList.contains('active');
+  const wasImmersive=document.documentElement.classList.contains('link-immersive');
+  document.documentElement.classList.toggle('link-immersive',shouldBeImmersive);
+  if(shouldBeImmersive)void warmLinkSwitchboard();
+  if(repairScroll&&wasImmersive&&!shouldBeImmersive)window.scrollTo({top:0,behavior:'auto'});
+  return shouldBeImmersive;
+}
 function syncDeepCutImmersive({repairScroll=false}={}){
   const shouldBeImmersive=!!$('#deepcut')?.classList.contains('active');
   const wasImmersive=document.documentElement.classList.contains('deepcut-immersive');
@@ -79,32 +87,37 @@ function syncStepsImmersive({repairScroll=false}={}){
   return shouldBeImmersive;
 }
 function syncImmersiveShell(options={}){
+  const link=syncLinkImmersive(options);
   const deep=syncDeepCutImmersive(options);
   const steps=syncStepsImmersive(options);
-  return deep||steps;
+  return link||deep||steps;
 }
 function selectTab(id){
   const previous=$(".tab.active")?.dataset.tab||"today";
+  if(id==="link"&&previous!=="link")linkReturnTab=previous;
   if(id==="deepcut"&&previous!=="deepcut")deepCutReturnTab=previous;
   if(id==="steps"&&previous!=="steps")stepsReturnTab=previous;
   if(unlimitedSession&&id!==unlimitedSession.game&&id!=="unlimited")restoreDailyContext();
   document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
   document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id===id));
   syncImmersiveShell();
-  window.scrollTo({top:0,behavior:(id==="deepcut"||id==="steps")?"auto":"smooth"});
+  window.scrollTo({top:0,behavior:(id==="link"||id==="deepcut"||id==="steps")?"auto":"smooth"});
   if(id==="archive")renderArchive();
   if(id==="leaders")loadLeaderboard();
   if(id==="unlimited")renderUnlimitedLibrary();
+  if(id==="link"){void warmLinkSwitchboard();requestAnimationFrame(renderLink)}
   if(id==="deepcut"){warmDeepCutArchive();requestAnimationFrame(renderDeepCutArchive)}
   if(id==="steps"){void warmStepsRooftops();requestAnimationFrame(()=>stepsSyncRooftopsPosition())}
 }
 document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>selectTab(b.dataset.tab)));
 document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>selectTab(b.dataset.open)));
+$('#linkExit')?.addEventListener('click',()=>{if(unlimitedSession)exitUnlimited(true);else selectTab(linkReturnTab||'today')});
 $('#deepCutExit')?.addEventListener('click',()=>{if(unlimitedSession)exitUnlimited(true);else selectTab(deepCutReturnTab||'today')});
 $('#stepsExit')?.addEventListener('click',()=>{if(unlimitedSession)exitUnlimited(true);else selectTab(stepsReturnTab||'today')});
 window.addEventListener('keydown',e=>{
   if(e.key!=='Escape')return;
-  if(document.documentElement.classList.contains('deepcut-immersive'))$('#deepCutExit')?.click();
+  if(document.documentElement.classList.contains('link-immersive'))$('#linkExit')?.click();
+  else if(document.documentElement.classList.contains('deepcut-immersive'))$('#deepCutExit')?.click();
   else if(document.documentElement.classList.contains('steps-immersive'))$('#stepsExit')?.click();
 });
 window.addEventListener('pageshow',()=>syncImmersiveShell({repairScroll:true}));
@@ -116,15 +129,18 @@ $('#year').textContent=new Date().getFullYear();
 $('#themeButton').addEventListener('click',()=>{applyTheme(activeTheme(),false);$('#themeDialog').showModal()});
 $$('[data-theme-choice]').forEach(b=>b.addEventListener('click',()=>{applyTheme(b.dataset.themeChoice,true);$('#themeDialog').close()}));
 
-function updateStreak(){
-  if(!currentDateKey)return;
+function currentStreakCount(){
+  if(!currentDateKey)return 0;
   const doneDates=Object.entries(state.days).filter(([,v])=>DAILY_GAMES.every(g=>v[g]?.done)).map(([d])=>d);
   let streak=0,cursor=dateObj(currentDateKey);
   for(let i=0;i<370;i++){
     const y=cursor.getFullYear(),m=String(cursor.getMonth()+1).padStart(2,'0'),d=String(cursor.getDate()).padStart(2,'0'),key=`${y}-${m}-${d}`;
     if(doneDates.includes(key)){streak++;cursor.setDate(cursor.getDate()-1)}else if(i===0){cursor.setDate(cursor.getDate()-1)}else break;
   }
-  $('#streakCount').textContent=streak;
+  return streak;
+}
+function updateStreak(){
+  $('#streakCount').textContent=currentStreakCount();
 }
 function updateHome(){
   if(!day)return;
@@ -277,16 +293,194 @@ $('#trailSubmit').addEventListener('click',async()=>{
   try{const r=await api('/api/trail/check',{word});if(r.accepted){s.words.push(word);s.score+=trailPoints(r.length);if(!s.best||word.length>s.best.length)s.best=word;$('#trailMessage').className='message good';$('#trailMessage').textContent=`${word} +${trailPoints(r.length).toLocaleString()}`}else{$('#trailMessage').className='message bad';$('#trailMessage').textContent=r.reason==='path'?`${word} cannot be traced on this board.`:`${word} isn't recognized as an English dictionary word.`}renderTrail()}catch(err){$('#trailMessage').className='message bad';$('#trailMessage').textContent=err.message;renderTrail()}
 });
 
-// Triple Link
+// Triple Link — The Switchboard
+let linkSwitchboardPromise=null,linkSwitchboardReady=false;
+
+async function warmLinkSwitchboard(){
+  const frame=$('#linkSwitchboardFrame'),img=$('#linkSwitchboardImage');
+  if(!frame||!img)return;
+  if(linkSwitchboardReady){frame.classList.add('ready');return}
+  if(linkSwitchboardPromise)return linkSwitchboardPromise;
+  linkSwitchboardPromise=(async()=>{
+    try{
+      const urls=Array.from({length:10},(_,i)=>'/triple-link-test/final-bg/bg-'+String(i).padStart(2,'0')+'.b64');
+      const chunks=await Promise.all(urls.map(async url=>{
+        const response=await fetch(url,{cache:'force-cache'});
+        if(!response.ok)throw new Error('Switchboard background '+response.status);
+        return (await response.text()).trim();
+      }));
+      await new Promise((resolve,reject)=>{
+        const done=()=>{img.removeEventListener('load',done);img.removeEventListener('error',fail);resolve()};
+        const fail=()=>{img.removeEventListener('load',done);img.removeEventListener('error',fail);reject(new Error('Switchboard image decode failed'))};
+        img.addEventListener('load',done,{once:true});
+        img.addEventListener('error',fail,{once:true});
+        img.src='data:image/webp;base64,'+chunks.join('');
+        if(img.complete&&img.naturalWidth)done();
+      });
+      linkSwitchboardReady=true;
+      frame.classList.add('ready');
+    }catch(err){
+      console.error('Triple Link Switchboard failed to load',err);
+      frame.classList.add('ready');
+    }
+  })();
+  return linkSwitchboardPromise;
+}
+function linkSanitize(value){return String(value||'').toUpperCase().replace(/[^A-Z]/g,'').slice(0,24)}
+function linkPotentialScore(s){
+  if(s?.done)return s.score||0;
+  return [600,400,250,0][Math.max(0,Math.min(3,s?.guesses||0))]||0;
+}
+function linkFitTextBox(el,minPx=7){
+  if(!el)return;
+  el.style.fontSize='';
+  let size=parseFloat(getComputedStyle(el).fontSize)||16;
+  while(size>minPx&&(el.scrollWidth>el.clientWidth||el.scrollHeight>el.clientHeight)){
+    size-=.5;el.style.fontSize=size+'px';
+  }
+}
+function fitLinkSwitchboardText(){
+  $$('#linkClues .link-clue-live').forEach(el=>linkFitTextBox(el,7));
+  linkFitTextBox($('#linkAnswer'),9);
+  linkFitTextBox($('#linkMessage'),7);
+  if($('#linkResult')?.classList.contains('show'))linkFitTextBox($('#linkResult'),7);
+}
+function linkSetMessage(text,type=''){
+  const msg=$('#linkMessage');if(!msg)return;
+  msg.textContent=text;
+  msg.className='link-live link-fit link-feedback'+(type?' '+type:'');
+  requestAnimationFrame(fitLinkSwitchboardText);
+}
+function linkSyncPlate(){
+  const s=day?.link,plate=$('#linkAnswer'),input=$('#linkInput');
+  if(!plate||!input||!s)return;
+  plate.textContent=s.done&&s.answer?s.answer:linkSanitize(input.value);
+  requestAnimationFrame(()=>linkFitTextBox(plate,9));
+}
+function linkSyncAttempts(){
+  const s=day?.link;if(!s)return;
+  const remaining=Math.max(0,3-(s.guesses||0));
+  $$('[data-link-attempt]').forEach((el,i)=>el.classList.toggle('on',i<remaining));
+}
+function linkPulseWrong(){
+  const frame=$('#linkSwitchboardFrame');if(!frame)return;
+  frame.classList.remove('wrong');void frame.offsetWidth;frame.classList.add('wrong');
+  setTimeout(()=>frame.classList.remove('wrong'),260);
+  try{navigator.vibrate?.(22)}catch{}
+}
+function linkPlayWinSound(){
+  try{
+    const AudioCtx=window.AudioContext||window.webkitAudioContext;
+    if(AudioCtx){
+      const ctx=new AudioCtx(),now=ctx.currentTime;
+      [[523.25,0],[659.25,.11],[783.99,.22]].forEach(([freq,delay])=>{
+        const osc=ctx.createOscillator(),gain=ctx.createGain();
+        osc.type='triangle';osc.frequency.value=freq;
+        gain.gain.setValueAtTime(.0001,now+delay);
+        gain.gain.exponentialRampToValueAtTime(.075,now+delay+.018);
+        gain.gain.exponentialRampToValueAtTime(.0001,now+delay+.48);
+        osc.connect(gain).connect(ctx.destination);
+        osc.start(now+delay);osc.stop(now+delay+.5);
+      });
+      setTimeout(()=>ctx.close().catch(()=>{}),1000);
+    }
+  }catch{}
+  try{navigator.vibrate?.([24,24,42])}catch{}
+}
+function linkPulseSuccess(){
+  const frame=$('#linkSwitchboardFrame');if(!frame)return;
+  frame.classList.remove('success');void frame.offsetWidth;frame.classList.add('success');
+  linkPlayWinSound();
+}
 function renderLink(){
-  const s=day.link;$('#linkClues').innerHTML=daily.link.clues.map(c=>`<div class="link-clue">${c}</div>`).join('');$('#linkGuesses').textContent=`${s.guesses}/3`;$('#linkScore').textContent=s.score.toLocaleString();$('#linkStatus').textContent=s.done?(s.won?'SOLVED':'MISSED'):'OPEN';$('#linkInput').disabled=s.done;$('#linkForm button').disabled=s.done;
-  if(s.done&&!s.won&&s.answer){const msg=$('#linkMessage');msg.className='message bad';msg.innerHTML=`No more guesses.<div class="solution-note"><strong>${s.answer}</strong> — ${s.note||''}</div>`}
+  const s=day?.link;if(!s||!daily?.link)return;
+  void warmLinkSwitchboard();
+  const clueClasses=['one','two','three'];
+  $('#linkClues').innerHTML=daily.link.clues.map((raw,i)=>{
+    const clean=String(raw||'').replace(/_+/g,' ').replace(/\s+/g,' ').trim();
+    return `<div class="link-fit link-clue-live ${clueClasses[i]||''}">${escapeHtml(clean)}</div>`;
+  }).join('');
+  const remaining=Math.max(0,3-(s.guesses||0));
+  $('#linkGuesses').textContent=`${remaining}/3`;
+  $('#linkScore').textContent=linkPotentialScore(s).toLocaleString();
+  $('#linkStreak').textContent=currentStreakCount().toLocaleString();
+
+  const input=$('#linkInput'),connect=$('#linkConnect'),clear=$('#linkClear'),topClear=$('#linkTopClear');
+  input.disabled=!!s.done;
+  connect.disabled=!!s.done;
+  clear.disabled=!!s.done;
+  topClear.disabled=!!s.done;
+  linkSyncAttempts();
+  linkSyncPlate();
+
+  const frame=$('#linkSwitchboardFrame'),result=$('#linkResult'),msg=$('#linkMessage');
+  frame.classList.toggle('success',!!(s.done&&s.won));
+  $$('#linkClues .link-clue-live').forEach(el=>el.classList.toggle('connected',!!s.done));
+  $('#linkAnswer').classList.toggle('locked',!!s.done);
+
+  result.className='link-result';
+  result.innerHTML='';
+  msg.style.visibility='';
+  if(s.done&&s.won){
+    msg.style.visibility='hidden';
+    result.classList.add('show','win');
+    result.innerHTML=
+      '<div class="link-win-title">CONNECTED!</div>'+
+      '<div class="link-win-links">'+escapeHtml(s.note||s.answer||'')+'</div>'+
+      '<div class="link-win-points">+'+(s.score||0).toLocaleString()+'</div>';
+  }else if(s.done){
+    msg.style.visibility='hidden';
+    result.classList.add('show');
+    result.innerHTML='<strong>'+escapeHtml(s.answer||'')+'</strong>'+(s.note?' · '+escapeHtml(s.note):'');
+  }else if(!msg.textContent.trim()){
+    linkSetMessage('Three lines are waiting.');
+  }
+  requestAnimationFrame(fitLinkSwitchboardText);
   updateHome();
 }
-$('#linkForm').addEventListener('submit',async e=>{
-  e.preventDefault();const s=day.link;if(s.done)return;const input=$('#linkInput'),guess=input.value.trim().toUpperCase().replace(/[^A-Z]/g,'');if(!guess)return;
-  try{const attempt=s.guesses+1,r=await api('/api/link/guess',{guess,attempt});s.guesses++;input.value='';if(r.solved){s.won=true;s.done=true;s.answer=r.answer;s.note=r.note;s.score=[0,600,400,250][s.guesses]||250;$('#linkMessage').className='message good';$('#linkMessage').textContent=`${r.answer} — ${r.note}`}else if(s.guesses>=3){s.done=true;s.answer=r.answer||'';s.note=r.note||''}else{$('#linkMessage').className='message';$('#linkMessage').textContent='Not the link. Try again.'}renderLink()}catch(err){$('#linkMessage').textContent=err.message}
+$('#linkInput').addEventListener('input',e=>{
+  const clean=linkSanitize(e.currentTarget.value);
+  if(e.currentTarget.value!==clean)e.currentTarget.value=clean;
+  linkSyncPlate();
 });
+$('#linkForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const s=day.link;if(s.done)return;
+  const input=$('#linkInput'),guess=linkSanitize(input.value);
+  if(!guess){linkSetMessage('Patch in one word first.','bad');return}
+  try{
+    const attempt=s.guesses+1,r=await api('/api/link/guess',{guess,attempt});
+    s.guesses++;
+    input.value='';
+    if(r.solved){
+      s.won=true;s.done=true;s.answer=r.answer;s.note=r.note;s.score=[0,600,400,250][s.guesses]||250;
+      linkSetMessage('Connection complete.','good');
+      renderLink();
+      linkPulseSuccess();
+    }else if(s.guesses>=3){
+      s.done=true;s.answer=r.answer||'';s.note=r.note||'';s.score=0;
+      linkPulseWrong();
+      renderLink();
+    }else{
+      linkPulseWrong();
+      linkSetMessage(guess+' does not connect all three. Try again.','bad');
+      renderLink();
+      input.focus();
+    }
+  }catch(err){
+    linkSetMessage(err.message||'Could not check that connection.','bad');
+  }
+});
+function clearLinkEntry(){
+  const s=day?.link;if(!s||s.done)return;
+  const input=$('#linkInput');input.value='';
+  linkSyncPlate();
+  linkSetMessage('Three lines are waiting.');
+  input.focus();
+}
+$('#linkClear')?.addEventListener('click',clearLinkEntry);
+$('#linkTopClear')?.addEventListener('click',clearLinkEntry);
+window.addEventListener('resize',()=>requestAnimationFrame(fitLinkSwitchboardText),{passive:true});
 
 // Word Steps — Rooftops
 const STEPS_ROOFTOPS_NODES=[
