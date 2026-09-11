@@ -308,7 +308,18 @@
       display:flex;align-items:center;justify-content:center;text-align:center;
     }
     .score{left:16.68%;width:20.8%}
-    .streak{left:40.47%;width:19.2%}
+    .streak{
+      left:50%;
+      width:19.2%;
+      transform:translateX(-50%);
+      padding-top:clamp(2px,.55vw,4px);
+    }
+    .streak strong,.streak span{
+      width:100%;
+      margin:0;
+      padding:0;
+      text-align:center;
+    }
     .tries{left:62.80%;width:20.8%}
     .stat strong{font-size:clamp(13px,4.15vw,23px)}
     .stat span{font-size:clamp(5px,1.45vw,8px)}
@@ -649,6 +660,6 @@
     requestAnimationFrame(fitSwitchboardText);
   })();
   </script>
-  <!-- switchboard-test-build: 2026-09-11u panel-centered-text -->
+  <!-- switchboard-test-build: 2026-09-11v streak-optical-center -->
 </body>
 </html>
