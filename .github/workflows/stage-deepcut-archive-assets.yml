@@ -1,0 +1,37 @@
+name: Stage production Deep Archive assets
+
+on:
+  push:
+    branches:
+      - ship-deep-cut-archive
+
+permissions:
+  contents: write
+
+jobs:
+  stage:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Copy archive assets into production path
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public/deepcut-archive
+          cp public/archive-test/archive-newsroom-25.webp public/deepcut-archive/newsroom.webp
+          cp public/archive-test/archive-top.webp public/deepcut-archive/upper.webp
+          cp public/archive-test/archive-middle.webp public/deepcut-archive/natural-history.webp
+          cp public/archive-test/archive-museum-25.webp public/deepcut-archive/museum.webp
+          cp public/archive-test/archive-bottom.webp public/deepcut-archive/forbidden.webp
+          cp public/archive-test/archive-cosmic-25.webp public/deepcut-archive/cosmic.webp
+          cp public/archive-test/archive-elevator-25.webp public/deepcut-archive/elevator.webp
+          git add public/deepcut-archive
+          if git diff --cached --quiet; then
+            echo "Production archive assets already staged."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Stage production Deep Archive assets"
+          git push
