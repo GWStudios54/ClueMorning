@@ -286,14 +286,14 @@
       z-index:16;
       width:8.7%;
       height:auto;
-      transform:translate(-50%,-92%);
+      transform:translate(-50%,-100%);
       transform-origin:50% 92%;
       transition:left 340ms linear,top 540ms cubic-bezier(.2,.78,.2,1),filter 180ms ease;
       filter:drop-shadow(0 5px 5px rgba(0,0,0,.72));
       pointer-events:none;
       user-select:none;
     }
-    .climber.facing-left{transform:translate(-50%,-92%) scaleX(-1)}
+    .climber.facing-left{transform:translate(-50%,-100%) scaleX(-1)}
     .climber.walking,.climber.climbing{animation:pcBob .25s ease-in-out infinite alternate}
     .climber.hopping{animation:pcHop .38s ease-out 1}
     @keyframes pcBob{
@@ -362,9 +362,10 @@
     const START='COLD',TARGET='WARM',PAR=4,MAX=8;
     const WORDS=new Set(['COLD','CORD','CARD','WARD','WARM','WORD','WORE','CORE','CARE','CURE','CURL','CURD','GOLD','TOLD','BOLD','FOLD','HOLD','MOLD','COLT','COLE','CODE','CONE','CORK','CORN','WOLD','WORM','FORM','FARM','HARM','HARD','WARY','WARP','WARN','WART']);
     const NODES=[
-      {x:50,y:94.1,edge:'ladder'},{x:50,y:84.0,edge:'ladder'},{x:50,y:74.2,edge:'ladder'},
-      {x:50,y:64.6,edge:'ladder'},{x:50,y:55.2,edge:'ladder'},{x:50,y:46.1,edge:'ladder'},
-      {x:50,y:37.0,edge:'ladder'},{x:50,y:28.2,edge:'ladder'},{x:50,y:19.4,edge:null}
+      // Exact painted ledge tops, measured from the 360×640 Rooftops art.
+      {x:50,y:97.03,edge:'ladder'},{x:50,y:85.00,edge:'ladder'},{x:50,y:72.19,edge:'ladder'},
+      {x:50,y:61.09,edge:'ladder'},{x:50,y:50.94,edge:'ladder'},{x:50,y:40.63,edge:'ladder'},
+      {x:50,y:30.78,edge:'ladder'},{x:50,y:22.19,edge:'ladder'},{x:50,y:17.50,edge:null}
     ];
     const CAMERA=[-51.2,-46.2,-40.0,-33.5,-27.0,-20.5,-14.0,-7.0,0];
     let path=[START],currentNode=0,demoTimer=null,animating=false;
@@ -463,6 +464,6 @@
     armPaintedWorld();renderAll();
   })();
   </script>
-  <!-- painted-world-build: 2026-09-11e full-background-chunks -->
+  <!-- painted-world-build: 2026-09-11f floor-aligned-landings -->
 </body>
 </html>
