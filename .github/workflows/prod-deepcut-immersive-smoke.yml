@@ -1,0 +1,31 @@
+name: Production Deep Cut immersive smoke
+
+on:
+  push:
+    branches:
+      - prod-deepcut-immersive-smoke
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify immersive Deep Cut is live
+        shell: bash
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 30); do
+            body="$(curl -fsSL 'https://cluemorning.com/' || true)"
+            core="$(curl -fsSL 'https://cluemorning.com/app-core.js' || true)"
+            css="$(curl -fsSL 'https://cluemorning.com/styles.css' || true)"
+            if grep -q 'id="deepCutExit"' <<<"$body" \
+              && grep -q 'interactive-widget=resizes-content' <<<"$body" \
+              && grep -q 'deepcut-immersive' <<<"$core" \
+              && grep -q 'Deep Cut immersive mode' <<<"$css" \
+              && grep -q 'height:100dvh' <<<"$css"; then
+              echo "Immersive Deep Cut is live."
+              exit 0
+            fi
+            echo "Waiting for deploy ($i/30)..."
+            sleep 5
+          done
+          exit 1
