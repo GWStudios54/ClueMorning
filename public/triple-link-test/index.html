@@ -91,7 +91,7 @@
     .tries{left:63.8%;width:22.3%}
 
     .clue{
-      top:32.75%;height:4.4%;
+      top:33.35%;height:4.4%;
       color:#f1dba9;font:900 clamp(8px,2.8vw,16px)/1 "Courier New",monospace;
       letter-spacing:.08em;text-shadow:0 2px 0 #311c0c;
       transition:filter .22s,transform .22s,color .22s;
@@ -99,7 +99,7 @@
     }
     .clue.one{left:15.7%;width:20.8%}
     .clue.two{left:40.5%;width:19.3%}
-    .clue.three{left:65.2%;width:20.7%}
+    .clue.three{left:64.45%;width:20.7%}
     .clue.connected{
       color:#fff0b8;filter:drop-shadow(0 0 6px #ffd05a);
       transform:scale(1.035);
@@ -114,56 +114,54 @@
     }
     .answer.locked{filter:drop-shadow(0 0 10px rgba(255,205,79,.9));transform:scale(1.045)}
 
-    .attempt-panel{
-      position:absolute;
-      z-index:11;
-      left:34.2%;
-      top:57.8%;
-      width:31.8%;
-      height:7.2%;
-      border-radius:10px;
-      background:rgba(13,11,13,.97);
-      border:1px solid rgba(203,145,68,.48);
-      box-shadow:
-        inset 0 0 0 1px rgba(63,45,26,.95),
-        0 2px 10px rgba(0,0,0,.35);
-      pointer-events:none;
-    }
     .attempt-label{
       z-index:12;
       left:37%;top:55.2%;width:26%;height:2.5%;
       color:#e9cea0;font:900 clamp(6px,1.9vw,11px)/1 "Courier New",monospace;
       letter-spacing:.12em;pointer-events:none;text-shadow:0 2px #2d190d;
     }
+    /* Keep the painted lit bulbs. Only spent attempts are covered/replaced. */
     .attempt{
       position:absolute;
       z-index:13;
-      top:59.1%;
-      width:5.8%;
+      top:57.85%;
+      width:9%;
       aspect-ratio:1;
       border-radius:50%;
-      opacity:1;
-      transform:scale(1);
-      transition:transform .18s ease;
+      opacity:0;
+      transform:scale(.96);
+      transition:opacity .16s ease,transform .16s ease;
       pointer-events:none;
+      background:
+        radial-gradient(circle at 50% 47%,rgba(13,11,13,.99) 0 48%,rgba(13,11,13,.96) 55%,rgba(13,11,13,.72) 64%,transparent 76%);
     }
-    .attempt.a1{left:39.0%}.attempt.a2{left:47.2%}.attempt.a3{left:55.4%}
-    .attempt::before{
+    .attempt.a1{left:37.4%}.attempt.a2{left:45.6%}.attempt.a3{left:53.8%}
+    .attempt.off{opacity:1;transform:scale(1)}
+    .attempt.off::before{
       content:"";
       position:absolute;
-      inset:0;
-      border-radius:50%;
+      left:27.5%;
+      top:16%;
+      width:45%;
+      height:49%;
+      border-radius:52% 52% 43% 43%;
       background:
-        radial-gradient(circle at 50% 32%,#fff8ca 0 13%,#ffe07a 22%,#ffb53a 41%,#d87418 58%,#24170f 77%,#110c0a 100%);
+        radial-gradient(circle at 38% 28%,#efeeee 0 8%,#c8c6c8 16%,#929096 42%,#5f5c63 68%,#333138 100%);
       box-shadow:
-        0 0 10px rgba(255,190,70,.9),
-        0 0 18px rgba(255,160,40,.5);
+        inset -2px -3px 0 rgba(31,29,34,.42),
+        0 2px 3px rgba(0,0,0,.5);
     }
-    .attempt.off{transform:scale(.92)}
-    .attempt.off::before{
+    .attempt.off::after{
+      content:"";
+      position:absolute;
+      left:36%;
+      top:61%;
+      width:28%;
+      height:20%;
+      border-radius:2px;
       background:
-        radial-gradient(circle at 50% 32%,#e4e2e1 0 13%,#bbb9bc 22%,#85838a 41%,#55535b 58%,#241d1d 77%,#110c0a 100%);
-      box-shadow:none;
+        linear-gradient(#a68145 0 18%,#4e3926 19% 38%,#9a7540 39% 57%,#3d2e22 58% 76%,#87653a 77%);
+      box-shadow:0 2px 2px rgba(0,0,0,.55);
     }
 
     .feedback{
@@ -229,11 +227,39 @@
     .board-flash{
       position:absolute;z-index:9;left:12.8%;top:30.7%;width:74.5%;height:28%;
       border-radius:18%;pointer-events:none;opacity:0;
-      box-shadow:inset 0 0 35px rgba(255,189,60,.65),0 0 35px rgba(255,167,38,.3);
+      box-shadow:inset 0 0 48px rgba(255,195,65,.8),0 0 45px rgba(255,167,38,.42);
     }
-    .success .board-flash{animation:successFlash .85s ease-out 1}
+    .success-burst{
+      position:absolute;z-index:14;left:50%;top:50.2%;width:38%;aspect-ratio:1;
+      transform:translate(-50%,-50%) scale(.25);
+      border-radius:50%;pointer-events:none;opacity:0;
+      background:radial-gradient(circle,rgba(255,244,181,.78) 0 7%,rgba(255,197,67,.4) 18%,rgba(255,159,35,.18) 38%,transparent 68%);
+      mix-blend-mode:screen;
+    }
+    .success .board-flash{animation:successFlash 1.15s ease-out 1}
+    .success .success-burst{animation:successBurst 1.05s cubic-bezier(.16,.8,.25,1) 1}
+    .success .answer.locked{animation:answerWin 1.05s cubic-bezier(.2,.8,.2,1) 1}
+    .success .clue.one{animation:clueWin .5s ease-out .05s 1}
+    .success .clue.two{animation:clueWin .5s ease-out .16s 1}
+    .success .clue.three{animation:clueWin .5s ease-out .27s 1}
+    .success .score strong{animation:scoreWin .75s ease-out .35s 1}
+    .result.win{
+      flex-direction:column;
+      gap:.18em;
+      border-color:#f2bf58;
+      background:linear-gradient(180deg,rgba(42,28,13,.97),rgba(13,11,15,.97));
+      box-shadow:0 0 0 1px rgba(255,214,116,.18),0 0 24px rgba(255,178,45,.38),0 8px 22px rgba(0,0,0,.55);
+      animation:resultWin .72s cubic-bezier(.2,.85,.25,1) .32s both;
+    }
+    .result.win strong{font-size:1.22em;letter-spacing:.12em}
+    .result.win span{color:#f1dfbd;font-size:.9em}
     .wrong .shell-inner{animation:shake .22s linear 1}
-    @keyframes successFlash{0%{opacity:0}35%{opacity:1}100%{opacity:0}}
+    @keyframes successFlash{0%{opacity:0}28%{opacity:1}100%{opacity:0}}
+    @keyframes successBurst{0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}32%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(2.15)}}
+    @keyframes answerWin{0%{filter:none;transform:scale(1)}35%{filter:drop-shadow(0 0 16px #ffd469);transform:scale(1.105)}100%{filter:drop-shadow(0 0 10px rgba(255,205,79,.9));transform:scale(1.045)}}
+    @keyframes clueWin{0%{transform:scale(1)}55%{transform:scale(1.09);filter:drop-shadow(0 0 9px #ffd05a)}100%{transform:scale(1.035);filter:drop-shadow(0 0 6px #ffd05a)}}
+    @keyframes scoreWin{0%{transform:scale(1)}45%{transform:scale(1.28);text-shadow:0 0 12px #ffd66d}100%{transform:scale(1)}}
+    @keyframes resultWin{0%{opacity:0;transform:translateX(-50%) scale(.72)}68%{opacity:1;transform:translateX(-50%) scale(1.07)}100%{opacity:1;transform:translateX(-50%) scale(1)}}
     @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
 
     @media(min-width:601px){
@@ -261,7 +287,6 @@
       <div class="live clue two fit" data-clue>LIGHT</div>
       <div class="live clue three fit" data-clue>SET</div>
       <div class="live answer fit" id="answer"></div>
-      <div class="attempt-panel" aria-hidden="true"></div>
       <div class="live attempt-label fit">ATTEMPTS</div>
 
       <span class="attempt a1" data-attempt="0"></span>
@@ -278,6 +303,7 @@
 
       <div class="result" id="result"></div>
       <div class="board-flash"></div>
+      <div class="success-burst" aria-hidden="true"></div>
     </div>
   </main>
 
@@ -325,6 +351,7 @@
     function syncAttempts(){
       const remaining=Math.max(0,3-guesses);
       $('#tries').textContent=remaining+'/3';
+      if(!done)$('#score').textContent=String(PROJECTED[guesses]||0);
       const bulbs=[...document.querySelectorAll('[data-attempt]')];
       bulbs.forEach((el,i)=>{
         el.classList.toggle('off',i>=remaining);
@@ -336,12 +363,32 @@
       shell.classList.add('wrong');
       setTimeout(()=>shell.classList.remove('wrong'),260);
     }
+    function playWinSound(){
+      try{
+        const AudioCtx=window.AudioContext||window.webkitAudioContext;
+        if(AudioCtx){
+          const ctx=new AudioCtx(),now=ctx.currentTime;
+          [[523.25,0],[659.25,.11],[783.99,.22]].forEach(([freq,delay])=>{
+            const osc=ctx.createOscillator(),gain=ctx.createGain();
+            osc.type='triangle';osc.frequency.value=freq;
+            gain.gain.setValueAtTime(.0001,now+delay);
+            gain.gain.exponentialRampToValueAtTime(.12,now+delay+.018);
+            gain.gain.exponentialRampToValueAtTime(.0001,now+delay+.48);
+            osc.connect(gain).connect(ctx.destination);
+            osc.start(now+delay);osc.stop(now+delay+.5);
+          });
+          setTimeout(()=>ctx.close().catch(()=>{}),1000);
+        }
+      }catch{}
+      try{navigator.vibrate?.([32,34,58])}catch{}
+    }
     function pulseSuccess(){
       shell.classList.remove('success');
       void shell.offsetWidth;
       shell.classList.add('success');
       document.querySelectorAll('[data-clue]').forEach(el=>el.classList.add('connected'));
       answer.classList.add('locked');
+      playWinSound();
     }
     function finish(won){
       done=true;
@@ -355,12 +402,14 @@
         $('#score').textContent=points;
         setFeedback('Connection complete.','good');
         feedback.style.visibility='hidden';
-        result.innerHTML='<strong>SUN</strong> → SUNFLOWER · SUNLIGHT · SUNSET';
+        result.classList.add('win');
+        result.innerHTML='<strong>CONNECTION MADE</strong><span>SUN → SUNFLOWER · SUNLIGHT · SUNSET · '+points+' POINTS</span>';
         pulseSuccess();
       }else{
         $('#score').textContent='0';
         setFeedback('Lines exhausted. The connection was SUN.','bad');
         feedback.style.visibility='hidden';
+        result.classList.remove('win');
         result.innerHTML='<strong>SUN</strong> → SUNFLOWER · SUNLIGHT · SUNSET';
         document.querySelectorAll('[data-clue]').forEach(el=>el.classList.add('connected'));
         answer.classList.add('locked');
@@ -383,7 +432,6 @@
         return;
       }
       pulseWrong();
-      $('#score').textContent=String(PROJECTED[guesses]||0);
       setFeedback(guess+' does not connect all three. Try again.','bad');
       input.focus();
     }
@@ -394,7 +442,8 @@
       $('#clear').disabled=false;
       $('#score').textContent='1000';
       answer.textContent='';answer.classList.remove('locked');
-      result.classList.remove('show');result.innerHTML='';
+      shell.classList.remove('success','wrong');
+      result.classList.remove('show','win');result.innerHTML='';
       feedback.style.visibility='';
       document.querySelectorAll('[data-clue]').forEach(el=>el.classList.remove('connected'));
       setFeedback('Three lines are waiting.');
@@ -412,6 +461,6 @@
     syncAttempts();
   })();
   </script>
-  <!-- switchboard-test-build: 2026-09-11d text-center-bulb-mask -->
+  <!-- switchboard-test-build: 2026-09-11e clue-bulb-win-polish -->
 </body>
 </html>
