@@ -108,7 +108,7 @@
 
   <script>
   (() => {
-    const START='COLD',TARGET='WARM',PAR=4,MAX=8,ART_PARTS=13;
+    const START='COLD',TARGET='WARM',PAR=4,MAX=8;
     const WORDS=new Set(['COLD','CORD','CARD','WARD','WARM','WORD','WORE','CORE','CARE','CURE','CURL','CURD','GOLD','TOLD','BOLD','FOLD','HOLD','MOLD','COLT','COLE','CODE','CONE','CORK','CORN','WOLD','WORM','FORM','FARM','HARM','HARD','WARY','WARP','WARN','WART']);
     const NODES=[
       {x:50,y:80.3,edge:'ladder'},{x:50,y:72.8,edge:'ladder'},{x:50,y:65.2,edge:'walk'},
@@ -120,7 +120,7 @@
 
     async function loadPaintedWorld(){
       try{
-        const urls=Array.from({length:ART_PARTS},(_,i)=>'./painted/rooftops-'+String(i).padStart(2,'0')+'.b64');
+        const names=['00','01','02','03','04','05','06','07','08','09a','09b','10','11','12'];\n        const urls=names.map(name=>'./painted/rooftops-'+name+'.b64');
         const parts=await Promise.all(urls.map(async url=>{const r=await fetch(url,{cache:'force-cache'});if(!r.ok)throw new Error('Art load failed');return (await r.text()).trim()}));
         const img=$('#paintedWorld');img.src='data:image/webp;base64,'+parts.join('');
         try{await img.decode()}catch{}
