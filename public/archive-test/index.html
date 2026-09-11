@@ -443,22 +443,6 @@ button{font:inherit}
     setTimeout(()=>burst.replaceChildren(),620);
   }
 
-  function normalizeAnswer(value){
-    return String(value||'')
-      .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-      .toLowerCase()
-      .replace(/&/g,' and ')
-      .replace(/[^a-z0-9]+/g,' ')
-      .trim()
-      .replace(/\s+/g,' ');
-  }
-
-  const answerMaps=testQuestions.map(q=>{
-    const map=new Map();
-    for(const [answer,score] of q.answers)map.set(normalizeAnswer(answer),score);
-    return map;
-  });
-
   function floorsForScore(score){
     if(score>=85)return 3;
     if(score>=60)return 2;
