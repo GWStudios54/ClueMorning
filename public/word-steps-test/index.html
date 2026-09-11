@@ -237,6 +237,82 @@
       color:#f5dfb7;font-family:Georgia,"Times New Roman",serif;font-weight:700
     }
 
+
+    /* Clean-art pass: the background contains no gameplay plaques or baked player. */
+    .painted-frame{
+      background:#08101b;
+      overflow:hidden;
+    }
+    .world-track{
+      position:absolute;
+      z-index:6;
+      left:0;
+      top:0;
+      width:100%;
+      aspect-ratio:420/746;
+      transform:translateY(-51.2%);
+      transition:transform 620ms cubic-bezier(.2,.75,.2,1);
+      will-change:transform;
+    }
+    .painted-world{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transform:none;
+      opacity:1;
+      pointer-events:none;
+      user-select:none;
+    }
+    .path-layer{position:absolute;inset:0;z-index:12;pointer-events:none}
+    .word-sign{
+      min-width:72px;
+      padding:5px 9px;
+      border:1px solid rgba(205,154,73,.92);
+      border-radius:5px;
+      background:linear-gradient(180deg,rgba(15,22,34,.96),rgba(6,11,19,.98));
+      box-shadow:0 0 0 2px rgba(3,7,12,.8),0 5px 15px rgba(0,0,0,.42),inset 0 0 0 1px rgba(245,207,132,.08);
+      font-size:clamp(.52rem,2.45vw,.67rem);
+    }
+    .word-sign.micro{min-width:62px;padding:4px 7px;font-size:.49rem}
+    .word-sign.current{
+      border-color:#f0c76f;
+      transform:translate(-50%,-50%) scale(1.06);
+      box-shadow:0 0 0 2px rgba(3,7,12,.88),0 0 18px rgba(240,199,111,.24),0 7px 18px rgba(0,0,0,.46);
+    }
+    .climber{
+      position:absolute;
+      z-index:16;
+      width:8.7%;
+      height:auto;
+      transform:translate(-50%,-92%);
+      transform-origin:50% 92%;
+      transition:left 340ms linear,top 540ms cubic-bezier(.2,.78,.2,1),filter 180ms ease;
+      filter:drop-shadow(0 5px 5px rgba(0,0,0,.72));
+      pointer-events:none;
+      user-select:none;
+    }
+    .climber.facing-left{transform:translate(-50%,-92%) scaleX(-1)}
+    .climber.walking,.climber.climbing{animation:pcBob .25s ease-in-out infinite alternate}
+    .climber.hopping{animation:pcHop .38s ease-out 1}
+    @keyframes pcBob{
+      from{margin-top:0}
+      to{margin-top:-4px}
+    }
+    @keyframes pcHop{
+      0%{margin-top:0}
+      45%{margin-top:-15px}
+      100%{margin-top:0}
+    }
+    .loading-note{
+      z-index:20;
+      background:rgba(8,12,20,.88);
+      border:1px solid rgba(205,154,73,.45);
+      color:#dbc493
+    }
+    html.painted-ready .loading-note{opacity:0;pointer-events:none}
+
   </style>
 </head>
 <body>
@@ -255,16 +331,10 @@
     <div class="goal"><span>START <b>COLD</b></span><span>→</span><span>TARGET <b>WARM</b></span></div>
 
     <div class="painted-frame" id="paintedFrame" aria-label="Painted rooftop climb">
-      <img id="paintedWorld" class="painted-world" alt="">
-      <div class="art-character-cover" aria-hidden="true"></div>
-      <div class="plate-cover top" aria-hidden="true"></div>
-      <div class="plate-cover mid" aria-hidden="true"></div>
-      <div class="plate-cover bottom" aria-hidden="true"></div>
-      <div id="pathLayer" class="path-layer"></div>
-      <div class="climber" id="climber" aria-hidden="true">
-        <div class="climber-sprite">
-          <span class="climber-head"></span><span class="climber-body"></span><span class="climber-bag"></span><span class="climber-scarf"></span>
-        </div>
+      <div class="world-track" id="worldTrack">
+        <img id="paintedWorld" class="painted-world" src="./assets/rooftops-clean.webp" alt="">
+        <div id="pathLayer" class="path-layer"></div>
+        <img class="climber" id="climber" src="./assets/rooftops-pc.webp" alt="" aria-hidden="true">
       </div>
       <div class="loading-note">OPENING THE ROOFTOPS…</div>
     </div>
@@ -292,22 +362,19 @@
     const START='COLD',TARGET='WARM',PAR=4,MAX=8;
     const WORDS=new Set(['COLD','CORD','CARD','WARD','WARM','WORD','WORE','CORE','CARE','CURE','CURL','CURD','GOLD','TOLD','BOLD','FOLD','HOLD','MOLD','COLT','COLE','CODE','CONE','CORK','CORN','WOLD','WORM','FORM','FARM','HARM','HARD','WARY','WARP','WARN','WART']);
     const NODES=[
-      {x:50,y:80.3,edge:'ladder'},{x:50,y:72.8,edge:'ladder'},{x:50,y:65.2,edge:'walk'},
-      {x:47,y:58.7,edge:'ladder'},{x:43.5,y:50.5,edge:'walk'},{x:50,y:42.8,edge:'ladder'},
-      {x:50,y:34.2,edge:'ladder'},{x:50,y:24.8,edge:'ladder'},{x:50,y:13.2,edge:null}
+      {x:50,y:94.1,edge:'ladder'},{x:50,y:84.0,edge:'ladder'},{x:50,y:74.2,edge:'ladder'},
+      {x:50,y:64.6,edge:'ladder'},{x:50,y:55.2,edge:'ladder'},{x:50,y:46.1,edge:'ladder'},
+      {x:50,y:37.0,edge:'ladder'},{x:50,y:28.2,edge:'ladder'},{x:50,y:19.4,edge:null}
     ];
+    const CAMERA=[-51.2,-46.2,-40.0,-33.5,-27.0,-20.5,-14.0,-7.0,0];
     let path=[START],currentNode=0,demoTimer=null,animating=false;
-    const $=s=>document.querySelector(s),climber=$('#climber'),layer=$('#pathLayer');
+    const $=s=>document.querySelector(s),climber=$('#climber'),layer=$('#pathLayer'),worldTrack=$('#worldTrack');
 
-    async function loadPaintedWorld(){
-      try{
-        const names=['00','01','02','03','04','05','06','07','08','09a','09b','10','11a','11b','12'];
-        const urls=names.map(name=>'./painted/rooftops-'+name+'.b64');
-        const parts=await Promise.all(urls.map(async url=>{const r=await fetch(url,{cache:'force-cache'});if(!r.ok)throw new Error('Art load failed');return (await r.text()).trim()}));
-        const img=$('#paintedWorld');img.src='data:image/webp;base64,'+parts.join('');
-        try{await img.decode()}catch{}
-        document.documentElement.classList.add('painted-ready');
-      }catch(err){console.warn(err)}
+    function armPaintedWorld(){
+      const img=$('#paintedWorld');
+      const ready=()=>document.documentElement.classList.add('painted-ready');
+      if(img.complete&&img.naturalWidth)ready();
+      else img.addEventListener('load',ready,{once:true});
     }
 
     function diffOne(a,b){let n=0;for(let i=0;i<4;i++)if(a[i]!==b[i])n++;return n===1}
@@ -316,16 +383,19 @@
     function setMessage(text,type=''){const el=$('#message');el.textContent=text;el.className='message'+(type?' '+type:'')}
     function face(a,b){climber.classList.toggle('facing-left',NODES[b].x<NODES[a].x)}
     function setPosition(i){const n=NODES[i];climber.style.left=n.x+'%';climber.style.top=n.y+'%'}
+    function setCamera(i){worldTrack.style.transform='translateY('+CAMERA[Math.max(0,Math.min(8,i))]+'%)'}
 
     function renderSigns(){
       layer.innerHTML='';
       path.forEach((word,i)=>{
         const node=word===TARGET?8:Math.min(i,7),n=NODES[node],el=document.createElement('div');
         el.className='word-sign'+(node===currentNode?' current':'')+(node!==0&&node!==4&&node!==8?' micro':'');
-        el.textContent=word;el.style.left=n.x+'%';el.style.top=n.y+'%';layer.appendChild(el);
+        el.textContent=word;
+        const side=node===0||node===8?50:(node%2?35.5:64.5);
+        el.style.left=side+'%';el.style.top=n.y+'%';layer.appendChild(el);
       });
       if(path.at(-1)!==TARGET){
-        const n=NODES[8],target=document.createElement('div');target.className='word-sign target';target.textContent=TARGET;target.style.left=n.x+'%';target.style.top=n.y+'%';layer.appendChild(target);
+        const n=NODES[8],target=document.createElement('div');target.className='word-sign target';target.textContent=TARGET;target.style.left='50%';target.style.top=n.y+'%';layer.appendChild(target);
       }
     }
     function renderHud(){
@@ -337,12 +407,12 @@
       $('#playUi').style.display=won?'none':'';$('#complete').classList.toggle('show',won);
       if(won)$('#finalLine').textContent=TARGET+' in '+m+' move'+(m===1?'':'s')+' · '+score()+' points';
     }
-    function renderAll(){renderSigns();renderHud();renderComplete();setPosition(currentNode)}
+    function renderAll(){renderSigns();renderHud();renderComplete();setPosition(currentNode);setCamera(currentNode)}
 
     async function moveCharacter(to,mode='ladder',fast=false){
       if(to===currentNode)return;const from=currentNode,f=fast ? .68 : 1;face(from,to);animating=true;renderHud();climber.classList.remove('walking','climbing','hopping');
       if(mode==='walk')climber.classList.add('walking');else if(mode==='hop')climber.classList.add('hopping');else climber.classList.add('climbing');
-      const n=NODES[to];climber.style.left=n.x+'%';climber.style.top=n.y+'%';await sleep((mode==='hop'?390:530)*f);
+      const n=NODES[to];setCamera(to);climber.style.left=n.x+'%';climber.style.top=n.y+'%';await sleep((mode==='hop'?390:560)*f);
       currentNode=to;climber.classList.remove('walking','climbing','hopping');animating=false;renderHud();
     }
     async function summitRun(){
@@ -374,9 +444,9 @@
 
     $('#form').addEventListener('submit',async e=>{e.preventDefault();await addWord($('#guess').value)});
     $('#undo').addEventListener('click',undo);$('#demo').addEventListener('click',playDemo);$('#again').addEventListener('click',reset);$('#resetTop').addEventListener('click',reset);
-    loadPaintedWorld();renderAll();
+    armPaintedWorld();renderAll();
   })();
   </script>
-  <!-- painted-world-build: 2026-09-11c unified-art -->
+  <!-- painted-world-build: 2026-09-11d clean-art-live-pc -->
 </body>
 </html>
