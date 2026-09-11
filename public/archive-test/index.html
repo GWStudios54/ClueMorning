@@ -142,33 +142,61 @@ button{font:inherit}
 }
 .card h1{margin:0 0 4px;color:var(--gold);font-size:14px;letter-spacing:.045em}
 .card p{margin:0;color:#d9cfe0;font-size:9px;line-height:1.4}
-.readout{
-  position:fixed;z-index:20;left:50%;
-  bottom:calc(82px + env(safe-area-inset-bottom));
-  min-width:252px;padding:8px 13px;
-  transform:translateX(-50%);text-align:center;
-  background:rgba(11,12,20,.94);
+.question-panel{
+  position:fixed;z-index:22;left:10px;right:10px;
+  bottom:calc(78px + env(safe-area-inset-bottom));
+  width:min(620px,calc(100vw - 20px));
+  margin:0 auto;padding:10px 12px;
+  background:rgba(11,12,20,.95);
   border:3px solid var(--line);box-shadow:0 0 0 3px #07080d;
-  font-size:10px;
+  backdrop-filter:blur(4px);
 }
-.readout strong{color:var(--gold);font-size:14px}
-.controls{
+.question-meta{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  color:#cdbfd5;font-size:9px;font-weight:900;letter-spacing:.055em;
+  text-transform:uppercase;
+}
+.question-meta strong{color:var(--gold);font-size:11px}
+.question-text{
+  margin-top:7px;color:#fff4de;font-size:14px;line-height:1.25;
+  font-weight:900;text-wrap:balance;
+}
+.question-stats{
+  margin-top:7px;color:#c7bccb;font-size:9px;line-height:1.25;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.question-stats strong{color:var(--gold)}
+.feedback{
+  min-height:16px;margin-top:5px;font-size:9px;font-weight:900;
+  letter-spacing:.025em;color:#d9cfe0;
+}
+.feedback.good{color:#f2cf7c}
+.feedback.bad{color:#e2a1aa}
+.answer-controls{
   position:fixed;z-index:25;left:10px;right:10px;
   bottom:max(10px,env(safe-area-inset-bottom));
-  display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:7px;
+  width:min(620px,calc(100vw - 20px));margin:0 auto;
+  display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:7px;
 }
-.controls button{
-  min-height:54px;padding:7px 8px;
-  color:#fff2dd;background:#30263f;
+.answer-controls input{
+  min-width:0;height:58px;padding:0 13px;
+  color:#fff2dd;background:#171824;
   border:3px solid #725f88;box-shadow:0 0 0 3px #07080d;
+  font:900 13px/1 "Courier New",monospace;
+  outline:none;border-radius:0;
+}
+.answer-controls input:focus{border-color:#aa8ebd}
+.answer-controls input::placeholder{color:#8f8694}
+.answer-controls button{
+  min-height:58px;padding:7px 13px;
+  color:#fff2dd;background:#294248;
+  border:3px solid #6b8790;box-shadow:0 0 0 3px #07080d;
   font-size:10px;font-weight:900;text-transform:uppercase;
   letter-spacing:.035em;touch-action:manipulation;
 }
-.controls button:active{transform:translateY(2px)}
-.controls small{font-size:8px;opacity:.72}
-.controls .uncommon{background:#28404a}
-.controls .rare{color:#ffe2a3;background:#5b2d4d;border-color:#a16787}
-.controls .reset{width:58px;background:#244653}
+.answer-controls button:active{transform:translateY(2px)}
+.answer-controls button:disabled,.answer-controls input:disabled{opacity:.58}
+.answer-controls .reset{width:58px;background:#30263f;border-color:#725f88}
 .flash{
   position:fixed;z-index:30;inset:0;pointer-events:none;
   opacity:0;background:rgba(255,224,164,.14);
@@ -183,12 +211,16 @@ button{font:inherit}
 @media(max-width:700px){
   .world{width:max(760px,185vw)}
   .card p{display:none}
+  .question-panel{padding:9px 10px}
+  .question-text{font-size:13px}
+  .answer-controls input{font-size:12px}
   .vignette{box-shadow:inset 0 0 60px rgba(0,0,0,.32)}
   .scanlines{opacity:.085}
 }
 @media(max-height:620px){
   .card{display:none}
-  .readout{bottom:76px}
+  .question-panel{bottom:74px}
+  .question-text{font-size:12px}
 }
 @media(prefers-reduced-motion:reduce){
   .world,.elevator,.flash,.spark{transition-duration:1ms}
@@ -239,21 +271,29 @@ button{font:inherit}
 
 <div class="hud">
   <div class="card">
-    <h1>DEEP ARCHIVE — 25 FLOOR PAINTED TEST</h1>
-    <p>Newsroom first. Then the archive keeps getting stranger. Eight deepest cuts reach the Final Shelf exactly.</p>
+    <h1>DEEP CUT — ARCHIVE TEST</h1>
+    <p>Eight open-answer test prompts. Valid answers score by rarity and send the elevator deeper.</p>
   </div>
 </div>
 
-<div class="readout" aria-live="polite">
-  DEPTH <strong id="depth">0</strong> ft · <span id="zone">Newsroom Lobby</span>
+<div class="question-panel" id="questionPanel" aria-live="polite">
+  <div class="question-meta">
+    <span id="questionCount">QUESTION 1 OF 8</span>
+    <span><strong id="timer">25</strong>s</span>
+  </div>
+  <div class="question-text" id="questionText">Loading test question…</div>
+  <div class="question-stats">
+    DEPTH <strong id="depth">0</strong> ft · <span id="zone">Newsroom Lobby</span>
+    &nbsp;·&nbsp; SCORE <strong id="score">0</strong>
+  </div>
+  <div class="feedback" id="feedback">Any accepted answer counts. Less-obvious answers go deeper.</div>
 </div>
 
-<div class="controls">
-  <button type="button" data-jump="1">Common<br><small>1 floor</small></button>
-  <button type="button" data-jump="2" class="uncommon">Uncommon<br><small>2 floors</small></button>
-  <button type="button" data-jump="3" data-rare="1" class="rare">Rare<br><small>3 floors</small></button>
-  <button type="button" id="reset" class="reset" aria-label="Reset archive depth">↺</button>
-</div>
+<form class="answer-controls" id="answerForm" autocomplete="off">
+  <input id="answerInput" name="answer" type="text" inputmode="text" maxlength="80" placeholder="Type an answer…" aria-label="Deep Cut answer">
+  <button type="submit" id="submitAnswer">Submit</button>
+  <button type="button" id="reset" class="reset" aria-label="Restart test run">↺</button>
+</form>
 
 <div class="flash" id="flash"></div>
 <div class="burst" id="burst"></div>
@@ -269,6 +309,14 @@ button{font:inherit}
   const zoneEl=document.getElementById('zone');
   const flash=document.getElementById('flash');
   const burst=document.getElementById('burst');
+  const questionCountEl=document.getElementById('questionCount');
+  const timerEl=document.getElementById('timer');
+  const questionTextEl=document.getElementById('questionText');
+  const scoreEl=document.getElementById('score');
+  const feedbackEl=document.getElementById('feedback');
+  const answerForm=document.getElementById('answerForm');
+  const answerInput=document.getElementById('answerInput');
+  const submitAnswer=document.getElementById('submitAnswer');
 
   /* 25 real landing positions: start + 24 possible floors of descent. */
   const landings=[
@@ -306,8 +354,92 @@ button{font:inherit}
 
   const MAX_STOP=24;
   const FEET_PER_FLOOR=675;
+  const TEST_SECONDS=25;
+
+  const testQuestions=[
+    {
+      prompt:'Name a country beginning with B.',
+      answers:[
+        ['belgium',38],['brazil',42],['bolivia',55],['bulgaria',58],
+        ['bahamas',67],['bahrain',73],['barbados',78],['belize',82],
+        ['bosnia and herzegovina',86],['bosnia',86],['benin',88],
+        ['bhutan',91],['burkina faso',93],['botswana',94],['burundi',96],['brunei',100]
+      ]
+    },
+    {
+      prompt:'Name a planet or dwarf planet in our Solar System.',
+      answers:[
+        ['earth',30],['mars',35],['jupiter',38],['saturn',40],['mercury',48],['venus',50],
+        ['uranus',62],['neptune',65],['pluto',70],['ceres',88],['eris',90],
+        ['makemake',93],['haumea',96]
+      ]
+    },
+    {
+      prompt:'Name a play by William Shakespeare.',
+      answers:[
+        ['hamlet',30],['romeo and juliet',32],['macbeth',35],['othello',45],
+        ['king lear',48],['julius caesar',52],['the tempest',60],['twelfth night',65],
+        ['much ado about nothing',68],['measure for measure',82],['cymbeline',88],
+        ['coriolanus',92],['pericles',96],['timon of athens',100]
+      ]
+    },
+    {
+      prompt:'Name a moon of Jupiter.',
+      answers:[
+        ['europa',32],['io',35],['ganymede',38],['callisto',42],
+        ['amalthea',66],['himalia',72],['thebe',78],['metis',82],
+        ['elara',86],['pasiphae',90],['carme',92],['ananke',94],
+        ['sinope',96],['lysithea',98],['leda',100],['adrastea',95]
+      ]
+    },
+    {
+      prompt:'Name a dinosaur genus.',
+      answers:[
+        ['tyrannosaurus',30],['t rex',30],['trex',30],['triceratops',34],['velociraptor',38],
+        ['stegosaurus',42],['brachiosaurus',48],['ankylosaurus',52],['spinosaurus',58],
+        ['allosaurus',62],['parasaurolophus',68],['deinonychus',74],['carnotaurus',80],
+        ['therizinosaurus',86],['microraptor',92],['monolophosaurus',96],['yi',100]
+      ]
+    },
+    {
+      prompt:'Name a world capital beginning with M.',
+      answers:[
+        ['madrid',32],['moscow',36],['manila',40],['mexico city',44],
+        ['minsk',58],['muscat',64],['maputo',72],['montevideo',76],
+        ['mogadishu',82],['monrovia',86],['male',90],['malé',90],
+        ['moroni',94],['mbabane',100]
+      ]
+    },
+    {
+      prompt:'Name a country in Africa.',
+      answers:[
+        ['south africa',30],['egypt',32],['nigeria',35],['kenya',38],['morocco',42],
+        ['ethiopia',46],['ghana',52],['tanzania',58],['senegal',64],['botswana',68],
+        ['namibia',72],['rwanda',76],['lesotho',86],['benin',88],
+        ['djibouti',92],['eswatini',94],['comoros',96],['sao tome and principe',100],
+        ['são tomé and príncipe',100]
+      ]
+    },
+    {
+      prompt:'Name a U.S. national park.',
+      answers:[
+        ['yellowstone',30],['yosemite',32],['grand canyon',34],['zion',38],
+        ['glacier',42],['acadia',46],['olympic',52],['sequoia',56],
+        ['great smoky mountains',58],['joshua tree',62],['everglades',66],
+        ['great basin',82],['dry tortugas',86],['congaree',90],
+        ['guadalupe mountains',92],['isle royale',94],['kobuk valley',98],
+        ['gates of the arctic',100]
+      ]
+    }
+  ];
+
   let stop=0;
   let resizeTimer=0;
+  let questionIndex=0;
+  let totalScore=0;
+  let answered=false;
+  let timerHandle=0;
+  let deadline=0;
 
   function landingWorldY(item){
     const scene=scenes[item.scene];
@@ -377,17 +509,153 @@ button{font:inherit}
     setTimeout(()=>burst.replaceChildren(),620);
   }
 
-  document.querySelectorAll('[data-jump]').forEach(button=>{
-    button.addEventListener('click',()=>{
-      stop=Math.min(MAX_STOP,stop+Number(button.dataset.jump||1));
+  function normalizeAnswer(value){
+    return String(value||'')
+      .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+      .toLowerCase()
+      .replace(/&/g,' and ')
+      .replace(/[^a-z0-9]+/g,' ')
+      .trim()
+      .replace(/\s+/g,' ');
+  }
+
+  const answerMaps=testQuestions.map(q=>{
+    const map=new Map();
+    for(const [answer,score] of q.answers)map.set(normalizeAnswer(answer),score);
+    return map;
+  });
+
+  function floorsForScore(score){
+    if(score>=85)return 3;
+    if(score>=60)return 2;
+    return 1;
+  }
+
+  function rarityForScore(score){
+    if(score>=100)return 'DEEPEST CUT';
+    if(score>=85)return 'RARE';
+    if(score>=60)return 'UNCOMMON';
+    return 'COMMON';
+  }
+
+  function stopTimer(){
+    if(timerHandle){
+      clearTimeout(timerHandle);
+      timerHandle=0;
+    }
+  }
+
+  function tickTimer(){
+    if(answered||questionIndex>=testQuestions.length)return;
+    const remaining=Math.max(0,Math.ceil((deadline-Date.now())/1000));
+    timerEl.textContent=String(remaining);
+    if(remaining<=0){
+      finishPrompt(null,0,true);
+      return;
+    }
+    const untilNext=Math.max(120,Math.min(1000,(deadline-Date.now())%1000||1000));
+    timerHandle=setTimeout(tickTimer,untilNext);
+  }
+
+  function startTimer(){
+    stopTimer();
+    deadline=Date.now()+(TEST_SECONDS*1000);
+    timerEl.textContent=String(TEST_SECONDS);
+    timerHandle=setTimeout(tickTimer,180);
+  }
+
+  function renderQuestion(){
+    const q=testQuestions[questionIndex];
+    answered=false;
+    questionCountEl.textContent='QUESTION '+(questionIndex+1)+' OF '+testQuestions.length;
+    questionTextEl.textContent=q.prompt;
+    feedbackEl.className='feedback';
+    feedbackEl.textContent='Any accepted answer counts. Invalid guesses do not end the prompt.';
+    answerInput.disabled=false;
+    submitAnswer.disabled=false;
+    submitAnswer.textContent='Submit';
+    answerInput.value='';
+    startTimer();
+  }
+
+  function completeRun(){
+    stopTimer();
+    answered=true;
+    questionCountEl.textContent='RUN COMPLETE';
+    timerEl.textContent='—';
+    questionTextEl.textContent=stop===MAX_STOP
+      ? 'You reached The Final Shelf.'
+      : 'Your archive run ended at '+landings[stop].zone+'.';
+    feedbackEl.className='feedback good';
+    feedbackEl.textContent='FINAL SCORE '+totalScore+' / 800 · '+stop+' / 24 FLOORS DESCENDED';
+    answerInput.value='';
+    answerInput.placeholder='Run complete';
+    answerInput.disabled=true;
+    submitAnswer.disabled=true;
+    submitAnswer.textContent='Done';
+  }
+
+  function advanceQuestion(){
+    questionIndex++;
+    if(questionIndex>=testQuestions.length){
+      completeRun();
+      return;
+    }
+    renderQuestion();
+    if(document.activeElement===answerInput){
+      try{answerInput.focus({preventScroll:true})}catch(_){answerInput.focus()}
+    }
+  }
+
+  function finishPrompt(answer,score,timedOut=false){
+    if(answered)return;
+    answered=true;
+    stopTimer();
+    answerInput.disabled=true;
+    submitAnswer.disabled=true;
+
+    if(timedOut){
+      feedbackEl.className='feedback bad';
+      feedbackEl.textContent='TIME · NO DESCENT';
+    }else{
+      const floors=floorsForScore(score);
+      const rarity=rarityForScore(score);
+      totalScore+=score;
+      stop=Math.min(MAX_STOP,stop+floors);
+      scoreEl.textContent=String(totalScore);
+      feedbackEl.className='feedback good';
+      feedbackEl.textContent=(answer||'ANSWER').toUpperCase()+' · '+rarity+' · '+score+' PTS · '+floors+' FLOOR'+(floors===1?'':'S');
       apply();
-      if(button.dataset.rare)rareBurst();
-    });
+      if(score>=85)rareBurst();
+    }
+
+    setTimeout(advanceQuestion,1150);
+  }
+
+  answerForm.addEventListener('submit',event=>{
+    event.preventDefault();
+    if(answered||questionIndex>=testQuestions.length)return;
+    const normalized=normalizeAnswer(answerInput.value);
+    if(!normalized)return;
+    const score=answerMaps[questionIndex].get(normalized);
+    if(!score){
+      feedbackEl.className='feedback bad';
+      feedbackEl.textContent='NOT IN THIS TEST SET — KEEP GUESSING';
+      answerInput.select();
+      return;
+    }
+    finishPrompt(answerInput.value.trim(),score,false);
   });
 
   document.getElementById('reset').addEventListener('click',()=>{
+    stopTimer();
     stop=0;
+    questionIndex=0;
+    totalScore=0;
+    scoreEl.textContent='0';
+    answerInput.placeholder='Type an answer…';
     apply();
+    renderQuestion();
   });
 
   window.addEventListener('resize',()=>{
@@ -406,6 +674,7 @@ button{font:inherit}
   else setTimeout(warmLater,900);
 
   apply();
+  renderQuestion();
 })();
 </script>
 </body>
