@@ -35,12 +35,6 @@ button{font:inherit}
   transition:transform 930ms cubic-bezier(.18,.88,.22,1);
   backface-visibility:hidden;
 }
-.roof-fill{
-  height:44vh;
-  background:
-    linear-gradient(to bottom,rgba(88,59,35,.78),rgba(29,23,25,.4)),
-    repeating-linear-gradient(0deg,rgba(235,190,106,.025) 0 1px,transparent 1px 5px);
-}
 .art-window{
   position:relative;
   width:100%;
@@ -88,13 +82,6 @@ button{font:inherit}
 }
 .baked-car-cover::before{left:43%}
 .baked-car-cover::after{right:43%}
-.abyss-fill{
-  height:54vh;
-  margin-top:-1px;
-  background:
-    radial-gradient(circle at 50% 0,rgba(88,54,150,.22),transparent 42%),
-    linear-gradient(to bottom,#10101a,#06060b 70%);
-}
 .retro-wash{
   position:fixed;inset:0;z-index:5;pointer-events:none;
   background:
@@ -126,6 +113,7 @@ button{font:inherit}
 .elevator{
   position:fixed;z-index:12;left:50%;top:50%;
   transform:translate(-50%,-50%);
+  transition:top 930ms cubic-bezier(.18,.88,.22,1);
   pointer-events:none;
   display:grid;place-items:center;
   filter:sepia(.08) saturate(.92) drop-shadow(0 7px 8px rgba(0,0,0,.38));
@@ -214,14 +202,13 @@ button{font:inherit}
   .readout{bottom:76px}
 }
 @media(prefers-reduced-motion:reduce){
-  .world,.flash,.spark{transition-duration:1ms}
+  .world,.elevator,.flash,.spark{transition-duration:1ms}
 }
 </style>
 </head>
 <body>
 <div class="stage">
   <div class="world" id="world">
-    <div class="roof-fill"></div>
     <div class="art-window" id="artWindow">
       <img
         class="world-art"
@@ -236,7 +223,6 @@ button{font:inherit}
       >
       <div class="baked-car-cover" aria-hidden="true"></div>
     </div>
-    <div class="abyss-fill"></div>
   </div>
 </div>
 
@@ -289,6 +275,7 @@ button{font:inherit}
   const zoneEl=document.getElementById('zone');
   const flash=document.getElementById('flash');
   const burst=document.getElementById('burst');
+  const card=document.querySelector('.card');
 
   const CROP_SOURCE_H=1346;
   const FIRST_LANDING_SOURCE_Y=49;
@@ -315,19 +302,38 @@ button{font:inherit}
   }
 
   function landingWorldY(index){
-    const roof=artWindow.offsetTop;
     const scale=artWindow.offsetHeight/CROP_SOURCE_H;
-    return roof+(sourceLandingY(index)*scale);
+    return sourceLandingY(index)*scale;
   }
 
-  function targetFloorY(){
-    const rect=elevator.getBoundingClientRect();
-    return rect.bottom-2;
+  function cameraAnchorY(){
+    return Math.min(window.innerHeight*.49,window.innerHeight-230);
+  }
+
+  function topWorldLimit(){
+    const cardBottom=card?card.getBoundingClientRect().bottom:86;
+    return Math.max(92,cardBottom+10);
   }
 
   function apply(){
-    const y=targetFloorY()-landingWorldY(stop);
-    world.style.transform='translate3d(-50%,'+Math.round(y)+'px,0)';
+    const landingY=landingWorldY(stop);
+    const desiredWorldY=cameraAnchorY()-landingY;
+
+    /*
+      Never drag the top of the artwork down into the middle of the viewport.
+      Early floors stay pinned directly below the title; after the selected
+      landing reaches the camera anchor, the world begins scrolling normally.
+    */
+    const worldY=Math.min(topWorldLimit(),desiredWorldY);
+    world.style.transform='translate3d(-50%,'+Math.round(worldY)+'px,0)';
+
+    /*
+      While the camera is top-clamped, move the elevator to the actual floor.
+      Once scrolling begins it naturally settles at the camera anchor.
+    */
+    const landingScreenY=worldY+landingY;
+    elevator.style.top=Math.round(landingScreenY-(floorPitchPx/2)+2)+'px';
+
     depthEl.textContent=(stop*FEET_PER_FLOOR).toLocaleString();
     zoneEl.textContent=zones[stop];
   }
