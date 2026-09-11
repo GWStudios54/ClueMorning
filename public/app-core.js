@@ -68,7 +68,7 @@ function selectTab(id){
   if(id==="archive")renderArchive();
   if(id==="leaders")loadLeaderboard();
   if(id==="unlimited")renderUnlimitedLibrary();
-  if(id==="deepcut")requestAnimationFrame(renderDeepCutArchive);
+  if(id==="deepcut"){warmDeepCutArchive();requestAnimationFrame(renderDeepCutArchive)}
 }
 $$('.tab').forEach(b=>b.addEventListener('click',()=>selectTab(b.dataset.tab)));
 $$('[data-open]').forEach(b=>b.addEventListener('click',()=>selectTab(b.dataset.open)));
@@ -324,6 +324,13 @@ function renderDeepCutArchive(){
   if(doneDepth)doneDepth.textContent=String(stop);
   if(doneZone)doneZone.textContent=item.zone;
 }
+let deepCutArchiveWarmed=false,deepCutArchiveResizeRaf=0;
+function warmDeepCutArchive(){
+  if(deepCutArchiveWarmed)return;
+  const stack=$('#deepCutArchiveStack');if(!stack)return;
+  deepCutArchiveWarmed=true;
+  for(const img of stack.querySelectorAll('img[loading="lazy"]')){const preload=new Image();preload.src=img.src}
+}
 function deepCutArchivePulse(score){
   if((Number(score)||0)<85)return;
   const flash=$('#deepCutArchiveFlash');if(!flash)return;
@@ -350,7 +357,7 @@ function renderDeepCut(){
 function armDeepCutTimer(){clearInterval(deepCutTick);deepCutTick=setInterval(()=>{const s=day?.deepcut;if(!s?.started||s.done){clearInterval(deepCutTick);return}const left=remainingDeepCut();$('#deepCutTimer').textContent=fmtTime(left);if(left<=0)void timeoutDeepCut()},250)}
 function finishDeepCut(){const s=day.deepcut;s.started=false;s.done=true;s.deadline=0;clearInterval(deepCutTick);renderDeepCut()}
 async function timeoutDeepCut(){const s=day.deepcut;if(deepCutBusy||!s.started||s.done||remainingDeepCut()>0)return;deepCutBusy=true;const prompt=deepCutPrompt();s.answers.push({promptId:prompt?.id||'',prompt:prompt?.prompt||'',answer:'',accepted:false,timedOut:true,tier:'TIME',score:0});s.round++;$('#deepCutMessage').className='message bad';$('#deepCutMessage').textContent='Time. No descent for that prompt.';if(s.round>=daily.deepcut.rounds){deepCutBusy=false;finishDeepCut();return}s.deadline=Date.now()+daily.deepcut.seconds*1000;deepCutBusy=false;renderDeepCut();$('#deepCutInput').focus()}
-$('#deepCutStart').addEventListener('click',()=>{const s=day.deepcut;if(s.done)return;s.started=true;s.deadline=Date.now()+daily.deepcut.seconds*1000;$('#deepCutMessage').className='message';$('#deepCutMessage').textContent='Think past the first obvious answer. The Archive rewards deeper cuts.';renderDeepCut();armDeepCutTimer();$('#deepCutInput').focus()});
+$('#deepCutStart').addEventListener('click',()=>{const s=day.deepcut;if(s.done)return;warmDeepCutArchive();s.started=true;s.deadline=Date.now()+daily.deepcut.seconds*1000;$('#deepCutMessage').className='message';$('#deepCutMessage').textContent='Think past the first obvious answer. The Archive rewards deeper cuts.';renderDeepCut();armDeepCutTimer();$('#deepCutInput').focus()});
 $('#deepCutForm').addEventListener('submit',async e=>{
   e.preventDefault();const s=day.deepcut;if(deepCutBusy||!s.started||s.done)return;const prompt=deepCutPrompt(),input=$('#deepCutInput'),answer=input.value.trim();if(!answer){$('#deepCutMessage').className='message bad';$('#deepCutMessage').textContent='Type one answer before you submit.';return}deepCutBusy=true;input.disabled=true;
   try{
@@ -366,6 +373,11 @@ $('#deepCutForm').addEventListener('submit',async e=>{
     s.deadline=Date.now()+daily.deepcut.seconds*1000;deepCutBusy=false;renderDeepCut();deepCutArchivePulse(item.score);$('#deepCutInput').focus();
   }catch(err){deepCutBusy=false;input.disabled=false;$('#deepCutMessage').className='message bad';$('#deepCutMessage').textContent=err.message}
 });
+window.addEventListener('resize',()=>{
+  if(!$('#deepcut')?.classList.contains('active'))return;
+  cancelAnimationFrame(deepCutArchiveResizeRaf);
+  deepCutArchiveResizeRaf=requestAnimationFrame(renderDeepCutArchive);
+},{passive:true});
 
 
 // Leaderboard
@@ -490,7 +502,7 @@ const help={
   trail:'<h2>Letter Trail</h2><p>Trace any dictionary English word of at least three letters by tapping or smoothly dragging toward touching tiles. Horizontal, vertical, and diagonal moves count; a tile cannot repeat inside one word. Drag back one tile to correct a path. Every valid word scores.</p>',
   link:'<h2>Triple Link</h2><p>One word makes a familiar phrase or compound with all three clues. You get three guesses. If you miss, the answer and all three completed links are revealed.</p>',
   steps:'<h2>Word Steps</h2><p>Start with one four-letter word and reach the target by changing exactly one letter at a time. Every intermediate step must be a recognized word. You can undo moves; solve within eight moves for points.</p>',
-  deepcut:'<h2>Deep Cut</h2><p>Eight quick open-answer trivia prompts. You get 25 seconds for each one. Invalid guesses do not end the prompt, so keep trying until you find a valid answer or time runs out. Correct answers score from 30 to 100 points: familiar answers score less, while less-obvious valid answers score more.</p>'
+  deepcut:'<h2>Deep Cut</h2><p>Eight quick open-answer trivia prompts. You get 25 seconds for each one. Invalid guesses do not end the prompt, so keep trying until you find a valid answer or time runs out. Correct answers score from 30 to 100 points. Common answers descend one Archive floor, stronger cuts descend two, and answers worth 85–100 descend three. Eight perfect answers reach the Final Shelf.</p>'
 };
 $$('[data-help]').forEach(b=>b.addEventListener('click',()=>{$('#helpContent').innerHTML=help[b.dataset.help];$('#helpDialog').showModal()}));
 
