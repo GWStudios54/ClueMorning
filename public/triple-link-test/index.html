@@ -281,12 +281,14 @@
       .shell{border-radius:10px}
     }
   
-    /* Final clean-background alignment: all gameplay copy is live; attempt bulbs are baked OFF. */
+    /* Final clean-background alignment: clean painted panels + live game lighting. */
     .back{
-      left:3.4%;top:1.35%;width:24.4%;height:5%;
-      padding-left:15%;
+      left:8.0%;top:1.35%;width:19.2%;height:5%;
+      padding:0;
+      display:flex;align-items:center;justify-content:center;text-align:center;
       color:#f1d69b;
-      font-size:clamp(8px,2.35vw,13px);
+      font-size:clamp(8px,2.15vw,12px);
+      white-space:nowrap;overflow:hidden;
     }
     .back span{margin:0}
     .title{
@@ -301,7 +303,10 @@
     }
     .subhead,.caption{display:none}
 
-    .stat{top:11.45%;height:5.25%}
+    .stat{
+      top:11.45%;height:5.25%;
+      display:flex;align-items:center;justify-content:center;text-align:center;
+    }
     .score{left:15.55%;width:21.5%}
     .streak{left:39.65%;width:20.2%}
     .tries{left:61.55%;width:21.6%}
@@ -310,9 +315,11 @@
 
     .clue{
       top:34.0%;height:3.45%;
-      padding:0 7%;
+      display:flex;align-items:center;justify-content:center;text-align:center;
+      padding:0 5%;
       font-size:clamp(10px,2.75vw,16px);
       letter-spacing:.07em;
+      white-space:nowrap;overflow:hidden;
     }
     .clue.one{left:15.25%;width:20.7%}
     .clue.two{left:39.55%;width:20.55%}
@@ -320,14 +327,19 @@
 
     .answer{
       left:35.85%;top:47.7%;width:26.7%;height:5.15%;
-      padding:0 8%;
+      display:flex;align-items:center;justify-content:center;text-align:center;
+      padding:0 6%;
       font-size:clamp(13px,4vw,23px);
+      white-space:nowrap;overflow:hidden;
     }
 
     .attempt-label{
       left:38%;top:55.45%;width:24%;height:2%;
+      display:flex;align-items:center;justify-content:center;text-align:center;
       font-size:clamp(6px,1.65vw,9px);
     }
+
+    /* Bulbs are painted OFF. These transparent nodes only add illumination. */
     .attempt{
       z-index:13;
       top:58.2%;
@@ -338,53 +350,94 @@
       opacity:0;
       transform:none!important;
       filter:none!important;
-      transition:opacity .16s ease;
+      box-shadow:none!important;
+      transition:opacity .18s ease;
+      pointer-events:none;
     }
-    .attempt.a1{left:36.6%}
-    .attempt.a2{left:45.7%}
-    .attempt.a3{left:54.9%}
-    .attempt::before,.attempt::after{content:none}
+    .attempt.a1{left:37.2%}
+    .attempt.a2{left:46.3%}
+    .attempt.a3{left:55.5%}
+    .attempt::before,.attempt::after{content:none!important}
+
     .attempt.on,.success .attempt{opacity:1}
+
+    /* Wide amber halo around the physical bulb. */
     .attempt.on::before,.success .attempt::before{
-      content:"";
+      content:""!important;
       position:absolute;
-      inset:-45%;
+      inset:-105%;
       border-radius:50%;
       background:radial-gradient(circle,
-        rgba(255,250,201,.96) 0 10%,
-        rgba(255,220,105,.78) 16%,
-        rgba(255,174,54,.48) 27%,
-        rgba(255,129,28,.20) 43%,
+        rgba(255,251,218,.72) 0 7%,
+        rgba(255,224,126,.62) 13%,
+        rgba(255,184,69,.43) 24%,
+        rgba(255,137,34,.21) 39%,
+        rgba(255,112,24,.08) 52%,
         transparent 70%);
-      box-shadow:0 0 7px rgba(255,201,74,.65);
-      filter:blur(.6px);
+      filter:blur(2px);
       mix-blend-mode:screen;
+      pointer-events:none;
+    }
+
+    /* Brightens the baked-off glass itself without redrawing the bulb. */
+    .attempt.on::after,.success .attempt::after{
+      content:""!important;
+      position:absolute;
+      left:23%;
+      top:18%;
+      width:54%;
+      height:54%;
+      border-radius:50%;
+      background:radial-gradient(circle at 40% 34%,
+        rgba(255,255,244,.98) 0 10%,
+        rgba(255,247,184,.94) 20%,
+        rgba(255,215,104,.76) 38%,
+        rgba(255,174,60,.40) 57%,
+        transparent 78%);
+      box-shadow:
+        0 0 5px rgba(255,232,143,.95),
+        0 0 12px rgba(255,188,74,.78),
+        0 0 24px rgba(255,143,36,.35);
+      filter:blur(.25px);
+      mix-blend-mode:screen;
+      pointer-events:none;
     }
 
     .feedback{
       left:13%;top:64.0%;width:74%;min-height:2.5%;
+      display:flex;align-items:center;justify-content:center;text-align:center;
       padding:0 .55em;
       background:rgba(8,9,14,.58);
       font-size:clamp(7px,1.7vw,10px);
     }
     .result{
       left:13%;top:64.0%;width:74%;min-height:2.5%;
+      display:flex;align-items:center;justify-content:center;text-align:center;
       padding:0 .55em;
       font-size:clamp(7px,1.7vw,10px);
     }
 
-    .entry{left:18.35%;top:67.75%;width:62.5%;height:4.8%}
+    .entry{
+      left:18.35%;top:67.75%;width:62.5%;height:4.8%;
+      display:flex;align-items:center;justify-content:center;
+    }
     .entry input{
+      width:100%;height:100%;
       padding:0 6%;
       font-size:clamp(12px,3.45vw,20px);
       background:transparent;
+      text-align:center;
     }
+    .entry input::placeholder{text-align:center}
+
     .connect{
       left:18.35%;top:73.7%;width:40.4%;height:4.75%;
+      display:flex;align-items:center;justify-content:center;text-align:center;
       font-size:clamp(10px,2.9vw,17px);
     }
     .clear{
       left:61.15%;top:73.7%;width:19.3%;height:4.75%;
+      display:flex;align-items:center;justify-content:center;text-align:center;
       font-size:clamp(8px,2.25vw,13px);
     }
 
@@ -608,6 +661,6 @@
     requestAnimationFrame(fitSwitchboardText);
   })();
   </script>
-  <!-- switchboard-test-build: 2026-09-11j final-clean-background -->
+  <!-- switchboard-test-build: 2026-09-11k live-lighting-centered-text -->
 </body>
 </html>
