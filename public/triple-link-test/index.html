@@ -60,7 +60,7 @@
     }
     .back span{margin-left:.42em}
     .title{
-      left:29.5%;top:1.1%;width:41%;height:6.9%;
+      left:27%;top:1.1%;width:46%;height:6.9%;
       flex-direction:column;gap:.08em;pointer-events:none;
     }
     .title small{
@@ -68,8 +68,8 @@
       letter-spacing:.18em;color:#d5aa65;
     }
     .title strong{
-      display:block;font:700 clamp(14px,4.4vw,25px)/1 Georgia,serif;
-      color:#f2d49a;letter-spacing:.035em;text-shadow:0 2px 0 #3a210f;
+      display:block;font:700 clamp(13px,4.05vw,23px)/1 Georgia,serif;
+      color:#f2d49a;letter-spacing:.02em;text-shadow:0 2px 0 #3a210f;
     }
     .reset{
       left:86.3%;top:1.1%;width:10.2%;height:5.4%;
@@ -130,9 +130,11 @@
     .attempt.off{opacity:0;transform:scale(.78);filter:none}
 
     .feedback{
-      left:19%;top:65.1%;width:62%;height:3.2%;
-      color:#f2ddbc;font:900 clamp(6px,1.75vw,10px)/1.1 "Courier New",monospace;
-      text-shadow:0 2px 3px rgba(0,0,0,.95);pointer-events:none;
+      left:15%;top:64.55%;width:70%;height:3.25%;
+      padding:0 .55em;border-radius:5px;
+      background:rgba(8,9,14,.72);
+      color:#f4e5c9;font:900 clamp(7px,1.95vw,11px)/1.1 "Courier New",monospace;
+      text-shadow:0 2px 3px rgba(0,0,0,.98);pointer-events:none;
     }
     .feedback.good{color:#ffe18b}.feedback.bad{color:#f1a090}
 
@@ -173,12 +175,12 @@
     }
 
     .result{
-      position:absolute;z-index:16;left:50%;top:61.6%;
-      width:min(78%,430px);transform:translateX(-50%) scale(.96);
+      position:absolute;z-index:16;left:50%;top:64.45%;
+      width:min(70%,390px);transform:translateX(-50%) scale(.96);
       padding:.5em .65em;border:1px solid rgba(229,177,89,.85);border-radius:6px;
       background:rgba(9,10,16,.93);box-shadow:0 6px 18px rgba(0,0,0,.5);
       color:#eadbc5;text-align:center;
-      font:900 clamp(6px,1.85vw,10px)/1.35 "Courier New",monospace;
+      font:900 clamp(7px,1.85vw,10px)/1.35 "Courier New",monospace;
       opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;
     }
     .result.show{opacity:1;transform:translateX(-50%) scale(1)}
@@ -211,7 +213,7 @@
       <button class="live reset fit" id="reset" type="button" aria-label="Reset test">↻</button>
       <div class="live subhead fit" id="subhead">One word connects all three.</div>
 
-      <div class="live stat score fit"><strong id="score">0</strong><span>SCORE</span></div>
+      <div class="live stat score fit"><strong id="score">1000</strong><span>SCORE</span></div>
       <div class="live stat streak fit"><strong>7</strong><span>STREAK</span></div>
       <div class="live stat tries fit"><strong id="tries">3/3</strong><span>TRIES</span></div>
 
@@ -242,7 +244,7 @@
   (() => {
     const ANSWER='SUN';
     const LINKS=['SUNFLOWER','SUNLIGHT','SUNSET'];
-    const SCORE=[0,600,400,250];
+    const AWARD=[0,1000,600,400],PROJECTED=[1000,600,400,0];
     let guesses=0,done=false;
 
     const $=s=>document.querySelector(s);
@@ -303,15 +305,19 @@
       done=true;
       input.disabled=true;
       $('#connect').disabled=true;
+      $('#clear').disabled=true;
       answer.textContent=ANSWER;
       if(won){
-        const points=SCORE[guesses]||250;
+        const points=AWARD[guesses]||0;
         $('#score').textContent=points;
         setFeedback('Connection complete.','good');
+        feedback.style.visibility='hidden';
         result.innerHTML='<strong>SUN</strong> → SUNFLOWER · SUNLIGHT · SUNSET';
         pulseSuccess();
       }else{
+        $('#score').textContent='0';
         setFeedback('Lines exhausted. The connection was SUN.','bad');
+        feedback.style.visibility='hidden';
         result.innerHTML='<strong>SUN</strong> → SUNFLOWER · SUNLIGHT · SUNSET';
         document.querySelectorAll('[data-clue]').forEach(el=>el.classList.add('connected'));
         answer.classList.add('locked');
@@ -329,6 +335,7 @@
       if(guess===ANSWER){finish(true);return}
       if(guesses>=3){pulseWrong();finish(false);return}
       pulseWrong();
+      $('#score').textContent=String(PROJECTED[guesses]||0);
       setFeedback(guess+' does not connect all three. Try again.','bad');
       input.focus();
     }
@@ -336,9 +343,11 @@
       guesses=0;done=false;
       input.disabled=false;input.value='';
       $('#connect').disabled=false;
-      $('#score').textContent='0';
+      $('#clear').disabled=false;
+      $('#score').textContent='1000';
       answer.textContent='';answer.classList.remove('locked');
       result.classList.remove('show');result.innerHTML='';
+      feedback.style.visibility='';
       document.querySelectorAll('[data-clue]').forEach(el=>el.classList.remove('connected'));
       setFeedback('Three lines are waiting.');
       syncAttempts();
@@ -355,6 +364,6 @@
     syncAttempts();
   })();
   </script>
-  <!-- switchboard-test-build: 2026-09-11a -->
+  <!-- switchboard-test-build: 2026-09-11b mobile-polish -->
 </body>
 </html>
