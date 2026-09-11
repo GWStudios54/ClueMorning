@@ -244,7 +244,7 @@
   (() => {
     const ANSWER='SUN';
     const LINKS=['SUNFLOWER','SUNLIGHT','SUNSET'];
-    const SCORE=[1000,600,400,250];
+    const AWARD=[0,1000,600,400],PROJECTED=[1000,600,400,0];
     let guesses=0,done=false;
 
     const $=s=>document.querySelector(s);
@@ -308,7 +308,7 @@
       $('#clear').disabled=true;
       answer.textContent=ANSWER;
       if(won){
-        const points=SCORE[guesses]||250;
+        const points=AWARD[guesses]||0;
         $('#score').textContent=points;
         setFeedback('Connection complete.','good');
         feedback.style.visibility='hidden';
@@ -335,7 +335,7 @@
       if(guess===ANSWER){finish(true);return}
       if(guesses>=3){pulseWrong();finish(false);return}
       pulseWrong();
-      $('#score').textContent=String(SCORE[guesses]||0);
+      $('#score').textContent=String(PROJECTED[guesses]||0);
       setFeedback(guess+' does not connect all three. Try again.','bad');
       input.focus();
     }
