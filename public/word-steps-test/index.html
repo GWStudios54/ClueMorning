@@ -56,6 +56,187 @@
     html.painted-ready .loading-note{opacity:0;pointer-events:none}
     @media(max-width:420px){.topbar{gap:7px}.back{width:46px;padding:0;font-size:0}.back::after{content:"←";font-size:1.1rem}.badge{padding:0 10px;font-size:.57rem}.title strong{font-size:1.18rem}.stats{top:calc(max(10px,env(safe-area-inset-top)) + 101px)}.goal{top:calc(max(10px,env(safe-area-inset-top)) + 168px)}.painted-frame{top:calc(max(10px,env(safe-area-inset-top)) + 201px)}.controls{padding:10px}.word-sign.micro{min-width:62px;font-size:.49rem}}
     @media(max-height:690px){.title{top:calc(max(6px,env(safe-area-inset-top)) + 49px)}.stats{top:calc(max(6px,env(safe-area-inset-top)) + 94px)}.stat{min-height:54px}.goal{top:calc(max(6px,env(safe-area-inset-top)) + 154px)}.painted-frame{top:calc(max(6px,env(safe-area-inset-top)) + 188px)}.controls{padding:9px}.prompt{margin-bottom:6px}.actions{margin-top:6px}.message{margin-top:6px}}
+
+    /* Art-unification pass: every live overlay now uses the same navy/brass storybook language as the painted city. */
+    :root{--brass:#c9964a;--brass-hi:#f0c76f;--brass-dim:#7f5c31;--night:#090d18;--night-2:#111725;--teal:#29464a}
+    .topbar button,.badge,.stat,.goal,.controls{
+      border-color:var(--brass);
+      background:
+        linear-gradient(180deg,rgba(18,23,36,.97),rgba(7,10,18,.985));
+      box-shadow:
+        0 0 0 1px #080a11,
+        0 0 0 3px rgba(79,55,31,.72),
+        inset 0 0 0 1px rgba(242,198,112,.16),
+        0 10px 26px rgba(0,0,0,.34)
+    }
+    .topbar button,.badge,.goal,.stat,.controls{border-radius:8px}
+    .topbar button{color:#ead8b9}
+    .badge{color:var(--brass-hi)!important;letter-spacing:.18em}
+    .title small{color:#d9cbbd}
+    .title strong,.stat strong,.goal b{color:var(--brass-hi)}
+    .stat span,.goal{color:#d8c9bb}
+    .painted-frame{
+      border-top:1px solid rgba(210,164,84,.28);
+      border-bottom:1px solid rgba(210,164,84,.28);
+      box-shadow:0 22px 50px rgba(0,0,0,.42)
+    }
+
+    /* Hide the baked traveler with an in-world hanging guild banner instead of a flat UI patch. */
+    .art-character-cover{
+      left:36.6%;top:37.1%;width:13.7%;height:18.8%;
+      border:1px solid #9e7438;border-radius:2px 2px 11px 11px;
+      background:
+        radial-gradient(circle at 50% 18%,rgba(220,170,87,.18),transparent 24%),
+        linear-gradient(90deg,#0a1d37,#10284a 50%,#0a1b34);
+      box-shadow:
+        inset 0 0 0 2px rgba(8,12,20,.72),
+        inset 0 0 22px rgba(0,0,0,.38),
+        0 5px 12px rgba(0,0,0,.34)
+    }
+    .art-character-cover::before{
+      content:"✦";top:21%;font-size:1.08rem;color:#d4a34f;
+      text-shadow:0 1px 0 #4c3219,0 0 10px rgba(228,176,82,.22)
+    }
+    .art-character-cover::after{
+      bottom:-11px;border-left-width:18px;border-right-width:18px;border-top:11px solid #0b1e38
+    }
+
+    /* Painted brass word plaques. */
+    .plate-cover{
+      border:1px solid var(--brass);
+      border-radius:5px;
+      background:linear-gradient(180deg,rgba(18,22,32,.99),rgba(8,11,18,.995));
+      box-shadow:
+        0 0 0 2px #080a10,
+        0 0 0 3px rgba(156,108,55,.72),
+        inset 0 0 0 1px rgba(244,201,116,.13),
+        0 7px 16px rgba(0,0,0,.38)
+    }
+    .word-sign{
+      min-width:94px;padding:7px 12px;
+      border:1px solid var(--brass);border-radius:4px;
+      background:
+        linear-gradient(180deg,rgba(17,21,31,.99),rgba(7,10,16,.995));
+      color:#eadbc9;
+      font:700 clamp(.61rem,2.8vw,.79rem)/1 Georgia,"Times New Roman",serif;
+      letter-spacing:.14em;
+      text-shadow:0 1px 0 #000;
+      box-shadow:
+        0 0 0 2px #070910,
+        0 0 0 3px rgba(156,108,55,.72),
+        inset 0 0 0 1px rgba(244,201,116,.14),
+        0 7px 16px rgba(0,0,0,.4)
+    }
+    .word-sign::before,.word-sign::after{
+      content:"◆";position:absolute;top:50%;transform:translateY(-51%);
+      color:#b9833f;font-size:.38rem;text-shadow:none
+    }
+    .word-sign::before{left:5px}.word-sign::after{right:5px}
+    .word-sign.current{
+      color:#ffd98c;border-color:#efc46b;
+      transform:translate(-50%,-50%) scale(1.08);
+      box-shadow:
+        0 0 0 2px #090b11,
+        0 0 0 3px rgba(218,166,78,.82),
+        inset 0 0 12px rgba(225,169,75,.10),
+        0 0 18px rgba(242,190,99,.22),
+        0 8px 18px rgba(0,0,0,.42)
+    }
+    .word-sign.target{color:#f2cf84;border-color:#c69649}
+    .word-sign.micro{min-width:75px;padding:5px 10px;font-size:.55rem;opacity:.96}
+
+    /* Storybook climber: jacket, scarf, pack, belt and boots rather than flat geometric shapes. */
+    .climber{width:30px;height:52px;filter:drop-shadow(0 5px 5px rgba(0,0,0,.72))}
+    .climber-head{
+      left:10px;top:2px;width:12px;height:12px;
+      border:1px solid #5d3d2d;
+      background:
+        radial-gradient(circle at 63% 36%,#f1d2ad 0 34%,#d4aa83 70%),
+        #e0ba91;
+      box-shadow:-3px -2px 0 -1px #4c3028,2px -2px 0 -1px #4c3028
+    }
+    .climber-body{
+      left:5px;top:13px;width:21px;height:28px;
+      border:1px solid #493029;border-radius:5px 5px 3px 3px;
+      background:
+        linear-gradient(90deg,rgba(255,255,255,.08),transparent 26% 72%,rgba(0,0,0,.18)),
+        linear-gradient(#8c5746,#6f3f37 68%,#51332f);
+      box-shadow:
+        inset 0 -8px 0 -5px #b68a49,
+        -4px 8px 0 -2px #44312b,
+        4px 8px 0 -2px #44312b,
+        -4px 24px 0 -2px #202b3c,
+        4px 24px 0 -2px #202b3c
+    }
+    .climber-body::before{
+      content:"";position:absolute;left:2px;right:2px;top:15px;height:3px;
+      background:#34261f;border-top:1px solid #c49a52
+    }
+    .climber-bag{
+      left:22px;top:18px;width:10px;height:15px;
+      border:1px solid #1c2430;border-radius:3px;
+      background:
+        linear-gradient(135deg,rgba(255,255,255,.09),transparent 42%),
+        #34445c;
+      box-shadow:inset 0 0 0 1px rgba(207,171,102,.12)
+    }
+    .climber-scarf{
+      left:20px;top:15px;width:17px;height:5px;
+      background:linear-gradient(90deg,#c38b45,#e5bd68);
+      box-shadow:0 1px 0 #5c3a24;
+      transform-origin:left center
+    }
+
+    .controls{
+      border-radius:9px;padding:13px;
+      background:
+        linear-gradient(180deg,rgba(15,19,30,.985),rgba(7,10,17,.99))
+    }
+    .prompt{color:#e5d6c2;font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:.69rem;letter-spacing:.03em}
+    .prompt b{color:var(--brass-hi);font-weight:700}
+    input{
+      border:1px solid #b98a4a;border-radius:6px;
+      background:linear-gradient(180deg,#111724,#0a0f1a);
+      box-shadow:0 0 0 2px #070910,0 0 0 3px rgba(101,77,96,.55),inset 0 0 14px rgba(0,0,0,.3);
+      color:#f4e4c9;font-family:Georgia,"Times New Roman",serif;font-weight:600;letter-spacing:.15em
+    }
+    .add{
+      border:1px solid #bd9b5e;border-radius:6px;
+      background:linear-gradient(180deg,#315458,#223b40);
+      box-shadow:0 0 0 2px #070910,0 0 0 3px rgba(119,92,54,.58),inset 0 0 0 1px rgba(255,223,159,.1);
+      color:#f3dfb8;font-family:Georgia,"Times New Roman",serif;letter-spacing:.08em
+    }
+    .actions button{
+      border:1px solid #9d7440;border-radius:5px;
+      background:linear-gradient(180deg,#171b29,#0d111b);
+      box-shadow:0 0 0 1px #080a10,inset 0 0 0 1px rgba(240,199,111,.08);
+      color:#e0d3c2;font-family:Georgia,"Times New Roman",serif;font-weight:600;letter-spacing:.07em
+    }
+    .message{font-family:Georgia,"Times New Roman",serif;font-weight:500;letter-spacing:.03em;color:#d8c8b5}
+    .message.good{color:#e9c982}.message.bad{color:#dfa39b}
+
+    .complete{
+      position:relative;padding:10px 8px 8px
+    }
+    .complete.show::before,.complete.show::after{
+      content:"✦";position:absolute;top:10px;color:#b98642;font-size:.75rem
+    }
+    .complete.show::before{left:8%}.complete.show::after{right:8%}
+    .complete strong{
+      color:var(--brass-hi);
+      font:800 1.35rem/1 Georgia,"Times New Roman",serif;
+      letter-spacing:.04em;text-shadow:0 2px 0 #392610
+    }
+    .complete span{
+      color:#ddcfbd;font-family:Georgia,"Times New Roman",serif;font-weight:500;letter-spacing:.04em
+    }
+    .complete button{
+      border:1px solid #c09c5e;border-radius:6px;
+      background:linear-gradient(180deg,#315458,#223b40);
+      box-shadow:0 0 0 2px #070910,0 0 0 3px rgba(127,92,49,.48),inset 0 0 0 1px rgba(255,225,169,.1);
+      color:#f5dfb7;font-family:Georgia,"Times New Roman",serif;font-weight:700
+    }
+
   </style>
 </head>
 <body>
@@ -196,6 +377,6 @@
     loadPaintedWorld();renderAll();
   })();
   </script>
-  <!-- painted-world-build: 2026-09-11b -->
+  <!-- painted-world-build: 2026-09-11c unified-art -->
 </body>
 </html>
