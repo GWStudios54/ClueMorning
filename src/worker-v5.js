@@ -147,11 +147,8 @@ async function adminApi(request,env,path){
 }
 
 function legacyPlayRedirect(url){
-  const raw=String(url.searchParams.get('play')||'').toLowerCase();
-  const play=PLAY_TARGETS[raw]||'';
   const target=new URL('/',url);
   target.search='';
-  if(play)target.hash=`play=${play}`;
   return Response.redirect(target.toString(),301);
 }
 
@@ -168,8 +165,6 @@ async function polishDeepLinks(response,path){
   const type=response.headers.get('content-type')||'';
   if(!type.includes('text/html'))return response;
   let html=await response.text();
-  html=html.replaceAll('/?play=','/#play=');
-  if(path==='/games/last-call/')html=html.replace('href="/">Play today’s Last Call','href="/#play=lastcall">Play today’s Last Call');
   if(path==='/'||path==='/index.html'){
     // worker-v4 still injects the old duplicate run controller; v5 owns the lean runtime now.
     html=html.replace(/\s*<script[^>]+daily-run-v2\.js[^>]*><\/script>/gi,'');
@@ -178,7 +173,7 @@ async function polishDeepLinks(response,path){
       html=html.replace('</head>','<link rel="stylesheet" href="/retention-hooks.css?v=1">\n</head>');
     }
     if(!html.includes('/deep-link.js')){
-      html=html.replace('</body>','<script src="/deep-link.js?v=2" defer></script>\n</body>');
+      html=html.replace('</body>','<script src="/deep-link.js?v=3" defer></script>\n</body>');
     }
     if(!html.includes('/retention-hooks.js')){
       html=html.replace('</body>','<script src="/retention-hooks.js?v=2" defer></script>\n</body>');
