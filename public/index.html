@@ -26,7 +26,7 @@
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="four-groups-case-file.css?v=2">
-  <link rel="stylesheet" href="trail-cartographer.css?v=2">
+  <link rel="stylesheet" href="trail-cartographer.css?v=2">\n  <link rel="stylesheet" href="letter-typesetter.css?v=1">
 </head>
 <body>
 <svg class="icon-sprite" aria-hidden="true">
@@ -146,7 +146,7 @@
 
   <section id="letter" class="panel">
     <div class="panel-head"><div><span class="game-label">TODAY'S WORD</span><h2>Letter Grid</h2><p id="letterSubhead"></p></div><button class="round-button" data-help="letter" type="button" aria-label="Letter Grid help"><svg class="icon"><use href="#i-help"/></svg></button></div>
-    <div class="stats-row four"><div class="stat"><strong id="wordLength">—</strong><span>letters</span></div><div class="stat"><strong id="guessCount">0/6</strong><span>guesses</span></div><div class="stat"><strong id="letterScore">0</strong><span>score</span></div><div class="stat"><strong id="timer">0:00</strong><span>time</span></div></div>
+    <div class="stats-row four"><div class="stat"><strong id="wordLength">—</strong><span>letters</span></div><div class="stat"><strong id="guessCount">0/6</strong><span>guesses</span></div><div class="stat"><strong id="letterScore">0</strong><span>score</span></div><div class="stat"><strong id="letterBest">—</strong><span>best</span></div></div><span id="timer" hidden>0:00</span>
     <div id="guessBoard" class="guess-board"></div>
     <form id="guessForm" class="guess-form letter-guess-form"><label class="sr-only" for="guessInput">Type your Letter Grid guess</label><input id="guessInput" class="letter-capture-input" inputmode="text" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" aria-describedby="letterTypeHint"><button class="primary-button" type="submit"><svg class="icon"><use href="#i-arrow"/></svg><span>Submit guess</span></button></form><p id="letterTypeHint" class="letter-type-hint">Tap the active row, then type your guess.</p>
     <div id="keyboard" class="keyboard"></div><div id="letterMessage" class="message"></div>
