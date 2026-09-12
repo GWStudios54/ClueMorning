@@ -35,8 +35,14 @@ assert.ok(router.includes("stripHomepageRuntime(await response.text(),game)"),'p
 for(const runtime of ['word-controls','retention-hooks','presentation-v1','social','competition','homepage-guard','pwa']){
   assert.ok(router.includes(runtime),`dedicated runtime stripping is missing ${runtime}`);
 }
-assert.ok(router.includes('/app-core.js?v=dedicated-1'),'play pages must load the stable core directly, not app.js score-card wrapper');
+assert.ok(router.includes('/app-core.js?v=dedicated-2'),'play pages must load the stable core directly, not app.js score-card wrapper');
 assert.ok(router.includes('/game-page.css?v=1')&&router.includes('/game-page.js?v=1'),'play page shell assets are missing');
+const typesetter=read('./public/letter-typesetter.js');
+const typesetterCss=read('./public/letter-typesetter.css');
+assert.ok(typesetter.includes("typesetter-reset")&&typesetter.includes("reset.textContent='↻'"),'production Typesetter must retain the approved test reset control');
+assert.ok(typesetter.includes("const width=length*8.18"),'production Typesetter must retain approved variable proof width');
+assert.ok(typesetterCss.includes("#keyboard .key-row")&&typesetterCss.includes("nth-child(1) .key{width:9%}")&&typesetterCss.includes("nth-child(2) .key{width:9.9%}")&&typesetterCss.includes("nth-child(3) .key{width:12%}"),'production Typesetter must retain approved three-row keyboard geometry');
+assert.ok(typesetterCss.includes("top:31.05%")&&typesetterCss.includes("top:65.2%")&&typesetterCss.includes("top:76.35%"),'production Typesetter must retain approved proof, keyboard, and action positions');
 assert.ok(shell.includes("dataset.gameSession=game"),'dedicated controller must set explicit game session');
 assert.ok(shell.includes("location.assign('/')"),'dedicated games need a direct Morning Run exit');
 assert.ok(shellCss.includes('main.app>.panel.active')&&shellCss.includes('#today'),'dedicated CSS must expose only the selected game panel');
