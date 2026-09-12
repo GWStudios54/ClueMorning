@@ -7,6 +7,8 @@ const bridge=read('public/performance-bridge.js');
 const css=read('public/retention-hooks.css');
 const worker=read('src/worker-v5.js');
 const sw=read('public/sw.js');
+const presentation=read('public/presentation-v1.js');
+const app=read('public/app.js');
 
 function assert(condition,message){
   if(!condition)throw new Error(`Retention audit failed: ${message}`);
@@ -29,6 +31,12 @@ assert(hooks.includes("window.addEventListener('clue-lastcall-update'"),'Last Ca
 assert(hooks.includes('previousLastCallDone===false&&lastCallDone'),'Last Call toast transition guard is missing');
 assert(hooks.includes('shiftDateKey'),'date-only streak math is not hardened');
 assert(hooks.includes("window.addEventListener('clue:statechange'"),'retention UI is not connected to runtime state events');
+assert(hooks.includes("CustomEvent('clue:run-progress'"),'retention UI must publish authoritative run progress');
+assert(presentation.includes("window.addEventListener('clue:run-progress'"),'homepage presentation must consume authoritative run progress');
+assert(presentation.includes("window.addEventListener('clue:statechange'"),'homepage presentation must refresh from runtime state events');
+assert(!presentation.includes('new MutationObserver'),'homepage presentation must not watch the whole DOM');
+assert(!app.includes('new MutationObserver'),'score-card flow must not watch the whole app DOM');
+assert(app.includes("const CORE_SRC = '/app-core.js?v=3'"),'homepage must request the optimized core version');
 assert(!hooks.includes('new MutationObserver'),'retention UI must not watch the DOM');
 assert(!hooks.includes('setInterval('),'retention UI must not poll continuously');
 
