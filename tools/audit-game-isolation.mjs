@@ -9,7 +9,8 @@ const router=read('./src/worker-v5.js');
 
 const productionSkins=[
   'trail-cartographer.css?v=2','trail-cartographer.js?v=2',
-  'four-groups-case-file.css?v=2','four-groups-case-file.js?v=2'
+  'four-groups-case-file.css?v=2','four-groups-case-file.js?v=2',
+  'letter-typesetter.css?v=1','letter-typesetter.js?v=1'
 ];
 for(const asset of productionSkins){
   assert.ok(index.includes(asset),`Shared homepage should load gated skin ${asset}`);
@@ -21,7 +22,8 @@ assert.ok(core.includes("delete document.documentElement.dataset.gameSession"),
   'Returning to Today must destroy the active game session');
 for(const [path,session,bodyClass] of [
   ['./public/four-groups-case-file.js','groups','case-file-active'],
-  ['./public/trail-cartographer.js','trail','trail-cartographer-active']
+  ['./public/trail-cartographer.js','trail','trail-cartographer-active'],
+  ['./public/letter-typesetter.js','letter','letter-typesetter-active']
 ]){
   const source=read(path);
   assert.ok(source.includes(`dataset.gameSession==='${session}'`),
