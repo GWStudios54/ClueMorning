@@ -1,4 +1,4 @@
-const CACHE = 'clue-morning-pwa-v34';
+const CACHE = 'clue-morning-pwa-v35';
 const APP_SHELL = [
   '/',
   '/index.html',
@@ -74,8 +74,11 @@ self.addEventListener('fetch', event => {
 
   event.respondWith((async () => {
     try {
-      const networkRequest = url.pathname.startsWith('/triple-link-test/')
-        ? new Request(request, { cache: 'no-store' })
+      // Navigations must always revalidate. An older deployment briefly cached a
+      // game document at "/", which could otherwise keep reopening as the landing page.
+      const mustRevalidate = request.mode === 'navigate' || url.pathname === '/' || url.pathname === '/index.html';
+      const networkRequest = (mustRevalidate || url.pathname.startsWith('/triple-link-test/'))
+        ? new Request(request, { cache: 'reload' })
         : request;
       const response = await fetch(networkRequest);
       if (response.ok) {
