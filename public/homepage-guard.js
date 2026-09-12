@@ -18,7 +18,8 @@
     );
     document.body.classList.remove(
       'trail-cartographer-active',
-      'case-file-active'
+      'case-file-active',
+      'letter-typesetter-active'
     );
     document.querySelectorAll('dialog[open]').forEach(dialog=>dialog.close?.());
   }
