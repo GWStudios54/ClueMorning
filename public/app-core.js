@@ -63,6 +63,11 @@ function setStatus(id,done){const el=$(id);el.classList.toggle("done",done);el.i
 function immersiveSessionIs(id){
   return document.documentElement.dataset.gameSession===id&&!!$('#'+id)?.classList.contains('active');
 }
+function visualGameActive(id){
+  const dedicated=document.documentElement.dataset.gamePage||'';
+  if(dedicated)return dedicated===id;
+  return immersiveSessionIs(id)||!!$('#'+id)?.classList.contains('active');
+}
 function syncLinkImmersive({repairScroll=false}={}){
   const shouldBeImmersive=immersiveSessionIs('link');
   const wasImmersive=document.documentElement.classList.contains('link-immersive');
@@ -75,6 +80,7 @@ function syncDeepCutImmersive({repairScroll=false}={}){
   const shouldBeImmersive=immersiveSessionIs('deepcut');
   const wasImmersive=document.documentElement.classList.contains('deepcut-immersive');
   document.documentElement.classList.toggle('deepcut-immersive',shouldBeImmersive);
+  if(shouldBeImmersive)requestAnimationFrame(renderDeepCutArchive);
   if(repairScroll&&wasImmersive&&!shouldBeImmersive)window.scrollTo({top:0,behavior:'auto'});
   return shouldBeImmersive;
 }
@@ -302,7 +308,7 @@ function renderTrail(){
   renderTrailGrid();updateHome();
 }
 async function finishTrail(){const s=day.trail;if(s.done&&s.longest){renderTrail();return}s.done=true;clearInterval(trailTick);trailPath=[];try{const r=await api('/api/trail/reveal',{finished:true});s.longest=r.longest||''}catch{}renderTrail()}
-$('#trailStart').addEventListener('click',()=>{const s=day.trail;if(s.started)return;s.started=true;s.deadline=Date.now()+daily.trail.seconds*1000;saveState();renderTrail();trailTick=setInterval(()=>{if(remainingTrail()<=0)finishTrail();else $('#trailTimer').textContent=fmtTime(remainingTrail())},250)});
+$('#trailStart').addEventListener('click',()=>{const s=day.trail;if(s.started)return;s.started=true;s.deadline=Date.now()+daily.trail.seconds*1000;saveState();renderTrail();trailTick=setInterval(()=>{if(remainingTrail()<=0)finishTrail();else $('#trailTimer').textContent=fmtTime(remainingTrail())},1000)});
 $('#trailGrid').addEventListener('pointerdown',e=>{const cell=e.target.closest('.trail-cell');if(!cell||!day.trail.started||day.trail.done)return;e.preventDefault();try{$('#trailGrid').setPointerCapture(e.pointerId)}catch{}startTrailSelection(Number(cell.dataset.index),e.pointerId)});
 $('#trailGrid').addEventListener('pointermove',e=>{if(!trailDragging||!day.trail.started||day.trail.done||(trailPointerId!==null&&e.pointerId!==trailPointerId))return;e.preventDefault();extendTrailToward(e.clientX,e.clientY)});
 $('#trailGrid').addEventListener('pointerup',e=>{if(trailPointerId===e.pointerId){try{$('#trailGrid').releasePointerCapture(e.pointerId)}catch{}stopTrailSelection()}});
@@ -417,7 +423,7 @@ function linkPulseSuccess(){
 }
 function renderLink(){
   const s=day?.link;if(!s||!daily?.link)return;
-  void warmLinkSwitchboard();
+  if(visualGameActive('link'))void warmLinkSwitchboard();
   const clueClasses=['one','two','three'];
   $('#linkClues').innerHTML=daily.link.clues.map((raw,i)=>{
     const clean=String(raw||'').replace(/_+/g,' ').replace(/\s+/g,' ').trim();
@@ -634,7 +640,7 @@ function renderSteps(){
   $('#stepsStatus').textContent=s.done?(s.won?'SOLVED':'REVEALED'):'OPEN';
   $('#stepsStart').textContent=daily.steps.start;
   $('#stepsTarget').textContent=daily.steps.target;
-  void warmStepsRooftops();
+  if(visualGameActive('steps'))void warmStepsRooftops();
   if(!stepsAnimating)stepsSyncRooftopsPosition();
   stepsRenderRooftopsPath();
   stepsDisableControls(stepsAnimating);
@@ -787,9 +793,9 @@ function renderDeepCut(){
   const input=$('#deepCutInput'),button=$('#deepCutForm button');input.disabled=!s.started||s.done||deepCutBusy;button.disabled=input.disabled;
   if(s.done){$('#deepCutDoneScore').textContent=(s.score||0).toLocaleString();const msg=$('#deepCutMessage');msg.className='message good';msg.textContent=`${unlimitedSession?'Unlimited':'Daily'} Deep Cut complete — ${s.score.toLocaleString()} points.`}
   updateHome();
-  requestAnimationFrame(renderDeepCutArchive);
+  if(visualGameActive('deepcut'))requestAnimationFrame(renderDeepCutArchive);
 }
-function armDeepCutTimer(){clearInterval(deepCutTick);deepCutTick=setInterval(()=>{const s=day?.deepcut;if(!s?.started||s.done){clearInterval(deepCutTick);return}const left=remainingDeepCut();$('#deepCutTimer').textContent=fmtTime(left);if(left<=0)void timeoutDeepCut()},250)}
+function armDeepCutTimer(){clearInterval(deepCutTick);deepCutTick=setInterval(()=>{const s=day?.deepcut;if(!s?.started||s.done){clearInterval(deepCutTick);return}const left=remainingDeepCut();$('#deepCutTimer').textContent=fmtTime(left);if(left<=0)void timeoutDeepCut()},1000)}
 function finishDeepCut(){const s=day.deepcut;s.started=false;s.done=true;s.deadline=0;clearInterval(deepCutTick);renderDeepCut()}
 async function timeoutDeepCut(){const s=day.deepcut;if(deepCutBusy||!s.started||s.done||remainingDeepCut()>0)return;deepCutBusy=true;const prompt=deepCutPrompt();s.answers.push({promptId:prompt?.id||'',prompt:prompt?.prompt||'',answer:'',accepted:false,timedOut:true,tier:'TIME',score:0});s.round++;$('#deepCutMessage').className='message bad';$('#deepCutMessage').textContent='Time. No descent for that prompt.';if(s.round>=daily.deepcut.rounds){deepCutBusy=false;finishDeepCut();return}s.deadline=Date.now()+daily.deepcut.seconds*1000;deepCutBusy=false;renderDeepCut();$('#deepCutInput').focus()}
 $('#deepCutStart').addEventListener('click',()=>{const s=day.deepcut;if(s.done)return;warmDeepCutArchive();s.started=true;s.deadline=Date.now()+daily.deepcut.seconds*1000;$('#deepCutMessage').className='message';$('#deepCutMessage').textContent='Think past the first obvious answer. The Archive rewards deeper cuts.';renderDeepCut();armDeepCutTimer();$('#deepCutInput').focus()});
@@ -899,7 +905,7 @@ function mountUnlimitedBar(game){
 function resumeDailyTimers(){
   if(!dayRoot||!dailyRoot)return;
   if(!dayRoot.letter.done)letterTimer=setInterval(()=>$('#timer').textContent=fmtTime((Date.now()-dayRoot.letter.start)/1000),250);
-  if(dayRoot.trail.started&&!dayRoot.trail.done){if(remainingTrail()<=0)void finishTrail();else trailTick=setInterval(()=>{if(remainingTrail()<=0)void finishTrail();else $('#trailTimer').textContent=fmtTime(remainingTrail())},250)}
+  if(dayRoot.trail.started&&!dayRoot.trail.done){if(remainingTrail()<=0)void finishTrail();else trailTick=setInterval(()=>{if(remainingTrail()<=0)void finishTrail();else $('#trailTimer').textContent=fmtTime(remainingTrail())},1000)}
   if(dayRoot.deepcut.started&&!dayRoot.deepcut.done){if(remainingDeepCut()<=0)void timeoutDeepCut();else armDeepCutTimer()}
 }
 function restoreDailyContext(){
@@ -941,12 +947,12 @@ const help={
 };
 $$('[data-help]').forEach(b=>b.addEventListener('click',()=>{$('#helpContent').innerHTML=help[b.dataset.help];$('#helpDialog').showModal()}));
 
-async function revealExistingFailures(){
-  try{if(day.letter.done&&!day.letter.won&&!day.letter.answer&&day.letter.guesses.length>=6){const r=await api('/api/letter/reveal',{guesses:day.letter.guesses.length});day.letter.answer=r.answer}}catch{}
-  try{if(day.groups.done&&day.groups.solved.length<4&&!day.groups.solutions){const r=await api('/api/groups/reveal',{mistakes:day.groups.mistakes});day.groups.solutions=r.solutions}}catch{}
-  try{if(day.trail.done&&!day.trail.longest){const r=await api('/api/trail/reveal',{finished:true});day.trail.longest=r.longest}}catch{}
-  try{if(day.link.done&&!day.link.won&&!day.link.answer&&day.link.guesses>=3){const r=await api('/api/link/reveal',{guesses:day.link.guesses});day.link.answer=r.answer;day.link.note=r.note}}catch{}
-  try{if(day.steps.done&&!day.steps.won&&!day.steps.solution?.length){const r=await api('/api/steps/reveal',{finished:true});day.steps.solution=r.solution||[]}}catch{}
+async function revealExistingFailures(game=''){
+  try{if(game==='letter'&&day.letter.done&&!day.letter.won&&!day.letter.answer&&day.letter.guesses.length>=6){const r=await api('/api/letter/reveal',{guesses:day.letter.guesses.length});day.letter.answer=r.answer}}catch{}
+  try{if(game==='groups'&&day.groups.done&&day.groups.solved.length<4&&!day.groups.solutions){const r=await api('/api/groups/reveal',{mistakes:day.groups.mistakes});day.groups.solutions=r.solutions}}catch{}
+  try{if(game==='trail'&&day.trail.done&&!day.trail.longest){const r=await api('/api/trail/reveal',{finished:true});day.trail.longest=r.longest}}catch{}
+  try{if(game==='link'&&day.link.done&&!day.link.won&&!day.link.answer&&day.link.guesses>=3){const r=await api('/api/link/reveal',{guesses:day.link.guesses});day.link.answer=r.answer;day.link.note=r.note}}catch{}
+  try{if(game==='steps'&&day.steps.done&&!day.steps.won&&!day.steps.solution?.length){const r=await api('/api/steps/reveal',{finished:true});day.steps.solution=r.solution||[]}}catch{}
 }
 
 async function init(){
@@ -957,11 +963,18 @@ async function init(){
     // Normalize any pre-hotfix guess strings without throwing.
     day.letter.guesses=day.letter.guesses.filter(Boolean).map(g=>typeof g==='string'?{word:g,feedback:Array(daily.letter.length).fill('gray')}:g);
     $('#wordLength').textContent=daily.letter.length;$('#letterSubhead').textContent=`Today is ${daily.letter.length} letters. You still only get six guesses.`;$('#guessInput').maxLength=daily.letter.length;
-    await revealExistingFailures();renderLetter();renderGroups();renderTrail();renderLink();renderSteps();renderDeepCut();renderArchive();const requestedPlay=new URLSearchParams(location.search).get('play');if(DAILY_GAMES.includes(requestedPlay))selectTab(requestedPlay);
-    if(!day.letter.done)letterTimer=setInterval(()=>$('#timer').textContent=fmtTime((Date.now()-day.letter.start)/1000),250);
-    if(day.trail.started&&!day.trail.done){if(remainingTrail()<=0)await finishTrail();else trailTick=setInterval(()=>{if(remainingTrail()<=0)finishTrail();else $('#trailTimer').textContent=fmtTime(remainingTrail())},250)}
-    if(day.deepcut.started&&!day.deepcut.done){if(remainingDeepCut()<=0)await timeoutDeepCut();armDeepCutTimer()}
-    updateHome();saveState();
+    const initialGame=document.documentElement.dataset.gamePage||'';
+    await revealExistingFailures(initialGame);
+    if(initialGame==='letter')renderLetter();
+    else if(initialGame==='groups')renderGroups();
+    else if(initialGame==='trail')renderTrail();
+    else if(initialGame==='link')renderLink();
+    else if(initialGame==='steps')renderSteps();
+    else if(initialGame==='deepcut')renderDeepCut();
+    else updateHome();
+    if(initialGame==='letter'&&!day.letter.done)letterTimer=setInterval(()=>$('#timer').textContent=fmtTime((Date.now()-day.letter.start)/1000),1000);
+    if(initialGame==='trail'&&day.trail.started&&!day.trail.done){if(remainingTrail()<=0)await finishTrail();else trailTick=setInterval(()=>{if(remainingTrail()<=0)finishTrail();else $('#trailTimer').textContent=fmtTime(remainingTrail())},1000)}
+    if(initialGame==='deepcut'&&day.deepcut.started&&!day.deepcut.done){if(remainingDeepCut()<=0)await timeoutDeepCut();else armDeepCutTimer()}
   }catch(err){document.querySelector('main').innerHTML=`<div class="loading-card"><h2>Clue Morning couldn't load today's set.</h2><p>${escapeHtml(err.message)}</p><p>Refresh in a moment.</p></div>`}
 }
 init();
