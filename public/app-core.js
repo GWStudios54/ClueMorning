@@ -113,6 +113,12 @@ function selectTab(id){
 }
 document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>selectTab(b.dataset.tab)));
 document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>selectTab(b.dataset.open)));
+let immersivePanelSyncQueued=false;
+const queueImmersivePanelSync=()=>{
+  if(immersivePanelSyncQueued)return;immersivePanelSyncQueued=true;
+  requestAnimationFrame(()=>{immersivePanelSyncQueued=false;syncImmersiveShell({repairScroll:true})});
+};
+document.querySelectorAll('.panel').forEach(panel=>new MutationObserver(queueImmersivePanelSync).observe(panel,{attributes:true,attributeFilter:['class']}));
 $('#linkExit')?.addEventListener('click',()=>{if(unlimitedSession)exitUnlimited(true);else selectTab(linkReturnTab||'today')});
 $('#deepCutExit')?.addEventListener('click',()=>{if(unlimitedSession)exitUnlimited(true);else selectTab(deepCutReturnTab||'today')});
 $('#stepsExit')?.addEventListener('click',()=>{if(unlimitedSession)exitUnlimited(true);else selectTab(stepsReturnTab||'today')});
