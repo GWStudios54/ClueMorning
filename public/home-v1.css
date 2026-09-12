@@ -1,0 +1,179 @@
+/* Clue Morning home v1 — editorial morning desk */
+body{
+  background:
+    radial-gradient(circle at 12% 0%,color-mix(in srgb,var(--sun2) 72%,transparent) 0,transparent 28rem),
+    linear-gradient(180deg,color-mix(in srgb,var(--card) 92%,white) 0,var(--paper) 34rem);
+}
+.sunrise-bar{height:3px;background:linear-gradient(90deg,var(--dark) 0 18%,var(--sun) 42% 58%,var(--dark) 82% 100%)}
+.app{width:min(1180px,100%);padding:16px clamp(16px,3vw,34px) 56px}
+.masthead{padding:10px 2px 16px;border-color:color-mix(in srgb,var(--ink) 16%,var(--line))}
+.brand{gap:13px}
+.brand-logo{width:62px;height:72px}
+.brand-copy h1{font-size:clamp(2rem,5vw,3.15rem);line-height:.92}
+.brand-copy .eyebrow{font-size:.62rem}
+.dedication{margin-top:.28rem}
+.header-actions{gap:8px}
+.streak-card{min-width:102px;padding:8px 12px;border-radius:999px;box-shadow:0 7px 22px rgba(45,35,24,.14)}
+
+.tabs{
+  top:0;z-index:20;display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;
+  margin-inline:calc(clamp(16px,3vw,34px) * -1);padding:11px clamp(16px,3vw,34px);
+  border-bottom:1px solid color-mix(in srgb,var(--ink) 8%,transparent);
+  background:color-mix(in srgb,var(--paper-glass) 94%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent);
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;min-height:38px;padding:8px 12px;font-size:.8rem}
+.tab.active{padding-inline:16px}
+
+#today{padding-top:18px}
+#today .today-hero{
+  position:relative;isolation:isolate;overflow:hidden;min-height:260px;
+  align-items:stretch;margin:0;padding:clamp(24px,5vw,48px);
+  border:1px solid color-mix(in srgb,var(--dark) 82%,black);
+  border-radius:clamp(24px,4vw,36px);
+  background:
+    radial-gradient(circle at 84% 20%,rgba(242,216,160,.2) 0 5rem,transparent 5.1rem),
+    linear-gradient(135deg,color-mix(in srgb,var(--dark2) 92%,#263a32),var(--dark) 66%,color-mix(in srgb,var(--dark) 78%,black));
+  color:#fffaf0;box-shadow:0 26px 60px rgba(47,36,23,.18);
+}
+#today .today-hero::before{
+  content:"";position:absolute;z-index:-1;right:clamp(22px,8vw,92px);top:23px;
+  width:110px;height:110px;border-radius:50%;
+  background:radial-gradient(circle,#f5d793 0 34%,#dfa94d 35% 43%,transparent 44%);
+  opacity:.8;filter:drop-shadow(0 0 26px rgba(242,216,160,.24));
+}
+#today .today-hero::after{
+  content:"";position:absolute;z-index:-1;inset:auto 0 0 0;height:42%;
+  background:
+    linear-gradient(155deg,transparent 0 46%,rgba(255,255,255,.035) 46.4% 47.2%,transparent 47.5%),
+    repeating-linear-gradient(90deg,transparent 0 7.5%,rgba(255,255,255,.028) 7.5% 7.8%);
+}
+#today .today-hero>div:first-child{align-self:center;max-width:650px}
+#today .today-hero .date-kicker{color:var(--sun2);font-size:.7rem}
+#today .today-hero h2{max-width:9ch;margin:.22rem 0 .65rem;color:#fffaf0;font-size:clamp(3rem,9vw,5.6rem);line-height:.84}
+#today .today-hero p{margin:0;color:rgba(255,250,240,.72);font-size:clamp(.92rem,2vw,1.08rem)}
+#today .daily-total{
+  align-self:flex-end;min-width:184px;padding:15px 18px;text-align:left;
+  border-color:rgba(255,255,255,.16);background:rgba(255,255,255,.08);
+  color:#fff;box-shadow:none;backdrop-filter:blur(10px);
+}
+#today .daily-total span{color:rgba(255,255,255,.62)}
+#today .daily-total strong{color:var(--sun2);font-size:2.65rem}
+
+#today .game-cards{
+  counter-reset:morning-game;grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:12px;margin-top:16px;
+}
+#today .game-card{
+  counter-increment:morning-game;grid-column:span 6;min-height:142px;
+  grid-template-columns:auto minmax(0,1fr);grid-template-rows:1fr auto;
+  gap:12px 16px;padding:20px;border-radius:24px;overflow:hidden;
+  border-color:color-mix(in srgb,var(--line) 75%,white);
+  background:linear-gradient(145deg,color-mix(in srgb,var(--card) 92%,white),color-mix(in srgb,var(--paper2) 18%,var(--card)));
+  box-shadow:0 10px 28px rgba(56,43,27,.07);
+}
+#today .game-card:first-child{grid-column:span 7}
+#today .game-card:nth-child(2){grid-column:span 5}
+#today .game-card:nth-child(7){grid-column:4/span 6}
+#today .game-card::before{
+  content:"0" counter(morning-game);position:absolute;right:15px;top:10px;
+  color:color-mix(in srgb,var(--muted) 15%,transparent);
+  font:800 3.5rem/1 Georgia,serif;letter-spacing:-.08em;
+}
+#today .game-card::after{
+  content:"";position:absolute;inset:auto 0 0;height:4px;border-radius:0;
+  background:var(--game-accent,var(--sun));box-shadow:none;
+}
+#today .game-card:nth-child(1){--game-accent:#d4a349}
+#today .game-card:nth-child(2){--game-accent:#748a64}
+#today .game-card:nth-child(3){--game-accent:#b96d46}
+#today .game-card:nth-child(4){--game-accent:#527c76}
+#today .game-card:nth-child(5){--game-accent:#70819b}
+#today .game-card:nth-child(6){--game-accent:#765a83}
+#today .game-card:nth-child(7){--game-accent:#9b554a}
+#today .game-card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--game-accent) 52%,var(--line));box-shadow:0 19px 38px rgba(44,33,20,.11)}
+#today .game-icon{grid-row:1;align-self:start;width:62px;height:62px;border-radius:18px}
+#today .game-copy{grid-row:1;align-self:center}
+#today .game-copy h3{font-size:clamp(1.35rem,2.4vw,1.75rem)}
+#today .game-copy p{max-width:34ch;margin-top:.28rem}
+#today .game-status{
+  grid-column:1/-1;justify-self:start;padding:7px 10px;background:transparent;
+  border-color:color-mix(in srgb,var(--game-accent) 40%,var(--line));color:var(--game-accent);
+}
+#today .game-status.done{border-color:color-mix(in srgb,var(--green) 35%,var(--line));background:color-mix(in srgb,var(--green2) 45%,transparent);color:var(--green)}
+
+#today .score-strip{
+  grid-template-columns:repeat(7,minmax(0,1fr));margin:16px 0 12px;border-radius:22px;
+}
+#today .score-strip>div{min-width:0;padding:13px 10px;text-align:center}
+#today .score-strip>div:nth-child(4){border-right:1px solid color-mix(in srgb,var(--line) 84%,white)}
+#today .score-strip>div:nth-child(7){border-right:0}
+#today .score-strip span{font-size:.58rem;white-space:nowrap}
+#today .score-strip strong{font-size:1.12rem}
+#today .score-strip-total{display:flex;align-items:center;justify-content:space-between;padding-inline:18px!important;text-align:left!important}
+#today .score-strip-total strong{margin:0;font-size:1.55rem}
+
+#today .ritual-card{border-style:solid;border-radius:18px;padding:15px 18px}
+#today .about-blurb{
+  margin-top:42px;padding:28px 4px 0;border-top:1px solid color-mix(in srgb,var(--ink) 13%,var(--line));
+}
+#today .about-blurb h2{max-width:760px;font-size:clamp(1.8rem,4vw,2.6rem)}
+#today .about-blurb>p{max-width:720px;color:var(--muted);line-height:1.65}
+#today .game-guide-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+#today .game-guide-links a{
+  padding:8px 11px;border:1px solid var(--line);border-radius:999px;
+  color:var(--muted);font-size:.74rem;font-weight:800;text-decoration:none;background:color-mix(in srgb,var(--card) 78%,transparent);
+}
+#today .game-guide-links a:hover{color:var(--ink);border-color:var(--sun)}
+
+@media(max-width:760px){
+  .app{padding:10px 14px 38px}
+  .masthead{padding-bottom:11px}
+  .brand-logo{width:46px;height:54px}
+  .brand-copy .eyebrow{display:none}
+  .brand-copy h1{font-size:1.78rem}
+  .dedication{font-size:.68rem}
+  .theme-button{width:40px;height:40px}
+  .streak-card{min-width:0;width:46px;height:40px;padding:0;justify-content:center}
+  .streak-card span{display:none}
+  .tabs{margin-inline:-14px;padding-inline:14px}
+  #today{padding-top:12px}
+  #today .today-hero{min-height:235px;display:grid;padding:24px 20px;border-radius:26px}
+  #today .today-hero::before{right:10px;top:12px;width:80px;height:80px}
+  #today .today-hero h2{font-size:clamp(3.15rem,15vw,4.55rem);max-width:7ch}
+  #today .daily-total{justify-self:end;min-width:142px;padding:11px 14px;border-radius:16px}
+  #today .daily-total strong{font-size:2rem}
+  #today .game-cards{display:grid;grid-template-columns:1fr;gap:10px}
+  #today .game-card,#today .game-card:first-child,#today .game-card:nth-child(2),#today .game-card:nth-child(7){
+    grid-column:1;min-height:0;grid-template-columns:54px minmax(0,1fr) auto;
+    grid-template-rows:auto;padding:15px 13px;border-radius:20px;gap:11px;
+  }
+  #today .game-card::before{display:none}
+  #today .game-card::after{inset:0 auto 0 0;width:4px;height:auto}
+  #today .game-icon{grid-column:1;grid-row:1;width:54px;height:54px;border-radius:16px}
+  #today .game-copy{grid-column:2;grid-row:1}
+  #today .game-copy h3{font-size:1.25rem}
+  #today .game-copy p{font-size:.74rem;line-height:1.3}
+  #today .game-status{grid-column:3;grid-row:1;align-self:center;padding:8px;border-radius:50%;font-size:0}
+  #today .game-status .icon{width:16px;height:16px}
+  #today .score-strip{grid-template-columns:repeat(4,minmax(0,1fr));border-radius:18px}
+  #today .score-strip>div{padding:11px 5px;border-bottom:1px solid color-mix(in srgb,var(--line) 84%,white)}
+  #today .score-strip>div:nth-child(4){border-right:0}
+  #today .score-strip>div:nth-child(5),#today .score-strip>div:nth-child(6),#today .score-strip>div:nth-child(7){border-bottom:0}
+  #today .score-strip-total{grid-column:4;grid-row:2;display:block;padding:11px 5px!important;text-align:center!important;border-top:0!important}
+  #today .score-strip-total strong{margin-top:5px;font-size:1.18rem}
+  #today .ritual-card{align-items:flex-start;font-size:.88rem}
+  #today .about-blurb{margin-top:30px;padding-top:24px}
+}
+@media(max-width:390px){
+  .brand-copy h1{font-size:1.58rem}
+  #today .today-hero h2{font-size:3.45rem}
+  #today .game-card{grid-template-columns:50px minmax(0,1fr) auto!important}
+  #today .game-icon{width:50px;height:50px}
+  #today .game-copy p{display:none}
+  #today .score-strip span{font-size:.51rem;letter-spacing:.03em}
+}
+@media(prefers-reduced-motion:reduce){
+  #today .game-card{transition:none}
+}
