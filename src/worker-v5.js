@@ -193,6 +193,10 @@ async function dedicatedGamePage(request,env,ctx,game){
   const path=GAME_PATHS[game];
   const name=GAME_NAMES[game]||'Clue Morning';
   html=html.replace(/<html([^>]*)>/i,(match,attrs)=>'<html'+attrs+' data-game-page="'+game+'">');
+  // index.html is authored at the site root. Dedicated /play/* documents need
+  // the same base so relative styles, icons, manifest assets and links do not
+  // resolve under /play/<game>/.
+  if(!/<base\s/i.test(html))html=html.replace(/<head([^>]*)>/i,'<head$1>\n<base href="/">');
   html=html.replace(/<title>.*?<\/title>/is,'<title>'+name+' — Clue Morning</title>');
   html=html.replace(/<meta\s+name=["']robots["'][^>]*>/i,'<meta name="robots" content="noindex,follow">');
   html=html.replace(/<link\s+rel=["']canonical["'][^>]*>/i,'<link rel="canonical" href="https://cluemorning.com'+path+'">');
