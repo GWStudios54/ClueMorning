@@ -10,13 +10,14 @@
     if(location.hash)history.replaceState(null,'',location.pathname+location.search);
     document.querySelectorAll('.tab').forEach(tab=>tab.classList.toggle('active',tab.dataset.tab==='today'));
     document.querySelectorAll('.panel').forEach(panel=>panel.classList.toggle('active',panel.id==='today'));
+    document.documentElement.classList.remove(
+      'link-immersive',
+      'steps-immersive',
+      'deepcut-immersive'
+    );
     document.body.classList.remove(
       'trail-cartographer-active',
-      'four-groups-case-file-active',
-      'typesetter-active',
-      'switchboard-active',
-      'word-steps-rooftops-active',
-      'deep-cut-active'
+      'case-file-active'
     );
     document.querySelectorAll('dialog[open]').forEach(dialog=>dialog.close?.());
   }
