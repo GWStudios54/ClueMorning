@@ -1,29 +1,19 @@
-const CACHE = 'clue-morning-pwa-v43';
+const CACHE = 'clue-morning-pwa-v44';
 const APP_SHELL = [
   '/styles.css',
   '/styles-base.css',
   '/performance-bridge.js',
   '/app.js',
   '/app-core.js',
-  '/game-page.css',
-  '/game-page.js',
   '/pwa.js',
   '/deep-link.js',
   '/homepage-guard.js',
-  '/four-groups-case-file.css',
-  '/four-groups-case-file.js',
-  '/trail-cartographer.css',
-  '/trail-cartographer.js',
-  '/letter-typesetter.css',
-  '/letter-typesetter.js',
   '/retention-hooks.css',
   '/retention-hooks.js',
   '/competition.js',
   '/daily-expansion.css',
   '/daily-presentation-fix.css',
   '/daily-presentation-fix.js',
-  '/last-call.css',
-  '/last-call.js',
   '/presentation-v1.css',
   '/presentation-v1.js',
   '/social.css',
@@ -41,17 +31,6 @@ const APP_SHELL = [
   '/icon-192.png',
   '/icon-512.png',
   '/notification-badge.svg',
-  '/deepcut-archive/newsroom.webp',
-  '/deepcut-archive/upper.webp',
-  '/deepcut-archive/natural-history.webp',
-  '/deepcut-archive/museum.webp',
-  '/deepcut-archive/forbidden.webp',
-  '/deepcut-archive/cosmic.webp',
-  '/deepcut-archive/elevator.webp',
-  '/word-steps-rooftops/bg-00.b64',
-  '/word-steps-rooftops/bg-01.b64',
-  '/word-steps-rooftops/bg-02.b64',
-  '/word-steps-rooftops/pc.webp'
 ];
 
 self.addEventListener('install', event => {
@@ -75,7 +54,7 @@ self.addEventListener('activate', event => {
       try {
         const url = new URL(client.url);
         if (url.origin === self.location.origin && (url.pathname === '/' || url.pathname === '/index.html')) {
-          return client.navigate('/?shell=v43');
+          return client.navigate('/?shell=v44');
         }
       } catch {}
       return undefined;
