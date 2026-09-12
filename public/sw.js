@@ -1,4 +1,4 @@
-const CACHE = 'clue-morning-pwa-v37';
+const CACHE = 'clue-morning-pwa-v38';
 const APP_SHELL = [
   '/styles.css',
   '/styles-base.css',
@@ -8,6 +8,12 @@ const APP_SHELL = [
   '/pwa.js',
   '/deep-link.js',
   '/homepage-guard.js',
+  '/four-groups-case-file.css',
+  '/four-groups-case-file.js',
+  '/trail-cartographer.css',
+  '/trail-cartographer.js',
+  '/letter-typesetter.css',
+  '/letter-typesetter.js',
   '/retention-hooks.css',
   '/retention-hooks.js',
   '/competition.js',
@@ -67,7 +73,7 @@ self.addEventListener('activate', event => {
       try {
         const url = new URL(client.url);
         if (url.origin === self.location.origin && (url.pathname === '/' || url.pathname === '/index.html')) {
-          return client.navigate('/?shell=v37');
+          return client.navigate('/?shell=v38');
         }
       } catch {}
       return undefined;
