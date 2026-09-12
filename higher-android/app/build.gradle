@@ -1,0 +1,35 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.gwstudios.higher'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId 'com.gwstudios.higher'
+        minSdk 26
+        targetSdk 36
+        versionCode 3
+        versionName '0.1.2'
+    }
+
+    signingConfigs {
+        dev {
+            storeFile file('higher-dev.keystore')
+            storePassword 'higherdev'
+            keyAlias 'higherdev'
+            keyPassword 'higherdev'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.dev
+        }
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.dev
+        }
+    }
+}

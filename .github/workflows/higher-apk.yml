@@ -1,0 +1,73 @@
+name: Build HIGHER APK
+
+on:
+  push:
+    branches:
+      - higher-apk-build
+    paths:
+      - 'higher-android/**'
+      - '.github/workflows/higher-apk.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'higher-android/**'
+      - '.github/workflows/higher-apk.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android 16 SDK
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "platforms;android-36" "build-tools;36.0.0"
+
+      - name: Verify stable development signing key
+        run: keytool -list -keystore higher-android/app/higher-dev.keystore -storepass higherdev -alias higherdev >/dev/null
+
+      - name: Materialize HIGHER 0.2.2 app
+        run: |
+          cat higher-android/app/src/main/assets/v022part00 \
+              higher-android/app/src/main/assets/v022part01 \
+              higher-android/app/src/main/assets/v022part02 \
+              higher-android/app/src/main/assets/v022part03 \
+              higher-android/app/src/main/assets/v022part04 \
+              higher-android/app/src/main/assets/v022part05 \
+            | base64 -d | gzip -d > higher-android/app/src/main/assets/index.html
+          sed -i "s/versionCode 3/versionCode 6/" higher-android/app/build.gradle
+          sed -i "s/versionName '0.1.2'/versionName '0.2.2'/" higher-android/app/build.gradle
+          grep -q 'v0.2.2' higher-android/app/src/main/assets/index.html
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+
+      - name: Build debug APK
+        run: gradle -p higher-android assembleDebug --stacktrace
+
+      - name: Stage APK
+        run: cp higher-android/app/build/outputs/apk/debug/app-debug.apk HIGHER-v0.2.2.apk
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: HIGHER-APK
+          path: HIGHER-v0.2.2.apk
+          if-no-files-found: error
