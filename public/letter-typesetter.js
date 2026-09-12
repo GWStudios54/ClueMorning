@@ -34,13 +34,13 @@
     artPromise.then(value=>{panel.style.backgroundImage=value;panel.classList.add('typesetter-ready')})
       .catch(err=>{console.error(err);panel.classList.add('typesetter-ready')});
   }
-  function active(){
+  function isActive(){
     return panel.classList.contains('active')&&document.documentElement.dataset.gameSession==='letter';
   }
   function sync(){
-    const on=active();
-    document.body.classList.toggle('letter-typesetter-active',on);
-    if(on){loadArt();fitBoard();writeBest(Number(($('#letterScore')?.textContent||'0').replace(/[^0-9]/g,''))||0)}
+    const active=isActive();
+    document.body.classList.toggle('letter-typesetter-active',active);
+    if(active){loadArt();fitBoard();writeBest(Number(($('#letterScore')?.textContent||'0').replace(/[^0-9]/g,''))||0)}
   }
   function mount(){
     if(panel.dataset.typesetterMounted)return;
@@ -58,6 +58,19 @@
     clear.addEventListener('click',()=>{const input=$('#guessInput');if(!input||input.disabled)return;input.value='';input.dispatchEvent(new Event('input',{bubbles:true}));input.focus({preventScroll:true})});panel.appendChild(clear);
 
     const press=$('#guessForm button span');if(press)press.textContent='PULL PRESS';
+    const keyboard=$('#keyboard');
+    if(keyboard){
+      const annotateKeys=()=>keyboard.querySelectorAll('.key').forEach(key=>{key.setAttribute('role','button');key.tabIndex=0;key.setAttribute('aria-label','Type '+key.textContent.trim())});
+      const typeKey=key=>{
+        const input=$('#guessInput');if(!input||input.disabled)return;
+        const max=Number($('#wordLength')?.textContent)||input.maxLength||10,ch=(key?.textContent||'').trim().toUpperCase();
+        if(!/^[A-Z]$/.test(ch)||input.value.length>=max)return;
+        input.value=(input.value+ch).slice(0,max);input.dispatchEvent(new Event('input',{bubbles:true}));
+      };
+      keyboard.addEventListener('click',event=>{const key=event.target.closest('.key');if(key)typeKey(key)});
+      keyboard.addEventListener('keydown',event=>{if(event.key!=='Enter'&&event.key!==' ')return;const key=event.target.closest('.key');if(!key)return;event.preventDefault();typeKey(key)});
+      new MutationObserver(annotateKeys).observe(keyboard,{childList:true});annotateKeys();
+    }
     const stats=[...panel.querySelectorAll(':scope>.stats-row .stat')];
     const labels=['LETTERS','GUESSES','SCORE','BEST'];stats.forEach((stat,i)=>{const label=stat.querySelector('span');if(label&&labels[i])label.textContent=labels[i]});
     writeBest(0);fitBoard();
