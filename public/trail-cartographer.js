@@ -26,7 +26,7 @@
     new MutationObserver(()=>requestAnimationFrame(draw)).observe(grid,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
     window.addEventListener('resize',()=>requestAnimationFrame(draw),{passive:true});draw();
   }
-  function sync(){const panel=$('#trail');if(!panel)return;const active=panel.classList.contains('active');document.body.classList.toggle('trail-cartographer-active',active);if(active)loadArt(panel)}
+  function sync(){const panel=$('#trail');if(!panel)return;const active=panel.classList.contains('active')&&document.documentElement.dataset.gameSession==='trail';document.body.classList.toggle('trail-cartographer-active',active);if(active)loadArt(panel)}
   function boot(){mount();sync();const panel=$('#trail');if(panel)new MutationObserver(sync).observe(panel,{attributes:true,attributeFilter:['class']})}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
