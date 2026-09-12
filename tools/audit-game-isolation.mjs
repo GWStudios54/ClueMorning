@@ -12,7 +12,7 @@ const router=read('./src/worker-v5.js');
 const productionSkins=[
   'trail-cartographer.css?v=2','trail-cartographer.js?v=2',
   'four-groups-case-file.css?v=2','four-groups-case-file.js?v=2',
-  'letter-typesetter.css?v=1','letter-typesetter.js?v=2'
+  'letter-typesetter.css?v=1','letter-typesetter.js?v=3'
 ];
 for(const asset of productionSkins){
   assert.ok(index.includes(asset),`Shared homepage should load gated skin ${asset}`);
