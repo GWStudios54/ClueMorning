@@ -18,7 +18,7 @@ const GAME_PATHS={
 const GAME_PAGE_ROUTES=Object.fromEntries(Object.entries(GAME_PATHS).flatMap(([game,path])=>[[path,game],[path.replace(/\/$/,''),game]]));
 const GAME_NAMES={letter:'Letter Grid',groups:'Four Groups',trail:'Letter Trail',link:'Triple Link',steps:'Word Steps',deepcut:'Deep Cut',lastcall:'Last Call'};
 const GAME_SKINS={
-  letter:{css:'/letter-typesetter.css?v=4',js:'/letter-typesetter.js?v=4'},
+  letter:{css:'/letter-typesetter.css?v=5',js:'/letter-typesetter.js?v=5'},
   groups:{css:'/four-groups-case-file.css?v=2',js:'/four-groups-case-file.js?v=2'},
   trail:{css:'/trail-cartographer.css?v=2',js:'/trail-cartographer.js?v=2'}
 };
