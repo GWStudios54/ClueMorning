@@ -1,4 +1,11 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#171511"><title>Four Groups — The Case File Test</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#171511">
+<title>Four Groups — The Case File Test</title>
 <style>
 *{box-sizing:border-box}html,body{height:100%;margin:0;overflow:hidden;background:#171511}body{font-family:Georgia,"Times New Roman",serif;-webkit-user-select:none;user-select:none}button{font:inherit}.world{position:relative;width:100%;height:100dvh;min-height:560px;overflow:hidden;background:#171511 center/100% 100% no-repeat;color:#f6dca0}.loading{position:absolute;inset:0;z-index:30;display:grid;place-items:center;background:#171511;font:bold 11px sans-serif;letter-spacing:.16em}.ready .loading{display:none}
 .back{position:absolute;z-index:10;left:2.8%;top:9.45%;width:25.5%;height:3.2%;border:0;background:transparent;color:#f5dca2;font:bold clamp(8px,2.2vw,12px)/1 sans-serif;letter-spacing:.08em}.reset{position:absolute;z-index:10;right:3.7%;top:14.4%;width:9.4%;aspect-ratio:1;border:1px solid #bb8736;border-radius:50%;background:rgba(11,29,24,.82);color:#efcc80;font:bold clamp(16px,5vw,28px)/1 serif}
@@ -6,10 +13,72 @@
 .stats{position:absolute;z-index:5;left:22.4%;top:23.45%;width:55.3%;height:4.45%;display:grid;grid-template-columns:repeat(4,1fr)}.stat{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:sans-serif}.stat strong{font-size:clamp(12px,3.7vw,21px);line-height:1;color:#f4d68e}.stat span{margin-top:3px;font:bold clamp(5px,1.35vw,8px)/1 sans-serif;letter-spacing:.12em;color:#c5a361}
 .instruction{position:absolute;z-index:6;left:18%;top:30.5%;width:64%;height:4.2%;display:flex;align-items:center;justify-content:center;padding:0 5%;background:#e6cf9f;clip-path:polygon(2% 5%,98% 2%,100% 93%,1% 100%);box-shadow:0 3px 5px rgba(30,14,4,.35);color:#503419;text-align:center;font:italic clamp(10px,2.9vw,16px)/1.15 Georgia}
 .grid{position:absolute;z-index:7;left:17.1%;top:35.2%;width:65.8%;height:25.6%;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);gap:3.5% 3.6%}.card{position:relative;min-width:0;padding:0;border:0;background:#e8d2a6;clip-path:polygon(2% 2%,98% 0,100% 96%,4% 100%);box-shadow:0 3px 4px rgba(48,24,7,.5);color:#322113;font:bold clamp(9px,2.75vw,16px)/1 Georgia;text-align:center;transition:transform .1s,filter .1s}.card:before{content:"";position:absolute;left:50%;top:4%;width:7px;height:7px;transform:translateX(-50%);border:1px solid #52300d;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffdb80,#95631e 48%,#3e2109 70%);box-shadow:0 1px 2px #3b1d08}.card.selected{transform:translateY(-2px) scale(1.025);filter:brightness(1.08);box-shadow:0 0 0 2px #bd3726,0 0 8px #e86c36}.card.solved{visibility:hidden}
-.thread{position:absolute;z-index:8;left:17.1%;top:35.2%;width:65.8%;height:25.6%;overflow:visible;pointer-events:none}.thread polyline{fill:none;stroke:#bc3025;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 1px #49120c)}.thread circle{fill:#c93c29;stroke:#67150e;stroke-width:.45}
+.thread{position:absolute;z-index:8;left:17.1%;top:35.2%;width:65.8%;height:25.6%;overflow:visible;pointer-events:none}.thread path{fill:none;stroke-linecap:round;stroke-linejoin:round}.yarn-shadow{stroke:#3d100b;stroke-width:2.25;opacity:.7}.yarn-main{stroke:#a9241d;stroke-width:1.55}.yarn-light{stroke:#f26b50;stroke-width:.38;stroke-dasharray:1.2 1.7;opacity:.9}.knot-shadow{fill:#43100c;opacity:.8}.knot{fill:#b82c22;stroke:#67140e;stroke-width:.42}.knot-light{fill:#ef7960;opacity:.8}
 .actions{position:absolute;z-index:9;left:17%;top:64.3%;width:66%;height:4.2%;display:grid;grid-template-columns:1fr 1.42fr;gap:6.5%}.actions button{border:0;background:transparent;color:#f0d292;font:bold clamp(8px,2.3vw,13px)/1 sans-serif;letter-spacing:.09em;text-align:center}.actions .submit{color:#f3dca0}
 .files{position:absolute;z-index:8;left:17.7%;top:70.5%;width:64.9%;height:6.45%;display:grid;grid-template-columns:repeat(4,1fr);gap:3.5%;pointer-events:none}.file{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:11% 5% 0;color:#3f2b19;text-align:center}.file .num{position:absolute;align-self:flex-start;margin-top:-33%;font:bold clamp(7px,1.8vw,10px)/1 sans-serif}.file .name{font:bold clamp(5px,1.35vw,8px)/1.05 sans-serif;letter-spacing:.03em}.file-dots{display:flex;gap:3px;margin-top:5px}.file-dots i{width:5px;height:5px;border:1px solid #71502e;border-radius:50%;background:transparent}.file.filed .file-dots i{border-color:#3d6334;background:#7da66a;box-shadow:0 0 3px #b9d699}
 .toast{position:absolute;z-index:20;left:50%;bottom:max(4%,env(safe-area-inset-bottom));transform:translate(-50%,15px);opacity:0;width:max-content;max-width:88%;padding:9px 14px;border:1px solid #c99a4d;border-radius:999px;background:rgba(17,14,10,.94);color:#f8dda0;font:bold 10px/1.2 sans-serif;text-align:center;transition:.18s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}.toast.bad{border-color:#b64b3a;color:#ffd0b8}
 @media(min-width:700px){.world{width:min(46.9vh,520px);margin:auto;box-shadow:0 0 70px #000}}
-</style></head><body><main class="world" id="world"><div class="loading">OPENING CASE FILE…</div><button class="back">← MORNING RUN</button><button class="reset" aria-label="Reset">↻</button><header class="title"><small>FOUR GROUPS</small><h1>THE CASE FILE</h1></header><section class="stats"><div class="stat"><strong id="groupCount">0</strong><span>GROUPS</span></div><div class="stat"><strong id="score">0</strong><span>SCORE</span></div><div class="stat"><strong id="timer">3:00</strong><span>TIME</span></div><div class="stat"><strong id="best">—</strong><span>BEST</span></div></section><div class="instruction">Find four pieces of evidence that belong together</div><div class="grid" id="grid"></div><svg class="thread" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline id="line"></polyline><g id="pins"></g></svg><div class="actions"><button class="clear">CLEAR</button><button class="submit">SUBMIT GROUP</button></div><div class="files" id="files"></div><div class="toast" id="toast"></div></main>
-<script>(()=>{const words=['CROW','RAVEN','INK','COAL','BASS','SOLE','PIKE','TUNA','TANGO','WALTZ','SALSA','SWING','RUBY','SCARLET','CRIMSON','CHERRY'];const groups=[{name:'DARK THINGS',set:new Set([0,1,2,3])},{name:'FISH',set:new Set([4,5,6,7])},{name:'DANCES',set:new Set([8,9,10,11])},{name:'RED SHADES',set:new Set([12,13,14,15])}];const world=document.querySelector('#world'),grid=document.querySelector('#grid'),toast=document.querySelector('#toast'),line=document.querySelector('#line'),pins=document.querySelector('#pins'),files=document.querySelector('#files');let selected=[],solved=new Set,seconds=180,tick=setInterval(clock,1000),filed=[];Promise.all(Array.from({length:6},(_,i)=>fetch(`./bg-clean-${String(i).padStart(2,'0')}.b64`).then(r=>{if(!r.ok)throw Error(r.status);return r.text()}))).then(parts=>{world.style.backgroundImage=`url(data:image/webp;base64,${parts.join('')})`;world.classList.add('ready')}).catch(()=>document.querySelector('.loading').textContent='CASE ART FAILED TO LOAD');words.forEach((word,i)=>{const b=document.createElement('button');b.className='card';b.textContent=word;b.dataset.i=i;b.onclick=()=>toggle(i);grid.appendChild(b)});for(let i=0;i<4;i++){const f=document.createElement('div');f.className='file';f.innerHTML=`<span class="num">${i+1}</span><span class="name">UNFILED</span><span class="file-dots"><i></i><i></i><i></i><i></i></span>`;files.appendChild(f)}function clock(){if(seconds<=0){clearInterval(tick);flash('TIME — the case remains open.',true);return}seconds--;document.querySelector('#timer').textContent=Math.floor(seconds/60)+':'+String(seconds%60).padStart(2,'0')}function centers(){const g=grid.getBoundingClientRect();return selected.map(i=>{const r=grid.children[i].getBoundingClientRect();return{x:(r.left+r.width/2-g.left)/g.width*100,y:(r.top+r.height*.08-g.top)/g.height*100}})}function render(){[...grid.children].forEach((b,i)=>{b.classList.toggle('selected',selected.includes(i));b.classList.toggle('solved',solved.has(i))});const pts=centers();line.setAttribute('points',pts.map(p=>`${p.x},${p.y}`).join(' '));pins.innerHTML=pts.map(p=>`<circle cx="${p.x}" cy="${p.y}" r="1.55"/>`).join('');document.querySelector('#groupCount').textContent=filed.length;document.querySelector('#score').textContent=filed.length*100;document.querySelector('#best').textContent=filed.length?filed.at(-1).name:'—';[...files.children].forEach((f,i)=>{const group=filed[i];f.classList.toggle('filed',!!group);f.querySelector('.name').textContent=group?group.name:'UNFILED'})}function toggle(i){if(solved.has(i))return;if(selected.includes(i))selected=selected.filter(x=>x!==i);else if(selected.length<4)selected.push(i);else flash('Only four pieces belong in a group.',true);render()}function flash(msg,bad=false){toast.textContent=msg;toast.className='toast show'+(bad?' bad':'');clearTimeout(flash.t);flash.t=setTimeout(()=>toast.className='toast',1450)}function submit(){if(selected.length!==4){flash('Select exactly four pieces of evidence.',true);return}const match=groups.find(g=>selected.every(i=>g.set.has(i)));if(!match){flash('FALSE LEAD — try another connection.',true);return}selected.forEach(i=>solved.add(i));filed.push(match);selected=[];render();flash(solved.size===16?'CASE CLOSED — all evidence filed.':'CONNECTION FOUND — evidence filed.')}function reset(){selected=[];solved.clear();filed=[];seconds=180;clearInterval(tick);tick=setInterval(clock,1000);document.querySelector('#timer').textContent='3:00';render();flash('Case reset.')}document.querySelector('.clear').onclick=()=>{selected=[];render()};document.querySelector('.submit').onclick=submit;document.querySelector('.reset').onclick=reset;document.querySelector('.back').onclick=()=>location.href='/?play=groups';window.addEventListener('resize',render,{passive:true});render()})();</script></body></html>
+</style>
+</head>
+<body>
+<main class="world" id="world">
+<div class="loading">OPENING CASE FILE…</div>
+<button class="back">← MORNING RUN</button>
+<button class="reset" aria-label="Reset">↻</button>
+<header class="title">
+<small>FOUR GROUPS</small>
+<h1>THE CASE FILE</h1>
+</header>
+<section class="stats">
+<div class="stat">
+<strong id="groupCount">0</strong>
+<span>GROUPS</span>
+</div>
+<div class="stat">
+<strong id="score">0</strong>
+<span>SCORE</span>
+</div>
+<div class="stat">
+<strong id="timer">3:00</strong>
+<span>TIME</span>
+</div>
+<div class="stat">
+<strong id="best">—</strong>
+<span>BEST</span>
+</div>
+</section>
+<div class="instruction">Find four pieces of evidence that belong together</div>
+<div class="grid" id="grid">
+</div>
+<svg class="thread" viewBox="0 0 100 100" preserveAspectRatio="none">
+<polyline id="line" style="display:none"></polyline>
+<path class="yarn-shadow" id="yarnShadow"></path>
+<path class="yarn-main" id="yarnMain"></path>
+<path class="yarn-light" id="yarnLight"></path>
+<g id="pins">
+</g>
+</svg>
+<div class="actions">
+<button class="clear">CLEAR</button>
+<button class="submit">SUBMIT GROUP</button>
+</div>
+<div class="files" id="files">
+</div>
+<div class="toast" id="toast">
+</div>
+</main>
+<script>(()=>{const words=['CROW','RAVEN','INK','COAL','BASS','SOLE','PIKE','TUNA','TANGO','WALTZ','SALSA','SWING','RUBY','SCARLET','CRIMSON','CHERRY'];const groups=[{name:'DARK THINGS',set:new Set([0,1,2,3])},{name:'FISH',set:new Set([4,5,6,7])},{name:'DANCES',set:new Set([8,9,10,11])},{name:'RED SHADES',set:new Set([12,13,14,15])}];const world=document.querySelector('#world'),grid=document.querySelector('#grid'),toast=document.querySelector('#toast'),line=document.querySelector('#line'),pins=document.querySelector('#pins'),files=document.querySelector('#files');let selected=[],solved=new Set,seconds=180,tick=setInterval(clock,1000),filed=[];Promise.all(Array.from({length:6},(_,i)=>fetch(`./bg-clean-${String(i).padStart(2,'0')}.b64`).then(r=>{if(!r.ok)throw Error(r.status);return r.text()}))).then(parts=>{world.style.backgroundImage=`url(data:image/webp;base64,${parts.join('')})`;world.classList.add('ready')}).catch(()=>document.querySelector('.loading').textContent='CASE ART FAILED TO LOAD');words.forEach((word,i)=>{const b=document.createElement('button');b.className='card';b.textContent=word;b.dataset.i=i;b.onclick=()=>toggle(i);grid.appendChild(b)});for(let i=0;i<4;i++){const f=document.createElement('div');f.className='file';f.innerHTML=`<span class="num">${i+1}</span>
+<span class="name">UNFILED</span>
+<span class="file-dots">
+<i>
+</i>
+<i>
+</i>
+<i>
+</i>
+<i>
+</i>
+</span>`;files.appendChild(f)}function clock(){if(seconds<=0){clearInterval(tick);flash('TIME — the case remains open.',true);return}seconds--;document.querySelector('#timer').textContent=Math.floor(seconds/60)+':'+String(seconds%60).padStart(2,'0')}function centers(){const g=grid.getBoundingClientRect();return selected.map(i=>{const r=grid.children[i].getBoundingClientRect();return{x:(r.left+r.width/2-g.left)/g.width*100,y:(r.top+r.height*.08-g.top)/g.height*100}})}function render(){[...grid.children].forEach((b,i)=>{b.classList.toggle('selected',selected.includes(i));b.classList.toggle('solved',solved.has(i))});const pts=centers();line.setAttribute('points',pts.map(p=>`${p.x},${p.y}`).join(' '));pins.innerHTML=pts.map(p=>`<circle cx="${p.x}" cy="${p.y}" r="1.55"/>`).join('');document.querySelector('#groupCount').textContent=filed.length;document.querySelector('#score').textContent=filed.length*100;document.querySelector('#best').textContent=filed.length?filed.at(-1).name:'—';[...files.children].forEach((f,i)=>{const group=filed[i];f.classList.toggle('filed',!!group);f.querySelector('.name').textContent=group?group.name:'UNFILED'})}function toggle(i){if(solved.has(i))return;if(selected.includes(i))selected=selected.filter(x=>x!==i);else if(selected.length<4)selected.push(i);else flash('Only four pieces belong in a group.',true);render()}function flash(msg,bad=false){toast.textContent=msg;toast.className='toast show'+(bad?' bad':'');clearTimeout(flash.t);flash.t=setTimeout(()=>toast.className='toast',1450)}function submit(){if(selected.length!==4){flash('Select exactly four pieces of evidence.',true);return}const match=groups.find(g=>selected.every(i=>g.set.has(i)));if(!match){flash('FALSE LEAD — try another connection.',true);return}selected.forEach(i=>solved.add(i));filed.push(match);selected=[];render();flash(solved.size===16?'CASE CLOSED — all evidence filed.':'CONNECTION FOUND — evidence filed.')}function reset(){selected=[];solved.clear();filed=[];seconds=180;clearInterval(tick);tick=setInterval(clock,1000);document.querySelector('#timer').textContent='3:00';render();flash('Case reset.')}document.querySelector('.clear').onclick=()=>{selected=[];render()};document.querySelector('.submit').onclick=submit;document.querySelector('.reset').onclick=reset;document.querySelector('.back').onclick=()=>location.href='/?play=groups';window.addEventListener('resize',render,{passive:true});render()})();</script>
+<script src="enhance.js"></script>
+</body>
+</html>
