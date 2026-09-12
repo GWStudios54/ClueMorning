@@ -178,7 +178,7 @@ async function polishDeepLinks(response,path){
       html=html.replace('</head>','<link rel="stylesheet" href="/retention-hooks.css?v=1">\n</head>');
     }
     if(!html.includes('/deep-link.js')){
-      html=html.replace('</body>','<script src="/deep-link.js?v=1" defer></script>\n</body>');
+      html=html.replace('</body>','<script src="/deep-link.js?v=2" defer></script>\n</body>');
     }
     if(!html.includes('/retention-hooks.js')){
       html=html.replace('</body>','<script src="/retention-hooks.js?v=2" defer></script>\n</body>');
