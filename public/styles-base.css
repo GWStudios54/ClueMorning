@@ -108,7 +108,7 @@ h3{font-size:1.35rem;margin:.2rem 0;letter-spacing:-.02em}
   backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.03);
 }
 .tab{
-  border:1px solid transparent;background:transparent;padding:10px 8px;border-radius:999px;color:var(--muted);font-weight:850;
+  text-decoration:none;border:1px solid transparent;background:transparent;padding:10px 8px;border-radius:999px;color:var(--muted);font-weight:850;
   display:flex;justify-content:center;align-items:center;gap:7px;transition:background .14s ease,color .14s ease,border-color .14s ease,transform .14s ease;
 }
 .tab:hover:not(.active){background:color-mix(in srgb,var(--paper2) 70%,var(--card));border-color:color-mix(in srgb,var(--line) 84%,white)}
@@ -134,7 +134,7 @@ h3{font-size:1.35rem;margin:.2rem 0;letter-spacing:-.02em}
 
 .game-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
 .game-card{
-  position:relative;border:1px solid color-mix(in srgb,var(--line) 90%,white);
+  position:relative;text-decoration:none;color:var(--ink);border:1px solid color-mix(in srgb,var(--line) 90%,white);
   background:linear-gradient(180deg,color-mix(in srgb,var(--card) 88%,white),var(--card));
   border-radius:22px;padding:18px;display:grid;grid-template-columns:auto 1fr auto;gap:15px;align-items:center;text-align:left;
   box-shadow:var(--shadow);transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;
