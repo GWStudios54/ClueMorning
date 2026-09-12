@@ -1,0 +1,42 @@
+/* Dedicated daily-game document shell.
+   The homepage still owns navigation/progress; /play/* pages own gameplay. */
+html[data-game-page]{min-height:100%;background:#15120e}
+html[data-game-page] body{min-height:100dvh;margin:0}
+html[data-game-page] .sunrise-bar,
+html[data-game-page] .masthead,
+html[data-game-page] .tabs,
+html[data-game-page] #today,
+html[data-game-page] #leaders,
+html[data-game-page] #archive,
+html[data-game-page] #unlimited,
+html[data-game-page] footer,
+html[data-game-page] .retention-run-strip,
+html[data-game-page] .morning-report,
+html[data-game-page] [data-retention-ui],
+html[data-game-page] [data-social-ui],
+html[data-game-page] #dailyScoreDialog,
+html[data-game-page] .daily-score-reopen,
+html[data-game-page] .word-control-switch,
+html[data-game-page] [data-word-control],
+html[data-game-page] .presentation-more-play{display:none!important}
+html[data-game-page] main.app{
+  width:100%;max-width:none;min-height:100dvh;margin:0;padding:0;
+}
+html[data-game-page] main.app>.panel{display:none!important;margin:0}
+html[data-game-page] main.app>.panel.active{display:block!important}
+html[data-game-page] #helpDialog{z-index:10000}
+html[data-game-page="lastcall"]{background:var(--paper,#f7f1e5)}
+html[data-game-page="lastcall"] body{background:var(--paper,#f7f1e5)}
+html[data-game-page="lastcall"] main.app{padding:18px clamp(12px,4vw,28px) 42px}
+html[data-game-page="lastcall"] #lastcall{width:min(860px,100%);margin:0 auto!important}
+html[data-game-page="lastcall"] #lastcall .panel-head::before{
+  content:"CLUE MORNING · MORNING RUN";display:block;margin-bottom:12px;color:var(--muted);
+  font-size:.7rem;font-weight:900;letter-spacing:.12em
+}
+html[data-game-page="lastcall"] #lastcall .panel-head{padding-top:54px}
+html[data-game-page="lastcall"] #lastcall::before{
+  content:"← MORNING RUN";position:absolute;top:18px;left:clamp(12px,4vw,28px);z-index:20;
+  padding:10px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);
+  color:var(--ink);font:850 .78rem/1 system-ui;letter-spacing:.05em;pointer-events:none
+}
+html[data-game-page="lastcall"] #lastcall{position:relative}
