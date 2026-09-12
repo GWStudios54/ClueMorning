@@ -40,6 +40,9 @@ assert.ok(router.includes('/game-page.css?v=1')&&router.includes('/game-page.js?
 const typesetter=read('./public/letter-typesetter.js');
 const typesetterCss=read('./public/letter-typesetter.css');
 assert.ok(typesetter.includes("typesetter-reset")&&typesetter.includes("reset.textContent='↻'"),'production Typesetter must retain the approved test reset control');
+assert.equal(index.includes('styles.css">\\n'),false,'homepage must not emit a literal \\n after the base stylesheet');
+assert.ok(typesetterCss.includes('data:image/webp;base64,'),'production Typesetter must carry its approved artwork in the skin itself');
+assert.equal(typesetter.includes("Promise.all(ART.map"),false,'production Typesetter must not block on runtime artwork chunk fetches');
 assert.ok(typesetter.includes("const width=length*8.18"),'production Typesetter must retain approved variable proof width');
 assert.ok(typesetterCss.includes("#keyboard .key-row")&&typesetterCss.includes("nth-child(1) .key{width:9%}")&&typesetterCss.includes("nth-child(2) .key{width:9.9%}")&&typesetterCss.includes("nth-child(3) .key{width:12%}"),'production Typesetter must retain approved three-row keyboard geometry');
 assert.ok(typesetterCss.includes("top:31.05%")&&typesetterCss.includes("top:65.2%")&&typesetterCss.includes("top:76.35%"),'production Typesetter must retain approved proof, keyboard, and action positions');
