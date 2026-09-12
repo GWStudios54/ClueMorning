@@ -12,7 +12,7 @@ const router=read('./src/worker-v5.js');
 const productionSkins=[
   'trail-cartographer.css?v=2','trail-cartographer.js?v=2',
   'four-groups-case-file.css?v=2','four-groups-case-file.js?v=2',
-  'letter-typesetter.css?v=4','letter-typesetter.js?v=4'
+  'letter-typesetter.css?v=5','letter-typesetter.js?v=5'
 ];
 for(const asset of productionSkins){
   assert.equal(index.includes(asset),false,`Homepage must not load dedicated game skin ${asset}`);
