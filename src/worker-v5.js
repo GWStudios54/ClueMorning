@@ -180,6 +180,12 @@ function stripHomepageRuntime(html,game){
   return html;
 }
 
+function stripUnrelatedGameMedia(html,game){
+  if(game!=='steps')html=html.replaceAll('src="/word-steps-rooftops/pc.webp"','data-deferred-src="/word-steps-rooftops/pc.webp"');
+  if(game!=='deepcut')html=html.replaceAll('src="/deepcut-archive/','data-deferred-src="/deepcut-archive/');
+  return html;
+}
+
 async function dedicatedGamePage(request,env,ctx,game){
   const url=new URL(request.url);
   const shellUrl=new URL('/index.html?standalone-game='+encodeURIComponent(game),url);
@@ -189,7 +195,7 @@ async function dedicatedGamePage(request,env,ctx,game){
   const type=response.headers.get('content-type')||'';
   if(!type.includes('text/html'))return response;
 
-  let html=stripHomepageRuntime(await response.text(),game);
+  let html=stripUnrelatedGameMedia(stripHomepageRuntime(await response.text(),game),game);
   const path=GAME_PATHS[game];
   const name=GAME_NAMES[game]||'Clue Morning';
   html=html.replace(/<html([^>]*)>/i,(match,attrs)=>'<html'+attrs+' data-game-page="'+game+'">');
