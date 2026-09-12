@@ -192,7 +192,7 @@ async function injectFoundersUi(response){
   if(!html.includes("/extra-games.js"))html=html.replace("</body>",'<script src="/extra-games.js?v=1" defer></script></body>');
   if(!html.includes("/word-controls.js"))html=html.replace("</body>",'<script type="module" src="/word-controls.js?v=2"></script></body>');
   if(!html.includes("/daily-presentation-fix.js"))html=html.replace("</body>",'<script src="/daily-presentation-fix.js?v=2" defer></script></body>');
-  if(!html.includes("/last-call.js"))html=html.replace("</body>",'<script src="/last-call.js?v=1" defer></script></body>');
+  if(!html.includes("/last-call.js"))html=html.replace("</body>",'<script src="/last-call.js?v=2" defer></script></body>');
   if(!html.includes("/presentation-v1.js"))html=html.replace("</body>",'<script src="/presentation-v1.js?v=1" defer></script></body>');
   if(!html.includes("/social.js"))html=html.replace("</body>",'<script src="/social.js?v=1" defer></script></body>');
   if(!html.includes("/leaderboards-v2.js"))html=html.replace("</body>",'<script src="/leaderboards-v2.js?v=1" defer></script></body>');
