@@ -1,4 +1,4 @@
-const CACHE = 'clue-morning-pwa-v49';
+const CACHE = 'clue-morning-pwa-v50';
 const APP_SHELL = [
   '/styles.css',
   '/styles-base.css',
@@ -57,7 +57,7 @@ self.addEventListener('activate', event => {
       try {
         const url = new URL(client.url);
         if (url.origin === self.location.origin && (url.pathname === '/' || url.pathname === '/index.html')) {
-          return client.navigate('/?shell=v49');
+          return client.navigate('/?shell=v50');
         }
       } catch {}
       return undefined;
