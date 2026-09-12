@@ -10,14 +10,18 @@
     let best=Number(localStorage.getItem(BEST_KEY)||0);
     try{
       const store=JSON.parse(localStorage.getItem(CORE_STORE)||'{}');
-      for(const value of Object.values(store.days||{}))best=Math.max(best,Number(value?.letter?.score)||0);
+      for(const value of Object.values(store.days||{}))if(value?.letter?.done)best=Math.max(best,Number(value.letter.score)||0);
     }catch{}
     return best;
   }
-  function writeBest(score){
-    const best=Math.max(readBest(),Number(score)||0);
-    try{localStorage.setItem(BEST_KEY,String(best))}catch{}
-    const el=$('#letterBest');if(el)el.textContent=best?best.toLocaleString():'—';
+  function writeBest(score,commit=false){
+    let best=readBest();
+    if(commit){
+      best=Math.max(best,Number(score)||0);
+      try{localStorage.setItem(BEST_KEY,String(best))}catch{}
+    }
+    const el=$('#letterBest'),display=best?best.toLocaleString():'—';
+    if(el&&el.textContent!==display)el.textContent=display;
   }
   function fitBoard(){
     const length=Math.max(4,Math.min(10,Number(($('#wordLength')?.textContent||'').match(/\d+/)?.[0])||5));
@@ -40,7 +44,11 @@
   function sync(){
     const active=isActive();
     document.body.classList.toggle('letter-typesetter-active',active);
-    if(active){loadArt();fitBoard();writeBest(Number(($('#letterScore')?.textContent||'0').replace(/[^0-9]/g,''))||0)}
+    if(active){
+      loadArt();fitBoard();
+      const score=Number(($('#letterScore')?.textContent||'0').replace(/[^0-9]/g,''))||0;
+      writeBest(score,!!$('#guessInput')?.disabled);
+    }
   }
   function mount(){
     if(panel.dataset.typesetterMounted)return;
@@ -75,8 +83,11 @@
     const labels=['LETTERS','GUESSES','SCORE','BEST'];stats.forEach((stat,i)=>{const label=stat.querySelector('span');if(label&&labels[i])label.textContent=labels[i]});
     writeBest(0);fitBoard();
 
-    new MutationObserver(()=>{fitBoard();writeBest(Number(($('#letterScore')?.textContent||'0').replace(/[^0-9]/g,''))||0)})
-      .observe(panel,{subtree:true,childList:true,characterData:true});
+    new MutationObserver(()=>{
+      fitBoard();
+      const score=Number(($('#letterScore')?.textContent||'0').replace(/[^0-9]/g,''))||0;
+      writeBest(score,!!$('#guessInput')?.disabled);
+    }).observe(panel,{subtree:true,childList:true,characterData:true});
     new MutationObserver(sync).observe(panel,{attributes:true,attributeFilter:['class']});
     new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:['data-game-session']});
     window.addEventListener('resize',fitBoard,{passive:true});
