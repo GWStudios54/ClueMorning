@@ -6,6 +6,17 @@ const PLAY_TARGETS={
   grid:'letter',letter:'letter',groups:'groups',trail:'trail',link:'link',steps:'steps',
   deepcut:'deepcut','deep-cut':'deepcut',lastcall:'lastcall','last-call':'lastcall'
 };
+const GAME_PATHS={
+  letter:'/play/letter-grid/',
+  groups:'/play/four-groups/',
+  trail:'/play/letter-trail/',
+  link:'/play/triple-link/',
+  steps:'/play/word-steps/',
+  deepcut:'/play/deep-cut/',
+  lastcall:'/play/last-call/'
+};
+const GAME_PAGE_ROUTES=Object.fromEntries(Object.entries(GAME_PATHS).flatMap(([game,path])=>[[path,game],[path.replace(/\/$/,''),game]]));
+const GAME_NAMES={letter:'Letter Grid',groups:'Four Groups',trail:'Letter Trail',link:'Triple Link',steps:'Word Steps',deepcut:'Deep Cut',lastcall:'Last Call'};
 const OWNER_ADMIN_COOKIE='cm_owner_admin';
 const OWNER_ADMIN_HASH='6616d27148a3b24037d545e8befbcd0ce77a1ba8b1eb3abbfd0aa690e1da371c';
 const DAILY_COMPARE_COLUMNS={grid:'grid_score',groups:'groups_score',trail:'trail_score',link:'link_score',steps:'steps_score',deepcut:'deepcut_score'};
@@ -147,9 +158,51 @@ async function adminApi(request,env,path){
 }
 
 function legacyPlayRedirect(url){
-  const target=new URL('/',url);
+  const requested=String(url.searchParams.get('play')||'').toLowerCase();
+  const game=PLAY_TARGETS[requested];
+  const target=new URL(game?GAME_PATHS[game]:'/',url);
   target.search='';
   return Response.redirect(target.toString(),301);
+}
+
+function stripHomepageRuntime(html,game){
+  html=html.replace(/\s*<script[^>]+(?:founders-ui|extra-games|word-controls|daily-presentation-fix|presentation-v1|social|leaderboards-v2|performance-bridge|retention-hooks|competition|homepage-guard)\.js[^>]*><\/script>/gi,'');
+  html=html.replace(/\s*<link[^>]+(?:daily-presentation-fix|presentation-v1|social|leaderboards-v2|retention-hooks)\.css[^>]*>/gi,'');
+  if(game!=='lastcall'){
+    html=html.replace(/\s*<script[^>]+last-call\.js[^>]*><\/script>/gi,'');
+    html=html.replace(/\s*<link[^>]+last-call\.css[^>]*>/gi,'');
+  }
+  return html;
+}
+
+async function dedicatedGamePage(request,env,ctx,game){
+  const url=new URL(request.url);
+  const shellUrl=new URL('/index.html?standalone-game='+encodeURIComponent(game),url);
+  const shellRequest=new Request(shellUrl,{method:'GET',headers:request.headers});
+  const response=await core.fetch(shellRequest,env,ctx);
+  if(!response.ok)return response;
+  const type=response.headers.get('content-type')||'';
+  if(!type.includes('text/html'))return response;
+
+  let html=stripHomepageRuntime(await response.text(),game);
+  const path=GAME_PATHS[game];
+  const name=GAME_NAMES[game]||'Clue Morning';
+  html=html.replace(/<html([^>]*)>/i,(match,attrs)=>'<html'+attrs+' data-game-page="'+game+'">');
+  html=html.replace(/<title>.*?<\/title>/is,'<title>'+name+' — Clue Morning</title>');
+  html=html.replace(/<meta\s+name=["']robots["'][^>]*>/i,'<meta name="robots" content="noindex,follow">');
+  html=html.replace(/<link\s+rel=["']canonical["'][^>]*>/i,'<link rel="canonical" href="https://cluemorning.com'+path+'">');
+  if(!html.includes('/game-page.css'))html=html.replace('</head>','<link rel="stylesheet" href="/game-page.css?v=1">\n</head>');
+  html=html.replace(/<script\s+src=["']\/?app\.js["'][^>]*><\/script>/i,'<script src="/app-core.js?v=dedicated-1"></script>');
+  if(game==='lastcall'){
+    if(!html.includes('/last-call.css'))html=html.replace('</head>','<link rel="stylesheet" href="/last-call.css?v=1">\n</head>');
+    if(!html.includes('/last-call.js'))html=html.replace('</body>','<script src="/last-call.js?v=2" defer></script>\n</body>');
+  }
+  html=html.replace('</body>','<script src="/game-page.js?v=1"></script>\n</body>');
+
+  const headers=new Headers(response.headers);
+  headers.set('cache-control','no-store, max-age=0, must-revalidate');
+  headers.delete('content-length');headers.delete('etag');
+  return new Response(html,{status:200,headers});
 }
 
 function installPerformanceBridge(html){
@@ -193,6 +246,7 @@ export default {
     const url=new URL(request.url),path=url.pathname;
     if(path==='/api/leaderboard/compare')return competitionApi(request,env);
     if(path.startsWith('/api/admin/'))return adminApi(request,env,path);
+    if(request.method==='GET'&&GAME_PAGE_ROUTES[path])return dedicatedGamePage(request,env,ctx,GAME_PAGE_ROUTES[path]);
     if(request.method==='GET'&&(path==='/'||path==='/index.html')&&url.searchParams.has('play'))return legacyPlayRedirect(url);
     const response=await core.fetch(request,env,ctx);
     if(request.method==='GET')return polishDeepLinks(response,path);
