@@ -111,7 +111,7 @@ function selectTab(id){
   if(id==="deepcut"){warmDeepCutArchive();requestAnimationFrame(renderDeepCutArchive)}
   if(id==="steps"){void warmStepsRooftops();requestAnimationFrame(()=>stepsSyncRooftopsPosition())}
 }
-document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>selectTab(b.dataset.tab)));
+document.querySelectorAll('.tab[data-tab]').forEach(b=>b.addEventListener('click',()=>selectTab(b.dataset.tab)));
 document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>selectTab(b.dataset.open)));
 let immersivePanelSyncQueued=false;
 const queueImmersivePanelSync=()=>{
