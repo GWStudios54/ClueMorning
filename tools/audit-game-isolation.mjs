@@ -8,30 +8,32 @@ const deepLink=read('./public/deep-link.js');
 const router=read('./src/worker-v5.js');
 
 const productionSkins=[
-  'trail-cartographer.css','trail-cartographer.js',
-  'four-groups-case-file.css','four-groups-case-file.js'
+  'trail-cartographer.css?v=2','trail-cartographer.js?v=2',
+  'four-groups-case-file.css?v=2','four-groups-case-file.js?v=2'
 ];
 for(const asset of productionSkins){
-  assert.equal(index.includes(asset),false,`Shared homepage must not load ${asset}`);
+  assert.ok(index.includes(asset),`Shared homepage should load gated skin ${asset}`);
 }
 
+assert.ok(core.includes("document.documentElement.dataset.gameSession===id"),
+  'Immersive layouts must require an explicit game session');
+assert.ok(core.includes("delete document.documentElement.dataset.gameSession"),
+  'Returning to Today must destroy the active game session');
+for(const [path,session,bodyClass] of [
+  ['./public/four-groups-case-file.js','groups','case-file-active'],
+  ['./public/trail-cartographer.js','trail','trail-cartographer-active']
+]){
+  const source=read(path);
+  assert.ok(source.includes(`dataset.gameSession==='${session}'`),
+    `${path} must require the ${session} game session`);
+  assert.ok(source.includes(`classList.toggle('${bodyClass}',active)`),
+    `${path} should scope its body class to the gated active state`);
+}
 for(const className of ['link-immersive','steps-immersive','deepcut-immersive']){
-  assert.equal(
-    core.includes(`classList.toggle('${className}'`)||core.includes(`classList.add('${className}'`),
-    false,
-    `Shared game runtime must not activate global class ${className}`
-  );
-}
-for(const className of ['case-file-active','trail-cartographer-active']){
-  assert.equal(
-    core.includes(`classList.toggle('${className}'`)||core.includes(`classList.add('${className}'`),
-    false,
-    `Shared game runtime must not activate global class ${className}`
-  );
+  assert.ok(core.includes(`classList.toggle('${className}',shouldBeImmersive)`),
+    `${className} must be synchronized from the explicit session gate`);
 }
 
-assert.ok(core.includes("classList.remove('link-immersive','deepcut-immersive','steps-immersive')"),
-  'Core must defensively clear legacy immersive html classes');
 assert.ok(deepLink.includes("addEventListener('hashchange',returnHome)"),
   'Legacy game fragments must be neutralized during same-document navigation');
 assert.equal(deepLink.includes('openRequested'),false,
