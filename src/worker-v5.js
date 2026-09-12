@@ -203,7 +203,7 @@ async function dedicatedGamePage(request,env,ctx,game){
   if(!html.includes('/game-page.css'))html=html.replace('</head>','<link rel="stylesheet" href="/game-page.css?v=1">\n</head>');
   const skin=GAME_SKINS[game];
   if(skin?.css&&!html.includes(skin.css.split('?')[0]))html=html.replace('</head>','<link rel="stylesheet" href="'+skin.css+'">\n</head>');
-  html=html.replace(/<script\s+src=["']\/?app\.js["'][^>]*><\/script>/i,'<script src="/app-core.js?v=dedicated-1"></script>');
+  html=html.replace(/<script\s+src=["']\/?app\.js["'][^>]*><\/script>/i,'<script src="/app-core.js?v=dedicated-2"></script>');
   if(skin?.js&&!html.includes(skin.js.split('?')[0]))html=html.replace('</body>','<script src="'+skin.js+'"></script>\n</body>');
   if(game==='lastcall'){
     if(!html.includes('/last-call.css'))html=html.replace('</head>','<link rel="stylesheet" href="/last-call.css?v=1">\n</head>');
