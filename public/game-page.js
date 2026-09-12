@@ -36,27 +36,12 @@
 
   function activate(){
     ensureStandaloneBack();
+    const panel=document.getElementById(game);if(!panel)return false;
     document.documentElement.dataset.gameSession=game;
-    const tab=document.querySelector('.tab[data-tab="'+game+'"]');
-    const panel=document.getElementById(game);
-    if(tab&&panel){
-      tab.click();
-      document.documentElement.dataset.gameSession=game;
-      return true;
-    }
-    if(panel){
-      document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p===panel));
-      document.documentElement.dataset.gameSession=game;
-      return true;
-    }
-    return false;
+    document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p===panel));
+    return true;
   }
 
-  let tries=0;
-  function ensureActive(){
-    if(activate()||tries++>80)return;
-    setTimeout(ensureActive,25);
-  }
-  ensureActive();
-  addEventListener('pageshow',()=>{tries=0;ensureActive()});
+  activate();
+  addEventListener('pageshow',activate);
 })();
