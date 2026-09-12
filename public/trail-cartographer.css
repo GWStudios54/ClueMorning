@@ -12,7 +12,8 @@ body.trail-cartographer-active .app{width:100%;max-width:none;margin:0;padding:0
 #trail.trail-cartographer button{font:inherit;color:inherit}
 #trail.trail-cartographer .panel-head{position:absolute;z-index:8;left:27.5%;top:10.65%;width:45%;height:5%;margin:0;padding:0;display:flex;align-items:center;justify-content:center;text-align:center;background:transparent;border:0}
 #trail.trail-cartographer .panel-head>div{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-shadow:0 2px 2px #050403}
-#trail.trail-cartographer .panel-head .game-label{font:bold clamp(6px,1.65vw,9px)/1.1 sans-serif;letter-spacing:.2em;color:#d9ae58}
+#trail.trail-cartographer .panel-head .game-label{font-size:0;line-height:1.1;color:#d9ae58}
+#trail.trail-cartographer .panel-head .game-label:after{content:"LETTER TRAIL";font:bold clamp(6px,1.65vw,9px)/1.1 sans-serif;letter-spacing:.2em}
 #trail.trail-cartographer .panel-head h2{margin:2px 0 0;font-size:clamp(13px,4.2vw,23px);line-height:1;letter-spacing:.055em;color:#f5d891}
 #trail.trail-cartographer .panel-head h2{font-size:0}
 #trail.trail-cartographer .panel-head h2:after{content:"THE CARTOGRAPHER";font-size:clamp(13px,4.2vw,23px)}
@@ -51,7 +52,9 @@ body.trail-cartographer-active .app{width:100%;max-width:none;margin:0;padding:0
 #trail.trail-cartographer .trail-cart-trace circle{fill:#fff6bc;filter:drop-shadow(0 0 5px #ff9b2c)}
 
 #trail.trail-cartographer .trail-actions{position:absolute;left:25.2%;top:73.05%;width:49.6%;height:5.15%;margin:0;display:flex;gap:4.5%}
-#trail.trail-cartographer .trail-actions button{height:100%;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;flex:1;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1;font:bold clamp(7px,2.3vw,12px)/1 sans-serif;letter-spacing:.12em;transform:translateY(-7px)}
+#trail.trail-cartographer .trail-actions button{height:100%;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;flex:1;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1;font:bold clamp(7px,2.3vw,12px)/1 sans-serif;letter-spacing:.12em}
+#trail.trail-cartographer .trail-actions button .icon{display:none}
+#trail.trail-cartographer .trail-actions button>span{display:block;transform:translateY(-7px)}
 #trail.trail-cartographer #trailClear{color:#e8c575}
 #trail.trail-cartographer #trailSubmit{color:#24160d}
 #trail.trail-cartographer #trailWords{position:absolute;left:21%;top:78.65%;width:58%;height:2.2%;margin:0;display:block;overflow:hidden;white-space:nowrap;text-align:center;color:#4b3019;font:bold clamp(6px,1.8vw,10px)/1.4 sans-serif}
