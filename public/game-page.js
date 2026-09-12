@@ -5,6 +5,8 @@
 
   const HOME_SELECTORS=[
     '.typesetter-back',
+    '.case-morning-run',
+    '.trail-morning-run',
     '.case-file-back',
     '.trail-cartographer-back',
     '[data-case-file-back]',
@@ -30,7 +32,15 @@
     goHome(event);
   },true);
 
+  function ensureStandaloneBack(){
+    if(game!=='lastcall')return;
+    const panel=document.getElementById('lastcall');if(!panel||panel.querySelector('.game-page-back'))return;
+    const back=document.createElement('button');back.type='button';back.className='game-page-back';back.textContent='← MORNING RUN';
+    back.addEventListener('click',goHome);panel.prepend(back);
+  }
+
   function activate(){
+    ensureStandaloneBack();
     document.documentElement.dataset.gameSession=game;
     const tab=document.querySelector('.tab[data-tab="'+game+'"]');
     const panel=document.getElementById(game);
