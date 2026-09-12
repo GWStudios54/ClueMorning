@@ -31,7 +31,7 @@ const checks=[
   ['legacy play query URLs permanently redirect home',router.includes("url.searchParams.has('play')")&&router.includes('Response.redirect(target.toString(),301)')&&!router.includes("target.hash=`play=${play}`")],
   ['served HTML does not create persistent play fragments',!router.includes("replaceAll('/?play=','/#play=')")],
   ['legacy play fragments return to Today',deepLink.includes("classList.toggle('active',tab.dataset.tab==='today')")&&deepLink.includes("addEventListener('hashchange',returnHome)")],
-  ['deep-link cleanup client is injected on homepage',router.includes('/deep-link.js?v=3')],
+  ['deep-link cleanup client is injected on homepage',router.includes('/deep-link.js?v=4')],
   ['PWA cache includes deep-link client',sw.includes("'/deep-link.js'" )],
   ['Wrangler uses routing worker v5',wrangler.includes('"main": "src/worker-v5.js"')],
   ['games hub is indexable',games.includes('<meta name="robots" content="index,follow,max-image-preview:large">')&&games.includes('<link rel="canonical" href="https://cluemorning.com/games/">')],
