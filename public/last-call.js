@@ -22,7 +22,13 @@
     $('#lastCallBank')?.addEventListener('click',bank);
   }
 
-  function openPanel(){const today=$('.tab[data-tab="today"]');if(today&&!$('#today')?.classList.contains('active'))today.click();requestAnimationFrame(()=>{$$('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab==='lastcall'));$$('.panel').forEach(p=>p.classList.toggle('active',p.id==='lastcall'));window.scrollTo({top:0,behavior:'smooth'});render()})}
+  function openPanel(){
+    document.documentElement.dataset.gameSession='lastcall';
+    $('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab==='lastcall'));
+    $('.panel').forEach(p=>p.classList.toggle('active',p.id==='lastcall'));
+    window.scrollTo({top:0,behavior:'smooth'});
+    render();
+  }
   function ensureDay(){data.days??={};day=data.days[date]??={};const key=`${date}:${puzzle.id}`;if(day.key!==key){day={key,correctCount:0,picks:[],bustId:'',score:0,done:false,banked:false,jackpot:false};data.days[date]=day;save()}}
   async function reveal(){if(!day?.done||revealMap.size)return;try{const r=await fetch('/api/lastcall/reveal',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({date,finished:true})});const j=await r.json();if(r.ok)revealMap=new Map((j.options||[]).map(o=>[o.id,!!o.correct]))}catch{}renderOptions()}
   function renderOptions(){const grid=$('#lastCallOptions');if(!grid||!puzzle)return;grid.innerHTML='';const picked=new Set(day?.picks||[]);for(const o of puzzle.options){const b=document.createElement('button');b.type='button';b.className='lastcall-option';b.textContent=o.label;const known=revealMap.get(o.id);if(picked.has(o.id))b.classList.add('picked-safe');if(day?.done&&known===true)b.classList.add('reveal-safe');if(day?.done&&known===false)b.classList.add('reveal-fake');if(day?.bustId===o.id)b.classList.add('bust');b.disabled=busy||!!day?.done||picked.has(o.id);b.addEventListener('click',()=>pick(o.id));grid.appendChild(b)}}
