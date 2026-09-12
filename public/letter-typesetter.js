@@ -1,10 +1,8 @@
 (()=>{
-  const ART=Array.from({length:4},(_,i)=>'/letter-grid-test/live-'+String(i).padStart(2,'0')+'.b64');
   const BEST_KEY='clue-letter-grid-best';
   const CORE_STORE='clue-morning-state-v2.4';
   const $=s=>document.querySelector(s);
   const panel=$('#letter');if(!panel)return;
-  let artPromise=null;
 
   function readBest(){
     let best=Number(localStorage.getItem(BEST_KEY)||0);
@@ -32,11 +30,7 @@
     panel.dataset.typesetterCols=String(length);
   }
   function loadArt(){
-    if(!artPromise)artPromise=Promise.all(ART.map(async url=>{
-      const r=await fetch(url,{cache:'force-cache'});if(!r.ok)throw new Error('Typesetter art '+r.status);return(await r.text()).trim();
-    })).then(parts=>'url(data:image/webp;base64,'+parts.join('')+')');
-    artPromise.then(value=>{panel.style.backgroundImage=value;panel.classList.add('typesetter-ready')})
-      .catch(err=>{console.error(err);panel.classList.add('typesetter-ready')});
+    panel.classList.add('typesetter-ready');
   }
   function isActive(){
     return panel.classList.contains('active')&&document.documentElement.dataset.gameSession==='letter';
