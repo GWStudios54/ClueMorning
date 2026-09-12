@@ -10,7 +10,7 @@
     const panel=$('#trail'),grid=$('#trailGrid'),play=$('#trailPlay');if(!panel||!grid||!play||panel.dataset.cartographerMounted)return;
     panel.dataset.cartographerMounted='1';panel.classList.add('trail-cartographer');loadArt(panel);
     const clearLabel=$('#trailClear span'),submitLabel=$('#trailSubmit span');if(clearLabel)clearLabel.textContent='CLEAR';if(submitLabel)submitLabel.textContent='MARK WORD';
-    const back=document.createElement('button');back.type='button';back.className='trail-morning-run';back.textContent='← MORNING RUN';back.addEventListener('click',()=>document.querySelector('[data-tab="today"]')?.click());panel.appendChild(back);
+    const back=document.createElement('button');back.type='button';back.className='trail-morning-run';back.textContent='← MORNING RUN';back.addEventListener('click',()=>{history.replaceState(null,'',location.pathname+location.search);document.querySelector('[data-tab="today"]')?.click()});panel.appendChild(back);
     const board=document.createElement('div');board.className='trail-cart-board';grid.before(board);board.appendChild(grid);
     const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.classList.add('trail-cart-trace');svg.setAttribute('viewBox','0 0 100 100');svg.setAttribute('preserveAspectRatio','none');svg.innerHTML='<polyline points=""></polyline><g></g>';board.appendChild(svg);
     function draw(){
