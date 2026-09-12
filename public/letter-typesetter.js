@@ -26,7 +26,7 @@
   function fitBoard(){
     const length=Math.max(4,Math.min(10,Number(($('#wordLength')?.textContent||'').match(/\d+/)?.[0])||5));
     const board=$('#guessBoard');if(!board)return;
-    const width=Math.min(81.8,length*8.18);
+    const width=length*8.18;
     board.style.width=width+'%';
     board.style.left=(50-width/2)+'%';
     panel.dataset.typesetterCols=String(length);
@@ -58,8 +58,11 @@
     const loading=document.createElement('div');loading.className='typesetter-loading';loading.textContent='SETTING THE TYPE…';panel.prepend(loading);
     const back=document.createElement('button');back.type='button';back.className='typesetter-back';back.textContent='← MORNING RUN';
     back.addEventListener('click',()=>document.querySelector('[data-tab="today"]')?.click());panel.appendChild(back);
-    const help=document.createElement('button');help.type='button';help.className='typesetter-help';help.textContent='?';help.setAttribute('aria-label','Letter Grid help');
-    help.addEventListener('click',()=>panel.querySelector('[data-help="letter"]')?.click());panel.appendChild(help);
+    const reset=document.createElement('button');reset.type='button';reset.className='typesetter-reset';reset.textContent='↻';reset.setAttribute('aria-label','Clear current proof');
+    reset.addEventListener('click',()=>{
+      const input=$('#guessInput');if(!input||input.disabled)return;
+      input.value='';input.dispatchEvent(new Event('input',{bubbles:true}));input.focus({preventScroll:true});
+    });panel.appendChild(reset);
     const title=document.createElement('div');title.className='typesetter-title';title.innerHTML='<small>LETTER GRID</small><strong>THE TYPESETTER</strong>';panel.appendChild(title);
     const note=document.createElement('div');note.className='typesetter-instruction';note.textContent='Set the word, then pull the press';panel.appendChild(note);
     const clear=document.createElement('button');clear.type='button';clear.className='typesetter-clear';clear.textContent='CLEAR';
@@ -68,7 +71,6 @@
     const press=$('#guessForm button span');if(press)press.textContent='PULL PRESS';
     const keyboard=$('#keyboard');
     if(keyboard){
-      const annotateKeys=()=>keyboard.querySelectorAll('.key').forEach(key=>{key.setAttribute('role','button');key.tabIndex=0;key.setAttribute('aria-label','Type '+key.textContent.trim())});
       const typeKey=key=>{
         const input=$('#guessInput');if(!input||input.disabled)return;
         const max=Number($('#wordLength')?.textContent)||input.maxLength||10,ch=(key?.textContent||'').trim().toUpperCase();
@@ -77,7 +79,6 @@
       };
       keyboard.addEventListener('click',event=>{const key=event.target.closest('.key');if(key)typeKey(key)});
       keyboard.addEventListener('keydown',event=>{if(event.key!=='Enter'&&event.key!==' ')return;const key=event.target.closest('.key');if(!key)return;event.preventDefault();typeKey(key)});
-      new MutationObserver(annotateKeys).observe(keyboard,{childList:true});annotateKeys();
     }
     const stats=[...panel.querySelectorAll(':scope>.stats-row .stat')];
     const labels=['LETTERS','GUESSES','SCORE','BEST'];stats.forEach((stat,i)=>{const label=stat.querySelector('span');if(label&&labels[i])label.textContent=labels[i]});
