@@ -7,6 +7,7 @@
 
   function showHome(){
     if(interacted)return;
+    delete document.documentElement.dataset.gameSession;
     if(location.hash)history.replaceState(null,'',location.pathname+location.search);
     document.querySelectorAll('.tab').forEach(tab=>tab.classList.toggle('active',tab.dataset.tab==='today'));
     document.querySelectorAll('.panel').forEach(panel=>panel.classList.toggle('active',panel.id==='today'));
