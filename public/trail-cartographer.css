@@ -1,0 +1,69 @@
+body.trail-cartographer-active{overflow:hidden;background:#17110c}
+body.trail-cartographer-active .sunrise-bar,
+body.trail-cartographer-active .masthead,
+body.trail-cartographer-active .tabs{display:none!important}
+body.trail-cartographer-active .app{width:100%;max-width:none;margin:0;padding:0}
+
+#trail.trail-cartographer{
+  position:fixed;z-index:1000;inset:0!important;display:block!important;margin:0!important;padding:0!important;
+  min-height:560px;overflow:hidden;color:#f5dfad;background-color:#17110c;background-position:center -3.5dvh;background-size:100% 100%;background-repeat:no-repeat;
+  font-family:Georgia,"Times New Roman",serif;touch-action:none;-webkit-user-select:none;user-select:none
+}
+#trail.trail-cartographer button{font:inherit;color:inherit}
+#trail.trail-cartographer .panel-head{position:absolute;z-index:8;left:27.5%;top:10.65%;width:45%;height:5%;margin:0;padding:0;display:flex;align-items:center;justify-content:center;text-align:center;background:transparent;border:0}
+#trail.trail-cartographer .panel-head>div{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-shadow:0 2px 2px #050403}
+#trail.trail-cartographer .panel-head .game-label{font-size:0;line-height:1.1;color:#d9ae58}
+#trail.trail-cartographer .panel-head .game-label:after{content:"LETTER TRAIL";font:bold clamp(6px,1.65vw,9px)/1.1 sans-serif;letter-spacing:.2em}
+#trail.trail-cartographer .panel-head h2{margin:2px 0 0;font-size:clamp(13px,4.2vw,23px);line-height:1;letter-spacing:.055em;color:#f5d891}
+#trail.trail-cartographer .panel-head h2{font-size:0}
+#trail.trail-cartographer .panel-head h2:after{content:"THE CARTOGRAPHER";font-size:clamp(13px,4.2vw,23px)}
+#trail.trail-cartographer .panel-head p{display:none}
+#trail.trail-cartographer .panel-head .round-button{position:fixed;z-index:12;right:2.8%;top:4.4%;width:42px;height:34px;padding:0;border:1px solid rgba(213,169,77,.5);border-radius:999px;background:rgba(18,16,12,.78)}
+#trail.trail-cartographer .trail-morning-run{position:absolute;z-index:12;left:2.8%;top:4.4%;height:34px;padding:0 16px;border:1px solid rgba(213,169,77,.5);border-radius:999px;background:rgba(18,16,12,.78);font:bold 10px/1 sans-serif;letter-spacing:.1em;color:#f1d69b}
+
+#trail.trail-cartographer>.stats-row{position:absolute;z-index:8;left:8.4%;top:16.15%;width:83.2%;height:5.25%;margin:0;display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:transparent;border:0;box-shadow:none}
+#trail.trail-cartographer>.stats-row .stat{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 2px;border:0;border-right:1px solid rgba(204,157,68,.65);background:transparent;box-shadow:none}
+#trail.trail-cartographer>.stats-row .stat:last-child{border-right:0}
+#trail.trail-cartographer>.stats-row .stat strong{font:bold clamp(12px,3.8vw,20px)/1 sans-serif;color:#f7db91}
+#trail.trail-cartographer>.stats-row .stat span{margin-top:3px;font:bold clamp(5px,1.4vw,8px)/1 sans-serif;letter-spacing:.15em;color:#bf9c58}
+
+#trail.trail-cartographer #trailIntro{position:absolute;z-index:20;inset:0;margin:0;padding:20px;display:grid;place-items:center;background:rgba(10,8,6,.62);backdrop-filter:blur(4px)}
+#trail.trail-cartographer #trailIntro[hidden]{display:none!important}
+#trail.trail-cartographer #trailIntro p{max-width:320px;margin:0 0 18px;color:#d9c59d;font:15px/1.45 Georgia}
+#trail.trail-cartographer #trailIntro:before{content:"TODAY'S EXPEDITION\A CHART A TRAIL";white-space:pre;display:block;margin-bottom:12px;font:bold 18px/1.5 Georgia;color:#f5dfad;letter-spacing:.08em}
+#trail.trail-cartographer #trailIntro{align-content:center;text-align:center}
+#trail.trail-cartographer #trailStart{width:min(82vw,340px);height:47px;margin:auto;border:1px solid #e2bc6e;border-radius:6px;background:linear-gradient(#d4a454,#956329);color:#241408;font:bold 12px/1 sans-serif;letter-spacing:.13em}
+
+#trail.trail-cartographer #trailPlay{position:absolute;z-index:5;inset:0;margin:0;padding:0}
+#trail.trail-cartographer #trailPlay[hidden]{display:none!important}
+#trail.trail-cartographer #trailCurrent{position:absolute;left:20.8%;top:27.15%;width:58.4%;height:6.75%;margin:0;display:flex;align-items:center;justify-content:center;border:0;background:transparent;box-shadow:none;color:#51351a;text-shadow:0 1px rgba(255,232,166,.72);font:bold clamp(15px,4.7vw,25px)/1 "Courier New",monospace;letter-spacing:.14em}
+
+#trail.trail-cartographer .trail-cart-board{position:absolute;left:18.9%;top:35.95%;width:62.2%;height:36.1%;margin:0;padding:0}
+#trail.trail-cartographer #trailGrid{position:absolute;inset:7.3% 9.5% 8.5% 8.2%;display:grid;grid-template-columns:repeat(4,1fr);gap:3.7%;margin:0;padding:0;background:transparent;touch-action:none}
+#trail.trail-cartographer #trailGrid .trail-cell{--row-y:0px;position:relative;min-width:0;min-height:0;padding:0;border:0;border-radius:9px;background:transparent;box-shadow:none;color:#3b2513;text-shadow:0 1px #f3dca1;font:900 clamp(24px,8.1vw,45px)/1 Georgia;display:grid;place-items:center;transform:translateY(var(--row-y));transition:filter .1s,transform .1s;touch-action:none}
+#trail.trail-cartographer #trailGrid .trail-cell:nth-child(-n+4){--row-y:3px}
+#trail.trail-cartographer #trailGrid .trail-cell:nth-child(n+5):nth-child(-n+8){--row-y:-1px}
+#trail.trail-cartographer #trailGrid .trail-cell:nth-child(n+9):nth-child(-n+12){--row-y:-5px}
+#trail.trail-cartographer #trailGrid .trail-cell:nth-child(n+13){--row-y:-9px}
+#trail.trail-cartographer #trailGrid .trail-cell.selected{transform:translateY(calc(var(--row-y) - 2px)) scale(1.025);background:rgba(255,201,91,.10);color:#2a1709;filter:brightness(1.14);box-shadow:inset 0 0 8px rgba(255,243,182,.55),0 0 8px #ffd46a,0 0 18px rgba(255,143,36,.7)}
+#trail.trail-cartographer #trailGrid .trail-cell.trail-head{filter:brightness(1.25);box-shadow:inset 0 0 10px rgba(255,250,202,.72),0 0 9px #fff1a3,0 0 24px #f7942c}
+#trail.trail-cartographer .trail-cart-trace{position:absolute;inset:7.3% 9.5% 8.5% 8.2%;width:82.3%;height:84.2%;z-index:4;overflow:visible;pointer-events:none}
+#trail.trail-cartographer .trail-cart-trace polyline{fill:none;stroke:#fff1a0;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 2px #fff1a6) drop-shadow(0 0 6px #ef7c24);opacity:.92}
+#trail.trail-cartographer .trail-cart-trace circle{fill:#fff6bc;filter:drop-shadow(0 0 5px #ff9b2c)}
+
+#trail.trail-cartographer .trail-actions{position:absolute;left:25.2%;top:73.05%;width:49.6%;height:5.15%;margin:0;display:flex;gap:4.5%}
+#trail.trail-cartographer .trail-actions button{height:100%;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;flex:1;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1;font:bold clamp(7px,2.3vw,12px)/1 sans-serif;letter-spacing:.12em}
+#trail.trail-cartographer .trail-actions button .icon{display:none}
+#trail.trail-cartographer .trail-actions button>span{display:block;transform:translateY(-7px)}
+#trail.trail-cartographer #trailClear{color:#e8c575}
+#trail.trail-cartographer #trailSubmit{color:#24160d}
+#trail.trail-cartographer #trailWords{position:absolute;left:21%;top:78.65%;width:58%;height:2.2%;margin:0;display:block;overflow:hidden;white-space:nowrap;text-align:center;color:#4b3019;font:bold clamp(6px,1.8vw,10px)/1.4 sans-serif}
+#trail.trail-cartographer #trailWords:before{content:"FOUND: ";color:#5b3b20}
+#trail.trail-cartographer #trailWords .found-word{display:inline;padding:0;background:transparent;border:0;color:#4b3019}
+#trail.trail-cartographer #trailWords .found-word:not(:last-child):after{content:" · "}
+#trail.trail-cartographer #trailMessage{position:absolute;z-index:14;left:50%;bottom:max(5.5%,env(safe-area-inset-bottom));transform:translateX(-50%);width:max-content;max-width:86%;margin:0;padding:9px 15px;border:1px solid #d4a958;border-radius:999px;background:rgba(21,15,9,.92);color:#ffe4a5;font:bold 10px/1.2 sans-serif;letter-spacing:.04em;text-align:center}
+#trail.trail-cartographer #trailMessage:empty{display:none}
+
+@media(max-height:690px){
+  #trail.trail-cartographer>.stats-row{top:16.15%}
+}
