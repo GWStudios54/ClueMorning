@@ -56,3 +56,5 @@ footer{display:flex;justify-content:space-between;gap:15px;margin-top:22px;paddi
 .home-production #today .game-guide-links a{padding:7px 9px;border:1px solid #765326;border-radius:5px;color:#c5a873;text-decoration:none;font-size:.65rem}
 .home-production dialog{color:var(--ink)}
 .home-production footer{position:relative}
+
+.home-production .progress-track i.done{border-color:#e0b15a;background:linear-gradient(#efd184,#b97828);box-shadow:0 0 8px rgba(237,194,102,.35)}
