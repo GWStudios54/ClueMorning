@@ -60,14 +60,32 @@ function totalScore(){return day?DAILY_GAMES.reduce((n,g)=>n+(day[g]?.score||0),
 function statusMarkup(done){return `${svg(done?"i-check":"i-play")}${done?"DONE":"PLAY"}`}
 function setStatus(id,done){const el=$(id);el.classList.toggle("done",done);el.innerHTML=statusMarkup(done)}
 
-function disableImmersiveShell(){
-  document.documentElement.classList.remove('link-immersive','deepcut-immersive','steps-immersive');
-  document.body.classList.remove('case-file-active','trail-cartographer-active');
-  return false;
+function immersiveSessionIs(id){
+  return document.documentElement.dataset.gameSession===id&&!!$('#'+id)?.classList.contains('active');
 }
-function syncLinkImmersive(){return disableImmersiveShell()}
-function syncDeepCutImmersive(){return disableImmersiveShell()}
-function syncStepsImmersive(){return disableImmersiveShell()}
+function syncLinkImmersive({repairScroll=false}={}){
+  const shouldBeImmersive=immersiveSessionIs('link');
+  const wasImmersive=document.documentElement.classList.contains('link-immersive');
+  document.documentElement.classList.toggle('link-immersive',shouldBeImmersive);
+  if(shouldBeImmersive)void warmLinkSwitchboard();
+  if(repairScroll&&wasImmersive&&!shouldBeImmersive)window.scrollTo({top:0,behavior:'auto'});
+  return shouldBeImmersive;
+}
+function syncDeepCutImmersive({repairScroll=false}={}){
+  const shouldBeImmersive=immersiveSessionIs('deepcut');
+  const wasImmersive=document.documentElement.classList.contains('deepcut-immersive');
+  document.documentElement.classList.toggle('deepcut-immersive',shouldBeImmersive);
+  if(repairScroll&&wasImmersive&&!shouldBeImmersive)window.scrollTo({top:0,behavior:'auto'});
+  return shouldBeImmersive;
+}
+function syncStepsImmersive({repairScroll=false}={}){
+  const shouldBeImmersive=immersiveSessionIs('steps');
+  const wasImmersive=document.documentElement.classList.contains('steps-immersive');
+  document.documentElement.classList.toggle('steps-immersive',shouldBeImmersive);
+  if(shouldBeImmersive){void warmStepsRooftops();requestAnimationFrame(()=>stepsSyncRooftopsPosition())}
+  if(repairScroll&&wasImmersive&&!shouldBeImmersive)window.scrollTo({top:0,behavior:'auto'});
+  return shouldBeImmersive;
+}
 function syncImmersiveShell(options={}){
   const link=syncLinkImmersive(options);
   const deep=syncDeepCutImmersive(options);
@@ -75,6 +93,8 @@ function syncImmersiveShell(options={}){
   return link||deep||steps;
 }
 function selectTab(id){
+  if(id==='today')delete document.documentElement.dataset.gameSession;
+  else if(['groups','trail','link','steps','deepcut','letter'].includes(id))document.documentElement.dataset.gameSession=id;
   const previous=$(".tab.active")?.dataset.tab||"today";
   if(id==="link"&&previous!=="link")linkReturnTab=previous;
   if(id==="deepcut"&&previous!=="deepcut")deepCutReturnTab=previous;
