@@ -166,7 +166,7 @@ function legacyPlayRedirect(url){
 }
 
 function stripHomepageRuntime(html,game){
-  html=html.replace(/\s*<script[^>]+(?:founders-ui|extra-games|word-controls|daily-presentation-fix|presentation-v1|social|leaderboards-v2|performance-bridge|retention-hooks|competition|homepage-guard)\.js[^>]*><\/script>/gi,'');
+  html=html.replace(/\s*<script[^>]+(?:founders-ui|extra-games|word-controls|daily-presentation-fix|daily-run-v2|presentation-v1|social|leaderboards-v2|performance-bridge|retention-hooks|competition|homepage-guard|pwa)\.js[^>]*><\/script>/gi,'');
   html=html.replace(/\s*<link[^>]+(?:daily-presentation-fix|presentation-v1|social|leaderboards-v2|retention-hooks)\.css[^>]*>/gi,'');
   if(game!=='lastcall'){
     html=html.replace(/\s*<script[^>]+last-call\.js[^>]*><\/script>/gi,'');
