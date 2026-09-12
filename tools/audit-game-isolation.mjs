@@ -6,6 +6,7 @@ const index=read('./public/index.html');
 const core=read('./public/app-core.js');
 const deepLink=read('./public/deep-link.js');
 const homeGuard=read('./public/homepage-guard.js');
+const lastCall=read('./public/last-call.js');
 const router=read('./src/worker-v5.js');
 
 const productionSkins=[
@@ -36,6 +37,8 @@ for(const [path,session,bodyClass] of [
   assert.ok(source.includes(`classList.toggle('${bodyClass}',active)`),
     `${path} should scope its body class to the gated active state`);
 }
+assert.ok(lastCall.includes("document.documentElement.dataset.gameSession='lastcall'"),
+  'Last Call must enter through an explicit game session instead of bouncing through Today');
 for(const className of ['link-immersive','steps-immersive','deepcut-immersive']){
   assert.ok(core.includes(`classList.toggle('${className}',shouldBeImmersive)`),
     `${className} must be synchronized from the explicit session gate`);
