@@ -376,7 +376,15 @@ export default {
   async fetch(request,env){
     const url=new URL(request.url);
     if(url.pathname.startsWith("/api/")) return api(request,env);
-    const response=await env.ASSETS.fetch(request);
+    // Static asset bindings do not resolve directory indexes automatically.
+    // Keep isolated concept routes explicit so they cannot interfere with "/".
+    let assetRequest=request;
+    if(url.pathname==="/home-test/" || url.pathname==="/home-test"){
+      const assetUrl=new URL(request.url);
+      assetUrl.pathname="/home-test/index.html";
+      assetRequest=new Request(assetUrl,request);
+    }
+    const response=await env.ASSETS.fetch(assetRequest);
     const headers=new Headers(response.headers);
     if(request.mode==="navigate" || url.pathname==="/" || url.pathname.endsWith(".html") || ["/app.js","/styles.css","/sw.js"].includes(url.pathname)){
       headers.set("Cache-Control","no-store, max-age=0, must-revalidate");
