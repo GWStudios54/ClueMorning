@@ -173,7 +173,16 @@ function letterScore(won,attempt,elapsed,best){let raw=best;if(won){raw+=750+Mat
 function renderKeyboard(){
   const ranks={gray:1,yellow:2,green:3},grades={};
   for(const g of day.letter.guesses){for(let i=0;i<g.word.length;i++){const ch=g.word[i],grade=g.feedback[i];if(!grades[ch]||ranks[grade]>ranks[grades[ch]])grades[ch]=grade}}
-  const el=$('#keyboard');el.innerHTML='';for(const ch of 'QWERTYUIOPASDFGHJKLZXCVBNM'){const k=document.createElement('div');k.className=`key ${grades[ch]||''}`;k.textContent=ch;el.appendChild(k)}
+  const el=$('#keyboard');el.innerHTML='';
+  for(const letters of ['QWERTYUIOP','ASDFGHJKL','ZXCVBNM']){
+    const row=document.createElement('div');row.className='key-row';
+    for(const ch of letters){
+      const k=document.createElement('button'),label=document.createElement('span');
+      k.type='button';k.className=`key ${grades[ch]||''}`;k.dataset.key=ch;k.setAttribute('aria-label','Type '+ch);
+      label.textContent=ch;k.appendChild(label);row.appendChild(k);
+    }
+    el.appendChild(row);
+  }
 }
 function letterDraft(){
   const input=$('#guessInput');
@@ -185,7 +194,7 @@ function renderLetterBoard(){
   for(const g of s.guesses){const row=document.createElement('div');row.className='guess-row';row.style.gridTemplateColumns=`repeat(${daily.letter.length},auto)`;[...g.word].forEach((ch,i)=>{const t=document.createElement('div');t.className=`tile ${g.feedback[i]}`;t.textContent=ch;row.appendChild(t)});board.appendChild(row)}
   for(let r=s.guesses.length;r<6;r++){
     const row=document.createElement('div');row.className='guess-row'+(!s.done&&r===s.guesses.length?' active-guess-row':'');row.style.gridTemplateColumns=`repeat(${daily.letter.length},auto)`;
-    for(let i=0;i<daily.letter.length;i++){const t=document.createElement('div');const active=!s.done&&r===s.guesses.length;t.className='tile'+(active?' draft-tile':'');if(active&&draft[i])t.textContent=draft[i];row.appendChild(t)}
+    for(let i=0;i<daily.letter.length;i++){const t=document.createElement('div');const active=!s.done&&r===s.guesses.length;t.className='tile'+(active?' draft-tile'+(draft[i]?' filled':''):'');if(active&&draft[i])t.textContent=draft[i];row.appendChild(t)}
     board.appendChild(row);
   }
   board.classList.toggle('typing',document.activeElement===$('#guessInput'));
