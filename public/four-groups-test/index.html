@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#171511">
+  <title>Four Groups — The Case File Test</title>
+  <style>
+    *{box-sizing:border-box}html,body{height:100%;margin:0;overflow:hidden;background:#171511}body{font-family:Georgia,serif;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+    button{font:inherit}.world{position:relative;width:100%;height:100dvh;min-height:560px;overflow:hidden;background:#171511 center/100% 100% no-repeat}
+    .loading{position:absolute;inset:0;display:grid;place-items:center;color:#f1d698;background:#171511;font:bold 12px sans-serif;letter-spacing:.15em;z-index:20}.ready .loading{display:none}
+    .back,.reset{position:absolute;z-index:10;border:0;background:transparent;color:transparent;cursor:pointer}.back{left:2%;top:2%;width:28%;height:7%}.reset{right:4%;top:7%;width:12%;height:7%;border-radius:50%}
+    .grid{position:absolute;z-index:5;left:16.6%;top:32%;width:67.5%;height:27.1%;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);column-gap:3.9%;row-gap:5.6%}
+    .card{position:relative;padding:0;border:0;border-radius:3px;background:transparent;color:transparent;cursor:pointer;transition:transform .12s,filter .12s,box-shadow .12s}
+    .card.selected{transform:translateY(-3px) scale(1.035);box-shadow:0 0 0 2px #d93d25,0 0 10px #ff9c45,0 7px 8px rgba(28,11,3,.65);background:rgba(255,220,142,.18);filter:brightness(1.12)}
+    .card.solved{box-shadow:0 0 0 2px #78a267,0 0 12px #b8d28a;background:rgba(119,157,86,.26);filter:sepia(.25) brightness(1.1)}
+    .thread{position:absolute;z-index:6;left:16.6%;top:32%;width:67.5%;height:27.1%;pointer-events:none;overflow:visible}.thread polyline{fill:none;stroke:#bd2d22;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 1px #43100b)}.thread circle{fill:#c83424;stroke:#6e140e;stroke-width:.5}
+    .clear,.submit{position:absolute;z-index:10;top:61.2%;height:5.2%;border:0;background:transparent;color:transparent;cursor:pointer}.clear{left:17%;width:29%}.submit{left:49%;width:34%}
+    .toast{position:absolute;z-index:15;left:50%;bottom:max(5%,env(safe-area-inset-bottom));transform:translate(-50%,15px);opacity:0;width:max-content;max-width:86%;padding:10px 15px;border:1px solid #c99b4c;border-radius:999px;background:rgba(18,15,10,.94);color:#f8dda0;font:bold 10px/1.2 sans-serif;letter-spacing:.06em;text-align:center;transition:.18s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}.toast.bad{border-color:#b84a39;color:#ffd0b8}
+    @media(min-width:700px){.world{width:min(55vh,520px);margin:auto;box-shadow:0 0 70px #000}}
+  </style>
+</head>
+<body>
+  <main class="world" id="world">
+    <div class="loading">OPENING CASE FILE…</div>
+    <button class="back" aria-label="Morning Run"></button><button class="reset" aria-label="Reset"></button>
+    <div class="grid" id="grid"></div>
+    <svg class="thread" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline id="line" points=""></polyline><g id="pins"></g></svg>
+    <button class="clear" aria-label="Clear selection"></button><button class="submit" aria-label="Submit group"></button>
+    <div class="toast" id="toast" aria-live="polite"></div>
+  </main>
+  <script>
+  (()=>{
+    const words=['CROW','RAVEN','INK','COAL','BASS','SOLE','PIKE','TUNA','TANGO','WALTZ','SALSA','SWING','RUBY','SCARLET','CRIMSON','CHERRY'];
+    const groups=[new Set([0,1,2,3]),new Set([4,5,6,7]),new Set([8,9,10,11]),new Set([12,13,14,15])];
+    const world=document.querySelector('#world'),grid=document.querySelector('#grid'),toast=document.querySelector('#toast'),line=document.querySelector('#line'),pins=document.querySelector('#pins');let selected=[],solved=new Set;
+    Promise.all(Array.from({length:6},(_,i)=>fetch(`./bg/bg-${String(i).padStart(2,'0')}.b64`).then(r=>{if(!r.ok)throw Error(r.status);return r.text()}))).then(parts=>{world.style.backgroundImage=`url(data:image/webp;base64,${parts.join('')})`;world.classList.add('ready')}).catch(()=>{document.querySelector('.loading').textContent='CASE ART FAILED TO LOAD'});
+    words.forEach((word,i)=>{const b=document.createElement('button');b.className='card';b.dataset.i=i;b.setAttribute('aria-label',word);b.onclick=()=>toggle(i);grid.appendChild(b)});
+    function render(){[...grid.children].forEach((b,i)=>{b.classList.toggle('selected',selected.includes(i));b.classList.toggle('solved',solved.has(i))});const pts=selected.map(i=>{const c=grid.children[i],r=c.getBoundingClientRect(),g=grid.getBoundingClientRect();return{x:(r.left+r.width/2-g.left)/g.width*100,y:(r.top-r.height*.39-g.top)/g.height*100}});line.setAttribute('points',pts.map(p=>`${p.x},${p.y}`).join(' '));pins.innerHTML=pts.map(p=>`<circle cx="${p.x}" cy="${p.y}" r="1.5"/>`).join('')}
+    function toggle(i){if(solved.has(i))return;if(selected.includes(i))selected=selected.filter(x=>x!==i);else if(selected.length<4)selected.push(i);else flash('Only four pieces belong in a group.',true);render()}
+    function flash(msg,bad=false){toast.textContent=msg;toast.className='toast show'+(bad?' bad':'');clearTimeout(flash.t);flash.t=setTimeout(()=>toast.className='toast',1450)}
+    function submit(){if(selected.length!==4){flash('Select exactly four pieces of evidence.',true);return}const match=groups.find(g=>selected.every(i=>g.has(i)));if(!match){flash('FALSE LEAD — try another connection.',true);return}selected.forEach(i=>solved.add(i));selected=[];render();flash(solved.size===16?'CASE CLOSED — all four groups solved.':'CONNECTION FOUND — evidence filed.');}
+    document.querySelector('.clear').onclick=()=>{selected=[];render()};document.querySelector('.submit').onclick=submit;document.querySelector('.reset').onclick=()=>{selected=[];solved.clear();render();flash('Case reset.')};document.querySelector('.back').onclick=()=>location.href='/?play=groups';window.addEventListener('resize',render,{passive:true});render();
+  })();
+  </script>
+</body>
+</html>
