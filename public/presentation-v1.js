@@ -5,7 +5,7 @@
     ['steps','Word Steps'],['deepcut','Deep Cut'],['lastcall','Last Call']
   ];
   const selector=id=>id==='lastcall'?'[data-lastcall-home]':`[data-game-route="${id}"]`;
-  let scheduled=false;
+  let scheduled=false,runDone=null;
 
   function decorateNavigation(){
     const nav=$('.tabs');if(!nav)return;
@@ -47,7 +47,9 @@
   function heroProgress(){
     const total=$('#today .daily-total');if(!total)return;
     let el=total.querySelector('.hero-complete');if(!el){el=document.createElement('div');el.className='hero-complete';el.innerHTML='<i></i><span>0 of 7 complete</span>';total.appendChild(el)}
-    const run=$('#dailyRunCount'),m=String(run?.textContent||'0/7').match(/(\d+)\s*\/\s*(\d+)/),done=Math.max(0,Math.min(7,Number(m?.[1]||0)));
+    const retention=$('#retentionRunStatus'),match=String(retention?.textContent||'').match(/(\d+)\s*\/\s*7/);
+    const cardDone=DAILY.reduce((n,[id])=>{const status=$('#today .game-cards')?.querySelector(selector(id)+' .game-status');return n+(status&&(status.classList.contains('done')||/DONE/i.test(status.textContent||''))?1:0)},0);
+    const done=Math.max(0,Math.min(7,Number.isFinite(runDone)?runDone:Number(match?.[1]??cardDone)));
     const label=el.querySelector('span'),next=`${done} of 7 complete`;if(label&&label.textContent!==next)label.textContent=next;
   }
 
@@ -62,5 +64,10 @@
   function simplifyHeroCopy(){const p=$('#today .today-hero p');if(p&&/(Eight|Seven) fresh puzzles are waiting|Eight games\. One morning run/i.test(p.textContent||''))p.textContent='Seven games. One morning run.'}
   function run(){document.body.classList.add('presentation-pass-v1');decorateNavigation();const grid=dailyGrid();dailyHeading(grid);morePlay();heroProgress();completionStates();simplifyHeroCopy()}
   function queue(){if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;run()})}
-  run();const obs=new MutationObserver(queue);obs.observe(document.body,{subtree:true,childList:true,characterData:true});window.addEventListener('clue-lastcall-update',queue);window.addEventListener('storage',queue);
+  run();
+  window.addEventListener('clue:run-progress',event=>{const value=Number(event.detail?.done);if(Number.isFinite(value))runDone=value;queue()});
+  window.addEventListener('clue:statechange',queue);
+  window.addEventListener('clue-lastcall-update',queue);
+  window.addEventListener('storage',queue);
+  window.addEventListener('pageshow',queue);
 })();
