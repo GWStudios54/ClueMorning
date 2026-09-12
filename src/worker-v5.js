@@ -17,6 +17,11 @@ const GAME_PATHS={
 };
 const GAME_PAGE_ROUTES=Object.fromEntries(Object.entries(GAME_PATHS).flatMap(([game,path])=>[[path,game],[path.replace(/\/$/,''),game]]));
 const GAME_NAMES={letter:'Letter Grid',groups:'Four Groups',trail:'Letter Trail',link:'Triple Link',steps:'Word Steps',deepcut:'Deep Cut',lastcall:'Last Call'};
+const GAME_SKINS={
+  letter:{css:'/letter-typesetter.css?v=1',js:'/letter-typesetter.js?v=3'},
+  groups:{css:'/four-groups-case-file.css?v=2',js:'/four-groups-case-file.js?v=2'},
+  trail:{css:'/trail-cartographer.css?v=2',js:'/trail-cartographer.js?v=2'}
+};
 const OWNER_ADMIN_COOKIE='cm_owner_admin';
 const OWNER_ADMIN_HASH='6616d27148a3b24037d545e8befbcd0ce77a1ba8b1eb3abbfd0aa690e1da371c';
 const DAILY_COMPARE_COLUMNS={grid:'grid_score',groups:'groups_score',trail:'trail_score',link:'link_score',steps:'steps_score',deepcut:'deepcut_score'};
@@ -192,7 +197,10 @@ async function dedicatedGamePage(request,env,ctx,game){
   html=html.replace(/<meta\s+name=["']robots["'][^>]*>/i,'<meta name="robots" content="noindex,follow">');
   html=html.replace(/<link\s+rel=["']canonical["'][^>]*>/i,'<link rel="canonical" href="https://cluemorning.com'+path+'">');
   if(!html.includes('/game-page.css'))html=html.replace('</head>','<link rel="stylesheet" href="/game-page.css?v=1">\n</head>');
+  const skin=GAME_SKINS[game];
+  if(skin?.css&&!html.includes(skin.css.split('?')[0]))html=html.replace('</head>','<link rel="stylesheet" href="'+skin.css+'">\n</head>');
   html=html.replace(/<script\s+src=["']\/?app\.js["'][^>]*><\/script>/i,'<script src="/app-core.js?v=dedicated-1"></script>');
+  if(skin?.js&&!html.includes(skin.js.split('?')[0]))html=html.replace('</body>','<script src="'+skin.js+'"></script>\n</body>');
   if(game==='lastcall'){
     if(!html.includes('/last-call.css'))html=html.replace('</head>','<link rel="stylesheet" href="/last-call.css?v=1">\n</head>');
     if(!html.includes('/last-call.js'))html=html.replace('</body>','<script src="/last-call.js?v=2" defer></script>\n</body>');
