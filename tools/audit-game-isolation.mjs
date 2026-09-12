@@ -15,7 +15,8 @@ const productionSkins=[
   'letter-typesetter.css?v=1','letter-typesetter.js?v=3'
 ];
 for(const asset of productionSkins){
-  assert.ok(index.includes(asset),`Shared homepage should load gated skin ${asset}`);
+  assert.equal(index.includes(asset),false,`Homepage must not load dedicated game skin ${asset}`);
+  assert.ok(router.includes(asset),`Dedicated route worker must load game skin ${asset}`);
 }
 
 assert.ok(core.includes("document.documentElement.dataset.gameSession===id"),
