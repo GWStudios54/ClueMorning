@@ -13,8 +13,7 @@
     '[data-cartographer-back]',
     '#linkExit',
     '#stepsExit',
-    '#deepCutExit',
-    '#lastcall .panel-head'
+    '#deepCutExit'
   ];
 
   function goHome(event){
@@ -25,10 +24,6 @@
   document.addEventListener('click',event=>{
     const target=event.target?.closest?.(HOME_SELECTORS.join(','));
     if(!target)return;
-    if(target.matches('#lastcall .panel-head')){
-      const r=target.getBoundingClientRect();
-      if(event.clientY>r.top+46)return;
-    }
     goHome(event);
   },true);
 
