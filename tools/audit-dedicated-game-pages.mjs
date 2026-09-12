@@ -30,6 +30,7 @@ for(const [game,path] of Object.entries(routes)){
 
 assert.equal(/class="game-card"[^>]*data-open=/.test(index),false,'homepage game cards must not activate in-document panels');
 assert.ok(router.includes('async function dedicatedGamePage'),'dedicated game document generator is missing');
+assert.ok(router.includes('<base href="/">'),'dedicated game documents must resolve relative homepage assets from the site root');
 assert.ok(router.includes("stripHomepageRuntime(await response.text(),game)"),'play pages must strip homepage runtimes');
 for(const runtime of ['word-controls','retention-hooks','presentation-v1','social','competition','homepage-guard','pwa']){
   assert.ok(router.includes(runtime),`dedicated runtime stripping is missing ${runtime}`);
