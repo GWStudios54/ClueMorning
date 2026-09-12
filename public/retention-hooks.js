@@ -94,13 +94,12 @@
     if(done===1)return '1 more to a streak';
     return 'Start today’s run';
   }
+  const GAME_ROUTES={letter:'/play/letter-grid/',groups:'/play/four-groups/',trail:'/play/letter-trail/',link:'/play/triple-link/',steps:'/play/word-steps/',deepcut:'/play/deep-cut/',lastcall:'/play/last-call/'};
   function openGame(game){
     if(!game)return;
-    const tab=$(`.tab[data-tab="${game.tab}"]`);
-    if(tab){tab.click();return}
-    const home=game.id==='lastcall'?$('[data-lastcall-home]'):$(`[data-open="${game.tab}"]`);
-    if(home){home.click();return}
-    location.hash=`play=${game.tab}`;
+    const route=GAME_ROUTES[game.id]||GAME_ROUTES[game.tab];
+    if(route){location.assign(route);return}
+    location.assign('/');
   }
   function openLeaders(){const b=$('.tab[data-tab="leaders"]');if(b)b.click()}
   function setText(selector,value){const el=$(selector);if(el&&el.textContent!==String(value))el.textContent=String(value)}
