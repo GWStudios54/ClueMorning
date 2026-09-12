@@ -222,6 +222,7 @@
     const sig=`${m.date}:${m.done}:${m.total}:${m.streak}:${m.rows.map(r=>r.done?'1':'0').join('')}:${activeId()}`;
     if(sig===lastSignature)return;
     lastSignature=sig;
+    try{window.dispatchEvent(new CustomEvent('clue:run-progress',{detail:{date:m.date,done:m.done,total:m.total,streak:m.streak}}))}catch{}
     const strip=$('#retentionRunStrip');if(strip)strip.hidden=!DAILY_IDS.has(activeId());
     setText('#retentionRunStatus',`${m.done}/7 · ${milestone(m.done)}`);
     $$('#retentionSegments i').forEach((el,i)=>el.classList.toggle('done',i<m.done));
