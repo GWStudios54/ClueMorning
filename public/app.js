@@ -1,6 +1,6 @@
 // Clue Morning app loader + daily-game retention flow.
 (() => {
-  const CORE_SRC = '/app-core.js';
+  const CORE_SRC = '/app-core.js?v=3';
   const STATE_KEY = 'clue-morning-state-v2.4';
   const TZ = 'America/Los_Angeles';
   const GAMES = {
@@ -148,7 +148,9 @@
       }
     }
     function queueCheck(){if(checkQueued)return;checkQueued=true;setTimeout(checkCompletions,80)}
-    const observer=new MutationObserver(queueCheck);observer.observe(document.querySelector('.app'),{subtree:true,childList:true,attributes:true,characterData:true});
+    window.addEventListener('clue:statechange',queueCheck);
+    window.addEventListener('storage',queueCheck);
+    window.addEventListener('pageshow',queueCheck);
     checkCompletions();
   }
 
