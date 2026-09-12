@@ -60,32 +60,14 @@ function totalScore(){return day?DAILY_GAMES.reduce((n,g)=>n+(day[g]?.score||0),
 function statusMarkup(done){return `${svg(done?"i-check":"i-play")}${done?"DONE":"PLAY"}`}
 function setStatus(id,done){const el=$(id);el.classList.toggle("done",done);el.innerHTML=statusMarkup(done)}
 
-function syncLinkImmersive({repairScroll=false}={}){
-  const shouldBeImmersive=!!$('#link')?.classList.contains('active');
-  const wasImmersive=document.documentElement.classList.contains('link-immersive');
-  document.documentElement.classList.toggle('link-immersive',shouldBeImmersive);
-  if(shouldBeImmersive)void warmLinkSwitchboard();
-  if(repairScroll&&wasImmersive&&!shouldBeImmersive)window.scrollTo({top:0,behavior:'auto'});
-  return shouldBeImmersive;
+function disableImmersiveShell(){
+  document.documentElement.classList.remove('link-immersive','deepcut-immersive','steps-immersive');
+  document.body.classList.remove('case-file-active','trail-cartographer-active');
+  return false;
 }
-function syncDeepCutImmersive({repairScroll=false}={}){
-  const shouldBeImmersive=!!$('#deepcut')?.classList.contains('active');
-  const wasImmersive=document.documentElement.classList.contains('deepcut-immersive');
-  document.documentElement.classList.toggle('deepcut-immersive',shouldBeImmersive);
-  if(repairScroll&&wasImmersive&&!shouldBeImmersive)window.scrollTo({top:0,behavior:'auto'});
-  return shouldBeImmersive;
-}
-function syncStepsImmersive({repairScroll=false}={}){
-  const shouldBeImmersive=!!$('#steps')?.classList.contains('active');
-  const wasImmersive=document.documentElement.classList.contains('steps-immersive');
-  document.documentElement.classList.toggle('steps-immersive',shouldBeImmersive);
-  if(shouldBeImmersive){
-    void warmStepsRooftops();
-    requestAnimationFrame(()=>stepsSyncRooftopsPosition());
-  }
-  if(repairScroll&&wasImmersive&&!shouldBeImmersive)window.scrollTo({top:0,behavior:'auto'});
-  return shouldBeImmersive;
-}
+function syncLinkImmersive(){return disableImmersiveShell()}
+function syncDeepCutImmersive(){return disableImmersiveShell()}
+function syncStepsImmersive(){return disableImmersiveShell()}
 function syncImmersiveShell(options={}){
   const link=syncLinkImmersive(options);
   const deep=syncDeepCutImmersive(options);
