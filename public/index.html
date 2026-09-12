@@ -101,12 +101,13 @@
 
   <nav class="tabs" aria-label="Clue Morning games">
     <button class="tab active" data-tab="today" type="button"><svg class="icon"><use href="#i-home"/></svg><span>Today</span></button>
-    <button class="tab" data-tab="letter" type="button"><svg class="icon"><use href="#i-grid"/></svg><span>Grid</span></button>
-    <button class="tab" data-tab="groups" type="button"><svg class="icon"><use href="#i-groups"/></svg><span>Groups</span></button>
-    <button class="tab" data-tab="trail" type="button"><svg class="icon"><use href="#i-trail"/></svg><span>Trail</span></button>
-    <button class="tab" data-tab="link" type="button"><svg class="icon"><use href="#i-link"/></svg><span>Link</span></button>
-    <button class="tab" data-tab="steps" type="button"><svg class="icon"><use href="#i-steps"/></svg><span>Steps</span></button>
-    <button class="tab" data-tab="deepcut" type="button"><svg class="icon"><use href="#i-deepcut"/></svg><span>Deep Cut</span></button>
+    <a class="tab" data-game-route="letter" href="/play/letter-grid/"><svg class="icon"><use href="#i-grid"/></svg><span>Grid</span></a>
+    <a class="tab" data-game-route="groups" href="/play/four-groups/"><svg class="icon"><use href="#i-groups"/></svg><span>Groups</span></a>
+    <a class="tab" data-game-route="trail" href="/play/letter-trail/"><svg class="icon"><use href="#i-trail"/></svg><span>Trail</span></a>
+    <a class="tab" data-game-route="link" href="/play/triple-link/"><svg class="icon"><use href="#i-link"/></svg><span>Link</span></a>
+    <a class="tab" data-game-route="steps" href="/play/word-steps/"><svg class="icon"><use href="#i-steps"/></svg><span>Steps</span></a>
+    <a class="tab" data-game-route="deepcut" href="/play/deep-cut/"><svg class="icon"><use href="#i-deepcut"/></svg><span>Deep Cut</span></a>
+    <a class="tab" data-game-route="lastcall" href="/play/last-call/"><span class="lastcall-tab-icon" aria-hidden="true">⌁</span><span>Last Call</span></a>
     <button class="tab" id="unlimitedTab" data-tab="unlimited" type="button" hidden><svg class="icon"><use href="#i-package"/></svg><span>Unlimited</span></button>
     <button class="tab" data-tab="leaders" type="button"><svg class="icon"><use href="#i-trophy"/></svg><span>Leaders</span></button>
     <button class="tab" data-tab="archive" type="button"><svg class="icon"><use href="#i-clock"/></svg><span>Archive</span></button>
@@ -118,7 +119,7 @@
       <div class="daily-total"><span>Today's score</span><strong id="todayTotal">0</strong></div>
     </div>
     <div class="game-cards">
-      <button class="game-card" data-open="letter" type="button"><div class="game-icon letter-icon" aria-hidden="true">
+      <a class="game-card" data-game-route="letter" href="/play/letter-grid/"><div class="game-icon letter-icon" aria-hidden="true">
   <svg class="letter-grid-mark" viewBox="0 0 84 84" aria-hidden="true">
     <rect class="lg-panel" x="5" y="5" width="74" height="74" rx="18"/>
     <rect class="lg-tile lg-sun" x="14" y="14" width="24" height="24" rx="7"/>
@@ -130,15 +131,16 @@
     <text class="lg-letter lg-paper-text" x="26" y="62">U</text>
     <text class="lg-letter lg-muted" x="58" y="62">E</text>
   </svg>
-</div><div class="game-copy"><span class="game-label">WORD</span><h3>Letter Grid</h3><p id="letterCardText">5–10 letters. Six guesses.</p></div><span class="game-status" id="letterCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></button>
-      <button class="game-card" data-open="groups" type="button"><div class="game-icon group-icon"><i></i><i></i><i></i><i></i></div><div class="game-copy"><span class="game-label">LOGIC</span><h3>Four Groups</h3><p>Sixteen words. Four hidden connections.</p></div><span class="game-status" id="groupCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></button>
-      <button class="game-card" data-open="trail" type="button"><div class="game-icon trail-icon"><svg class="icon"><use href="#i-trail"/></svg></div><div class="game-copy"><span class="game-label">WORD HUNT</span><h3>Letter Trail</h3><p>Any dictionary word counts if you can trace it.</p></div><span class="game-status" id="trailCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></button>
-      <button class="game-card" data-open="link" type="button"><div class="game-icon link-icon"><svg class="icon"><use href="#i-link"/></svg></div><div class="game-copy"><span class="game-label">CLUE</span><h3>Triple Link</h3><p>One word completes all three clues.</p></div><span class="game-status" id="linkCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></button>
-      <button class="game-card" data-open="steps" type="button"><div class="game-icon steps-icon"><svg class="icon"><use href="#i-steps"/></svg></div><div class="game-copy"><span class="game-label">WORD PATH</span><h3>Word Steps</h3><p>Change one letter at a time to reach the target.</p></div><span class="game-status" id="stepsCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></button>
-      <button class="game-card" data-open="deepcut" type="button"><div class="game-icon deepcut-icon"><svg class="icon"><use href="#i-deepcut"/></svg></div><div class="game-copy"><span class="game-label">RARITY TRIVIA</span><h3>Deep Cut</h3><p>Eight prompts. Correct is good; uncommon is better.</p></div><span class="game-status" id="deepCutCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></button>
+</div><div class="game-copy"><span class="game-label">WORD</span><h3>Letter Grid</h3><p id="letterCardText">5–10 letters. Six guesses.</p></div><span class="game-status" id="letterCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+      <a class="game-card" data-game-route="groups" href="/play/four-groups/"><div class="game-icon group-icon"><i></i><i></i><i></i><i></i></div><div class="game-copy"><span class="game-label">LOGIC</span><h3>Four Groups</h3><p>Sixteen words. Four hidden connections.</p></div><span class="game-status" id="groupCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+      <a class="game-card" data-game-route="trail" href="/play/letter-trail/"><div class="game-icon trail-icon"><svg class="icon"><use href="#i-trail"/></svg></div><div class="game-copy"><span class="game-label">WORD HUNT</span><h3>Letter Trail</h3><p>Any dictionary word counts if you can trace it.</p></div><span class="game-status" id="trailCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+      <a class="game-card" data-game-route="link" href="/play/triple-link/"><div class="game-icon link-icon"><svg class="icon"><use href="#i-link"/></svg></div><div class="game-copy"><span class="game-label">CLUE</span><h3>Triple Link</h3><p>One word completes all three clues.</p></div><span class="game-status" id="linkCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+      <a class="game-card" data-game-route="steps" href="/play/word-steps/"><div class="game-icon steps-icon"><svg class="icon"><use href="#i-steps"/></svg></div><div class="game-copy"><span class="game-label">WORD PATH</span><h3>Word Steps</h3><p>Change one letter at a time to reach the target.</p></div><span class="game-status" id="stepsCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+      <a class="game-card" data-game-route="deepcut" href="/play/deep-cut/"><div class="game-icon deepcut-icon"><svg class="icon"><use href="#i-deepcut"/></svg></div><div class="game-copy"><span class="game-label">RARITY TRIVIA</span><h3>Deep Cut</h3><p>Eight prompts. Correct is good; uncommon is better.</p></div><span class="game-status" id="deepCutCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+      <a class="game-card" data-game-route="lastcall" data-lastcall-home href="/play/last-call/"><div class="game-icon lastcall-icon"><span aria-hidden="true">⌁</span></div><div class="game-copy"><span class="game-label">PUSH YOUR LUCK</span><h3>Last Call</h3><p>Six safe answers. Six traps. Bank before you bust.</p></div><span class="game-status" id="lastCallCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
     </div>
     <section class="score-strip six-scores">
-      <div><span>Grid</span><strong id="homeLetterScore">0</strong></div><div><span>Groups</span><strong id="homeGroupScore">0</strong></div><div><span>Trail</span><strong id="homeTrailScore">0</strong></div><div><span>Link</span><strong id="homeLinkScore">0</strong></div><div><span>Steps</span><strong id="homeStepsScore">0</strong></div><div><span>Deep Cut</span><strong id="homeDeepCutScore">0</strong></div><div class="score-strip-total"><span>Daily total</span><strong id="homeTotalScore">0</strong></div>
+      <div><span>Grid</span><strong id="homeLetterScore">0</strong></div><div><span>Groups</span><strong id="homeGroupScore">0</strong></div><div><span>Trail</span><strong id="homeTrailScore">0</strong></div><div><span>Link</span><strong id="homeLinkScore">0</strong></div><div><span>Steps</span><strong id="homeStepsScore">0</strong></div><div><span>Deep Cut</span><strong id="homeDeepCutScore">0</strong></div><div><span>Last Call</span><strong id="homeLastCallScore">0</strong></div><div class="score-strip-total"><span>Daily total</span><strong id="homeTotalScore">0</strong></div>
     </section>
     <div class="ritual-card"><span class="ritual-dot"></span><div><strong>Tomorrow brings a new set automatically.</strong><p>Daily answers are checked by the Clue Morning backend.</p></div></div>
     <section class="about-blurb" aria-labelledby="aboutDailyGames"><span class="game-label">FREE DAILY GAMES</span><h2 id="aboutDailyGames">Six quick word, logic, and trivia games, every morning.</h2><p>Clue Morning is a free browser-based daily game collection. Play Letter Grid, Four Groups, Letter Trail, Triple Link, Word Steps, and Deep Cut without an app download.</p><nav class="game-guide-links" aria-label="Game guides"><a href="/games/letter-grid/">Letter Grid guide</a><a href="/games/four-groups/">Four Groups guide</a><a href="/games/letter-trail/">Letter Trail guide</a><a href="/games/triple-link/">Triple Link guide</a><a href="/games/word-steps/">Word Steps guide</a><a href="/games/deep-cut/">Deep Cut guide</a></nav></section>
