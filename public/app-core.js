@@ -116,7 +116,13 @@ document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',(
 let immersivePanelSyncQueued=false;
 const queueImmersivePanelSync=()=>{
   if(immersivePanelSyncQueued)return;immersivePanelSyncQueued=true;
-  requestAnimationFrame(()=>{immersivePanelSyncQueued=false;syncImmersiveShell({repairScroll:true})});
+  requestAnimationFrame(()=>{
+    immersivePanelSyncQueued=false;
+    const activePanel=document.querySelector('.panel.active')?.id||'';
+    const session=document.documentElement.dataset.gameSession||'';
+    if(session&&activePanel!==session)delete document.documentElement.dataset.gameSession;
+    syncImmersiveShell({repairScroll:true});
+  });
 };
 document.querySelectorAll('.panel').forEach(panel=>new MutationObserver(queueImmersivePanelSync).observe(panel,{attributes:true,attributeFilter:['class']}));
 $('#linkExit')?.addEventListener('click',()=>{if(unlimitedSession)exitUnlimited(true);else selectTab(linkReturnTab||'today')});
