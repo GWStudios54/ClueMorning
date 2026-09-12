@@ -5,6 +5,7 @@ const read=path=>fs.readFileSync(path,'utf8');
 const index=read('./public/index.html');
 const core=read('./public/app-core.js');
 const deepLink=read('./public/deep-link.js');
+const homeGuard=read('./public/homepage-guard.js');
 const router=read('./src/worker-v5.js');
 
 const productionSkins=[
@@ -20,6 +21,8 @@ assert.ok(core.includes("document.documentElement.dataset.gameSession===id"),
   'Immersive layouts must require an explicit game session');
 assert.ok(core.includes("delete document.documentElement.dataset.gameSession"),
   'Returning to Today must destroy the active game session');
+assert.ok(core.includes("new MutationObserver(queueImmersivePanelSync)")&&core.includes("attributeFilter:['class']"),
+  'Immersive shell must resync when any script changes the active panel');
 for(const [path,session,bodyClass] of [
   ['./public/four-groups-case-file.js','groups','case-file-active'],
   ['./public/trail-cartographer.js','trail','trail-cartographer-active'],
@@ -38,6 +41,10 @@ for(const className of ['link-immersive','steps-immersive','deepcut-immersive'])
 
 assert.ok(deepLink.includes("addEventListener('hashchange',returnHome)"),
   'Legacy game fragments must be neutralized during same-document navigation');
+assert.ok(deepLink.includes("delete document.documentElement.dataset.gameSession")&&deepLink.includes("'letter-typesetter-active'"),
+  'Legacy fragment cleanup must destroy the session and clear Typesetter');
+assert.ok(homeGuard.includes("delete document.documentElement.dataset.gameSession")&&homeGuard.includes("'letter-typesetter-active'"),
+  'Homepage guard must destroy the session and clear every production body shell');
 assert.equal(deepLink.includes('openRequested'),false,
   'Legacy fragment client must never reopen a game automatically');
 assert.equal(router.includes("target.hash=`play=${play}`"),false,
