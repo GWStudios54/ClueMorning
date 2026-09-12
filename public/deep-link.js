@@ -21,8 +21,19 @@
     return !!document.getElementById(game)?.classList.contains('active');
   }
 
+  function clearPlayHash(){
+    if(!requestedGame())return;
+    history.replaceState(null,'',location.pathname+location.search);
+  }
+
   function run(){
     clearInterval(retry);clearTimeout(stopTimer);
+    const nav=performance.getEntriesByType?.('navigation')?.[0];
+    if(nav?.type==='reload'&&requestedGame()){
+      clearPlayHash();
+      document.querySelector('.tab[data-tab="today"]')?.click();
+      return;
+    }
     if(openRequested())return;
     retry=setInterval(()=>{if(openRequested())clearInterval(retry)},120);
     stopTimer=setTimeout(()=>clearInterval(retry),5000);
@@ -31,4 +42,8 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});
   else run();
   window.addEventListener('hashchange',run);
+  document.addEventListener('click',event=>{
+    const control=event.target.closest?.('button,a');
+    if(control&&/morning run/i.test(control.textContent||''))clearPlayHash();
+  },true);
 })();
