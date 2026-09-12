@@ -25,9 +25,10 @@
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="/home-v1.css?v=1">
+  <link rel="stylesheet" href="/home-production.css?v=1">
 </head>
-<body>
+<body class="home-production">
+  <div class="scene" aria-hidden="true"></div>
 <svg class="icon-sprite" aria-hidden="true">
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5M5.5 10v9h13v-9M9.5 19v-5h5v5"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/></symbol>
@@ -52,97 +53,47 @@
   <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1.5a2.5 2.5 0 0 0 0-5H12a1.8 1.8 0 0 1 0-3.6h3.8A5.2 5.2 0 0 0 21 7.2C21 4.9 17.2 3 12 3Z"/><circle cx="7.5" cy="9" r="1"/><circle cx="10.5" cy="6.5" r="1"/><circle cx="15" cy="6.5" r="1"/><circle cx="17.5" cy="9.5" r="1"/></symbol>
 </svg>
 <div class="sunrise-bar"></div>
-<main class="app">
-  <header class="masthead">
-    <a class="brand" href="#" aria-label="Clue Morning home">
-      <svg class="brand-logo brand-mark" viewBox="0 0 160 190" aria-hidden="true">
-  <defs>
-    <clipPath id="brand-oval"><ellipse cx="80" cy="94" rx="70" ry="86"/></clipPath>
-    <linearGradient id="logo-dawn" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="var(--paper2)"/>
-      <stop offset="100%" stop-color="var(--card)"/>
-    </linearGradient>
-  </defs>
-  <ellipse class="logo-paper" cx="80" cy="94" rx="70" ry="86" fill="url(#logo-dawn)"/>
-  <ellipse class="logo-inner" cx="80" cy="94" rx="64" ry="80"/>
-  <g clip-path="url(#brand-oval)">
-    <rect class="logo-window" x="31" y="23" width="98" height="61" rx="4"/>
-    <path class="logo-line" d="M80 23v61M31 53h98"/>
-    <circle class="logo-sun" cx="103" cy="66" r="13"/>
-    <path class="logo-rays" d="M103 45v-6M119 50l5-5M124 66h7"/>
-    <path class="logo-sill" d="M27 84h106"/>
-    <ellipse class="logo-table" cx="80" cy="121" rx="49" ry="27"/>
-    <path class="logo-line" d="M70 147 67 177M91 147l7 30"/>
-    <path class="logo-paper-sheet" d="M43 108 72 102l13 28-31 7z"/>
-    <path class="logo-soft-line" d="M49 112h17M51 117h14M54 124h8M67 119l10-2M69 124l10-2"/>
-    <path class="logo-accent-fill" d="M54 129h4v4h-4zM60 128h4v4h-4zM66 127h4v4h-4z"/>
-    <ellipse class="logo-cup" cx="96" cy="116" rx="13" ry="5"/>
-    <path class="logo-cup" d="M83 116v17c0 7 26 7 26 0v-17M109 120c12-3 15 13 2 14"/>
-    <path class="logo-rays" d="M93 107c-6-7 6-9 0-16M101 107c-7-7 7-10 1-17"/>
-    <path class="logo-line" d="m114 133 20-14"/>
-    <path class="logo-accent-fill" d="m133 118 4 1-2 4"/>
-  </g>
-</svg>
-      <div class="brand-copy">
-        <div class="eyebrow">A FRESH SET EVERY DAY</div>
-        <h1>Clue Morning</h1>
-        <div class="dedication">For Annie</div>
-      </div>
+<main class="app home-shell">
+  <header class="topbar">
+    <a class="wordmark" href="/" aria-label="Clue Morning home">
+      <span class="sun-mark">☀</span>
+      <span><small>A FRESH SET EVERY DAY</small><strong>Clue Morning</strong><em>For Annie</em></span>
     </a>
-    <div class="header-actions">
-      <button class="theme-button" id="themeButton" type="button" aria-label="Choose color theme" title="Choose color theme"><svg class="icon"><use href="#i-palette"/></svg></button>
-      <button class="streak-card" id="streakCard" type="button" title="Current streak">
-        <svg class="icon"><use href="#i-flame"/></svg>
-        <span><strong id="streakCount">0</strong><small>day streak</small></span>
-      </button>
+    <div class="top-actions">
+      <button class="round" id="themeButton" type="button" aria-label="Choose color theme" title="Choose color theme">◐</button>
+      <button class="streak" id="streakCard" type="button" title="Current streak"><span>♨</span><b id="streakCount">0</b><small>DAY STREAK</small></button>
     </div>
   </header>
 
-  <nav class="tabs" aria-label="Clue Morning games">
-    <button class="tab active" data-tab="today" type="button"><svg class="icon"><use href="#i-home"/></svg><span>Today</span></button>
-    <a class="tab" data-game-route="letter" href="/play/letter-grid/"><svg class="icon"><use href="#i-grid"/></svg><span>Grid</span></a>
-    <a class="tab" data-game-route="groups" href="/play/four-groups/"><svg class="icon"><use href="#i-groups"/></svg><span>Groups</span></a>
-    <a class="tab" data-game-route="trail" href="/play/letter-trail/"><svg class="icon"><use href="#i-trail"/></svg><span>Trail</span></a>
-    <a class="tab" data-game-route="link" href="/play/triple-link/"><svg class="icon"><use href="#i-link"/></svg><span>Link</span></a>
-    <a class="tab" data-game-route="steps" href="/play/word-steps/"><svg class="icon"><use href="#i-steps"/></svg><span>Steps</span></a>
-    <a class="tab" data-game-route="deepcut" href="/play/deep-cut/"><svg class="icon"><use href="#i-deepcut"/></svg><span>Deep Cut</span></a>
-    <a class="tab" data-game-route="lastcall" href="/play/last-call/"><span class="lastcall-tab-icon" aria-hidden="true">⌁</span><span>Last Call</span></a>
-    <button class="tab" id="unlimitedTab" data-tab="unlimited" type="button" hidden><svg class="icon"><use href="#i-package"/></svg><span>Unlimited</span></button>
-    <button class="tab" data-tab="leaders" type="button"><svg class="icon"><use href="#i-trophy"/></svg><span>Leaders</span></button>
-    <button class="tab" data-tab="archive" type="button"><svg class="icon"><use href="#i-clock"/></svg><span>Archive</span></button>
+  <nav class="tabs rail" aria-label="Clue Morning">
+    <button class="tab active" data-tab="today" type="button">MORNING RUN</button>
+    <button class="tab" data-tab="leaders" type="button">LEADERS</button>
+    <button class="tab" data-tab="archive" type="button">ARCHIVE</button>
+    <button class="tab" id="unlimitedTab" data-tab="unlimited" type="button" hidden>UNLIMITED</button>
   </nav>
 
   <section id="today" class="panel active">
-    <div class="today-hero">
-      <div><span class="date-kicker" id="todayDate"></span><h2 id="dayGreeting">Good morning.</h2><p>Six fresh puzzles are waiting.</p></div>
-      <div class="daily-total"><span>Today's score</span><strong id="todayTotal">0</strong></div>
-    </div>
-    <div class="game-cards">
-      <a class="game-card" data-game-route="letter" href="/play/letter-grid/"><div class="game-icon letter-icon" aria-hidden="true">
-  <svg class="letter-grid-mark" viewBox="0 0 84 84" aria-hidden="true">
-    <rect class="lg-panel" x="5" y="5" width="74" height="74" rx="18"/>
-    <rect class="lg-tile lg-sun" x="14" y="14" width="24" height="24" rx="7"/>
-    <rect class="lg-tile lg-green" x="46" y="14" width="24" height="24" rx="7"/>
-    <rect class="lg-tile lg-dark" x="14" y="46" width="24" height="24" rx="7"/>
-    <rect class="lg-tile lg-paper" x="46" y="46" width="24" height="24" rx="7"/>
-    <text class="lg-letter lg-ink" x="26" y="30">C</text>
-    <text class="lg-letter lg-paper-text" x="58" y="30">L</text>
-    <text class="lg-letter lg-paper-text" x="26" y="62">U</text>
-    <text class="lg-letter lg-muted" x="58" y="62">E</text>
-  </svg>
-</div><div class="game-copy"><span class="game-label">WORD</span><h3>Letter Grid</h3><p id="letterCardText">5–10 letters. Six guesses.</p></div><span class="game-status" id="letterCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
-      <a class="game-card" data-game-route="groups" href="/play/four-groups/"><div class="game-icon group-icon"><i></i><i></i><i></i><i></i></div><div class="game-copy"><span class="game-label">LOGIC</span><h3>Four Groups</h3><p>Sixteen words. Four hidden connections.</p></div><span class="game-status" id="groupCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
-      <a class="game-card" data-game-route="trail" href="/play/letter-trail/"><div class="game-icon trail-icon"><svg class="icon"><use href="#i-trail"/></svg></div><div class="game-copy"><span class="game-label">WORD HUNT</span><h3>Letter Trail</h3><p>Any dictionary word counts if you can trace it.</p></div><span class="game-status" id="trailCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
-      <a class="game-card" data-game-route="link" href="/play/triple-link/"><div class="game-icon link-icon"><svg class="icon"><use href="#i-link"/></svg></div><div class="game-copy"><span class="game-label">CLUE</span><h3>Triple Link</h3><p>One word completes all three clues.</p></div><span class="game-status" id="linkCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
-      <a class="game-card" data-game-route="steps" href="/play/word-steps/"><div class="game-icon steps-icon"><svg class="icon"><use href="#i-steps"/></svg></div><div class="game-copy"><span class="game-label">WORD PATH</span><h3>Word Steps</h3><p>Change one letter at a time to reach the target.</p></div><span class="game-status" id="stepsCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
-      <a class="game-card" data-game-route="deepcut" href="/play/deep-cut/"><div class="game-icon deepcut-icon"><svg class="icon"><use href="#i-deepcut"/></svg></div><div class="game-copy"><span class="game-label">RARITY TRIVIA</span><h3>Deep Cut</h3><p>Eight prompts. Correct is good; uncommon is better.</p></div><span class="game-status" id="deepCutCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
-      <a class="game-card" data-game-route="lastcall" data-lastcall-home href="/play/last-call/"><div class="game-icon lastcall-icon"><span aria-hidden="true">⌁</span></div><div class="game-copy"><span class="game-label">PUSH YOUR LUCK</span><h3>Last Call</h3><p>Six safe answers. Six traps. Bank before you bust.</p></div><span class="game-status" id="lastCallCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
-    </div>
-    <section class="score-strip six-scores">
-      <div><span>Grid</span><strong id="homeLetterScore">0</strong></div><div><span>Groups</span><strong id="homeGroupScore">0</strong></div><div><span>Trail</span><strong id="homeTrailScore">0</strong></div><div><span>Link</span><strong id="homeLinkScore">0</strong></div><div><span>Steps</span><strong id="homeStepsScore">0</strong></div><div><span>Deep Cut</span><strong id="homeDeepCutScore">0</strong></div><div><span>Last Call</span><strong id="homeLastCallScore">0</strong></div><div class="score-strip-total"><span>Daily total</span><strong id="homeTotalScore">0</strong></div>
+    <section class="briefing">
+      <div class="brief-copy"><span class="kicker" id="todayDate"></span><h1 id="dayGreeting">Good morning.</h1><p>Seven cases are waiting on your desk.</p></div>
+      <div class="run-progress"><div><small>MORNING RUN</small><strong><span id="runCompleteCount">0</span> / 7</strong></div><div class="progress-track" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span><strong id="todayTotal">0</strong> POINTS</span></div>
+    </section>
+    <section class="case-board" aria-labelledby="gamesHeading">
+      <div class="board-heading"><div><span>TODAY'S FILES</span><h2 id="gamesHeading">Choose your next case</h2></div><small>RESET AT MIDNIGHT</small></div>
+      <div class="game-grid">
+        <a class="game-card amber" data-game-route="letter" href="/play/letter-grid/"><span class="number">01</span><span class="game-icon"><svg class="logo-svg grid-logo" viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="5" width="17" height="17" rx="4"/><rect x="26" y="5" width="17" height="17" rx="4"/><rect x="5" y="26" width="17" height="17" rx="4"/><rect x="26" y="26" width="17" height="17" rx="4"/><text x="13.5" y="16">C</text><text x="34.5" y="16">L</text><text x="13.5" y="37">U</text><text x="34.5" y="37">E</text></svg></span><span class="copy"><small>WORD</small><strong>Letter Grid</strong><em id="letterCardText">Find the hidden word in six.</em></span><span class="game-status play" id="letterCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+        <a class="game-card moss" data-game-route="groups" href="/play/four-groups/"><span class="number">02</span><span class="game-icon"><svg class="logo-svg groups-logo" viewBox="0 0 48 48" aria-hidden="true"><rect class="g1" x="5" y="5" width="17" height="17" rx="4"/><rect class="g2" x="26" y="5" width="17" height="17" rx="4"/><rect class="g3" x="5" y="26" width="17" height="17" rx="4"/><rect class="g4" x="26" y="26" width="17" height="17" rx="4"/></svg></span><span class="copy"><small>LOGIC</small><strong>Four Groups</strong><em>Find four hidden connections.</em></span><span class="game-status play" id="groupCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+        <a class="game-card rust" data-game-route="trail" href="/play/letter-trail/"><span class="number">03</span><span class="game-icon"><svg class="logo-svg trail-logo" viewBox="0 0 48 48" aria-hidden="true"><circle cx="8" cy="37" r="4"/><circle cx="19" cy="23" r="4"/><circle cx="31" cy="29" r="4"/><circle cx="40" cy="9" r="4"/><path d="M11 34 16 26M23 24l4 3M34 25l4-12"/></svg></span><span class="copy"><small>WORD HUNT</small><strong>Letter Trail</strong><em>Trace a route across the map.</em></span><span class="game-status play" id="trailCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+        <a class="game-card teal" data-game-route="link" href="/play/triple-link/"><span class="number">04</span><span class="game-icon"><svg class="logo-svg link-logo" viewBox="0 0 48 48" aria-hidden="true"><path d="M19 29 29 19M16 32l-3 3a8 8 0 0 1-11-11l7-7a8 8 0 0 1 11 0M32 16l3-3a8 8 0 0 1 11 11l-7 7a8 8 0 0 1-11 0"/></svg></span><span class="copy"><small>CLUE</small><strong>Triple Link</strong><em>Connect all three lines.</em></span><span class="game-status play" id="linkCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+        <a class="game-card blue" data-game-route="steps" href="/play/word-steps/"><span class="number">05</span><span class="game-icon"><svg class="logo-svg steps-logo" viewBox="0 0 48 48" aria-hidden="true"><path d="M6 39h10V29h10V19h15M32 10l9 9-9 9"/></svg></span><span class="copy"><small>WORD PATH</small><strong>Word Steps</strong><em>Climb from word to word.</em></span><span class="game-status play" id="stepsCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+        <a class="game-card violet" data-game-route="deepcut" href="/play/deep-cut/"><span class="number">06</span><span class="game-icon"><svg class="logo-svg deep-logo" viewBox="0 0 48 48" aria-hidden="true"><path d="M7 9h34M12 19h29M18 29h23M25 39h16"/><circle cx="8" cy="19" r="2"/><circle cx="14" cy="29" r="2"/><circle cx="21" cy="39" r="2"/></svg></span><span class="copy"><small>RARITY TRIVIA</small><strong>Deep Cut</strong><em>Go deeper for uncommon answers.</em></span><span class="game-status play" id="deepCutCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+        <a class="game-card red wide" data-game-route="lastcall" data-lastcall-home href="/play/last-call/"><span class="number">07</span><span class="game-icon"><svg class="logo-svg call-logo" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5C18 14 8 18 8 28c0 6 5 10 11 10 3 0 5-1 6-3-1 5-3 7-7 9h12c-4-2-6-4-7-9 1 2 3 3 6 3 6 0 11-4 11-10 0-10-10-14-16-23Z"/></svg></span><span class="copy"><small>PUSH YOUR LUCK</small><strong>Last Call</strong><em>Bank your answers before you bust.</em></span><span class="game-status play" id="lastCallCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+      </div>
+    </section>
+    <section class="ledger">
+      <div><small>GRID</small><strong id="homeLetterScore">0</strong></div><div><small>GROUPS</small><strong id="homeGroupScore">0</strong></div><div><small>TRAIL</small><strong id="homeTrailScore">0</strong></div><div><small>LINK</small><strong id="homeLinkScore">0</strong></div><div><small>STEPS</small><strong id="homeStepsScore">0</strong></div><div><small>DEEP CUT</small><strong id="homeDeepCutScore">0</strong></div><div><small>LAST CALL</small><strong id="homeLastCallScore">0</strong></div><div class="total"><small>DAILY TOTAL</small><strong id="homeTotalScore">0</strong></div>
     </section>
     <div class="ritual-card"><span class="ritual-dot"></span><div><strong>Tomorrow brings a new set automatically.</strong><p>Daily answers are checked by the Clue Morning backend.</p></div></div>
-    <section class="about-blurb" aria-labelledby="aboutDailyGames"><span class="game-label">FREE DAILY GAMES</span><h2 id="aboutDailyGames">Six quick word, logic, and trivia games, every morning.</h2><p>Clue Morning is a free browser-based daily game collection. Play Letter Grid, Four Groups, Letter Trail, Triple Link, Word Steps, and Deep Cut without an app download.</p><nav class="game-guide-links" aria-label="Game guides"><a href="/games/letter-grid/">Letter Grid guide</a><a href="/games/four-groups/">Four Groups guide</a><a href="/games/letter-trail/">Letter Trail guide</a><a href="/games/triple-link/">Triple Link guide</a><a href="/games/word-steps/">Word Steps guide</a><a href="/games/deep-cut/">Deep Cut guide</a></nav></section>
+    <section class="about-blurb" aria-labelledby="aboutDailyGames"><span class="game-label">FREE DAILY GAMES</span><h2 id="aboutDailyGames">Seven quick word, logic, and trivia games, every morning.</h2><p>Clue Morning is a free browser-based daily game collection. Pick a case, play on its dedicated page, and return to finish your Morning Run.</p><nav class="game-guide-links" aria-label="Game guides"><a href="/games/letter-grid/">Letter Grid guide</a><a href="/games/four-groups/">Four Groups guide</a><a href="/games/letter-trail/">Letter Trail guide</a><a href="/games/triple-link/">Triple Link guide</a><a href="/games/word-steps/">Word Steps guide</a><a href="/games/deep-cut/">Deep Cut guide</a></nav></section>
   </section>
 
   <section id="letter" class="panel">
