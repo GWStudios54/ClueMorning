@@ -158,3 +158,12 @@ footer{display:flex;justify-content:space-between;gap:15px;margin-top:22px;paddi
   display:block!important;width:24px!important;height:24px!important;margin:0!important;
   stroke:currentColor!important;stroke-width:2.1!important;transform:none!important;
 }
+
+/* Final optical alignment: compensate for asymmetric chevron/check geometry */
+.home-production #today .game-card .game-status:not(.done)::before,
+.home-production #today .game-card .game-status:not(.done)::after{
+  left:59%!important;top:50%!important;
+}
+.home-production #today .game-card .game-status.done .icon{
+  transform:translate(1.5px,1px)!important;
+}
