@@ -4,14 +4,14 @@
     ['letter','Letter Grid'],['groups','Four Groups'],['trail','Letter Trail'],['link','Triple Link'],
     ['steps','Word Steps'],['deepcut','Deep Cut'],['lastcall','Last Call']
   ];
-  const selector=id=>id==='lastcall'?'[data-lastcall-home]':`[data-open="${id}"]`;
+  const selector=id=>id==='lastcall'?'[data-lastcall-home]':`[data-game-route="${id}"]`;
   let scheduled=false;
 
   function decorateNavigation(){
     const nav=$('.tabs');if(!nav)return;
     const dailyTabs=new Set(['today','letter','groups','trail','link','steps','deepcut','lastcall']);
     $$('.tabs .tab').forEach(tab=>{
-      const id=tab.dataset.tab||'';tab.classList.toggle('nav-daily',dailyTabs.has(id));
+      const id=tab.dataset.tab||tab.dataset.gameRoute||'';tab.classList.toggle('nav-daily',dailyTabs.has(id));
       tab.classList.toggle('nav-extra',tab.classList.contains('tileworks-nav-tab'));
       tab.classList.toggle('nav-utility',['unlimited','leaders','archive'].includes(id));
     });
