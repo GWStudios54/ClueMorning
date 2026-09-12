@@ -25,6 +25,7 @@
       "/api/*",
       "/",
       "/index.html",
+      "/play/*",
       "/app.js",
       "/styles.css",
       "/sw.js",
