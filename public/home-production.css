@@ -141,3 +141,20 @@ footer{display:flex;justify-content:space-between;gap:15px;margin-top:22px;paddi
   .home-production .retention-segments{min-width:0}
   .home-production #today .game-card .game-status{width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important}
 }
+
+/* True optical centering for Morning Run card marks */
+.home-production #today .game-card .game-status::before,
+.home-production #today .game-card .game-status::after{
+  content:""!important;position:absolute!important;display:block!important;
+  width:10px!important;height:2px!important;left:54%!important;top:50%!important;
+  border:0!important;border-radius:2px!important;background:currentColor!important;
+  transform-origin:100% 50%!important;
+}
+.home-production #today .game-card .game-status::before{transform:translate(-100%,-50%) rotate(45deg)!important}
+.home-production #today .game-card .game-status::after{transform:translate(-100%,-50%) rotate(-45deg)!important}
+.home-production #today .game-card .game-status.done::before,
+.home-production #today .game-card .game-status.done::after{display:none!important}
+.home-production #today .game-card .game-status.done .icon{
+  display:block!important;width:24px!important;height:24px!important;margin:0!important;
+  stroke:currentColor!important;stroke-width:2.1!important;transform:none!important;
+}
