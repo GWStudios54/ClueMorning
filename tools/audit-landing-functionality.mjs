@@ -25,6 +25,8 @@ for(const [id,[status,route]] of Object.entries(games)){
   assert.ok(router.includes(`${id}:'${route}'`),`missing worker route for ${id}`);
 }
 assert.ok(retention.includes('syncLandingCards(m)'), 'landing card state is not synchronized');
+assert.ok(retention.includes("closest?.('#streakCard')")&&retention.includes('openArchive()'),'streak button is not connected to Archive');
+assert.ok(retention.includes('View archive · ${m.streak} day streak'),'streak button does not publish an accessible live label');
 assert.ok(retention.includes("row.done?'DONE':'PLAY'"), 'card status labels are not state-driven');
 assert.ok(presentation.includes('function revealTab(tab,smooth)'), 'mobile navigation reveal is missing');
 assert.ok(presentation.includes("nav.addEventListener('click'"), 'navigation reveal is not bound');
