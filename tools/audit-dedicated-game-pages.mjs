@@ -36,7 +36,7 @@ assert.ok(router.includes("stripHomepageRuntime(await response.text(),game)"),'p
 for(const runtime of ['word-controls','retention-hooks','presentation-v1','social','competition','homepage-guard','pwa']){
   assert.ok(router.includes(runtime),`dedicated runtime stripping is missing ${runtime}`);
 }
-assert.ok(router.includes('/app-core.js?v=dedicated-5'),'play pages must load the optimized stable core directly, not app.js score-card wrapper');
+assert.ok(router.includes('/app-core.js?v=dedicated-6'),'play pages must load the optimized stable core directly, not app.js score-card wrapper');
 assert.ok(router.includes('/game-page.css?v=1')&&router.includes('/game-page.js?v=2'),'play page shell assets are missing');
 const typesetter=read('./public/letter-typesetter.js');
 const typesetterCss=read('./public/letter-typesetter.css');
@@ -63,6 +63,8 @@ assert.ok(core.includes('const recovery=revealExistingFailures(initialGame)')&&c
 assert.ok(core.includes('void recovery.then(()=>{')&&core.includes('saveState();'),'recovered results must persist');
 assert.ok(core.includes('>Try again</button>'),'load failure must offer a retry action');
 assert.ok(core.includes('const recovery=revealExistingFailures(initialGame)'),'failure recovery must remain scoped to the opened dedicated game');
+assert.ok(core.includes('window.clueMorningDailyPromise=loadDaily()'),'daily startup must publish one shared request');
+assert.ok(read('./public/last-call.js').includes('const shared=window.clueMorningDailyPromise'),'Last Call must reuse the core daily request');
 assert.ok(core.includes("if(game==='letter')renderLetter()")&&core.includes("else if(game==='deepcut')renderDeepCut()"),'dedicated core must render only the selected game at startup');
 assert.ok(core.includes("if(visualGameActive('link'))void warmLinkSwitchboard()"),'Switchboard artwork must not warm while hidden');
 assert.ok(core.includes("if(visualGameActive('steps'))void warmStepsRooftops()"),'Rooftops artwork must not warm while hidden');

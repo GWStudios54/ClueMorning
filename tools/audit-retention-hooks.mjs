@@ -36,7 +36,7 @@ assert(presentation.includes("window.addEventListener('clue:run-progress'"),'hom
 assert(presentation.includes("window.addEventListener('clue:statechange'"),'homepage presentation must refresh from runtime state events');
 assert(!presentation.includes('new MutationObserver'),'homepage presentation must not watch the whole DOM');
 assert(!app.includes('new MutationObserver'),'score-card flow must not watch the whole app DOM');
-assert(app.includes("const CORE_SRC = '/app-core.js?v=5'"),'homepage must request the optimized core version');
+assert(app.includes("const CORE_SRC = '/app-core.js?v=6'"),'homepage must request the optimized core version');
 assert(!hooks.includes('new MutationObserver'),'retention UI must not watch the DOM');
 assert(!hooks.includes('setInterval('),'retention UI must not poll continuously');
 

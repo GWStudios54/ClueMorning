@@ -997,7 +997,7 @@ function renderInitialGame(game){
 
 async function init(){
   try{
-    daily=await loadDaily();currentDateKey=daily.date;state.days[currentDateKey]??={};day=state.days[currentDateKey];dailyRoot=daily;dayRoot=day;currentDateRoot=currentDateKey;
+    daily=await (window.clueMorningDailyPromise||(window.clueMorningDailyPromise=loadDaily()));currentDateKey=daily.date;state.days[currentDateKey]??={};day=state.days[currentDateKey];dailyRoot=daily;dayRoot=day;currentDateRoot=currentDateKey;
     $('#todayDate').textContent=dateObj(currentDateKey).toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'});$('#letterCardText').textContent=`Today's challenge is ${daily.letter.length} letters. Six guesses.`;
     day.letter??={guesses:[],score:0,done:false,won:false,start:Date.now(),elapsed:0,answer:''};day.groups??={solved:[],mistakes:0,score:0,done:false,selection:[],order:[...daily.groups.words],solutions:null};const trailGridKey=daily.trail.grid.join('');if(!day.trail?.gridKey||day.trail.gridKey!==trailGridKey)day.trail={started:false,done:false,deadline:0,words:[],score:0,best:'',longest:'',gridKey:trailGridKey};day.link??={guesses:0,score:0,done:false,won:false,answer:'',note:''};const stepsKey=`${daily.steps.start}:${daily.steps.target}`;if(!day.steps?.puzzleKey||day.steps.puzzleKey!==stepsKey)day.steps={puzzleKey:stepsKey,path:[daily.steps.start],score:0,done:false,won:false,solution:[]};const deepCutKey=daily.deepcut.prompts.map(p=>p.id).join('|');if(!day.deepcut?.puzzleKey||day.deepcut.puzzleKey!==deepCutKey)day.deepcut={puzzleKey:deepCutKey,started:false,round:0,answers:[],score:0,done:false,deadline:0};
     // Normalize any pre-hotfix guess strings without throwing.
