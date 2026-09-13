@@ -102,6 +102,7 @@
     location.assign('/');
   }
   function openLeaders(){const b=$('.tab[data-tab="leaders"]');if(b)b.click()}
+  function openArchive(){const b=$('.tab[data-tab="archive"]');if(b)b.click()}
   function setText(selector,value){const el=$(selector);if(el&&el.textContent!==String(value))el.textContent=String(value)}
 
   const LANDING_TARGETS={
@@ -261,6 +262,7 @@
       else{const next=nextGame(m);nextButton.textContent=next?`Next: ${next.name}`:'Start a game'}
     }
     setText('#todayTotal',m.total.toLocaleString());setText('#homeTotalScore',m.total.toLocaleString());setText('#streakCount',m.streak.toLocaleString());
+    const streakCard=$('#streakCard');if(streakCard)streakCard.setAttribute('aria-label',`View archive · ${m.streak} day streak`);
     if(previousDone>=0&&m.done>previousDone){
       if(previousLastCallDone===false&&lastCallDone&&m.done>=7)setTimeout(showReport,180);
       else if(m.done>=7)setTimeout(showReport,180);
@@ -271,6 +273,8 @@
   function schedule(){if(renderQueued)return;renderQueued=true;requestAnimationFrame(()=>{renderQueued=false;render()})}
 
   document.addEventListener('click',event=>{
+    const streak=event.target?.closest?.('#streakCard');
+    if(streak){event.preventDefault();openArchive();return}
     const more=event.target?.closest?.('#dailyScoreMore');
     if(more){
       const m=metrics();event.preventDefault();event.stopImmediatePropagation();$('#dailyScoreDialog')?.close();if(m.done>=7)showReport();else openGame(nextGame(m));return;
