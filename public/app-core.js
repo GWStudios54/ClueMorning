@@ -6,6 +6,7 @@ const THEME_KEY="clue-morning-theme";
 const LAST_VISIT_KEY="clue-morning-last-visit-local-date";
 const UNLIMITED_KEY="clue-morning-unlimited-access-code";
 const UNLIMITED_HISTORY_KEY="clue-morning-unlimited-history-v1";
+const DAILY_CACHE_KEY="clue-morning-daily-cache-v1";
 const THEMES={paper:{name:"Morning Paper",color:"#f7f1e5"},bloom:{name:"Dawn Bloom",color:"#fff5f3"},blue:{name:"Blue Hour",color:"#f3f7fa"},hearth:{name:"Hearth",color:"#fff5e8"},lavender:{name:"Lavender Haze",color:"#faf7ff"}};
 function loadState(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{}}catch{return {}}}
 function saveState(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
@@ -15,6 +16,35 @@ function api(path,body=null){
   }
   const opt=body?{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body)}:{};
   return fetch(path,opt).then(async r=>{const j=await r.json();if(!r.ok)throw new Error(j.error||"Request failed");return j});
+}
+function pacificDateKey(d=new Date()){
+  const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Los_Angeles',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d);
+  const get=type=>parts.find(part=>part.type===type)?.value||'';
+  return `${get('year')}-${get('month')}-${get('day')}`;
+}
+function readDailyCache(){
+  try{const cached=JSON.parse(localStorage.getItem(DAILY_CACHE_KEY)||'null');return cached?.data?.date?cached:null}catch{return null}
+}
+function writeDailyCache(data){
+  try{localStorage.setItem(DAILY_CACHE_KEY,JSON.stringify({savedAt:Date.now(),data}))}catch{}
+}
+async function requestDaily(timeoutMs=6000){
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),timeoutMs);
+  try{
+    const response=await fetch('/api/daily',{cache:'no-store',signal:controller.signal});
+    const data=await response.json();
+    if(!response.ok)throw new Error(data.error||"Today's set is not available yet.");
+    writeDailyCache(data);return data;
+  }finally{clearTimeout(timer)}
+}
+async function loadDaily(){
+  const cached=readDailyCache(),today=pacificDateKey();
+  if(cached?.data?.date===today)return cached.data;
+  let lastError;
+  for(let attempt=0;attempt<2;attempt++){
+    try{return await requestDaily()}catch(error){lastError=error;if(attempt===0)await new Promise(resolve=>setTimeout(resolve,180))}
+  }
+  throw new Error(lastError?.name==='AbortError'?"Today's set took too long to respond.":"Today's set could not be reached.");
 }
 function fmtTime(sec){sec=Math.max(0,Math.floor(sec));return `${Math.floor(sec/60)}:${String(sec%60).padStart(2,"0")}`}
 function dateObj(key){return new Date(key+"T12:00:00")}
@@ -957,7 +987,7 @@ async function revealExistingFailures(game=''){
 
 async function init(){
   try{
-    daily=await api('/api/daily');currentDateKey=daily.date;state.days[currentDateKey]??={};day=state.days[currentDateKey];dailyRoot=daily;dayRoot=day;currentDateRoot=currentDateKey;
+    daily=await loadDaily();currentDateKey=daily.date;state.days[currentDateKey]??={};day=state.days[currentDateKey];dailyRoot=daily;dayRoot=day;currentDateRoot=currentDateKey;
     $('#todayDate').textContent=dateObj(currentDateKey).toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'});$('#letterCardText').textContent=`Today's challenge is ${daily.letter.length} letters. Six guesses.`;
     day.letter??={guesses:[],score:0,done:false,won:false,start:Date.now(),elapsed:0,answer:''};day.groups??={solved:[],mistakes:0,score:0,done:false,selection:[],order:[...daily.groups.words],solutions:null};const trailGridKey=daily.trail.grid.join('');if(!day.trail?.gridKey||day.trail.gridKey!==trailGridKey)day.trail={started:false,done:false,deadline:0,words:[],score:0,best:'',longest:'',gridKey:trailGridKey};day.link??={guesses:0,score:0,done:false,won:false,answer:'',note:''};const stepsKey=`${daily.steps.start}:${daily.steps.target}`;if(!day.steps?.puzzleKey||day.steps.puzzleKey!==stepsKey)day.steps={puzzleKey:stepsKey,path:[daily.steps.start],score:0,done:false,won:false,solution:[]};const deepCutKey=daily.deepcut.prompts.map(p=>p.id).join('|');if(!day.deepcut?.puzzleKey||day.deepcut.puzzleKey!==deepCutKey)day.deepcut={puzzleKey:deepCutKey,started:false,round:0,answers:[],score:0,done:false,deadline:0};
     // Normalize any pre-hotfix guess strings without throwing.
@@ -975,7 +1005,7 @@ async function init(){
     if(initialGame==='letter'&&!day.letter.done)letterTimer=setInterval(()=>$('#timer').textContent=fmtTime((Date.now()-day.letter.start)/1000),1000);
     if(initialGame==='trail'&&day.trail.started&&!day.trail.done){if(remainingTrail()<=0)await finishTrail();else trailTick=setInterval(()=>{if(remainingTrail()<=0)finishTrail();else $('#trailTimer').textContent=fmtTime(remainingTrail())},1000)}
     if(initialGame==='deepcut'&&day.deepcut.started&&!day.deepcut.done){if(remainingDeepCut()<=0)await timeoutDeepCut();else armDeepCutTimer()}
-  }catch(err){document.querySelector('main').innerHTML=`<div class="loading-card"><h2>Clue Morning couldn't load today's set.</h2><p>${escapeHtml(err.message)}</p><p>Refresh in a moment.</p></div>`}
+  }catch(err){document.querySelector('main').innerHTML=`<div class="loading-card"><h2>Clue Morning couldn't load today's set.</h2><p>${escapeHtml(err.message)}</p><p>Check your connection and try again.</p><button class="primary-button" type="button" onclick="location.reload()">Try again</button></div>`}
 }
 init();
 if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));

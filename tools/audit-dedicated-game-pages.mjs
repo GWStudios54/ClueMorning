@@ -36,7 +36,7 @@ assert.ok(router.includes("stripHomepageRuntime(await response.text(),game)"),'p
 for(const runtime of ['word-controls','retention-hooks','presentation-v1','social','competition','homepage-guard','pwa']){
   assert.ok(router.includes(runtime),`dedicated runtime stripping is missing ${runtime}`);
 }
-assert.ok(router.includes('/app-core.js?v=dedicated-3'),'play pages must load the optimized stable core directly, not app.js score-card wrapper');
+assert.ok(router.includes('/app-core.js?v=dedicated-4'),'play pages must load the optimized stable core directly, not app.js score-card wrapper');
 assert.ok(router.includes('/game-page.css?v=1')&&router.includes('/game-page.js?v=2'),'play page shell assets are missing');
 const typesetter=read('./public/letter-typesetter.js');
 const typesetterCss=read('./public/letter-typesetter.css');
@@ -54,6 +54,11 @@ assert.ok(typesetterCss.includes("top:31.05%")&&typesetterCss.includes("top:65.2
 assert.ok(shell.includes("dataset.gameSession=game"),'dedicated controller must set explicit game session');
 assert.equal(shell.includes('setTimeout(ensureActive'),false,'dedicated controller must not poll for an already-parsed panel');
 assert.ok(core.includes("const initialGame=document.documentElement.dataset.gamePage||''"),'core must identify the dedicated game before initial rendering');
+assert.ok(core.includes('DAILY_CACHE_KEY="clue-morning-daily-cache-v1"'),'daily payload cache is missing');
+assert.ok(core.includes('cached?.data?.date===today'),'daily cache must be date validated');
+assert.ok(core.includes("signal:controller.signal")&&core.includes('timeoutMs=6000'),'daily loading must have a bounded timeout');
+assert.ok(core.includes('for(let attempt=0;attempt<2;attempt++)'),'daily loading must retry once');
+assert.ok(core.includes('>Try again</button>'),'load failure must offer a retry action');
 assert.ok(core.includes('await revealExistingFailures(initialGame)'),'failure reveals must be scoped to the opened dedicated game');
 assert.ok(core.includes("if(initialGame==='letter')renderLetter()")&&core.includes("else if(initialGame==='deepcut')renderDeepCut()"),'dedicated core must render only the selected game at startup');
 assert.ok(core.includes("if(visualGameActive('link'))void warmLinkSwitchboard()"),'Switchboard artwork must not warm while hidden');
