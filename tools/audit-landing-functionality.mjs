@@ -31,6 +31,6 @@ assert.ok(presentation.includes("nav.addEventListener('click'"), 'navigation rev
 assert.ok(alignment.includes('align-items:center')&&alignment.includes('justify-content:center')&&alignment.includes('text-align:center'),'shared control alignment is incomplete');
 assert.ok(index.includes('/control-alignment.css?v=1'),'shared alignment stylesheet is not loaded');
 assert.ok(sw.includes("'/control-alignment.css'"),'shared alignment stylesheet is not cached');
-assert.equal(sw.includes('client.navigate('),false,'service worker must never redirect an active page during activation');
+assert.equal(sw.includes('?shell='),false,'service worker activation must not redirect or reset an active page');
 assert.ok(sw.includes("clue-morning-pwa-v52"),'PWA cache version was not advanced');
 console.log('Landing functionality audit passed: seven-game state, routes, navigation reveal, control alignment, and non-disruptive PWA activation.');
