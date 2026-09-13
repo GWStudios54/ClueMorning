@@ -36,7 +36,7 @@ assert.ok(router.includes("stripHomepageRuntime(await response.text(),game)"),'p
 for(const runtime of ['word-controls','retention-hooks','presentation-v1','social','competition','homepage-guard','pwa']){
   assert.ok(router.includes(runtime),`dedicated runtime stripping is missing ${runtime}`);
 }
-assert.ok(router.includes('/app-core.js?v=dedicated-4'),'play pages must load the optimized stable core directly, not app.js score-card wrapper');
+assert.ok(router.includes('/app-core.js?v=dedicated-5'),'play pages must load the optimized stable core directly, not app.js score-card wrapper');
 assert.ok(router.includes('/game-page.css?v=1')&&router.includes('/game-page.js?v=2'),'play page shell assets are missing');
 const typesetter=read('./public/letter-typesetter.js');
 const typesetterCss=read('./public/letter-typesetter.css');
@@ -58,9 +58,12 @@ assert.ok(core.includes('DAILY_CACHE_KEY="clue-morning-daily-cache-v1"'),'daily 
 assert.ok(core.includes('cached?.data?.date===today'),'daily cache must be date validated');
 assert.ok(core.includes("signal:controller.signal")&&core.includes('timeoutMs=6000'),'daily loading must have a bounded timeout');
 assert.ok(core.includes('for(let attempt=0;attempt<2;attempt++)'),'daily loading must retry once');
+assert.equal(core.includes('await revealExistingFailures(initialGame)'),false,'failure recovery must not block first render');
+assert.ok(core.includes('const recovery=revealExistingFailures(initialGame)')&&core.includes('renderInitialGame(initialGame)'),'failure recovery must run behind first render');
+assert.ok(core.includes('void recovery.then(()=>{')&&core.includes('saveState();'),'recovered results must persist');
 assert.ok(core.includes('>Try again</button>'),'load failure must offer a retry action');
-assert.ok(core.includes('await revealExistingFailures(initialGame)'),'failure reveals must be scoped to the opened dedicated game');
-assert.ok(core.includes("if(initialGame==='letter')renderLetter()")&&core.includes("else if(initialGame==='deepcut')renderDeepCut()"),'dedicated core must render only the selected game at startup');
+assert.ok(core.includes('const recovery=revealExistingFailures(initialGame)'),'failure recovery must remain scoped to the opened dedicated game');
+assert.ok(core.includes("if(game==='letter')renderLetter()")&&core.includes("else if(game==='deepcut')renderDeepCut()"),'dedicated core must render only the selected game at startup');
 assert.ok(core.includes("if(visualGameActive('link'))void warmLinkSwitchboard()"),'Switchboard artwork must not warm while hidden');
 assert.ok(core.includes("if(visualGameActive('steps'))void warmStepsRooftops()"),'Rooftops artwork must not warm while hidden');
 assert.ok(shell.includes("location.assign('/')"),'dedicated games need a direct Morning Run exit');

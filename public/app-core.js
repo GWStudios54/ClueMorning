@@ -985,6 +985,16 @@ async function revealExistingFailures(game=''){
   try{if(game==='steps'&&day.steps.done&&!day.steps.won&&!day.steps.solution?.length){const r=await api('/api/steps/reveal',{finished:true});day.steps.solution=r.solution||[]}}catch{}
 }
 
+function renderInitialGame(game){
+  if(game==='letter')renderLetter();
+  else if(game==='groups')renderGroups();
+  else if(game==='trail')renderTrail();
+  else if(game==='link')renderLink();
+  else if(game==='steps')renderSteps();
+  else if(game==='deepcut')renderDeepCut();
+  else updateHome();
+}
+
 async function init(){
   try{
     daily=await loadDaily();currentDateKey=daily.date;state.days[currentDateKey]??={};day=state.days[currentDateKey];dailyRoot=daily;dayRoot=day;currentDateRoot=currentDateKey;
@@ -994,14 +1004,12 @@ async function init(){
     day.letter.guesses=day.letter.guesses.filter(Boolean).map(g=>typeof g==='string'?{word:g,feedback:Array(daily.letter.length).fill('gray')}:g);
     $('#wordLength').textContent=daily.letter.length;$('#letterSubhead').textContent=`Today is ${daily.letter.length} letters. You still only get six guesses.`;$('#guessInput').maxLength=daily.letter.length;
     const initialGame=document.documentElement.dataset.gamePage||'';
-    await revealExistingFailures(initialGame);
-    if(initialGame==='letter')renderLetter();
-    else if(initialGame==='groups')renderGroups();
-    else if(initialGame==='trail')renderTrail();
-    else if(initialGame==='link')renderLink();
-    else if(initialGame==='steps')renderSteps();
-    else if(initialGame==='deepcut')renderDeepCut();
-    else updateHome();
+    const recovery=revealExistingFailures(initialGame);
+    renderInitialGame(initialGame);
+    void recovery.then(()=>{
+      saveState();
+      if((document.documentElement.dataset.gamePage||'')===initialGame)renderInitialGame(initialGame);
+    }).catch(()=>{});
     if(initialGame==='letter'&&!day.letter.done)letterTimer=setInterval(()=>$('#timer').textContent=fmtTime((Date.now()-day.letter.start)/1000),1000);
     if(initialGame==='trail'&&day.trail.started&&!day.trail.done){if(remainingTrail()<=0)await finishTrail();else trailTick=setInterval(()=>{if(remainingTrail()<=0)finishTrail();else $('#trailTimer').textContent=fmtTime(remainingTrail())},1000)}
     if(initialGame==='deepcut'&&day.deepcut.started&&!day.deepcut.done){if(remainingDeepCut()<=0)await timeoutDeepCut();else armDeepCutTimer()}

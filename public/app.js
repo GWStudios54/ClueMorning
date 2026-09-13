@@ -1,6 +1,6 @@
 // Clue Morning app loader + daily-game retention flow.
 (() => {
-  const CORE_SRC = '/app-core.js?v=4';
+  const CORE_SRC = '/app-core.js?v=5';
   const STATE_KEY = 'clue-morning-state-v2.4';
   const TZ = 'America/Los_Angeles';
   const GAMES = {
