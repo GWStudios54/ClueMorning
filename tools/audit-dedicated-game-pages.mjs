@@ -62,8 +62,8 @@ assert.equal(core.includes('await revealExistingFailures(initialGame)'),false,'f
 assert.ok(core.includes('const recovery=revealExistingFailures(initialGame)')&&core.includes('renderInitialGame(initialGame)'),'failure recovery must run behind first render');
 assert.ok(core.includes('void recovery.then(()=>{')&&core.includes('saveState();'),'recovered results must persist');
 assert.ok(core.includes('>Try again</button>'),'load failure must offer a retry action');
-assert.ok(core.includes('await revealExistingFailures(initialGame)'),'failure reveals must be scoped to the opened dedicated game');
-assert.ok(core.includes("if(initialGame==='letter')renderLetter()")&&core.includes("else if(initialGame==='deepcut')renderDeepCut()"),'dedicated core must render only the selected game at startup');
+assert.ok(core.includes('const recovery=revealExistingFailures(initialGame)'),'failure recovery must remain scoped to the opened dedicated game');
+assert.ok(core.includes("if(game==='letter')renderLetter()")&&core.includes("else if(game==='deepcut')renderDeepCut()"),'dedicated core must render only the selected game at startup');
 assert.ok(core.includes("if(visualGameActive('link'))void warmLinkSwitchboard()"),'Switchboard artwork must not warm while hidden');
 assert.ok(core.includes("if(visualGameActive('steps'))void warmStepsRooftops()"),'Rooftops artwork must not warm while hidden');
 assert.ok(shell.includes("location.assign('/')"),'dedicated games need a direct Morning Run exit');
