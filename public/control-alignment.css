@@ -1,0 +1,16 @@
+/* Shared control alignment for homepage and dedicated game shells. */
+:where(button,[role="button"],.primary-button,.secondary-button,.game-status){
+  text-align:center;
+  vertical-align:middle;
+}
+:where(button:not(.streak),[role="button"],.primary-button,.secondary-button,.game-status){
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+:where(button,[role="button"],.primary-button,.secondary-button,.game-status)>:where(span,strong,small,svg){
+  flex:0 0 auto;
+}
+:where(button,[role="button"],.primary-button,.secondary-button){
+  text-wrap:balance;
+}

@@ -104,6 +104,34 @@
   function openLeaders(){const b=$('.tab[data-tab="leaders"]');if(b)b.click()}
   function setText(selector,value){const el=$(selector);if(el&&el.textContent!==String(value))el.textContent=String(value)}
 
+  const LANDING_TARGETS={
+    letter:{status:'#letterCardStatus',score:'#homeLetterScore'},
+    groups:{status:'#groupCardStatus',score:'#homeGroupScore'},
+    trail:{status:'#trailCardStatus',score:'#homeTrailScore'},
+    link:{status:'#linkCardStatus',score:'#homeLinkScore'},
+    steps:{status:'#stepsCardStatus',score:'#homeStepsScore'},
+    deepcut:{status:'#deepCutCardStatus',score:'#homeDeepCutScore'},
+    lastcall:{status:'#lastCallCardStatus',score:'#homeLastCallScore'}
+  };
+  function statusMarkup(done){
+    const icon=done?'i-check':'i-play';
+    return `<svg class="icon" aria-hidden="true"><use href="#${icon}"></use></svg>${done?'DONE':'PLAY'}`;
+  }
+  function syncLandingCards(m){
+    for(const row of m.rows){
+      const target=LANDING_TARGETS[row.id];if(!target)continue;
+      const status=$(target.status);
+      if(status){
+        status.classList.toggle('done',row.done);
+        const label=row.done?'DONE':'PLAY';
+        if(!status.textContent?.includes(label))status.innerHTML=statusMarkup(row.done);
+        const card=status.closest('.game-card');
+        if(card)card.setAttribute('aria-label',`${row.name}${row.done?' — complete':''}`);
+      }
+      setText(target.score,row.score.toLocaleString());
+    }
+  }
+
   function ensureStrip(){
     if($('#retentionRunStrip')||!$('.tabs'))return;
     const strip=document.createElement('aside');
@@ -218,6 +246,7 @@
     if(!currentDate||currentDate!==pacificToday){currentDate=pacificToday;previousDone=-1;previousLastCallDone=null;lastSignature=''}
     ensureStrip();ensureReport();
     const m=metrics(),lastCallDone=!!m.rows.find(r=>r.id==='lastcall')?.done;
+    syncLandingCards(m);
     syncScoreDialog(m);
     const sig=`${m.date}:${m.done}:${m.total}:${m.streak}:${m.rows.map(r=>r.done?'1':'0').join('')}:${activeId()}`;
     if(sig===lastSignature)return;

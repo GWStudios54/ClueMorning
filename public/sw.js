@@ -1,10 +1,11 @@
-const CACHE = 'clue-morning-pwa-v51';
+const CACHE = 'clue-morning-pwa-v52';
 const APP_SHELL = [
   '/styles.css',
   '/styles-base.css',
   '/home-v1.css',
   '/home-production.css',
   '/home-production.js',
+  '/control-alignment.css',
   '/performance-bridge.js',
   '/app.js',
   '/app-core.js',
@@ -51,17 +52,6 @@ self.addEventListener('activate', event => {
       .filter(key => key.startsWith('clue-morning-') && key !== CACHE)
       .map(key => caches.delete(key)));
     await self.clients.claim();
-    // Replace any root document that an older worker restored from its cache.
-    const windows = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
-    await Promise.all(windows.map(client => {
-      try {
-        const url = new URL(client.url);
-        if (url.origin === self.location.origin && (url.pathname === '/' || url.pathname === '/index.html')) {
-          return client.navigate('/?shell=v51');
-        }
-      } catch {}
-      return undefined;
-    }));
   })());
 });
 

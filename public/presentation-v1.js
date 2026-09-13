@@ -15,6 +15,19 @@
       tab.classList.toggle('nav-extra',tab.classList.contains('tileworks-nav-tab'));
       tab.classList.toggle('nav-utility',['unlimited','leaders','archive'].includes(id));
     });
+    if(!nav.dataset.mobileRevealBound){
+      nav.dataset.mobileRevealBound='1';
+      nav.addEventListener('click',event=>{
+        const tab=event.target.closest('.tab');if(tab)setTimeout(()=>revealTab(tab,true),0);
+      });
+    }
+    const active=nav.querySelector('.tab.active');if(active)revealTab(active,false);
+  }
+
+  function revealTab(tab,smooth){
+    const nav=tab?.closest('.tabs');if(!nav||nav.scrollWidth<=nav.clientWidth)return;
+    const left=tab.offsetLeft-(nav.clientWidth-tab.offsetWidth)/2;
+    nav.scrollTo({left:Math.max(0,left),behavior:smooth?'smooth':'auto'});
   }
 
   function dailyGrid(){
