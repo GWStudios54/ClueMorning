@@ -63,17 +63,6 @@
     clear.addEventListener('click',()=>{const input=$('#guessInput');if(!input||input.disabled)return;input.value='';input.dispatchEvent(new Event('input',{bubbles:true}));input.focus({preventScroll:true})});panel.appendChild(clear);
 
     const press=$('#guessForm button span');if(press)press.textContent='PULL PRESS';
-    const keyboard=$('#keyboard');
-    if(keyboard){
-      const typeKey=key=>{
-        const input=$('#guessInput');if(!input||input.disabled)return;
-        const max=Number($('#wordLength')?.textContent)||input.maxLength||10,ch=(key?.textContent||'').trim().toUpperCase();
-        if(!/^[A-Z]$/.test(ch)||input.value.length>=max)return;
-        input.value=(input.value+ch).slice(0,max);input.dispatchEvent(new Event('input',{bubbles:true}));
-      };
-      keyboard.addEventListener('click',event=>{const key=event.target.closest('.key');if(key)typeKey(key)});
-      keyboard.addEventListener('keydown',event=>{if(event.key!=='Enter'&&event.key!==' ')return;const key=event.target.closest('.key');if(!key)return;event.preventDefault();typeKey(key)});
-    }
     const stats=[...panel.querySelectorAll(':scope>.stats-row .stat')];
     const labels=['LETTERS','GUESSES','SCORE','BEST'];stats.forEach((stat,i)=>{const label=stat.querySelector('span');if(label&&labels[i])label.textContent=labels[i]});
     writeBest(0);fitBoard();
