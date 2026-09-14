@@ -36,11 +36,11 @@ assert.ok(router.includes("stripHomepageRuntime(await response.text(),game)"),'p
 for(const runtime of ['word-controls','retention-hooks','presentation-v1','social','competition','homepage-guard','pwa']){
   assert.ok(router.includes(runtime),`dedicated runtime stripping is missing ${runtime}`);
 }
-assert.ok(router.includes('/app-core.js?v=dedicated-6'),'play pages must load the optimized stable core directly, not app.js score-card wrapper');
+assert.ok(router.includes('/app-core.js?v=dedicated-7'),'play pages must load the optimized stable core directly, not app.js score-card wrapper');
 assert.ok(router.includes('/game-page.css?v=1')&&router.includes('/game-page.js?v=2'),'play page shell assets are missing');
 const typesetter=read('./public/letter-typesetter.js');
 const typesetterCss=read('./public/letter-typesetter.css');
-assert.ok(typesetter.includes("typesetter-reset")&&typesetter.includes("reset.textContent='↻'"),'production Typesetter must retain the approved test reset control');
+assert.ok(typesetter.includes("typesetter-reset")&&typesetter.includes("reset.textContent='↻'")&&core.includes('function typeLetterKey'),'production Typesetter must retain the approved test reset control');
 assert.equal(index.includes('styles.css">\\n'),false,'homepage must not emit a literal \\n after the base stylesheet');
 assert.equal(index.includes('loading="eager"'),false,'hidden production game media must not be eager-loaded from the shared document');
 assert.ok(index.includes('steps-rooftops-climber" src="/word-steps-rooftops/pc.webp" alt="" aria-hidden="true" loading="lazy"'),'Word Steps character must stay lazy until its game is opened');
@@ -56,7 +56,7 @@ assert.equal(shell.includes('setTimeout(ensureActive'),false,'dedicated controll
 assert.ok(core.includes("const initialGame=document.documentElement.dataset.gamePage||''"),'core must identify the dedicated game before initial rendering');
 assert.ok(core.includes('DAILY_CACHE_KEY="clue-morning-daily-cache-v1"'),'daily payload cache is missing');
 assert.ok(core.includes('cached?.data?.date===today'),'daily cache must be date validated');
-assert.ok(core.includes("signal:controller.signal")&&core.includes('timeoutMs=6000'),'daily loading must have a bounded timeout');
+assert.ok(core.includes("signal:controller.signal")&&core.includes('timeoutMs=12000'),'daily loading must have a bounded timeout');
 assert.ok(core.includes('for(let attempt=0;attempt<2;attempt++)'),'daily loading must retry once');
 assert.equal(core.includes('await revealExistingFailures(initialGame)'),false,'failure recovery must not block first render');
 assert.ok(core.includes('const recovery=revealExistingFailures(initialGame)')&&core.includes('renderInitialGame(initialGame)'),'failure recovery must run behind first render');
