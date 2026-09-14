@@ -898,7 +898,7 @@ function injectHeadOnce(html,marker,markup){return html.includes(marker)?html:ht
 function injectBodyOnce(html,marker,markup){return html.includes(marker)?html:html.replace('</body>',`${markup}\n</body>`)}
 function installPerformanceBridge(html){
   if(html.includes('/performance-bridge.js'))return html;
-  const bridge='<script src="/performance-bridge.js?v=1"></script>\n';
+  const bridge='<script src="/performance-bridge.js?v=1" defer></script>\n';
   const appScript=/<script\s+src=["']\/?app\.js["'][^>]*><\/script>/i;
   if(appScript.test(html))return html.replace(appScript,match=>bridge+match);
   return html.replace('</body>',bridge+'</body>');
@@ -939,6 +939,7 @@ function applyHomepageSeo(html){
     ]
   };
   html=html.replace(/<script\s+type=["']application\/ld\+json["']>.*?<\/script>/is,`<script type="application/ld+json">${JSON.stringify(schema)}</script>`);
+  if(!html.includes('>Last Call guide<'))html=html.replace('<a href="/games/deep-cut/">Deep Cut guide</a></nav>','<a href="/games/deep-cut/">Deep Cut guide</a><a href="/games/last-call/">Last Call guide</a><a href="/games/">All games</a></nav>');
   return html;
 }
 function applyDailyGuidePolish(html){
