@@ -1,4 +1,4 @@
-const CACHE = 'clue-morning-pwa-v56';
+const CACHE = 'clue-morning-pwa-v57';
 const APP_SHELL = [
   '/styles.css',
   '/styles-base.css',
@@ -36,11 +36,23 @@ const APP_SHELL = [
   '/icon-512.png',
   '/notification-badge.svg',
   '/play/letter-grid/',
+  '/play/four-groups/',
+  '/play/letter-trail/',
+  '/play/triple-link/',
+  '/play/word-steps/',
+  '/play/deep-cut/',
+  '/play/last-call/',
   '/app-core.js?v=dedicated-7',
   '/game-page.css?v=1',
   '/game-page.js?v=2',
   '/letter-typesetter.css?v=5',
   '/letter-typesetter.js?v=6',
+  '/four-groups-case-file.css?v=2',
+  '/four-groups-case-file.js?v=2',
+  '/trail-cartographer.css?v=2',
+  '/trail-cartographer.js?v=2',
+  '/last-call.css?v=1',
+  '/last-call.js?v=3',
 ];
 
 self.addEventListener('install', event => {
@@ -69,23 +81,31 @@ self.addEventListener('fetch', event => {
   if (url.origin !== self.location.origin || url.pathname.startsWith('/api/')) return;
 
   event.respondWith((async () => {
-    const letterGridNavigation = request.mode === 'navigate' && (url.pathname === '/play/letter-grid/' || url.pathname === '/play/letter-grid');
-    if (letterGridNavigation) {
+    const gameAliases = {
+      '/play/letter-grid':'/play/letter-grid/',
+      '/play/four-groups':'/play/four-groups/',
+      '/play/letter-trail':'/play/letter-trail/',
+      '/play/triple-link':'/play/triple-link/',
+      '/play/word-steps':'/play/word-steps/',
+      '/play/deep-cut':'/play/deep-cut/',
+      '/play/last-call':'/play/last-call/'
+    };
+    const staticGamePath = request.mode === 'navigate' ? (gameAliases[url.pathname] || gameAliases[url.pathname.replace(/\/$/,'')]) : '';
+    if (staticGamePath) {
       const cache = await caches.open(CACHE);
-      const canonical = '/play/letter-grid/';
-      const cached = await cache.match(canonical);
+      const cached = await cache.match(staticGamePath);
       if (cached) {
-        event.waitUntil(fetch(new Request(canonical, { cache: 'reload' })).then(response => {
-          if (response.ok) return cache.put(canonical, response.clone());
+        event.waitUntil(fetch(new Request(staticGamePath, { cache: 'reload' })).then(response => {
+          if (response.ok) return cache.put(staticGamePath, response.clone());
         }).catch(() => {}));
         return cached;
       }
       try {
-        const response = await fetch(new Request(canonical, { cache: 'reload' }));
-        if (response.ok) await cache.put(canonical, response.clone());
+        const response = await fetch(new Request(staticGamePath, { cache: 'reload' }));
+        if (response.ok) await cache.put(staticGamePath, response.clone());
         return response;
       } catch {
-        return new Response('<!doctype html><meta charset="utf-8"><title>Letter Grid</title><p>Reconnect once to install Letter Grid.</p>', {
+        return new Response('<!doctype html><meta charset="utf-8"><title>Clue Morning</title><p>Reconnect once to install this game.</p>', {
           status: 503,
           headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' }
         });
