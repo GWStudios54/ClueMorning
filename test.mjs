@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import worker,{pickDaily,evaluateGuess,trailPathValid,trailDictionaryWord,wordStepsDictionaryWord,differsByOne,deepCutResult,safeName,scoreParts,unlimitedPuzzle,unlimitedGroupBoard,unlimitedStepsPuzzle,UNLIMITED_COUNTS} from './src/worker.js';
-import liveWorker from './src/worker-v4.js';
 import {TRAIL_PUZZLES,WORD_STEPS_PUZZLES,DEEP_CUT_PROMPTS,DEEP_CUT_PUZZLES,YEAR_PACK,YEAR_PACK_START} from './src/puzzles.js';
 
 for(const p of TRAIL_PUZZLES){
@@ -88,7 +87,7 @@ const dc=p.deepcut.prompts[0],dcAnswer=dc.answers[0].name;
 r=await worker.fetch(new Request('https://x.test/api/deepcut/check?date=2026-08-30',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({promptId:dc.id,answer:dcAnswer})}),env);assert.equal(r.status,200);j=await r.json();assert.equal(j.accepted,true);assert.equal(j.canonical,dcAnswer);assert.ok(j.score>=30&&j.score<=100);
 r=await worker.fetch(new Request('https://x.test/api/deepcut/check?date=2026-08-30',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({promptId:dc.id,answer:'not-a-real-answer'})}),env);j=await r.json();assert.equal(j.accepted,false);assert.equal(j.score,0);
 
-r=await liveWorker.fetch(new Request('https://x.test/api/deepcut/recap',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({promptIds:[dc.id]})}),env);assert.equal(r.status,200);j=await r.json();assert.equal(j.rows.length,1);assert.equal(j.rows[0].mostCommon,dc.answers[0].name);assert.equal(j.rows[0].rarest,dc.answers.at(-1).name);
+r=await worker.fetch(new Request('https://x.test/api/deepcut/recap',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({promptIds:[dc.id]})}),env);assert.equal(r.status,200);j=await r.json();assert.equal(j.rows.length,1);assert.equal(j.rows[0].mostCommon,dc.answers[0].name);assert.equal(j.rows[0].rarest,dc.answers.at(-1).name);
 
 // Regression: current Aug 30 board must accept ordinary words that the old live API rejected.
 const current=pickDaily('2026-08-30');

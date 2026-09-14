@@ -7,7 +7,7 @@ const core=read('./public/app-core.js');
 const deepLink=read('./public/deep-link.js');
 const homeGuard=read('./public/homepage-guard.js');
 const lastCall=read('./public/last-call.js');
-const router=read('./src/worker-v5.js');
+const router=read('./src/worker.js');
 
 const productionSkins=[
   'trail-cartographer.css?v=2','trail-cartographer.js?v=2',

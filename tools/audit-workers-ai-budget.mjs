@@ -27,7 +27,7 @@ assert.ok(reserveNeurons([{role:'user',content:'test'}],500)>0);
 
 const wrangler=JSON.parse((await fs.readFile(path.join(root,'wrangler.jsonc'),'utf8')).replace(/^\uFEFF/,''));
 assert.equal(wrangler?.ai?.binding,'AI','wrangler.jsonc must expose the Workers AI binding as env.AI.');
-const worker=await fs.readFile(path.join(root,'src','worker-v5.js'),'utf8');
+const worker=await fs.readFile(path.join(root,'src','worker.js'),'utf8');
 assert.match(worker,/runContentAiSchedule/,'The production Worker must invoke the budgeted AI scheduler.');
 const schema=await fs.readFile(path.join(root,'schema.sql'),'utf8');
 for(const table of ['ai_neuron_usage','ai_content_runs','ai_content_candidates'])assert.match(schema,new RegExp(`CREATE TABLE IF NOT EXISTS ${table}`),`schema.sql is missing ${table}.`);

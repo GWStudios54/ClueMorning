@@ -7,7 +7,7 @@ const retention=read('public/retention-hooks.js');
 const presentation=read('public/presentation-v1.js');
 const alignment=read('public/control-alignment.css');
 const sw=read('public/sw.js');
-const router=read('src/worker-v5.js');
+const router=read('src/worker.js');
 const standalone=['public/games/all-seven/index.html','public/games/pangram/index.html','public/games/tileworks/index.html'].map(read);
 
 const games={
