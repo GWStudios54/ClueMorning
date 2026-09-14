@@ -72,7 +72,11 @@ assert.ok(shell.includes("location.assign('/')"),'dedicated games need a direct 
 assert.ok(shellCss.includes('main.app>.panel.active')&&shellCss.includes('#today'),'dedicated CSS must expose only the selected game panel');
 assert.ok(!legacyWorker.includes('if(!html.includes("/last-call.js"))'),'homepage must not inject Last Call gameplay');
 assert.ok(!legacyWorker.includes('if(!html.includes("/last-call.css"))'),'homepage must not inject Last Call gameplay styles');
-assert.ok(wrangler.includes('"/play/*"'),'Cloudflare must run the worker first for dedicated play routes');
+assert.equal(wrangler.includes('"/play/*"'),false,'Letter Grid must bypass the Worker cold-start path');
+const staticLetter=read('./public/play/letter-grid/index.html');
+assert.ok(staticLetter.includes('data-game-page="letter"')&&staticLetter.includes('/app-core.js?v=dedicated-7'),'Letter Grid static shell is missing its dedicated runtime');
+assert.ok(staticLetter.includes('/letter-typesetter.js?v=6')&&staticLetter.includes('/game-page.js?v=2'),'Letter Grid static shell is missing gameplay assets');
+assert.ok(wrangler.includes('"/play/four-groups/*"'),'remaining dynamic game routes must still run through the worker');
 assert.equal(sw.includes("'/letter-typesetter.css'"),false,'PWA install must not prefetch the heavy Typesetter skin');
 assert.equal(sw.includes("'/word-steps-rooftops/bg-00.b64'"),false,'PWA install must not prefetch Rooftops artwork');
 assert.equal(sw.includes("'/deepcut-archive/newsroom.webp'"),false,'PWA install must not prefetch Deep Cut artwork');
