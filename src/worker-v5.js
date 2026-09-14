@@ -18,7 +18,7 @@ const GAME_PATHS={
 const GAME_PAGE_ROUTES=Object.fromEntries(Object.entries(GAME_PATHS).flatMap(([game,path])=>[[path,game],[path.replace(/\/$/,''),game]]));
 const GAME_NAMES={letter:'Letter Grid',groups:'Four Groups',trail:'Letter Trail',link:'Triple Link',steps:'Word Steps',deepcut:'Deep Cut',lastcall:'Last Call'};
 const GAME_SKINS={
-  letter:{css:'/letter-typesetter.css?v=5',js:'/letter-typesetter.js?v=5'},
+  letter:{css:'/letter-typesetter.css?v=5',js:'/letter-typesetter.js?v=6'},
   groups:{css:'/four-groups-case-file.css?v=2',js:'/four-groups-case-file.js?v=2'},
   trail:{css:'/trail-cartographer.css?v=2',js:'/trail-cartographer.js?v=2'}
 };
@@ -209,7 +209,7 @@ async function dedicatedGamePage(request,env,ctx,game){
   if(!html.includes('/game-page.css'))html=html.replace('</head>','<link rel="stylesheet" href="/game-page.css?v=1">\n</head>');
   const skin=GAME_SKINS[game];
   if(skin?.css&&!html.includes(skin.css.split('?')[0]))html=html.replace('</head>','<link rel="stylesheet" href="'+skin.css+'">\n</head>');
-  html=html.replace(/<script\s+src=["']\/?app\.js["'][^>]*><\/script>/i,'<script src="/app-core.js?v=dedicated-6"></script>');
+  html=html.replace(/<script\s+src=["']\/?app\.js["'][^>]*><\/script>/i,'<script src="/app-core.js?v=dedicated-7"></script>');
   if(skin?.js&&!html.includes(skin.js.split('?')[0]))html=html.replace('</body>','<script src="'+skin.js+'"></script>\n</body>');
   if(game==='lastcall'){
     if(!html.includes('/last-call.css'))html=html.replace('</head>','<link rel="stylesheet" href="/last-call.css?v=1">\n</head>');
