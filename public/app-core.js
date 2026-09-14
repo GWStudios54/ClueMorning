@@ -28,7 +28,7 @@ function readDailyCache(){
 function writeDailyCache(data){
   try{localStorage.setItem(DAILY_CACHE_KEY,JSON.stringify({savedAt:Date.now(),data}))}catch{}
 }
-async function requestDaily(timeoutMs=6000){
+async function requestDaily(timeoutMs=12000){
   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),timeoutMs);
   try{
     const response=await fetch('/api/daily',{cache:'no-store',signal:controller.signal});
@@ -220,6 +220,14 @@ function renderKeyboard(){
     el.appendChild(row);
   }
 }
+function typeLetterKey(ch){
+  const input=$('#guessInput');if(!input||input.disabled)return;
+  const max=Number(daily?.letter?.length)||input.maxLength||10,key=String(ch||'').trim().toUpperCase();
+  if(!/^[A-Z]$/.test(key)||input.value.length>=max)return;
+  input.value=(input.value+key).slice(0,max);input.dispatchEvent(new Event('input',{bubbles:true}));
+}
+$('#keyboard').addEventListener('click',event=>{const key=event.target.closest('.key');if(key)typeLetterKey(key.dataset.key||key.textContent)});
+$('#keyboard').addEventListener('keydown',event=>{if(event.key!=='Enter'&&event.key!==' ')return;const key=event.target.closest('.key');if(!key)return;event.preventDefault();typeLetterKey(key.dataset.key||key.textContent)});
 function letterDraft(){
   const input=$('#guessInput');
   return (input?.value||'').toUpperCase().replace(/[^A-Z]/g,'').slice(0,daily?.letter?.length||0);
