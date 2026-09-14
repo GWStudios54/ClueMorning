@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en" data-game-page="steps">
+<head>
+<base href="/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
+  <meta name="theme-color" content="#f7f1e5">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem("clue-morning-theme")||"paper"}catch{}</script>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Clue Morning">
+  <title>Word Steps — Clue Morning</title>
+  <meta name="description" content="Play six free daily word, logic, and trivia games: Letter Grid, Four Groups, Letter Trail, Triple Link, Word Steps, and Deep Cut. A fresh set every morning.">
+  <meta name="robots" content="noindex,follow">
+  <link rel="canonical" href="https://cluemorning.com/play/word-steps/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Clue Morning">
+  <meta property="og:title" content="Clue Morning — Free Daily Word, Logic & Trivia Games">
+  <meta property="og:description" content="Six fresh word, logic, and trivia games every morning, free in your browser.">
+  <meta property="og:url" content="https://cluemorning.com/">
+  <meta property="og:image" content="https://cluemorning.com/icon-512.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Clue Morning — Free Daily Word, Logic & Trivia Games">
+  <meta name="twitter:description" content="Six fresh word, logic, and trivia games every morning, free in your browser.">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Clue Morning","url":"https://cluemorning.com/","description":"A free collection of six daily word, logic, and trivia games with a fresh set every morning."}</script>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/home-production.css?v=6">
+  <link rel="stylesheet" href="/control-alignment.css?v=1">
+<link rel="stylesheet" href="/game-page.css?v=1">
+</head>
+<body class="home-production">
+  <div class="scene" aria-hidden="true"></div>
+<svg class="icon-sprite" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5M5.5 10v9h13v-9M9.5 19v-5h5v5"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+  <symbol id="i-groups" viewBox="0 0 24 24"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="7" cy="17" r="3"/><circle cx="17" cy="17" r="3"/></symbol>
+  <symbol id="i-trail" viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="10" cy="11" r="2"/><circle cx="16" cy="14" r="2"/><circle cx="20" cy="5" r="2"/><path d="m6.3 16.5 2.4-4M11.8 11.7l2.4 1.5M17.1 12.3l2-5.5"/></symbol>
+  <symbol id="i-steps" viewBox="0 0 24 24"><path d="M4 18h5v-4h5v-4h6M6 6h12M15 3l3 3-3 3"/></symbol>
+  <symbol id="i-deepcut" viewBox="0 0 24 24"><path d="M4 5h16M7 10h13M10 15h10M13 20h7"/><circle cx="5" cy="10" r="1"/><circle cx="8" cy="15" r="1"/><circle cx="11" cy="20" r="1"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M9.5 14.5 14.5 9M7.5 16.5l-1 1a3.5 3.5 0 0 1-5-5l3-3a3.5 3.5 0 0 1 5 0M16.5 7.5l1-1a3.5 3.5 0 0 1 5 5l-3 3a3.5 3.5 0 0 1-5 0"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 4h8v4a4 4 0 0 1-8 0V4ZM10 16h4M9 20h6M12 12v4M8 6H4v2a4 4 0 0 0 4 4M16 6h4v2a4 4 0 0 1-4 4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M13 3s1 4-2 6c-2 1-3 3-3 5a4 4 0 0 0 8 0c0-2-1-4-3-6 0 2-1 3-2 4 1-4 2-6 2-9Z"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.8 9a2.4 2.4 0 0 1 4.6 1c0 2-2.4 2.2-2.4 4M12 18h.01"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="m9 6 9 6-9 6V6Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"/></symbol>
+  <symbol id="i-shuffle" viewBox="0 0 24 24"><path d="M4 7h3c4 0 5 10 9 10h4M17 14l3 3-3 3M4 17h3c1.8 0 3-2 4-4M15 7h5M17 4l3 3-3 3"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 6v5h-5M4 18v-5h5M18.5 9A7 7 0 0 0 6 6.5L4 11M5.5 15A7 7 0 0 0 18 17.5L20 13"/></symbol>
+  <symbol id="i-package" viewBox="0 0 24 24"><path d="m4 7 8-4 8 4-8 4-8-4ZM4 7v10l8 4 8-4V7M12 11v10"/></symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1.5a2.5 2.5 0 0 0 0-5H12a1.8 1.8 0 0 1 0-3.6h3.8A5.2 5.2 0 0 0 21 7.2C21 4.9 17.2 3 12 3Z"/><circle cx="7.5" cy="9" r="1"/><circle cx="10.5" cy="6.5" r="1"/><circle cx="15" cy="6.5" r="1"/><circle cx="17.5" cy="9.5" r="1"/></symbol>
+</svg>
+<div class="sunrise-bar"></div>
+<main class="app home-shell">
+  <header class="topbar">
+    <a class="wordmark brand" href="/" aria-label="Clue Morning home">
+      <span class="sun-mark">☀</span>
+      <span><small>A FRESH SET EVERY DAY</small><strong>Clue Morning</strong><em>For Annie</em></span>
+    </a>
+    <div class="top-actions">
+      <button class="round" id="themeButton" type="button" aria-label="Choose color theme" title="Choose color theme">◐</button>
+      <button class="streak" id="streakCard" type="button" title="Current streak"><span>♨</span><b id="streakCount">0</b><small>DAY STREAK</small></button>
+    </div>
+  </header>
+
+  <nav class="tabs rail" aria-label="Clue Morning">
+    <button class="tab active" data-tab="today" type="button">MORNING RUN</button>
+    <button class="tab" data-tab="leaders" type="button">LEADERS</button>
+    <button class="tab" data-tab="archive" type="button">ARCHIVE</button>
+    <button class="tab" id="unlimitedTab" data-tab="unlimited" type="button" hidden>UNLIMITED</button>
+  </nav>
+
+  <section id="today" class="panel active">
+    <section class="briefing">
+      <div class="brief-copy"><span class="kicker" id="todayDate"></span><h1 id="dayGreeting">Good morning.</h1><p>Seven cases are waiting on your desk.</p></div>
+      <div class="run-progress"><div><small>MORNING RUN</small><strong><span id="runCompleteCount">0</span> / 7</strong></div><div class="progress-track" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span><strong id="todayTotal">0</strong> POINTS</span></div>
+    </section>
+    <section class="case-board" aria-labelledby="gamesHeading">
+      <div class="board-heading"><div><span>TODAY'S FILES</span><h2 id="gamesHeading">Choose your next case</h2></div><small>RESET AT MIDNIGHT</small></div>
+      <div class="game-grid">
+        <a class="game-card amber" data-game-route="letter" href="/play/letter-grid/"><span class="number">01</span><span class="game-icon"><svg class="logo-svg grid-logo" viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="5" width="17" height="17" rx="4"/><rect x="26" y="5" width="17" height="17" rx="4"/><rect x="5" y="26" width="17" height="17" rx="4"/><rect x="26" y="26" width="17" height="17" rx="4"/><text x="13.5" y="16">C</text><text x="34.5" y="16">L</text><text x="13.5" y="37">U</text><text x="34.5" y="37">E</text></svg></span><span class="copy"><small>WORD</small><strong>Letter Grid</strong><em id="letterCardText">Find the hidden word in six.</em></span><span class="game-status play" id="letterCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+        <a class="game-card moss" data-game-route="groups" href="/play/four-groups/"><span class="number">02</span><span class="game-icon"><svg class="logo-svg groups-logo" viewBox="0 0 48 48" aria-hidden="true"><rect class="g1" x="5" y="5" width="17" height="17" rx="4"/><rect class="g2" x="26" y="5" width="17" height="17" rx="4"/><rect class="g3" x="5" y="26" width="17" height="17" rx="4"/><rect class="g4" x="26" y="26" width="17" height="17" rx="4"/></svg></span><span class="copy"><small>LOGIC</small><strong>Four Groups</strong><em>Find four hidden connections.</em></span><span class="game-status play" id="groupCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+        <a class="game-card rust" data-game-route="trail" href="/play/letter-trail/"><span class="number">03</span><span class="game-icon"><svg class="logo-svg trail-logo" viewBox="0 0 48 48" aria-hidden="true"><circle cx="8" cy="37" r="4"/><circle cx="19" cy="23" r="4"/><circle cx="31" cy="29" r="4"/><circle cx="40" cy="9" r="4"/><path d="M11 34 16 26M23 24l4 3M34 25l4-12"/></svg></span><span class="copy"><small>WORD HUNT</small><strong>Letter Trail</strong><em>Trace a route across the map.</em></span><span class="game-status play" id="trailCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+        <a class="game-card teal" data-game-route="link" href="/play/triple-link/"><span class="number">04</span><span class="game-icon"><svg class="logo-svg link-logo" viewBox="0 0 48 48" aria-hidden="true"><path d="M19 29 29 19M16 32l-3 3a8 8 0 0 1-11-11l7-7a8 8 0 0 1 11 0M32 16l3-3a8 8 0 0 1 11 11l-7 7a8 8 0 0 1-11 0"/></svg></span><span class="copy"><small>CLUE</small><strong>Triple Link</strong><em>Connect all three lines.</em></span><span class="game-status play" id="linkCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+        <a class="game-card blue" data-game-route="steps" href="/play/word-steps/"><span class="number">05</span><span class="game-icon"><svg class="logo-svg steps-logo" viewBox="0 0 48 48" aria-hidden="true"><path d="M6 39h10V29h10V19h15M32 10l9 9-9 9"/></svg></span><span class="copy"><small>WORD PATH</small><strong>Word Steps</strong><em>Climb from word to word.</em></span><span class="game-status play" id="stepsCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+        <a class="game-card violet" data-game-route="deepcut" href="/play/deep-cut/"><span class="number">06</span><span class="game-icon"><svg class="logo-svg deep-logo" viewBox="0 0 48 48" aria-hidden="true"><path d="M7 9h34M12 19h29M18 29h23M25 39h16"/><circle cx="8" cy="19" r="2"/><circle cx="14" cy="29" r="2"/><circle cx="21" cy="39" r="2"/></svg></span><span class="copy"><small>RARITY TRIVIA</small><strong>Deep Cut</strong><em>Go deeper for uncommon answers.</em></span><span class="game-status play" id="deepCutCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+        <a class="game-card red wide" data-game-route="lastcall" data-lastcall-home href="/play/last-call/"><span class="number">07</span><span class="game-icon"><svg class="logo-svg call-logo" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5C18 14 8 18 8 28c0 6 5 10 11 10 3 0 5-1 6-3-1 5-3 7-7 9h12c-4-2-6-4-7-9 1 2 3 3 6 3 6 0 11-4 11-10 0-10-10-14-16-23Z"/></svg></span><span class="copy"><small>PUSH YOUR LUCK</small><strong>Last Call</strong><em>Bank your answers before you bust.</em></span><span class="game-status play" id="lastCallCardStatus"><svg class="icon"><use href="#i-play"/></svg>PLAY</span></a>
+      </div>
+    </section>
+    <section class="ledger">
+      <div><small>GRID</small><strong id="homeLetterScore">0</strong></div><div><small>GROUPS</small><strong id="homeGroupScore">0</strong></div><div><small>TRAIL</small><strong id="homeTrailScore">0</strong></div><div><small>LINK</small><strong id="homeLinkScore">0</strong></div><div><small>STEPS</small><strong id="homeStepsScore">0</strong></div><div><small>DEEP CUT</small><strong id="homeDeepCutScore">0</strong></div><div><small>LAST CALL</small><strong id="homeLastCallScore">0</strong></div><div class="total"><small>DAILY TOTAL</small><strong id="homeTotalScore">0</strong></div>
+    </section>
+    <div class="ritual-card"><span class="ritual-dot"></span><div><strong>Tomorrow brings a new set automatically.</strong><p>Daily answers are checked by the Clue Morning backend.</p></div></div>
+    <section class="about-blurb" aria-labelledby="aboutDailyGames"><span class="game-label">FREE DAILY GAMES</span><h2 id="aboutDailyGames">Seven quick word, logic, and trivia games, every morning.</h2><p>Clue Morning is a free browser-based daily game collection. Pick a case, play on its dedicated page, and return to finish your Morning Run.</p><nav class="game-guide-links" aria-label="Game guides"><a href="/games/letter-grid/">Letter Grid guide</a><a href="/games/four-groups/">Four Groups guide</a><a href="/games/letter-trail/">Letter Trail guide</a><a href="/games/triple-link/">Triple Link guide</a><a href="/games/word-steps/">Word Steps guide</a><a href="/games/deep-cut/">Deep Cut guide</a></nav></section>
+  </section>
+
+  <section id="letter" class="panel">
+    <div class="panel-head"><div><span class="game-label">TODAY'S WORD</span><h2>Letter Grid</h2><p id="letterSubhead"></p></div><button class="round-button" data-help="letter" type="button" aria-label="Letter Grid help"><svg class="icon"><use href="#i-help"/></svg></button></div>
+    <div class="stats-row four"><div class="stat"><strong id="wordLength">—</strong><span>letters</span></div><div class="stat"><strong id="guessCount">0/6</strong><span>guesses</span></div><div class="stat"><strong id="letterScore">0</strong><span>score</span></div><div class="stat"><strong id="letterBest">—</strong><span>best</span></div></div><span id="timer" hidden>0:00</span>
+    <div id="guessBoard" class="guess-board"></div>
+    <form id="guessForm" class="guess-form letter-guess-form"><label class="sr-only" for="guessInput">Type your Letter Grid guess</label><input id="guessInput" class="letter-capture-input" inputmode="text" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" aria-describedby="letterTypeHint"><button class="primary-button" type="submit"><svg class="icon"><use href="#i-arrow"/></svg><span>Submit guess</span></button></form><p id="letterTypeHint" class="letter-type-hint">Tap the active row, then type your guess.</p>
+    <div id="keyboard" class="keyboard"></div><div id="letterMessage" class="message"></div>
+  </section>
+
+  <section id="groups" class="panel">
+    <div class="panel-head"><div><span class="game-label">TODAY'S LOGIC</span><h2>Four Groups</h2><p>Find four sets of four related words.</p></div><button class="round-button" data-help="groups" type="button" aria-label="Four Groups help"><svg class="icon"><use href="#i-help"/></svg></button></div>
+    <div class="stats-row four"><div class="stat"><strong id="groupsFound">0/4</strong><span>groups</span></div><div class="stat"><strong id="mistakesLeft">4</strong><span>mistakes left</span></div><div class="stat"><strong id="groupScore">0</strong><span>score</span></div><div class="stat"><strong id="groupDifficulty">—</strong><span>set difficulty</span></div></div>
+    <div id="solvedGroups" class="solved-groups"></div><div id="groupGrid" class="group-grid"></div>
+    <div class="group-actions"><button id="shuffleBtn" class="secondary-button" type="button"><svg class="icon"><use href="#i-shuffle"/></svg><span>Shuffle</span></button><button id="deselectBtn" class="secondary-button" type="button"><svg class="icon"><use href="#i-x"/></svg><span>Deselect</span></button><button id="submitGroupBtn" class="primary-button" type="button"><svg class="icon"><use href="#i-check"/></svg><span>Submit 4</span></button></div>
+    <div id="groupMessage" class="message"></div>
+  </section>
+
+  <section id="trail" class="panel">
+    <div class="panel-head"><div><span class="game-label">TODAY'S WORD HUNT</span><h2>Letter Trail</h2><p>Trace any dictionary English word by tapping or dragging through touching tiles.</p></div><button class="round-button" data-help="trail" type="button" aria-label="Letter Trail help"><svg class="icon"><use href="#i-help"/></svg></button></div>
+    <div class="stats-row four"><div class="stat"><strong id="trailFound">0</strong><span>words</span></div><div class="stat"><strong id="trailScore">0</strong><span>score</span></div><div class="stat"><strong id="trailTimer">2:30</strong><span>time</span></div><div class="stat"><strong id="trailBest">—</strong><span>best word</span></div></div>
+    <div id="trailIntro" class="start-card"><p>You get 2½ minutes. Horizontal, vertical, and diagonal moves count. A tile may only be used once in a word.</p><button id="trailStart" class="primary-button" type="button"><svg class="icon"><use href="#i-play"/></svg><span>Start Trail</span></button></div>
+    <div id="trailPlay" hidden><div id="trailCurrent" class="trail-current">Tap or drag across letters</div><div id="trailGrid" class="trail-grid"></div><div class="trail-actions"><button id="trailClear" class="secondary-button" type="button"><svg class="icon"><use href="#i-x"/></svg><span>Clear</span></button><button id="trailSubmit" class="primary-button" type="button"><svg class="icon"><use href="#i-check"/></svg><span>Submit word</span></button></div><div id="trailWords" class="found-words"></div></div>
+    <div id="trailMessage" class="message"></div>
+  </section>
+
+  <section id="link" class="panel link-switchboard-panel">
+    <div id="linkSwitchboardFrame" class="link-switchboard-frame" aria-label="Triple Link — The Switchboard">
+      <img id="linkSwitchboardImage" class="link-switchboard-image" alt="">
+      <div class="link-switchboard-loading">OPENING THE SWITCHBOARD…</div>
+
+      <button id="linkExit" class="link-live link-fit link-back" type="button" aria-label="Return to Morning Run"><span>MORNING RUN</span></button>
+      <div class="link-live link-fit link-title" aria-hidden="true"><small>TRIPLE LINK</small><strong>THE SWITCHBOARD</strong></div>
+      <button id="linkTopClear" class="link-live link-reset" type="button" aria-label="Clear current entry"></button>
+
+      <div class="link-live link-fit link-stat link-score"><strong id="linkScore">600</strong><span>SCORE</span></div>
+      <div class="link-live link-fit link-stat link-streak"><strong id="linkStreak">0</strong><span>STREAK</span></div>
+      <div class="link-live link-fit link-stat link-tries"><strong id="linkGuesses">3/3</strong><span>TRIES</span></div>
+
+      <div id="linkClues" class="link-live link-clues-live" aria-label="Triple Link clues"></div>
+      <div id="linkAnswer" class="link-live link-fit link-answer" aria-live="polite"></div>
+      <div class="link-live link-fit link-attempt-label">ATTEMPTS</div>
+
+      <span class="link-attempt link-attempt-1" data-link-attempt="0" aria-hidden="true"></span>
+      <span class="link-attempt link-attempt-2" data-link-attempt="1" aria-hidden="true"></span>
+      <span class="link-attempt link-attempt-3" data-link-attempt="2" aria-hidden="true"></span>
+
+      <div id="linkMessage" class="link-live link-fit link-feedback" aria-live="polite">Three lines are waiting.</div>
+
+      <form id="linkForm" class="link-live link-entry">
+        <input id="linkInput" maxlength="24" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" placeholder="ONE WORD" aria-label="Connecting word">
+      </form>
+      <button id="linkConnect" class="link-live link-fit link-connect" type="submit" form="linkForm">CONNECT</button>
+      <button id="linkClear" class="link-live link-fit link-clear" type="button">CLEAR</button>
+
+      <div id="linkResult" class="link-result" aria-live="polite"></div>
+      <div class="link-board-flash" aria-hidden="true"></div>
+      <div class="link-success-burst" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section id="steps" class="panel steps-rooftops-panel">
+    <div class="steps-immersive-topbar" aria-label="Word Steps controls">
+      <button id="stepsExit" class="steps-immersive-exit" type="button"><svg class="icon"><use href="#i-arrow"/></svg><span>Morning Run</span></button>
+      <strong>Rooftops</strong>
+      <button class="steps-immersive-help" data-help="steps" type="button" aria-label="Word Steps help"><svg class="icon"><use href="#i-help"/></svg></button>
+    </div>
+
+    <div class="panel-head"><div><span class="game-label">TODAY'S WORD PATH</span><h2>Word Steps</h2><p>Change exactly one letter each move. Every valid word takes you higher.</p></div><button class="round-button" data-help="steps" type="button" aria-label="Word Steps help"><svg class="icon"><use href="#i-help"/></svg></button></div>
+
+    <div class="steps-rooftops-title" aria-hidden="true"><small>WORD STEPS</small><strong>THE ROOFTOPS</strong></div>
+
+    <div class="stats-row four steps-rooftops-stats">
+      <div class="stat"><strong id="stepsMoves">0/8</strong><span>moves</span></div>
+      <div class="stat"><strong id="stepsPar">—</strong><span>par</span></div>
+      <div class="stat"><strong id="stepsScore">0</strong><span>score</span></div>
+      <div class="stat steps-rooftops-status"><strong id="stepsStatus">OPEN</strong><span>status</span></div>
+    </div>
+
+    <div class="steps-goal"><div><span>START</span><strong id="stepsStart">----</strong></div><svg class="icon"><use href="#i-arrow"/></svg><div><span>TARGET</span><strong id="stepsTarget">----</strong></div></div>
+
+    <div class="steps-rooftops-stage" id="stepsRooftopsStage" aria-label="Rooftop word climb">
+      <div class="steps-rooftops-world" id="stepsRooftopsWorld">
+        <img id="stepsRooftopsImage" class="steps-rooftops-image" alt="">
+        <div id="stepsPath" class="steps-path steps-rooftops-path"></div>
+        <img id="stepsClimber" class="steps-rooftops-climber" src="/word-steps-rooftops/pc.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      </div>
+      <div id="stepsRooftopsLoading" class="steps-rooftops-loading">OPENING THE ROOFTOPS…</div>
+    </div>
+
+    <div class="steps-rooftops-controls">
+      <form id="stepsForm" class="guess-form steps-rooftops-form"><input id="stepsInput" class="text-input" maxlength="4" placeholder="NEXT WORD" autocapitalize="characters" autocomplete="off" spellcheck="false" aria-label="Next four-letter word"><button class="primary-button" type="submit"><svg class="icon"><use href="#i-steps"/></svg><span>Climb</span></button></form>
+      <div class="steps-actions"><button id="stepsUndo" class="secondary-button" type="button">Undo step</button></div>
+      <div id="stepsMessage" class="message">One word closer to a higher view.</div>
+    </div>
+  </section>
+
+  <section id="deepcut" class="panel">
+    <div class="deepcut-immersive-topbar" aria-label="Deep Cut controls">
+      <button id="deepCutExit" class="deepcut-immersive-exit" type="button"><svg class="icon"><use href="#i-arrow"/></svg><span>Morning Run</span></button>
+      <strong>Deep Cut</strong>
+      <button class="deepcut-immersive-help" data-help="deepcut" type="button" aria-label="Deep Cut help"><svg class="icon"><use href="#i-help"/></svg></button>
+    </div>
+    <div class="panel-head"><div><span class="game-label">TODAY'S RARITY TRIVIA</span><h2>Deep Cut</h2><p>Give one valid answer. The less obvious it is, the deeper the Archive takes you.</p></div><button class="round-button" data-help="deepcut" type="button" aria-label="Deep Cut help"><svg class="icon"><use href="#i-help"/></svg></button></div>
+
+    <div id="deepCutIntro" class="start-card deepcut-start-card"><p>Eight open-answer prompts. You get 25 seconds for each. Invalid guesses do not end the prompt. Familiar valid answers descend one floor; stronger cuts go two; the rarest answers plunge three. Eight perfect answers reach the Final Shelf.</p><button id="deepCutStart" class="primary-button" type="button"><svg class="icon"><use href="#i-play"/></svg><span>Enter the Archive</span></button></div>
+
+    <div id="deepCutPlay" hidden>
+      <div class="deepcut-prompt-card"><span>YOUR PROMPT</span><h3 id="deepCutPrompt">Ready?</h3></div>
+      <form id="deepCutForm" class="guess-form"><input id="deepCutInput" class="text-input" placeholder="Try an answer" autocomplete="off" spellcheck="false"><button class="primary-button" type="submit"><svg class="icon"><use href="#i-check"/></svg><span>Submit</span></button></form>
+      <p class="deepcut-hint">Invalid answer? Keep guessing. The clock keeps running.</p>
+    </div>
+
+    <div class="stats-row four deepcut-stats"><div class="stat"><strong id="deepCutRound">1/8</strong><span>prompt</span></div><div class="stat"><strong id="deepCutScore">0</strong><span>score</span></div><div class="stat"><strong id="deepCutTimer">0:25</strong><span>time</span></div><div class="stat"><strong id="deepCutStatus">READY</strong><span>status</span></div></div>
+
+    <div class="deepcut-archive-stage" id="deepCutArchiveStage" aria-label="Deep Archive descent">
+      <div class="deepcut-archive-world" id="deepCutArchiveWorld" aria-hidden="true">
+        <div class="deepcut-archive-stack" id="deepCutArchiveStack">
+          <section class="deepcut-archive-scene deepcut-archive-new" data-pitch=".19">
+            <img data-deferred-src="/deepcut-archive/newsroom.webp" width="960" height="1200" alt="" loading="lazy" decoding="async">
+            <div class="deepcut-archive-shaft"></div>
+          </section>
+          <section class="deepcut-archive-scene" data-pitch=".25">
+            <img data-deferred-src="/deepcut-archive/upper.webp" width="1600" height="900" alt="" loading="lazy" decoding="async">
+            <div class="deepcut-archive-shaft"></div>
+          </section>
+          <section class="deepcut-archive-scene" data-pitch=".26">
+            <img data-deferred-src="/deepcut-archive/natural-history.webp" width="1600" height="900" alt="" loading="lazy" decoding="async">
+            <div class="deepcut-archive-shaft"></div>
+          </section>
+          <section class="deepcut-archive-scene deepcut-archive-new" data-pitch=".17">
+            <img data-deferred-src="/deepcut-archive/museum.webp" width="960" height="1200" alt="" loading="lazy" decoding="async">
+            <div class="deepcut-archive-shaft"></div>
+          </section>
+          <section class="deepcut-archive-scene" data-pitch=".27">
+            <img data-deferred-src="/deepcut-archive/forbidden.webp" width="1600" height="900" alt="" loading="lazy" decoding="async">
+            <div class="deepcut-archive-shaft"></div>
+          </section>
+          <section class="deepcut-archive-scene deepcut-archive-new" data-pitch=".17">
+            <img data-deferred-src="/deepcut-archive/cosmic.webp" width="960" height="1200" alt="" loading="lazy" decoding="async">
+            <div class="deepcut-archive-shaft"></div>
+          </section>
+          <div class="deepcut-archive-tail"></div>
+        </div>
+      </div>
+
+      <div class="deepcut-archive-retro"></div>
+      <div class="deepcut-archive-scanlines"></div>
+      <div class="deepcut-archive-vignette"></div>
+      <div class="deepcut-archive-flash" id="deepCutArchiveFlash"></div>
+
+      <div class="deepcut-archive-elevator" id="deepCutArchiveElevator" aria-hidden="true">
+        <img data-deferred-src="/deepcut-archive/elevator.webp" width="140" height="185" alt="" loading="lazy" decoding="async">
+      </div>
+
+      <div class="deepcut-archive-readout">
+        <span>DEPTH <strong id="deepCutArchiveDepth">0</strong> ft</span>
+        <span id="deepCutArchiveZone">Newsroom Lobby</span>
+      </div>
+    </div>
+
+
+    <div id="deepCutDone" class="start-card deepcut-done-card" hidden>
+      <p>The Archive has your final record.</p>
+      <strong class="deepcut-final"><span id="deepCutDoneScore">0</span> points</strong>
+      <span class="deepcut-final-depth"><span id="deepCutDoneDepth">0</span> floors · <span id="deepCutDoneZone">Newsroom Lobby</span></span>
+    </div>
+
+    <div id="deepCutMessage" class="message"></div><div id="deepCutHistory" class="deepcut-history"></div>
+  </section>
+
+  <section id="leaders" class="panel">
+    <div class="panel-head"><div><span class="game-label">CLUE MORNING LEADERBOARD</span><h2>Leaders</h2><p>Completed daily scores post automatically when you finish all six puzzles.</p></div><button id="refreshLeaders" class="round-button" type="button" aria-label="Refresh leaderboard"><svg class="icon"><use href="#i-refresh"/></svg></button></div>
+    <div id="leaderSetup" class="leader-setup">
+      <label for="leaderName">Leaderboard name</label>
+      <div class="leader-name-row"><input id="leaderName" class="text-input" maxlength="20" placeholder="Choose a leaderboard name."><button id="saveLeaderName" class="secondary-button" type="button"><svg class="icon"><use href="#i-user"/></svg><span>Save name</span></button></div>
+      <div class="leader-auto-note"><svg class="icon"><use href="#i-trophy"/></svg><span>Completed daily scores post automatically. Until you choose a name, you'll appear as <strong id="leaderPlaceholderName">Player</strong>.</span></div>
+      <div id="leaderMessage" class="message"></div>
+    </div>
+    <div class="leader-switch"><button class="leader-toggle active" data-board="daily" type="button"><svg class="icon"><use href="#i-sun"/></svg><span>Today</span></button><button class="leader-toggle" data-board="all" type="button"><svg class="icon"><use href="#i-trophy"/></svg><span>All time</span></button></div>
+    <div id="leaderboardList" class="leaderboard-list"></div>
+  </section>
+
+  <section id="archive" class="panel">
+    <div class="panel-head"><div><span class="game-label">YOUR HISTORY</span><h2>Archive</h2><p>Your score history on this device.</p></div></div><div id="archiveList" class="archive-list"></div>
+    <div class="pack-preview"><span class="game-label">THEMED COLLECTIONS</span><h3>Puzzle Packs</h3><p>Take Clue Morning somewhere new for a while. Future packs will bundle hand-built sets around themes like movies, sports, history, holidays, and whatever else deserves its own rabbit hole.</p><button class="secondary-button inverted" type="button" disabled><svg class="icon"><use href="#i-package"/></svg><span>Collections are on the way</span></button></div>
+    <div class="pack-preview unlimited-access-card"><span class="game-label">UNLIMITED PLAY</span><h3>Clue Morning Unlimited</h3><p>The morning set is only the first cup. Unlock the reserve library and keep playing Grid, Groups, Trail, Link, Steps, and Deep Cut whenever you feel like one more.</p><strong id="unlimitedBadge" class="archive-badge" hidden></strong><form id="unlimitedForm" class="guess-form"><input id="unlimitedCode" class="text-input" placeholder="Private access code" autocomplete="off" autocapitalize="characters" spellcheck="false"><button class="secondary-button inverted" type="submit"><svg class="icon"><use href="#i-check"/></svg><span>Unlock Unlimited</span></button></form><button id="openUnlimitedButton" class="secondary-button inverted" type="button" hidden><svg class="icon"><use href="#i-play"/></svg><span>Open Unlimited Library</span></button><div id="unlimitedStatus" class="message">Use a private access code once and this browser will remember it.</div></div>
+  </section>
+
+  <section id="unlimited" class="panel">
+    <div class="today-hero"><div><span class="date-kicker">CLUE MORNING UNLIMITED</span><h2>Keep going.</h2><p>The daily set is the ritual. This is the rabbit hole. Pick a game and we’ll deal another puzzle from the reserve library without touching tomorrow’s set.</p></div><div class="daily-total"><span>Mode</span><strong>∞</strong></div></div>
+    <div id="unlimitedLibraryGate" class="start-card"><span class="game-label">PRIVATE LIBRARY</span><h3>Unlimited is locked on this browser.</h3><p>Activate your private access code once, then this library stays ready here.</p><button id="unlimitedGoActivate" class="primary-button" type="button"><svg class="icon"><use href="#i-package"/></svg><span>Go to activation</span></button></div>
+    <div id="unlimitedLibraryGrid" hidden>
+      <div class="game-cards">
+        <button class="game-card" data-unlimited-game="letter" type="button"><div class="game-icon letter-icon"><svg class="icon"><use href="#i-grid"/></svg></div><div class="game-copy"><span class="game-label">UNLIMITED WORD</span><h3>Letter Grid</h3><p id="unlimitedLetterCount">Loading words…</p></div><span class="game-status">PLAY</span></button>
+        <button class="game-card" data-unlimited-game="groups" type="button"><div class="game-icon group-icon"><i></i><i></i><i></i><i></i></div><div class="game-copy"><span class="game-label">UNLIMITED LOGIC</span><h3>Four Groups</h3><p id="unlimitedGroupsCount">Loading boards…</p></div><span class="game-status">PLAY</span></button>
+        <button class="game-card" data-unlimited-game="trail" type="button"><div class="game-icon trail-icon"><svg class="icon"><use href="#i-trail"/></svg></div><div class="game-copy"><span class="game-label">UNLIMITED WORD HUNT</span><h3>Letter Trail</h3><p id="unlimitedTrailCount">Loading boards…</p></div><span class="game-status">PLAY</span></button>
+        <button class="game-card" data-unlimited-game="link" type="button"><div class="game-icon link-icon"><svg class="icon"><use href="#i-link"/></svg></div><div class="game-copy"><span class="game-label">UNLIMITED CLUE</span><h3>Triple Link</h3><p id="unlimitedLinkCount">Loading links…</p></div><span class="game-status">PLAY</span></button>
+        <button class="game-card" data-unlimited-game="steps" type="button"><div class="game-icon steps-icon"><svg class="icon"><use href="#i-steps"/></svg></div><div class="game-copy"><span class="game-label">UNLIMITED WORD PATH</span><h3>Word Steps</h3><p id="unlimitedStepsCount">Loading ladders…</p></div><span class="game-status">PLAY</span></button>
+        <button class="game-card" data-unlimited-game="deepcut" type="button"><div class="game-icon deepcut-icon"><svg class="icon"><use href="#i-deepcut"/></svg></div><div class="game-copy"><span class="game-label">UNLIMITED RARITY TRIVIA</span><h3>Deep Cut</h3><p id="unlimitedDeepCutCount">Loading sets…</p></div><span class="game-status">PLAY</span></button>
+      </div>
+      <div class="ritual-card"><span class="ritual-dot"></span><div><strong>Unlimited stays separate from the daily game.</strong><p>Reserve puzzles do not alter your daily score, streak, archive, leaderboard position, or future daily sets. This browser also remembers what it has served and avoids repeats until a library cycles.</p></div></div>
+      <div id="unlimitedLibraryStatus" class="message"></div>
+    </div>
+  </section>
+
+  <dialog id="themeDialog" class="theme-dialog">
+    <form method="dialog"><button class="dialog-close" type="submit" aria-label="Close theme picker"><svg class="icon"><use href="#i-x"/></svg></button></form>
+    <span class="game-label">MAKE IT YOURS</span><h2>Choose a color theme</h2><p class="theme-intro">Same morning ritual, different mood.</p>
+    <div class="theme-grid">
+      <button class="theme-choice" type="button" data-theme-choice="paper"><span class="theme-preview paper"><i></i><i></i><i></i><i></i><i></i></span><strong>Morning Paper</strong><small>Warm · Classic · Timeless</small></button>
+      <button class="theme-choice" type="button" data-theme-choice="bloom"><span class="theme-preview bloom"><i></i><i></i><i></i><i></i><i></i></span><strong>Dawn Bloom</strong><small>Fresh · Gentle · Optimistic</small></button>
+      <button class="theme-choice" type="button" data-theme-choice="blue"><span class="theme-preview blue"><i></i><i></i><i></i><i></i><i></i></span><strong>Blue Hour</strong><small>Calm · Focused · Clear</small></button>
+      <button class="theme-choice" type="button" data-theme-choice="hearth"><span class="theme-preview hearth"><i></i><i></i><i></i><i></i><i></i></span><strong>Hearth</strong><small>Cozy · Grounded · Welcoming</small></button>
+      <button class="theme-choice" type="button" data-theme-choice="lavender"><span class="theme-preview lavender"><i></i><i></i><i></i><i></i><i></i></span><strong>Lavender Haze</strong><small>Soft · Creative · Dreamy</small></button>
+    </div>
+  </dialog>
+
+  <dialog id="helpDialog"><form method="dialog"><button class="dialog-close" type="submit" aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button></form><div id="helpContent"></div></dialog>
+  <footer><span>© <span id="year"></span> Clue Morning</span><nav class="footer-links" aria-label="Site information"><a href="/about/">About</a><a href="/sitemap.xml">Sitemap</a></nav><span>Fresh puzzles. No feed. No fuss.</span></footer>
+</main>
+<script src="/app-core.js?v=dedicated-7"></script>
+  <script src="/home-production.js?v=1"></script>
+<script src="/game-page.js?v=2"></script>
+</body>
+</html>
