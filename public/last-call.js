@@ -8,6 +8,14 @@
   function mirrorLegacyExpansion(){try{const x=JSON.parse(localStorage.getItem(EXP_STORE)||'null')||{version:1,days:{}};x.version=1;x.days??={};x.days[date]??={};x.days[date].lockbox={key:date,attempts:[],score:Number(day?.score||0),done:!!day?.done,won:!!day?.done&&!day?.bustId,answer:'',legacyMirror:'lastcall'};localStorage.setItem(EXP_STORE,JSON.stringify(x))}catch{}}
   function statusMarkup(done){return `<svg class="icon"><use href="#${done?'i-check':'i-play'}"/></svg>${done?'DONE':'PLAY'}`}
   function currentPot(){return LADDER[Math.min(day?.correctCount||0,LADDER.length-1)]||0}
+  function showResult(){
+    if(!window.clueMorningShowResult||!day)return;
+    const meta={name:'Last Call',url:'https://cluemorning.com/games/last-call/'};
+    const detail=day.jackpot?`All six safe — jackpot banked.`:day.bustId?`Busted after ${day.correctCount||0} safe pick${day.correctCount===1?'':'s'}.`:`Banked after ${day.correctCount||0} safe pick${day.correctCount===1?'':'s'}.`;
+    const marks=`${'🟩'.repeat(day.correctCount||0)}${day.bustId?'⬛':''}`;
+    const title=day.jackpot?'Jackpot.':day.bustId?'Busted.':'Banked.';
+    window.clueMorningShowResult(meta,{score:Number(day.score||0),detail,marks},title);
+  }
 
   function injectUI(){
     if($('#lastcall')||!$('#today'))return;
@@ -42,8 +50,8 @@
     const msg=$('#lastCallMessage');if(msg){if(day.jackpot){msg.className='message good lastcall-message';msg.textContent=`Six for six. Jackpot — ${day.score.toLocaleString()} points.`}else if(day.bustId){msg.className='message bad lastcall-message';msg.textContent='BUST. You pushed one answer too far and lost the pot.'}else if(day.banked){msg.className='message good lastcall-message';msg.textContent=`Banked ${day.score.toLocaleString()} points.`}else if(day.correctCount){msg.className='message good lastcall-message';msg.textContent=`Safe. ${pot.toLocaleString()} points are sitting on the table.`}else{msg.className='message lastcall-message';msg.textContent='How far do you trust yourself?'}}
     renderOptions();save();window.dispatchEvent(new CustomEvent('clue-lastcall-update',{detail:{date,done,score:day.score||0}}));if(done)void reveal();
   }
-  async function pick(optionId){if(busy||day.done)return;busy=true;renderOptions();try{const r=await fetch('/api/lastcall/check',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({date,optionId})}),j=await r.json();if(!r.ok)throw new Error(j.error||'Last Call could not check that answer.');if(j.correct){day.picks.push(optionId);day.correctCount++;if(day.correctCount>=puzzle.safeCount){day.done=true;day.jackpot=true;day.score=currentPot()}}else{day.done=true;day.bustId=optionId;day.score=0}save()}catch(err){const m=$('#lastCallMessage');if(m){m.className='message bad lastcall-message';m.textContent=err.message}}finally{busy=false;render()}}
-  function bank(){if(busy||day.done||day.correctCount<1)return;day.done=true;day.banked=true;day.score=currentPot();save();render()}
+  async function pick(optionId){if(busy||day.done)return;busy=true;renderOptions();let justFinished=false;try{const r=await fetch('/api/lastcall/check',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({date,optionId})}),j=await r.json();if(!r.ok)throw new Error(j.error||'Last Call could not check that answer.');if(j.correct){day.picks.push(optionId);day.correctCount++;if(day.correctCount>=puzzle.safeCount){day.done=true;day.jackpot=true;day.score=currentPot();justFinished=true}}else{day.done=true;day.bustId=optionId;day.score=0;justFinished=true}save()}catch(err){const m=$('#lastCallMessage');if(m){m.className='message bad lastcall-message';m.textContent=err.message}}finally{busy=false;render();if(justFinished)showResult()}}
+  function bank(){if(busy||day.done||day.correctCount<1)return;day.done=true;day.banked=true;day.score=currentPot();save();render();showResult()}
   async function boot(){injectUI();try{const shared=window.clueMorningDailyPromise;let j;if(shared)j=await shared;else{const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),6000);try{const r=await fetch('/api/daily',{cache:'no-store',signal:controller.signal});j=await r.json();if(!r.ok)throw new Error(j.error||'Last Call is not available today.')}finally{clearTimeout(timer)}}if(!j.lastcall)throw new Error('Last Call is not available today.');daily=j;date=j.date;puzzle=j.lastcall;ensureDay();render();if(day.done)void reveal()}catch(err){const m=$('#lastCallMessage');if(m){m.className='message bad lastcall-message';m.textContent=err.message}}}
   boot();
 })();

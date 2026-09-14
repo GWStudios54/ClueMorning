@@ -1,4 +1,4 @@
-import {pickPuzzle,answersFor,shuffled,isPangram,scoreWord,describeWord,createDragWheel} from '/games/pangram-core.js';
+import {pickPuzzle,answersFor,shuffled,isPangram,scoreWord,describeWord,createDragWheel,showRunResult} from '/games/pangram-core.js';
 const $=s=>document.querySelector(s);const TARGET=3;
 let puzzle=null,centers=[],center='',current=0,answers=[],answerSet=new Set(),found=new Set(),cleared=new Set(),stageWords=0,stageTarget=TARGET,score=0,pangrams=0,previous='',finished=false;
 function setMessage(text,type=''){const el=$('#message');el.textContent=text;el.className=`message ${type}`.trim()}
@@ -8,7 +8,16 @@ function render(){ $('#heroScore').textContent=score;$('#centerCount').textConte
 function closeReveal(){const box=$('#answerList');box.classList.remove('open');box.innerHTML='';$('#revealBtn').textContent='Reveal current center';$('#revealBtn').disabled=finished}
 function enterCenter(){if(cleared.size===7){finishRun();return}center=centers[current];answers=answersFor(puzzle,center);answerSet=new Set(answers);const remaining=answers.filter(w=>!found.has(w));stageWords=0;stageTarget=Math.min(TARGET,remaining.length);if(stageTarget===0){cleared.add(center);current=(current+1)%centers.length;while(cleared.has(centers[current])&&cleared.size<7)current=(current+1)%centers.length;enterCenter();return}closeReveal();buildWheel();dragController.clear();render();setMessage(`Center ${center}. Tap letters then Submit, or drag and release. ${stageTarget} new word${stageTarget===1?'':'s'} clear it.`)}
 function clearCenter(viaPangram=false){if(cleared.has(center))return;cleared.add(center);score+=25;render();setMessage(`${viaPangram?'PANGRAM CLEAR':'CENTER CLEAR'} · ${center} +25`,'good');if(cleared.size===7){setTimeout(finishRun,500);return}setTimeout(()=>{do{current=(current+1)%centers.length}while(cleared.has(centers[current]));enterCenter()},650)}
-function finishRun(){finished=true;dragController.clear();score+=100;$('#revealBtn').disabled=true;render();setMessage(`ALL SEVEN · run mastered +100 · ${score} points`,'good')}
+function finishRun(){
+  finished=true;dragController.clear();score+=100;$('#revealBtn').disabled=true;render();setMessage(`ALL SEVEN · run mastered +100 · ${score} points`,'good');
+  showRunResult({
+    title:'All seven mastered.',
+    detail:`${score.toLocaleString()} points · ${found.size} words · ${pangrams} pangram${pangrams===1?'':'s'}.`,
+    shareText:`All Seven · Clue Morning\n${score.toLocaleString()} points\n${found.size} words · ${pangrams} pangram${pangrams===1?'':'s'}`,
+    shareUrl:'https://cluemorning.com/games/all-seven/',
+    shareTitle:'All Seven — Clue Morning'
+  });
+}
 function submitWord(word){if(!puzzle||finished)return;if(word.length<4)return setMessage('Words need at least four letters.','bad');if(!word.includes(center))return setMessage(`This center requires ${center}.`,'bad');if(found.has(word))return setMessage('That word is already spent for this run.','bad');if(!answerSet.has(word))return setMessage(`${word} isn't in this center's word list.`,'bad');found.add(word);stageWords++;const points=scoreWord(word,puzzle.letters);score+=points;const pangram=isPangram(word,puzzle.letters);if(pangram)pangrams++;setMessage(`${describeWord(word,puzzle.letters)} · ${word} +${points}`,pangram?'good':'');render();if(pangram||stageWords>=stageTarget)clearCenter(pangram)}
 function reveal(){if(!puzzle||finished)return;dragController.clear();const box=$('#answerList');if(box.classList.contains('open')){closeReveal();return}box.innerHTML='';answers.forEach(word=>{const span=document.createElement('span');span.textContent=`${found.has(word)?'✓ ':'• '}${word}${isPangram(word,puzzle.letters)?' ★':''}`;box.appendChild(span)});box.classList.add('open');$('#revealBtn').textContent='Hide answers'}
 async function newRun(){setMessage('Building a seven-center run…');finished=false;$('#revealBtn').disabled=true;dragController.clear();try{puzzle=await pickPuzzle('all-seven',previous);previous=puzzle.anchor;centers=shuffled(puzzle.letters);center='';current=0;answers=[];answerSet=new Set();found=new Set();cleared=new Set();stageWords=0;score=0;pangrams=0;enterCenter()}catch(err){setMessage(err?.message||'Could not load the word board.','bad')}}
