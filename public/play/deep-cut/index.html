@@ -1,16 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-game-page="deepcut">
 <head>
+<base href="/">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
   <meta name="theme-color" content="#f7f1e5">
   <script>try{document.documentElement.dataset.theme=localStorage.getItem("clue-morning-theme")||"paper"}catch{}</script>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Clue Morning">
-  <title>Clue Morning — Free Daily Word, Logic & Trivia Games</title>
+  <title>Deep Cut — Clue Morning</title>
   <meta name="description" content="Play seven free daily word, logic, and trivia games: Letter Grid, Four Groups, Letter Trail, Triple Link, Word Steps, and Deep Cut. A fresh set every morning.">
-  <meta name="robots" content="index,follow,max-image-preview:large">
-  <link rel="canonical" href="https://cluemorning.com/">
+  <meta name="robots" content="noindex,follow">
+  <link rel="canonical" href="https://cluemorning.com/play/deep-cut/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Clue Morning">
   <meta property="og:title" content="Clue Morning — Free Daily Word, Logic & Trivia Games">
@@ -27,6 +28,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="/home-production.css?v=6">
   <link rel="stylesheet" href="/control-alignment.css?v=1">
+<link rel="stylesheet" href="/game-page.css?v=1">
 </head>
 <body class="home-production">
   <div class="scene" aria-hidden="true"></div>
@@ -180,7 +182,7 @@
       <div class="steps-rooftops-world" id="stepsRooftopsWorld">
         <img id="stepsRooftopsImage" class="steps-rooftops-image" alt="">
         <div id="stepsPath" class="steps-path steps-rooftops-path"></div>
-        <img id="stepsClimber" class="steps-rooftops-climber" src="/word-steps-rooftops/pc.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        <img id="stepsClimber" class="steps-rooftops-climber" data-deferred-src="/word-steps-rooftops/pc.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
       </div>
       <div id="stepsRooftopsLoading" class="steps-rooftops-loading">OPENING THE ROOFTOPS…</div>
     </div>
@@ -316,8 +318,8 @@
   <dialog id="helpDialog"><form method="dialog"><button class="dialog-close" type="submit" aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button></form><div id="helpContent"></div></dialog>
   <footer><span>© <span id="year"></span> Clue Morning</span><nav class="footer-links" aria-label="Site information"><a href="/about/">About</a><a href="/sitemap.xml">Sitemap</a></nav><span>Fresh puzzles. No feed. No fuss.</span></footer>
 </main>
-<script src="app.js"></script>
-  <script src="/homepage-guard.js?v=5"></script>
+<script src="/app-core.js?v=dedicated-7"></script>
   <script src="/home-production.js?v=1"></script>
+<script src="/game-page.js?v=2"></script>
 </body>
 </html>
