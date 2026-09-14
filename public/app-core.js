@@ -80,9 +80,17 @@ let daily=null,day=null,currentDateKey=null,letterTimer=null,trailTick=null,deep
 let dailyRoot=null,dayRoot=null,currentDateRoot=null,unlimitedSession=null,unlimitedActive=false,unlimitedCounts={},linkReturnTab="today",deepCutReturnTab="today",stepsReturnTab="today";
 const DAILY_GAMES=["letter","groups","trail","link","steps","deepcut"];
 
+function randomPlayerId(){
+  if(crypto.randomUUID)return crypto.randomUUID();
+  if(crypto.getRandomValues){
+    const bytes=crypto.getRandomValues(new Uint8Array(16));
+    return [...bytes].map(b=>b.toString(16).padStart(2,"0")).join("");
+  }
+  return `p-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+}
 function getPlayerId(){
   let id=localStorage.getItem(PLAYER_KEY);
-  if(!id){id=(crypto.randomUUID?crypto.randomUUID():`p-${Date.now()}-${Math.random().toString(16).slice(2)}`);localStorage.setItem(PLAYER_KEY,id)}
+  if(!id){id=randomPlayerId();localStorage.setItem(PLAYER_KEY,id)}
   return id;
 }
 function allDone(){return day&&DAILY_GAMES.every(g=>day[g]?.done)}

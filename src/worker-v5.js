@@ -42,10 +42,16 @@ async function sha256Hex(value){
   const digest=await crypto.subtle.digest('SHA-256',bytes);
   return [...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('');
 }
+function timingSafeEqualHex(a,b){
+  if(a.length!==b.length)return false;
+  let diff=0;
+  for(let i=0;i<a.length;i++)diff|=a.charCodeAt(i)^b.charCodeAt(i);
+  return diff===0;
+}
 async function validOwnerAdminCode(value){
   const code=normalizeAdminCode(value);
   if(!/^CMA-[A-Z]-[A-F0-9]{24}$/.test(code))return false;
-  return (await sha256Hex(code))===OWNER_ADMIN_HASH;
+  return timingSafeEqualHex(await sha256Hex(code),OWNER_ADMIN_HASH);
 }
 function cookieValue(request,name){
   const raw=request.headers.get('cookie')||'';

@@ -112,10 +112,19 @@ async function sha256Hex(v){
   const digest=await crypto.subtle.digest("SHA-256",bytes);
   return [...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,"0")).join("");
 }
+function timingSafeEqualHex(a,b){
+  if(a.length!==b.length)return false;
+  let diff=0;
+  for(let i=0;i<a.length;i++)diff|=a.charCodeAt(i)^b.charCodeAt(i);
+  return diff===0;
+}
 async function validUnlimitedCode(v){
   const code=normalizeAccessCode(v);
   if(!/^CMU-[A-Z]-[A-Z0-9]{19,24}$/.test(code))return false;
-  return UNLIMITED_CODE_HASHES.has(await sha256Hex(code));
+  const hash=await sha256Hex(code);
+  let match=false;
+  for(const known of UNLIMITED_CODE_HASHES)if(timingSafeEqualHex(hash,known))match=true;
+  return match;
 }
 
 function trailDictionaryWord(word, trail){
@@ -297,7 +306,7 @@ async function api(request,env){
   const date=allowedDate(request); if(!date) return json({error:"Invalid date."},400);
   if(path==="/api/leaderboard"||path==="/api/leaderboard/submit"||path==="/api/leaderboard/name") return leaderboardApi(request,env,date,path);
   const p=pickDaily(date);
-  if(request.method==="GET" && path==="/api/health") return json({ok:true,service:"clue-morning",version:"2.7.0",date:pacificDateKey(),leaderboard:Boolean(env.DB),trailBoards:TRAIL_PUZZLES.length,wordSteps:WORD_STEPS_PUZZLES.length,deepCutPrompts:DEEP_CUT_PROMPTS.length,deepCutDailySets:DEEP_CUT_PUZZLES.length,yearPackStart:YEAR_PACK_START,yearPackDays:YEAR_PACK.length,unlimited:UNLIMITED_COUNTS});
+  if(request.method==="GET" && path==="/api/health") return json({ok:true,service:"clue-morning",version:"2.10.2",date:pacificDateKey(),leaderboard:Boolean(env.DB),trailBoards:TRAIL_PUZZLES.length,wordSteps:WORD_STEPS_PUZZLES.length,deepCutPrompts:DEEP_CUT_PROMPTS.length,deepCutDailySets:DEEP_CUT_PUZZLES.length,yearPackStart:YEAR_PACK_START,yearPackDays:YEAR_PACK.length,unlimited:UNLIMITED_COUNTS});
   if(request.method==="GET" && path==="/api/daily"){
     const shuffled=shuffle(p.groups.flatMap(g=>g.words),mulberry32(p.gseed+33));
     return json({

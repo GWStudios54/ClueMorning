@@ -1,6 +1,6 @@
-# Clue Morning v2.6.3 — Interaction Polish
+# Clue Morning
 
-Clue Morning is a six-game daily word and logic site for `cluemorning.com`. Everyone receives the same official daily set on the Pacific-time schedule.
+Clue Morning is a seven-game daily word, logic, trivia, and push-your-luck site for `cluemorning.com`. Everyone receives the same official daily set on the Pacific-time schedule.
 
 ## Daily games
 
@@ -10,16 +10,11 @@ Clue Morning is a six-game daily word and logic site for `cluemorning.com`. Ever
 - Triple Link — one word completes three clues.
 - Word Steps — four-letter word ladder with a verified shortest path.
 - Deep Cut — eight open-answer trivia prompts, 25 seconds each; less-obvious accepted answers score more.
-
-## v2.6.3 interaction polish
-
-- Letter Trail drag selection is smoother and directional so a finger moving toward a diagonal/adjacent letter is less likely to snap onto a side tile. Dragging back over the prior tile also backs up one letter.
-- Four Groups solved categories now show color-coded difficulty levels (Easy, Medium, Hard, Tricky), and the overall set difficulty is shown after completion.
-- Letter Grid now writes the current typed guess directly into the active row so the player can see exactly how many letters are filled before submitting.
+- Last Call — push-your-luck round: bank early or risk it on six more picks.
 
 ## Deep Cut
 
-Deep Cut replaces Lineup in the six-game daily set. It uses 107 curated closed-category prompts and generates 365 shared eight-prompt daily sets. Accepted answers are ordered editorially from more obvious to less obvious so scoring works immediately without needing a large player population. Each valid answer scores 30–100 points.
+Deep Cut replaces the retired Lineup game. It uses curated closed-category prompts and generates 365 shared eight-prompt daily sets. Accepted answers are ordered editorially from more obvious to less obvious so scoring works immediately without needing a large player population. Each valid answer scores 30–100 points.
 
 The browser receives only prompt IDs/text. Accepted answer lists stay in the Worker runtime and are checked by `/api/deepcut/check`.
 
@@ -28,12 +23,12 @@ The browser receives only prompt IDs/text. Accepted answer lists stay in the Wor
 - canonical metadata, Open Graph metadata, robots directives and structured data
 - `/robots.txt` and `/sitemap.xml`
 - `/about/`
-- crawlable game guides for all six games, including `/games/deep-cut/`
+- crawlable game guides for all seven games, including `/games/deep-cut/` and `/games/last-call/`
 - the retired `/games/lineup/` page redirects visitors to Deep Cut and is `noindex`
 
 ## Leaderboard
 
-Daily completion and automatic posting use all six current games. Existing D1 tables keep the old `lineup_score` column for backward compatibility and add `deepcut_score` automatically.
+Daily completion and automatic posting cover all seven current games, plus permanent-record boards for All Seven, Pangram, and Tileworks. Existing D1 tables keep the old `lineup_score` column for backward compatibility and add `deepcut_score` automatically.
 
 ## Content rebuild
 
@@ -49,4 +44,4 @@ This rebuilds the 365-day schedule, Trail solutions, Word Steps, Deep Cut daily 
 
 Production deploys from the `main` branch through Cloudflare's native Git integration. The configured build step ensures the D1 leaderboard binding exists, applies `schema.sql`, and runs the test suite before `npx wrangler deploy` publishes the Worker.
 
-After deployment, `/api/health` should report version `2.6.3`, `leaderboard: true`, `wordSteps: 365`, `deepCutPrompts: 107`, and `deepCutDailySets: 365`.
+After deployment, `/api/health` should report the current `package.json` version, `leaderboard: true`, `wordSteps: 365`, and matching `deepCutPrompts`/`deepCutDailySets` counts.
