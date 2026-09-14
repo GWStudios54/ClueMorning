@@ -72,16 +72,18 @@ assert.ok(shell.includes("location.assign('/')"),'dedicated games need a direct 
 assert.ok(shellCss.includes('main.app>.panel.active')&&shellCss.includes('#today'),'dedicated CSS must expose only the selected game panel');
 assert.ok(!legacyWorker.includes('if(!html.includes("/last-call.js"))'),'homepage must not inject Last Call gameplay');
 assert.ok(!legacyWorker.includes('if(!html.includes("/last-call.css"))'),'homepage must not inject Last Call gameplay styles');
-assert.equal(wrangler.includes('"/play/*"'),false,'Letter Grid must bypass the Worker cold-start path');
-const staticLetter=read('./public/play/letter-grid/index.html');
-assert.ok(staticLetter.includes('data-game-page="letter"')&&staticLetter.includes('/app-core.js?v=dedicated-7'),'Letter Grid static shell is missing its dedicated runtime');
-assert.ok(staticLetter.includes('/letter-typesetter.js?v=6')&&staticLetter.includes('/game-page.js?v=2'),'Letter Grid static shell is missing gameplay assets');
-assert.ok(wrangler.includes('"/play/four-groups/*"'),'remaining dynamic game routes must still run through the worker');
-assert.ok(sw.includes("'/play/letter-grid/'")&&sw.includes("'/letter-typesetter.css?v=5'")&&sw.includes("'/letter-typesetter.js?v=6'"),'Letter Grid must be installed as a complete offline bundle');
-assert.ok(sw.includes("const letterGridNavigation")&&sw.includes("const cached = await cache.match(canonical)"),'Letter Grid navigation must be cache-first');
+assert.equal(wrangler.includes('"/play/'),false,'daily game documents must bypass the Worker cold-start path');
+for(const [game,path] of Object.entries(routes)){
+  const staticPage=read('./public'+path+'index.html');
+  assert.ok(staticPage.includes('data-game-page="'+game+'"'),`static shell is missing game marker for ${game}`);
+  assert.ok(staticPage.includes('/app-core.js?v=dedicated-7')&&staticPage.includes('/game-page.js?v=2'),`static shell is missing shared runtime for ${game}`);
+  assert.ok(staticPage.includes('finish all seven games.'),`static shell contains stale game-count copy for ${game}`);
+  assert.ok(sw.includes("'"+path+"'"),`service worker does not install ${game}`);
+}
+assert.ok(sw.includes("const staticGamePath")&&sw.includes("const cached = await cache.match(staticGamePath)"),'daily game navigation must be cache-first');
 assert.equal(sw.includes("'/word-steps-rooftops/bg-00.b64'"),false,'PWA install must not prefetch Rooftops artwork');
 assert.equal(sw.includes("'/deepcut-archive/newsroom.webp'"),false,'PWA install must not prefetch Deep Cut artwork');
 assert.ok(sw.includes('cache.put(request, response.clone())'),'game assets must still cache on demand after first use');
-assert.ok(Number(sw.match(/clue-morning-pwa-v(\d+)/)?.[1]||0)>=56,'PWA cache must be bumped for the Letter Grid offline bundle');
+assert.ok(Number(sw.match(/clue-morning-pwa-v(\d+)/)?.[1]||0) >=57,'PWA cache must be bumped for the all-game offline bundle');
 
 console.log('DEDICATED GAME PAGE AUDIT PASSED');
