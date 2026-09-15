@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import worker,{pickDaily,evaluateGuess,trailPathValid,trailDictionaryWord,wordStepsDictionaryWord,differsByOne,deepCutResult,safeName,scoreParts,unlimitedPuzzle,unlimitedGroupBoard,unlimitedStepsPuzzle,UNLIMITED_COUNTS} from './src/worker.js';
-import liveWorker from './src/worker-v4.js';
 import {TRAIL_PUZZLES,WORD_STEPS_PUZZLES,DEEP_CUT_PROMPTS,DEEP_CUT_PUZZLES,YEAR_PACK,YEAR_PACK_START} from './src/puzzles.js';
 
 for(const p of TRAIL_PUZZLES){
@@ -66,7 +65,7 @@ const p2=pickDaily('2026-08-31');
 assert.notDeepEqual([p.length,p.answer,p.groups[0].name,p.trail.longest,p.link.answer,p.steps.start,p.steps.target,p.deepcut.prompts.map(x=>x.id).join('|')],[p2.length,p2.answer,p2.groups[0].name,p2.trail.longest,p2.link.answer,p2.steps.start,p2.steps.target,p2.deepcut.prompts.map(x=>x.id).join('|')]);
 assert.ok(p.answer);assert.equal(p.groups.length,4);assert.equal(p.trail.grid.length,16);assert.equal(p.trail.longest.length,16);assert.equal(p.link.clues.length,3);assert.equal(p.steps.solution.length,p.steps.par+1);assert.equal(p.deepcut.prompts.length,8);
 const env={ASSETS:{fetch:()=>new Response('asset')}};
-let r=await worker.fetch(new Request('https://x.test/api/health'),env);assert.equal(r.status,200);let j=await r.json();assert.equal(j.version,'2.7.0');assert.equal(j.unlimited.trail,10000);
+let r=await worker.fetch(new Request('https://x.test/api/health'),env);assert.equal(r.status,200);let j=await r.json();assert.equal(j.version,'2.10.2');assert.equal(j.unlimited.trail,10000);
 r=await worker.fetch(new Request('https://x.test/api/daily?date=2026-08-30'),env);assert.equal(r.status,200);j=await r.json();
 assert.equal('answer' in j.letter,false);assert.equal('solutions' in j.groups,false);assert.equal('longest' in j.trail,false);assert.equal('answer' in j.link,false);assert.equal('solution' in j.steps,false);assert.equal(j.groups.words.length,16);assert.ok(['Easy','Medium','Hard','Tricky'].includes(j.groups.difficulty));assert.equal(j.steps.start.length,4);assert.equal(j.steps.target.length,4);assert.equal(j.deepcut.prompts.length,8);assert.equal('answers' in j.deepcut.prompts[0],false);assert.equal(j.deepcut.seconds,25);assert.equal(j.leaderboard.enabled,false);
 r=await worker.fetch(new Request('https://x.test/api/unlimited/status',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({code:'CMU-X-NOTAREALACCESSCODE00'})}),env);assert.equal(r.status,200);j=await r.json();assert.equal(j.active,false);
@@ -88,7 +87,7 @@ const dc=p.deepcut.prompts[0],dcAnswer=dc.answers[0].name;
 r=await worker.fetch(new Request('https://x.test/api/deepcut/check?date=2026-08-30',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({promptId:dc.id,answer:dcAnswer})}),env);assert.equal(r.status,200);j=await r.json();assert.equal(j.accepted,true);assert.equal(j.canonical,dcAnswer);assert.ok(j.score>=30&&j.score<=100);
 r=await worker.fetch(new Request('https://x.test/api/deepcut/check?date=2026-08-30',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({promptId:dc.id,answer:'not-a-real-answer'})}),env);j=await r.json();assert.equal(j.accepted,false);assert.equal(j.score,0);
 
-r=await liveWorker.fetch(new Request('https://x.test/api/deepcut/recap',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({promptIds:[dc.id]})}),env);assert.equal(r.status,200);j=await r.json();assert.equal(j.rows.length,1);assert.equal(j.rows[0].mostCommon,dc.answers[0].name);assert.equal(j.rows[0].rarest,dc.answers.at(-1).name);
+r=await worker.fetch(new Request('https://x.test/api/deepcut/recap',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({promptIds:[dc.id]})}),env);assert.equal(r.status,200);j=await r.json();assert.equal(j.rows.length,1);assert.equal(j.rows[0].mostCommon,dc.answers[0].name);assert.equal(j.rows[0].rarest,dc.answers.at(-1).name);
 
 // Regression: current Aug 30 board must accept ordinary words that the old live API rejected.
 const current=pickDaily('2026-08-30');

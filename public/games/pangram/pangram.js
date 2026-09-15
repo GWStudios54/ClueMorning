@@ -1,4 +1,4 @@
-import {pickPuzzle,answersFor,shuffled,isPangram,scoreWord,rankFor,describeWord,createDragWheel} from '/games/pangram-core.js';
+import {pickPuzzle,answersFor,shuffled,isPangram,scoreWord,rankFor,describeWord,createDragWheel,showRunResult} from '/games/pangram-core.js';
 const $=s=>document.querySelector(s);
 let puzzle=null,center='',answers=[],answerSet=new Set(),found=new Set(),score=0,pangrams=0,revealed=false,previous='';
 
@@ -22,7 +22,16 @@ function submitWord(word){
   found.add(word);const points=scoreWord(word,puzzle.letters);score+=points;const pangram=isPangram(word,puzzle.letters);if(pangram)pangrams++;
   setMessage(`${describeWord(word,puzzle.letters)} · ${word} +${points}`,pangram?'good':'');render();
 }
-function reveal(){if(!puzzle)return;revealed=true;dragController.clear();const box=$('#answerList');box.innerHTML='';answers.forEach(word=>{const span=document.createElement('span');span.textContent=`${found.has(word)?'✓ ':'• '}${word}${isPangram(word,puzzle.letters)?' ★':''}`;box.appendChild(span)});box.classList.add('open');$('#revealBtn').textContent='Answers revealed';$('#revealBtn').disabled=true;setMessage(`Board closed. You found ${found.size} of ${answers.length}.`)}
+function reveal(){
+  if(!puzzle||revealed)return;revealed=true;dragController.clear();const box=$('#answerList');box.innerHTML='';answers.forEach(word=>{const span=document.createElement('span');span.textContent=`${found.has(word)?'✓ ':'• '}${word}${isPangram(word,puzzle.letters)?' ★':''}`;box.appendChild(span)});box.classList.add('open');$('#revealBtn').textContent='Answers revealed';$('#revealBtn').disabled=true;setMessage(`Board closed. You found ${found.size} of ${answers.length}.`);
+  showRunResult({
+    title:'Board closed.',
+    detail:`${score.toLocaleString()} points · ${found.size} of ${answers.length} words · ${pangrams} pangram${pangrams===1?'':'s'}.`,
+    shareText:`Pangram · Clue Morning\n${score.toLocaleString()} points\n${found.size}/${answers.length} words · ${pangrams} pangram${pangrams===1?'':'s'}`,
+    shareUrl:'https://cluemorning.com/games/pangram/',
+    shareTitle:'Pangram — Clue Morning'
+  });
+}
 async function newPuzzle(){
   setMessage('Building a new seven-letter set…');$('#revealBtn').disabled=true;dragController.clear();
   try{puzzle=await pickPuzzle('pangram',previous);previous=puzzle.anchor;center=puzzle.center;answers=answersFor(puzzle,center);answerSet=new Set(answers);found=new Set();score=0;pangrams=0;revealed=false;$('#answerList').classList.remove('open');$('#answerList').innerHTML='';$('#revealBtn').disabled=false;$('#revealBtn').textContent='Reveal answers';buildWheel();render();setMessage(`Center letter ${center} is required. Tap letters then Submit, or drag and release.`)}catch(err){setMessage(err?.message||'Could not load the word board.','bad')}

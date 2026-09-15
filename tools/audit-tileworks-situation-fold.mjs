@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 
 const read=path=>fs.readFileSync(path,'utf8');
-const worker=read('src/worker-v4.js');
+const worker=read('src/worker.js');
 const leaders=read('public/leaderboards-v2.js');
 const presentation=read('public/presentation-v1.js');
 const social=read('public/social.js');
@@ -12,8 +12,8 @@ const legacyPresentation=read('public/daily-presentation-fix.js');
 const serviceWorker=read('public/sw.js');
 
 const checks=[
-  ['worker reports seven daily games',worker.includes('data.dailyGames=7')],
-  ['Situation is exposed to Tileworks',worker.includes('data.tileworksSituation=data.situation')],
+  ['worker reports seven daily games',worker.includes('dailyGames:7')],
+  ['Situation is exposed to Tileworks',worker.includes('tileworksSituation:situation')],
   ['standalone Situation leaderboard is retired',worker.includes("board==='situation'")&&worker.includes('Tileworks mode')],
   ['Today leaderboard unions per-game scores',worker.includes("SELECT player_id FROM leaderboard_game_scores WHERE date=?")],
   ['leaderboard client has no Situation board',!leaders.includes("['situation','Situation']")],

@@ -3,8 +3,8 @@ import assert from 'node:assert/strict';
 
 const read=p=>fs.readFileSync(p,'utf8');
 const index=read('./public/index.html');
-const router=read('./src/worker-v5.js');
-const legacyWorker=read('./src/worker-v3.js');
+const router=read('./src/worker.js');
+const legacyWorker=router;
 const shell=read('./public/game-page.js');
 const shellCss=read('./public/game-page.css');
 const retention=read('./public/retention-hooks.js');
