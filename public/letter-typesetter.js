@@ -30,7 +30,7 @@
     panel.dataset.typesetterCols=String(length);
   }
   function loadArt(){
-    panel.classList.add('typesetter-ready');
+    if(!panel.classList.contains('typesetter-ready'))panel.classList.add('typesetter-ready');
   }
   function isActive(){
     return panel.classList.contains('active')&&document.documentElement.dataset.gameSession==='letter';
