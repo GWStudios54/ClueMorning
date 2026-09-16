@@ -3,7 +3,7 @@ import fs from 'node:fs';
 function read(path){return fs.readFileSync(new URL(`../${path}`,import.meta.url),'utf8')}
 function assert(condition,message){if(!condition)throw new Error(`Owner-admin audit failed: ${message}`)}
 
-const worker=read('src/worker-v5.js');
+const worker=read('src/worker.js');
 const ui=read('public/founders-ui.js');
 const pkg=JSON.parse(read('package.json'));
 

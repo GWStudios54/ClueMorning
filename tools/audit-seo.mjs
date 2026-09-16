@@ -3,8 +3,8 @@ import fs from 'node:fs';
 const read=path=>fs.readFileSync(path,'utf8');
 const sitemap=read('public/sitemap.xml');
 const robots=read('public/robots.txt');
-const worker=read('src/worker-v4.js');
-const router=read('src/worker-v5.js');
+const worker=read('src/worker.js');
+const router=worker;
 const wrangler=read('wrangler.jsonc');
 const games=read('public/games/index.html');
 const lastCall=read('public/games/last-call/index.html');
@@ -33,7 +33,7 @@ const checks=[
   ['legacy play fragments return to Today',deepLink.includes("classList.toggle('active',tab.dataset.tab==='today')")&&deepLink.includes("addEventListener('hashchange',returnHome)")],
   ['deep-link cleanup client is injected on homepage',router.includes('/deep-link.js?v=4')],
   ['PWA cache includes deep-link client',sw.includes("'/deep-link.js'" )],
-  ['Wrangler uses routing worker v5',wrangler.includes('"main": "src/worker-v5.js"')],
+  ['Wrangler uses the consolidated worker',wrangler.includes('"main": "src/worker.js"')],
   ['games hub is indexable',games.includes('<meta name="robots" content="index,follow,max-image-preview:large">')&&games.includes('<link rel="canonical" href="https://cluemorning.com/games/">')],
   ['games hub lists all seven daily games',games.includes('The seven daily games')&&games.includes('/games/last-call/')],
   ['Last Call has a dedicated indexable guide',lastCall.includes('<title>Last Call — Free Daily Push-Your-Luck Trivia Game | Clue Morning</title>')&&lastCall.includes('<link rel="canonical" href="https://cluemorning.com/games/last-call/">')],

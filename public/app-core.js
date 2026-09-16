@@ -80,9 +80,17 @@ let daily=null,day=null,currentDateKey=null,letterTimer=null,trailTick=null,deep
 let dailyRoot=null,dayRoot=null,currentDateRoot=null,unlimitedSession=null,unlimitedActive=false,unlimitedCounts={},linkReturnTab="today",deepCutReturnTab="today",stepsReturnTab="today";
 const DAILY_GAMES=["letter","groups","trail","link","steps","deepcut"];
 
+function randomPlayerId(){
+  if(crypto.randomUUID)return crypto.randomUUID();
+  if(crypto.getRandomValues){
+    const bytes=crypto.getRandomValues(new Uint8Array(16));
+    return [...bytes].map(b=>b.toString(16).padStart(2,"0")).join("");
+  }
+  return `p-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+}
 function getPlayerId(){
   let id=localStorage.getItem(PLAYER_KEY);
-  if(!id){id=(crypto.randomUUID?crypto.randomUUID():`p-${Date.now()}-${Math.random().toString(16).slice(2)}`);localStorage.setItem(PLAYER_KEY,id)}
+  if(!id){id=randomPlayerId();localStorage.setItem(PLAYER_KEY,id)}
   return id;
 }
 function allDone(){return day&&DAILY_GAMES.every(g=>day[g]?.done)}
@@ -265,7 +273,7 @@ $('#guessForm').addEventListener('submit',async e=>{
     const attempt=s.guesses.length+1,r=await api('/api/letter/guess',{guess,attempt});s.guesses.push({word:guess,feedback:r.feedback});input.value='';
     const best=Math.max(...s.guesses.map(g=>letterPartial(g.feedback))),elapsed=(Date.now()-s.start)/1000;
     if(r.solved||s.guesses.length>=6){s.done=true;s.won=r.solved;s.elapsed=elapsed;s.answer=r.answer||s.answer||'';s.score=letterScore(r.solved,s.guesses.length,elapsed,best);clearInterval(letterTimer)}else s.score=letterScore(false,s.guesses.length,elapsed,best);
-    renderLetter();if(!s.done)input.focus({preventScroll:true});
+    renderLetter();if(s.done)showResultDialog('letter');else input.focus({preventScroll:true});
   }catch(err){$('#letterMessage').textContent=err.message}
 });
 
@@ -294,7 +302,7 @@ function renderGroups(){
 }
 $('#submitGroupBtn').addEventListener('click',async()=>{
   const s=day.groups;if(s.selection.length!==4||s.done)return;const mistakesAfter=s.mistakes+1;
-  try{const r=await api('/api/groups/check',{words:s.selection,mistakesAfter});if(r.match){s.solved.push({name:r.name,words:r.words,difficulty:r.difficulty,difficultyLabel:r.difficultyLabel});s.score+=250+Math.max(0,(4-s.mistakes)*25);$('#groupMessage').textContent=`${r.name} · ${r.difficultyLabel||''}`.replace(/ · $/,'');s.selection=[];if(s.solved.length===4)s.done=true}else{s.mistakes++;s.selection=[];$('#groupMessage').textContent='Not a group.';if(s.mistakes>=4){s.done=true;s.solutions=r.solutions||[]}}renderGroups()}catch(err){$('#groupMessage').textContent=err.message}
+  try{const r=await api('/api/groups/check',{words:s.selection,mistakesAfter});if(r.match){s.solved.push({name:r.name,words:r.words,difficulty:r.difficulty,difficultyLabel:r.difficultyLabel});s.score+=250+Math.max(0,(4-s.mistakes)*25);$('#groupMessage').textContent=`${r.name} · ${r.difficultyLabel||''}`.replace(/ · $/,'');s.selection=[];if(s.solved.length===4)s.done=true}else{s.mistakes++;s.selection=[];$('#groupMessage').textContent='Not a group.';if(s.mistakes>=4){s.done=true;s.solutions=r.solutions||[]}}renderGroups();if(s.done)showResultDialog('groups')}catch(err){$('#groupMessage').textContent=err.message}
 });
 $('#shuffleBtn').addEventListener('click',()=>{const s=day.groups,solved=new Set(s.solved.flatMap(x=>x.words)),r=s.order.filter(w=>!solved.has(w));for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]]}s.order=[...s.order.filter(w=>solved.has(w)),...r];renderGroups()});
 $('#deselectBtn').addEventListener('click',()=>{day.groups.selection=[];renderGroups()});
@@ -345,7 +353,7 @@ function renderTrail(){
   if(s.done){$('#trailTimer').textContent='0:00';const msg=$('#trailMessage');msg.className='message';msg.innerHTML=`Time — ${s.words.length} words, ${s.score.toLocaleString()} points.${s.longest?`<div class="solution-note">Longest possible word: <strong>${s.longest}</strong> (${s.longest.length})</div>`:''}`}
   renderTrailGrid();updateHome();
 }
-async function finishTrail(){const s=day.trail;if(s.done&&s.longest){renderTrail();return}s.done=true;clearInterval(trailTick);trailPath=[];try{const r=await api('/api/trail/reveal',{finished:true});s.longest=r.longest||''}catch{}renderTrail()}
+async function finishTrail(){const s=day.trail;if(s.done&&s.longest){renderTrail();return}s.done=true;clearInterval(trailTick);trailPath=[];try{const r=await api('/api/trail/reveal',{finished:true});s.longest=r.longest||''}catch{}renderTrail();showResultDialog('trail')}
 $('#trailStart').addEventListener('click',()=>{const s=day.trail;if(s.started)return;s.started=true;s.deadline=Date.now()+daily.trail.seconds*1000;saveState();renderTrail();trailTick=setInterval(()=>{if(remainingTrail()<=0)finishTrail();else $('#trailTimer').textContent=fmtTime(remainingTrail())},1000)});
 $('#trailGrid').addEventListener('pointerdown',e=>{const cell=e.target.closest('.trail-cell');if(!cell||!day.trail.started||day.trail.done)return;e.preventDefault();try{$('#trailGrid').setPointerCapture(e.pointerId)}catch{}startTrailSelection(Number(cell.dataset.index),e.pointerId)});
 $('#trailGrid').addEventListener('pointermove',e=>{if(!trailDragging||!day.trail.started||day.trail.done||(trailPointerId!==null&&e.pointerId!==trailPointerId))return;e.preventDefault();extendTrailToward(e.clientX,e.clientY)});
@@ -524,10 +532,12 @@ $('#linkForm').addEventListener('submit',async e=>{
       linkSetMessage('Connection complete.','good');
       renderLink();
       linkPulseSuccess();
+      setTimeout(()=>showResultDialog('link'),600);
     }else if(s.guesses>=3){
       s.done=true;s.answer=r.answer||'';s.note=r.note||'';s.score=0;
       linkPulseWrong();
       renderLink();
+      showResultDialog('link');
     }else{
       linkPulseWrong();
       linkSetMessage(guess+' does not connect all three. Try again.','bad');
@@ -693,7 +703,7 @@ async function revealSteps(){
   const s=day.steps;
   if(s.done&&s.solution?.length){renderSteps();return}
   try{const r=await api('/api/steps/reveal',{finished:true});s.solution=r.solution||[]}catch{}
-  s.done=true;s.won=false;s.score=0;renderSteps();
+  s.done=true;s.won=false;s.score=0;renderSteps();showResultDialog('steps');
 }
 $('#stepsForm').addEventListener('submit',async e=>{
   e.preventDefault();
@@ -719,6 +729,7 @@ $('#stepsForm').addEventListener('submit',async e=>{
       await stepsSummitRun();
       s.done=true;s.won=true;s.score=wordStepsScore(moves,daily.steps.par);
       renderSteps();
+      showResultDialog('steps');
       return;
     }
     const next=Math.min(moves,7);
@@ -834,7 +845,7 @@ function renderDeepCut(){
   if(visualGameActive('deepcut'))requestAnimationFrame(renderDeepCutArchive);
 }
 function armDeepCutTimer(){clearInterval(deepCutTick);deepCutTick=setInterval(()=>{const s=day?.deepcut;if(!s?.started||s.done){clearInterval(deepCutTick);return}const left=remainingDeepCut();$('#deepCutTimer').textContent=fmtTime(left);if(left<=0)void timeoutDeepCut()},1000)}
-function finishDeepCut(){const s=day.deepcut;s.started=false;s.done=true;s.deadline=0;clearInterval(deepCutTick);renderDeepCut()}
+function finishDeepCut(){const s=day.deepcut;s.started=false;s.done=true;s.deadline=0;clearInterval(deepCutTick);renderDeepCut();setTimeout(()=>showResultDialog('deepcut'),500)}
 async function timeoutDeepCut(){const s=day.deepcut;if(deepCutBusy||!s.started||s.done||remainingDeepCut()>0)return;deepCutBusy=true;const prompt=deepCutPrompt();s.answers.push({promptId:prompt?.id||'',prompt:prompt?.prompt||'',answer:'',accepted:false,timedOut:true,tier:'TIME',score:0});s.round++;$('#deepCutMessage').className='message bad';$('#deepCutMessage').textContent='Time. No descent for that prompt.';if(s.round>=daily.deepcut.rounds){deepCutBusy=false;finishDeepCut();return}s.deadline=Date.now()+daily.deepcut.seconds*1000;deepCutBusy=false;renderDeepCut();$('#deepCutInput').focus()}
 $('#deepCutStart').addEventListener('click',()=>{const s=day.deepcut;if(s.done)return;warmDeepCutArchive();s.started=true;s.deadline=Date.now()+daily.deepcut.seconds*1000;$('#deepCutMessage').className='message';$('#deepCutMessage').textContent='Think past the first obvious answer. The Archive rewards deeper cuts.';renderDeepCut();armDeepCutTimer();$('#deepCutInput').focus()});
 $('#deepCutForm').addEventListener('submit',async e=>{
@@ -992,6 +1003,130 @@ async function revealExistingFailures(game=''){
   try{if(game==='link'&&day.link.done&&!day.link.won&&!day.link.answer&&day.link.guesses>=3){const r=await api('/api/link/reveal',{guesses:day.link.guesses});day.link.answer=r.answer;day.link.note=r.note}}catch{}
   try{if(game==='steps'&&day.steps.done&&!day.steps.won&&!day.steps.solution?.length){const r=await api('/api/steps/reveal',{finished:true});day.steps.solution=r.solution||[]}}catch{}
 }
+
+// Results dialog: shown once, right at the moment a daily game finishes on
+// its own dedicated page (this is the only page that game is ever played on
+// today, so this is the only place a "you're done" moment can happen).
+const GAME_META={
+  letter:{name:'Letter Grid',url:'https://cluemorning.com/games/letter-grid/'},
+  groups:{name:'Four Groups',url:'https://cluemorning.com/games/four-groups/'},
+  trail:{name:'Letter Trail',url:'https://cluemorning.com/games/letter-trail/'},
+  link:{name:'Triple Link',url:'https://cluemorning.com/games/triple-link/'},
+  steps:{name:'Word Steps',url:'https://cluemorning.com/games/word-steps/'},
+  deepcut:{name:'Deep Cut',url:'https://cluemorning.com/games/deep-cut/'}
+};
+let resultDialogEl=null,resultShareState=null,resultRecapToken=0;
+// Other game scripts (Last Call, Tileworks Situation, Pangram, All Seven)
+// call window.clueMorningShowResult(key, {name,url}, {score,detail,marks,max})
+// directly - they keep their own state, so they build their own snapshot
+// rather than going through resultSnapshot(), which only knows the 6 daily
+// games' day[game] shape.
+function resultSnapshot(game,s){
+  const score=Number(s?.score||0);
+  if(game==='letter')return {score,detail:s.won?`Solved in ${(s.guesses||[]).length}/6 guesses`:'No solve',marks:(s.guesses||[]).map(g=>(g.feedback||[]).map(v=>v==='green'?'🟩':v==='yellow'?'🟨':'⬛').join('')).join('\n')};
+  if(game==='groups')return {score,detail:`${(s.solved||[]).length}/4 groups · ${Number(s.mistakes||0)} mistake${Number(s.mistakes||0)===1?'':'s'}`,marks:`${'🟩'.repeat((s.solved||[]).length)}${'⬛'.repeat(Math.max(0,4-(s.solved||[]).length))}`};
+  if(game==='trail')return {score,detail:`${(s.words||[]).length} words${s.best?` · Best: ${s.best}`:''}`,marks:''};
+  if(game==='link')return {score,detail:s.won?`Solved in ${Number(s.guesses||0)}/3 guesses`:'Missed today’s link',marks:s.won?'🟩':'⬛'};
+  if(game==='steps'){const moves=Math.max(0,(s.path||[]).length-1);return {score,detail:s.won?`Solved in ${moves} move${moves===1?'':'s'}${daily?.steps?.par?` · Par ${daily.steps.par}`:''}`:'Path revealed',marks:s.won?'🟩':'⬛'};}
+  const answers=s.answers||[],hits=answers.filter(a=>a.accepted).length,total=Math.max(8,answers.length||8);
+  return {score,max:total*100,detail:`${hits}/${total} prompts landed`,marks:Array.from({length:total},(_,i)=>answers[i]?.accepted?'🟩':'⬛').join(''),promptIds:answers.map(a=>a.promptId).filter(Boolean)};
+}
+async function loadResultRecap(box,data,token){
+  if(!data.promptIds?.length)return;
+  box.innerHTML='<div class="deepcut-recap"><div class="deepcut-recap-row"><span>Loading the common and rare ends of today’s categories…</span></div></div>';
+  try{
+    const result=await api('/api/deepcut/recap',{promptIds:data.promptIds});
+    if(token!==resultRecapToken)return;
+    box.innerHTML=`<div class="deepcut-recap">${result.rows.map(row=>`<div class="deepcut-recap-row"><strong>${escapeHtml(row.prompt)}</strong><span>Most common: <b>${escapeHtml(row.mostCommon)}</b></span><span>Most rare: <b>${escapeHtml(row.rarest)}</b></span></div>`).join('')}</div>`;
+  }catch{if(token===resultRecapToken)box.innerHTML=''}
+}
+function resultShareBody(meta,data,includeUrl=true){
+  const lines=[`${meta.name} · Clue Morning`,data.max?`${data.score.toLocaleString()}/${data.max.toLocaleString()}`:`${data.score.toLocaleString()} points`,data.detail];
+  if(data.marks)lines.push(data.marks);if(includeUrl)lines.push('',`Play: ${meta.url}`);return lines.filter(v=>v!==undefined&&v!==null&&v!=='').join('\n');
+}
+async function copyText(text){
+  if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(text);return}
+  const area=document.createElement('textarea');area.value=text;area.setAttribute('readonly','');area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();document.execCommand('copy');area.remove();
+}
+async function shareResult(){
+  if(!resultShareState||!resultDialogEl)return;const {meta,data}=resultShareState,statusEl=resultDialogEl.querySelector('#dailyShareStatus');statusEl.textContent='';
+  try{
+    if(navigator.share){await navigator.share({title:`${meta.name} — Clue Morning`,text:resultShareBody(meta,data,false),url:meta.url});statusEl.textContent='Shared.';return}
+    await copyText(resultShareBody(meta,data,true));statusEl.textContent='Score copied — paste it anywhere.';
+  }catch(err){if(err?.name==='AbortError')return;try{await copyText(resultShareBody(meta,data,true));statusEl.textContent='Score copied — paste it anywhere.'}catch{statusEl.textContent='Sharing is not available in this browser.'}}
+}
+function ensureResultDialog(){
+  if(resultDialogEl)return resultDialogEl;
+  const style=document.createElement('style');style.id='daily-score-card-styles';style.textContent=`
+    .daily-score-dialog{width:min(540px,92vw);text-align:center;padding:28px;max-height:min(86vh,760px);overflow:auto}
+    .daily-score-dialog .dialog-close{position:absolute;right:16px;top:16px;float:none}
+    .daily-score-kicker{display:block;margin-top:4px}
+    .daily-score-dialog h2{font-size:clamp(2.25rem,8vw,3.25rem);margin:.25rem 0 .4rem}
+    .daily-score-copy{color:var(--muted);margin:0 auto 16px;max-width:36ch;line-height:1.5}
+    .daily-score-number{display:flex;align-items:baseline;justify-content:center;gap:8px;margin:10px 0 8px}
+    .daily-score-number strong{font:700 clamp(3.35rem,14vw,5rem)/.9 Georgia,"Times New Roman",serif;letter-spacing:-.05em}
+    .daily-score-number span{font-weight:900;color:var(--muted)}
+    .daily-score-detail{font-weight:850;margin:10px auto 14px;color:var(--dark)}
+    .daily-score-marks{font-size:1.3rem;letter-spacing:.08em;line-height:1.45;margin:10px auto 18px;white-space:pre-wrap;overflow-wrap:anywhere}
+    .daily-score-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+    .daily-score-actions button{min-height:52px;justify-content:center}
+    .daily-share-status{min-height:1.4em;margin:12px 0 0;color:var(--muted);font-size:.83rem}
+    .deepcut-recap{display:grid;gap:8px;text-align:left;margin:18px 0 4px;padding-top:16px;border-top:1px solid var(--line)}
+    .deepcut-recap-row{padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:var(--paper2)}
+    .deepcut-recap-row strong{display:block;font-family:Georgia,"Times New Roman",serif;font-size:.95rem;margin-bottom:5px}
+    .deepcut-recap-row span{display:block;color:var(--muted);font-size:.76rem;line-height:1.45}
+    @media(max-width:520px){.daily-score-actions{grid-template-columns:1fr}}
+  `;
+  document.head.appendChild(style);
+  const dialog=document.createElement('dialog');dialog.id='dailyScoreDialog';dialog.className='daily-score-dialog';
+  dialog.innerHTML=`
+    <form method="dialog"><button class="dialog-close" type="submit" aria-label="Close score"><span aria-hidden="true">×</span></button></form>
+    <span id="dailyScoreKicker" class="game-label daily-score-kicker">GAME COMPLETE</span>
+    <h2 id="dailyScoreTitle">Nice work.</h2>
+    <p class="daily-score-copy">Your score is locked in. Share it, or keep the morning going.</p>
+    <div class="daily-score-number"><strong id="dailyScoreValue">0</strong><span id="dailyScoreMax"></span></div>
+    <div id="dailyScoreDetail" class="daily-score-detail"></div>
+    <div id="dailyScoreMarks" class="daily-score-marks"></div>
+    <div id="dailyScoreExtra"></div>
+    <div class="daily-score-actions">
+      <button id="dailyScoreMore" class="primary-button" type="button">Play More Games</button>
+      <button id="dailyScoreShare" class="secondary-button" type="button">Share Score</button>
+    </div>
+    <p id="dailyShareStatus" class="daily-share-status" role="status" aria-live="polite"></p>
+  `;
+  (document.querySelector('.app')||document.body).appendChild(dialog);
+  dialog.querySelector('#dailyScoreMore').addEventListener('click',()=>{
+    dialog.close();
+    const homeTab=document.querySelector('[data-tab="today"]');
+    if(homeTab)homeTab.click();else location.assign('/');
+  });
+  dialog.querySelector('#dailyScoreShare').addEventListener('click',()=>void shareResult());
+  resultDialogEl=dialog;return dialog;
+}
+function renderResultDialog(meta,data,title,recap){
+  const dialog=ensureResultDialog();
+  resultShareState={meta,data};resultRecapToken++;const token=resultRecapToken;
+  dialog.querySelector('#dailyScoreKicker').textContent=`${meta.name.toUpperCase()} COMPLETE`;
+  dialog.querySelector('#dailyScoreTitle').textContent=title||'Nice work.';
+  dialog.querySelector('#dailyScoreValue').textContent=data.score.toLocaleString();
+  dialog.querySelector('#dailyScoreMax').textContent=data.max?`/ ${data.max.toLocaleString()}`:'';
+  dialog.querySelector('#dailyScoreDetail').textContent=data.detail||'';
+  const marksEl=dialog.querySelector('#dailyScoreMarks');marksEl.textContent=data.marks||'';marksEl.hidden=!data.marks;
+  const extraEl=dialog.querySelector('#dailyScoreExtra');extraEl.innerHTML='';
+  dialog.querySelector('#dailyShareStatus').textContent='';
+  if(recap)void recap(extraEl,token);
+  if(!dialog.open)dialog.showModal();
+}
+function showResultDialog(game){
+  if(unlimitedSession)return;
+  const s=day?.[game];if(!s?.done)return;
+  const data=resultSnapshot(game,s),meta=GAME_META[game]||{name:game,url:'https://cluemorning.com/'};
+  renderResultDialog(meta,data,game==='deepcut'?'Nice cut.':'Nice work.',game==='deepcut'?(box,token)=>loadResultRecap(box,data,token):null);
+}
+// Exposed for other game scripts (last-call.js, tileworks-situation.js,
+// pangram.js, all-seven.js) that keep their own state outside app-core.js's
+// day object, so they compute their own snapshot and call this directly.
+window.clueMorningShowResult=function(meta,data,title){renderResultDialog(meta,data,title,null)};
 
 function renderInitialGame(game){
   if(game==='letter')renderLetter();

@@ -60,13 +60,42 @@
     pending.set(cellIndex,tile);selectedTile=null;render();return true;
   }
   function recall(){pending.clear();selectedTile=null;render()}
+  // Tileworks Full Match (tileworks.js) has its own #resultDialog for its
+  // two-player score layout; this is a separate, simpler single-score
+  // dialog for Situation, reusing the same .result-card/.kicker/.primary
+  // styles from tileworks.css rather than duplicating them.
+  let situationResultDialog=null,situationShareText='';
+  function ensureSituationResultDialog(){
+    if(situationResultDialog)return situationResultDialog;
+    const dialog=document.createElement('dialog');dialog.id='twSituationResultDialog';
+    dialog.innerHTML=`<div class="result-card"><span class="kicker">SITUATION COMPLETE</span><h2 id="twSitResultTitle">Nice line.</h2><p id="twSitResultText"></p><div class="result-actions"><button id="twSitResultShare" class="secondary" type="button">Share</button><button id="twSitResultClose" class="primary" type="button">Done</button></div></div>`;
+    document.body.appendChild(dialog);
+    dialog.querySelector('#twSitResultClose').addEventListener('click',()=>dialog.close());
+    dialog.querySelector('#twSitResultShare').addEventListener('click',()=>void shareSituationResult());
+    situationResultDialog=dialog;return dialog;
+  }
+  async function shareSituationResult(){
+    try{
+      if(navigator.share){await navigator.share({title:'Tileworks Situation — Clue Morning',text:situationShareText,url:'https://cluemorning.com/games/tileworks/'});return}
+      if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(situationShareText);
+    }catch{}
+  }
+  function showResult(){
+    if(!state)return;
+    const dialog=ensureSituationResultDialog(),score=Number(state.score||0);
+    dialog.querySelector('#twSitResultTitle').textContent='Situation complete.';
+    dialog.querySelector('#twSitResultText').textContent=`${score.toLocaleString()} points in ${state.moves} move${state.moves===1?'':'s'}.`;
+    situationShareText=`Tileworks Situation · Clue Morning\n${score.toLocaleString()} points in ${state.moves} move${state.moves===1?'':'s'}\nPlay: https://cluemorning.com/games/tileworks/`;
+    if(!dialog.open)dialog.showModal();
+  }
   function playMove(){
     const v=validate();if(!v.ok)return;
     for(const [i,t] of pending)state.board[i]={letter:t.letter,value:t.value,blank:t.blank};
     const used=new Set([...pending.values()].map(t=>t.id));state.rack=state.rack.filter(t=>!used.has(t.id));state.score+=v.score;state.moves++;pending.clear();selectedTile=null;
     if(state.moves>=Number(puzzle.maxMoves||3)||!state.rack.length)state.done=true;saveStore();render();
+    if(state.done)showResult();
   }
-  function finishEarly(){if(!state||state.done||state.moves<1)return;state.done=true;pending.clear();selectedTile=null;saveStore();render()}
+  function finishEarly(){if(!state||state.done||state.moves<1)return;state.done=true;pending.clear();selectedTile=null;saveStore();render();showResult()}
 
   function tileMarkup(tile,pendingTile=false){return `<span class="situation-board-tile${pendingTile?' pending':''}">${esc(tile.letter)}<small>${Number(tile.value||0)}</small></span>`}
   function renderBoard(){

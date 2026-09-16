@@ -3,7 +3,7 @@ import {execFileSync} from 'node:child_process';
 
 const read=path=>fs.readFileSync(path,'utf8');
 const ui=read('public/competition.js');
-const worker=read('src/worker-v5.js');
+const worker=read('src/worker.js');
 const sw=read('public/sw.js');
 function assert(condition,message){if(!condition)throw new Error(`Competition audit failed: ${message}`)}
 
@@ -19,7 +19,7 @@ assert(!ui.includes('MutationObserver'),'competition UI must remain event-driven
 assert(!ui.includes('setInterval('),'competition UI must not poll');
 
 assert(worker.includes("path==='/api/leaderboard/compare'"),'worker comparison route is missing');
-assert(worker.includes('DAILY_COMPARE_COLUMNS'),'daily-game comparison mapping is missing');
+assert(worker.includes('DAILY_COLUMNS'),'daily-game comparison mapping is missing');
 assert(worker.includes('beatPercent'),'worker comparison percentile is missing');
 assert(worker.includes('/competition.js?v=1'),'worker does not inject competition UI');
 assert(worker.includes("board==='today'"),'overall daily comparison is missing');

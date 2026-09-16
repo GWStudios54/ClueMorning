@@ -5,7 +5,7 @@ const read=path=>fs.readFileSync(path,'utf8');
 const hooks=read('public/retention-hooks.js');
 const bridge=read('public/performance-bridge.js');
 const css=read('public/retention-hooks.css');
-const worker=read('src/worker-v5.js');
+const worker=read('src/worker.js');
 const sw=read('public/sw.js');
 const presentation=read('public/presentation-v1.js');
 const app=read('public/app.js');
@@ -56,7 +56,7 @@ for(const asset of ['/performance-bridge.js','/retention-hooks.css','/retention-
   assert(worker.includes(asset),`worker does not inject ${asset}`);
   assert(sw.includes(`'${asset}'`),`service worker does not cache ${asset}`);
 }
-assert(worker.includes('daily-run-v2\\.js'),'worker no longer strips the duplicate daily-run controller');
+assert(!worker.includes('daily-run-v2.js'),'worker must not reference the retired duplicate daily-run controller');
 const bridgeIndex=worker.indexOf('/performance-bridge.js');
 const appIndex=worker.indexOf('app\\.js');
 assert(bridgeIndex>=0&&appIndex>=0,'runtime injection markers are missing');

@@ -7,7 +7,7 @@ const retention=read('public/retention-hooks.js');
 const presentation=read('public/presentation-v1.js');
 const alignment=read('public/control-alignment.css');
 const sw=read('public/sw.js');
-const router=read('src/worker-v5.js');
+const router=read('src/worker.js');
 const standalone=['public/games/all-seven/index.html','public/games/pangram/index.html','public/games/tileworks/index.html'].map(read);
 
 const games={
@@ -36,5 +36,5 @@ assert.ok(index.includes('/control-alignment.css?v=1'),'shared alignment stylesh
 for(const page of standalone)assert.ok(page.includes('/control-alignment.css?v=1'),'standalone game is missing shared control alignment');
 assert.ok(sw.includes("'/control-alignment.css'"),'shared alignment stylesheet is not cached');
 assert.equal(sw.includes('?shell='),false,'service worker activation must not redirect or reset an active page');
-assert.ok(sw.includes("clue-morning-pwa-v57"),'PWA cache version was not advanced');
+assert.ok(sw.includes("clue-morning-pwa-v58"),'PWA cache version was not advanced');
 console.log('Landing functionality audit passed: seven-game state, routes, navigation reveal, control alignment, and non-disruptive PWA activation.');

@@ -96,3 +96,38 @@ export function createDragWheel({wheel,readout,onSubmit,canDrag=()=>true,maxLeng
   paintTap();
   return {clear,clearTap,submitTapped,isDragging:()=>dragging,getTapWord:()=>tapWord};
 }
+
+// Shared results dialog for Pangram and All Seven - both load pangram.css,
+// which defines .kicker/.primary/.secondary but no dialog chrome, so this
+// injects the small amount of extra styling it needs once.
+let resultDialogEl=null;
+function ensureResultDialog(){
+  if(resultDialogEl)return resultDialogEl;
+  const style=document.createElement('style');
+  style.textContent=`
+    dialog.run-result{border:0;border-radius:20px;padding:26px;width:min(92vw,440px);background:var(--card,#fff);box-shadow:0 25px 60px rgba(0,0,0,.28);text-align:center}
+    dialog.run-result::backdrop{background:rgba(20,16,10,.55);backdrop-filter:blur(3px)}
+    dialog.run-result h2{margin:.3rem 0;font-size:2rem}
+    dialog.run-result p{color:var(--muted,#777);margin:0 0 18px}
+    dialog.run-result .run-result-actions{display:flex;justify-content:center;gap:10px}
+  `;
+  document.head.appendChild(style);
+  const dialog=document.createElement('dialog');dialog.className='run-result';
+  dialog.innerHTML=`<span class="kicker">RUN COMPLETE</span><h2 id="runResultTitle">Nice run.</h2><p id="runResultText"></p><div class="run-result-actions"><button id="runResultShare" class="secondary" type="button">Share</button><button id="runResultClose" class="primary" type="button">Done</button></div>`;
+  document.body.appendChild(dialog);
+  dialog.querySelector('#runResultClose').addEventListener('click',()=>dialog.close());
+  resultDialogEl=dialog;return dialog;
+}
+export function showRunResult({title,detail,shareText,shareUrl,shareTitle}){
+  const dialog=ensureResultDialog();
+  dialog.querySelector('#runResultTitle').textContent=title;
+  dialog.querySelector('#runResultText').textContent=detail;
+  const shareBtn=dialog.querySelector('#runResultShare');
+  shareBtn.onclick=async()=>{
+    try{
+      if(navigator.share){await navigator.share({title:shareTitle,text:shareText,url:shareUrl});return}
+      if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(`${shareText}\nPlay: ${shareUrl}`);
+    }catch{}
+  };
+  if(!dialog.open)dialog.showModal();
+}

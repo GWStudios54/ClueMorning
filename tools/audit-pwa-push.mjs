@@ -3,7 +3,7 @@ import fs from 'node:fs';
 const read=path=>fs.readFileSync(path,'utf8');
 const pwa=read('public/pwa.js');
 const sw=read('public/sw.js');
-const worker=read('src/worker-v4.js');
+const worker=read('src/worker.js');
 const push=read('src/push.js');
 const wrangler=read('wrangler.jsonc');
 const schema=read('schema.sql');
