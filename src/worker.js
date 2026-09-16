@@ -1022,6 +1022,7 @@ async function withHtmlPolish(response,path){
 export default {
   async fetch(request,env,ctx){
     const url=new URL(request.url),path=url.pathname;
+    if(url.protocol==='http:'){url.protocol='https:';return Response.redirect(url,301)}
     if(path.startsWith('/api/push/')){const pushResponse=await handlePushRequest(request,env);if(pushResponse)return pushResponse}
     if(path.startsWith('/api/')) return api(request,env);
     if(request.method==='GET'&&(path==='/games/lineup/'||path==='/games/lineup'))return Response.redirect(new URL('/games/deep-cut/',url),301);
