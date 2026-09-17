@@ -1,0 +1,344 @@
+[
+  {
+    "id":"quality_arithmetic_operations",
+    "prompt":"Name one of the four basic arithmetic operations.",
+    "answers":[{"name":"Addition"},{"name":"Subtraction"},{"name":"Multiplication"},{"name":"Division"}]
+  },
+  {
+    "id":"quality_platonic_solids",
+    "prompt":"Name one of the five Platonic solids.",
+    "answers":[{"name":"Cube","aliases":["Hexahedron"]},{"name":"Tetrahedron"},{"name":"Octahedron"},{"name":"Dodecahedron"},{"name":"Icosahedron"}]
+  },
+  {
+    "id":"quality_roman_numeral_symbols",
+    "prompt":"Name one of the seven basic Roman numeral symbols.",
+    "answers":[{"name":"I"},{"name":"V"},{"name":"X"},{"name":"L"},{"name":"C"},{"name":"D"},{"name":"M"}]
+  },
+  {
+    "id":"quality_first_ten_primes",
+    "prompt":"Name one of the first ten prime numbers.",
+    "answers":[{"name":"2","aliases":["Two"]},{"name":"3","aliases":["Three"]},{"name":"5","aliases":["Five"]},{"name":"7","aliases":["Seven"]},{"name":"11","aliases":["Eleven"]},{"name":"13","aliases":["Thirteen"]},{"name":"17","aliases":["Seventeen"]},{"name":"19","aliases":["Nineteen"]},{"name":"23","aliases":["Twenty-three","Twenty Three"]},{"name":"29","aliases":["Twenty-nine","Twenty Nine"]}]
+  },
+  {
+    "id":"quality_perfect_squares_1_100",
+    "prompt":"Name a perfect square between 1 and 100.",
+    "answers":[{"name":"1","aliases":["One"]},{"name":"4","aliases":["Four"]},{"name":"9","aliases":["Nine"]},{"name":"16","aliases":["Sixteen"]},{"name":"25","aliases":["Twenty-five","Twenty Five"]},{"name":"36","aliases":["Thirty-six","Thirty Six"]},{"name":"49","aliases":["Forty-nine","Forty Nine"]},{"name":"64","aliases":["Sixty-four","Sixty Four"]},{"name":"81","aliases":["Eighty-one","Eighty One"]},{"name":"100","aliases":["One Hundred"]}]
+  },
+  {
+    "id":"quality_fibonacci_first_terms",
+    "prompt":"Name a number in the first ten terms of the Fibonacci sequence 1, 1, 2, 3, 5, 8, 13, 21, 34, 55.",
+    "answers":[{"name":"1","aliases":["One"]},{"name":"2","aliases":["Two"]},{"name":"3","aliases":["Three"]},{"name":"5","aliases":["Five"]},{"name":"8","aliases":["Eight"]},{"name":"13","aliases":["Thirteen"]},{"name":"21","aliases":["Twenty-one","Twenty One"]},{"name":"34","aliases":["Thirty-four","Thirty Four"]},{"name":"55","aliases":["Fifty-five","Fifty Five"]}]
+  },
+  {
+    "id":"quality_harry_potter_films",
+    "prompt":"Name a film in the Harry Potter movie series.",
+    "answers":[
+      {"name":"Harry Potter and the Sorcerer's Stone","aliases":["Harry Potter and the Philosopher's Stone","Sorcerer's Stone","Philosopher's Stone"]},
+      {"name":"Harry Potter and the Chamber of Secrets","aliases":["Chamber of Secrets"]},
+      {"name":"Harry Potter and the Prisoner of Azkaban","aliases":["Prisoner of Azkaban"]},
+      {"name":"Harry Potter and the Goblet of Fire","aliases":["Goblet of Fire"]},
+      {"name":"Harry Potter and the Order of the Phoenix","aliases":["Order of the Phoenix"]},
+      {"name":"Harry Potter and the Half-Blood Prince","aliases":["Half-Blood Prince","Half Blood Prince"]},
+      {"name":"Harry Potter and the Deathly Hallows – Part 1","aliases":["Deathly Hallows Part 1","Deathly Hallows Part One"]},
+      {"name":"Harry Potter and the Deathly Hallows – Part 2","aliases":["Deathly Hallows Part 2","Deathly Hallows Part Two"]}
+    ]
+  },
+  {
+    "id":"quality_star_wars_saga_films",
+    "prompt":"Name one of the nine numbered Star Wars saga films.",
+    "answers":[
+      {"name":"Episode IV: A New Hope","aliases":["A New Hope","Star Wars"]},
+      {"name":"Episode V: The Empire Strikes Back","aliases":["The Empire Strikes Back","Empire Strikes Back"]},
+      {"name":"Episode VI: Return of the Jedi","aliases":["Return of the Jedi"]},
+      {"name":"Episode I: The Phantom Menace","aliases":["The Phantom Menace"]},
+      {"name":"Episode II: Attack of the Clones","aliases":["Attack of the Clones"]},
+      {"name":"Episode III: Revenge of the Sith","aliases":["Revenge of the Sith"]},
+      {"name":"Episode VII: The Force Awakens","aliases":["The Force Awakens"]},
+      {"name":"Episode VIII: The Last Jedi","aliases":["The Last Jedi"]},
+      {"name":"Episode IX: The Rise of Skywalker","aliases":["The Rise of Skywalker"]}
+    ]
+  },
+  {
+    "id":"quality_avengers_films",
+    "prompt":"Name one of the four numbered Marvel Avengers team-up films.",
+    "answers":[
+      {"name":"The Avengers","aliases":["Avengers"]},
+      {"name":"Avengers: Age of Ultron","aliases":["Age of Ultron"]},
+      {"name":"Avengers: Infinity War","aliases":["Infinity War"]},
+      {"name":"Avengers: Endgame","aliases":["Endgame"]}
+    ]
+  },
+  {
+    "id":"quality_indiana_jones_films",
+    "prompt":"Name a film in the Indiana Jones series.",
+    "answers":[
+      {"name":"Raiders of the Lost Ark"},
+      {"name":"Indiana Jones and the Last Crusade","aliases":["The Last Crusade"]},
+      {"name":"Indiana Jones and the Temple of Doom","aliases":["Temple of Doom"]},
+      {"name":"Indiana Jones and the Kingdom of the Crystal Skull","aliases":["Kingdom of the Crystal Skull"]},
+      {"name":"Indiana Jones and the Dial of Destiny","aliases":["Dial of Destiny"]}
+    ]
+  },
+  {
+    "id":"quality_toy_story_films",
+    "prompt":"Name a film in the Toy Story series.",
+    "answers":[{"name":"Toy Story"},{"name":"Toy Story 2"},{"name":"Toy Story 3"},{"name":"Toy Story 4"}]
+  },
+  {
+    "id":"quality_jurassic_park_films",
+    "prompt":"Name a film in the Jurassic Park / Jurassic World series.",
+    "answers":[
+      {"name":"Jurassic Park"},
+      {"name":"Jurassic World"},
+      {"name":"The Lost World: Jurassic Park","aliases":["The Lost World"]},
+      {"name":"Jurassic World: Fallen Kingdom","aliases":["Fallen Kingdom"]},
+      {"name":"Jurassic Park III"},
+      {"name":"Jurassic World Dominion","aliases":["Dominion"]}
+    ]
+  },
+  {
+    "id":"quality_shrek_films",
+    "prompt":"Name a film in the Shrek series.",
+    "answers":[{"name":"Shrek"},{"name":"Shrek 2"},{"name":"Shrek the Third"},{"name":"Shrek Forever After"}]
+  },
+  {
+    "id":"quality_best_picture_1990s",
+    "prompt":"Name a Best Picture Academy Award winner from the 1990s.",
+    "answers":[
+      {"name":"Titanic"},
+      {"name":"Forrest Gump"},
+      {"name":"Schindler's List"},
+      {"name":"Braveheart"},
+      {"name":"American Beauty"},
+      {"name":"The Silence of the Lambs","aliases":["Silence of the Lambs"]},
+      {"name":"Dances with Wolves"},
+      {"name":"Shakespeare in Love"},
+      {"name":"Unforgiven"},
+      {"name":"The English Patient"}
+    ]
+  },
+  {
+    "id":"quality_friends_main_characters",
+    "prompt":"Name one of the six main characters on the sitcom Friends.",
+    "answers":[
+      {"name":"Ross Geller","aliases":["Ross"]},
+      {"name":"Rachel Green","aliases":["Rachel"]},
+      {"name":"Monica Geller","aliases":["Monica"]},
+      {"name":"Chandler Bing","aliases":["Chandler"]},
+      {"name":"Joey Tribbiani","aliases":["Joey"]},
+      {"name":"Phoebe Buffay","aliases":["Phoebe"]}
+    ]
+  },
+  {
+    "id":"quality_simpsons_family",
+    "prompt":"Name a member of the immediate Simpson family on the animated series The Simpsons.",
+    "answers":[
+      {"name":"Homer Simpson","aliases":["Homer"]},
+      {"name":"Bart Simpson","aliases":["Bart"]},
+      {"name":"Marge Simpson","aliases":["Marge"]},
+      {"name":"Lisa Simpson","aliases":["Lisa"]},
+      {"name":"Maggie Simpson","aliases":["Maggie"]}
+    ]
+  },
+  {
+    "id":"quality_hogwarts_houses",
+    "prompt":"Name one of the four houses at Hogwarts in the Harry Potter series.",
+    "answers":[{"name":"Gryffindor"},{"name":"Slytherin"},{"name":"Ravenclaw"},{"name":"Hufflepuff"}]
+  },
+  {
+    "id":"quality_scooby_doo_gang",
+    "prompt":"Name a member of the Mystery Inc. gang on the animated series Scooby-Doo.",
+    "answers":[
+      {"name":"Scooby-Doo","aliases":["Scooby"]},
+      {"name":"Shaggy Rogers","aliases":["Shaggy"]},
+      {"name":"Fred Jones","aliases":["Fred"]},
+      {"name":"Daphne Blake","aliases":["Daphne"]},
+      {"name":"Velma Dinkley","aliases":["Velma"]}
+    ]
+  },
+  {
+    "id":"quality_tmnt",
+    "prompt":"Name one of the four Teenage Mutant Ninja Turtles.",
+    "answers":[{"name":"Leonardo"},{"name":"Michelangelo"},{"name":"Raphael"},{"name":"Donatello"}]
+  },
+  {
+    "id":"quality_spongebob_main_characters",
+    "prompt":"Name a main character on the animated series SpongeBob SquarePants.",
+    "answers":[
+      {"name":"SpongeBob SquarePants","aliases":["SpongeBob"]},
+      {"name":"Patrick Star","aliases":["Patrick"]},
+      {"name":"Squidward Tentacles","aliases":["Squidward"]},
+      {"name":"Mr. Krabs","aliases":["Eugene Krabs","Eugene H Krabs"]},
+      {"name":"Sandy Cheeks","aliases":["Sandy"]},
+      {"name":"Sheldon Plankton","aliases":["Plankton"]}
+    ]
+  },
+  {
+    "id":"quality_rubiks_cube_colors",
+    "prompt":"Name one of the six colors on a standard Rubik's Cube.",
+    "answers":[{"name":"White"},{"name":"Yellow"},{"name":"Red"},{"name":"Blue"},{"name":"Orange"},{"name":"Green"}]
+  },
+  {
+    "id":"quality_pacman_ghosts",
+    "prompt":"Name one of the four ghosts that chase Pac-Man in the original arcade game.",
+    "answers":[
+      {"name":"Blinky"},
+      {"name":"Pinky"},
+      {"name":"Inky"},
+      {"name":"Clyde"}
+    ]
+  },
+  {
+    "id":"quality_super_mario_kart_1992_roster",
+    "prompt":"Name a playable character from the original 1992 Super Mario Kart roster.",
+    "answers":[
+      {"name":"Mario"},
+      {"name":"Luigi"},
+      {"name":"Princess Peach","aliases":["Peach"]},
+      {"name":"Bowser"},
+      {"name":"Yoshi"},
+      {"name":"Toad"},
+      {"name":"Donkey Kong Jr.","aliases":["Donkey Kong Jr","DK Jr"]},
+      {"name":"Koopa Troopa"}
+    ]
+  },
+  {
+    "id":"quality_sesame_street_muppets",
+    "prompt":"Name a classic Muppet character from Sesame Street.",
+    "answers":[
+      {"name":"Elmo"},
+      {"name":"Big Bird"},
+      {"name":"Cookie Monster"},
+      {"name":"Bert"},
+      {"name":"Ernie"},
+      {"name":"Oscar the Grouch"},
+      {"name":"Grover"},
+      {"name":"Count von Count","aliases":["The Count"]}
+    ]
+  },
+  {
+    "id":"quality_beatles_members",
+    "prompt":"Name a member of the Beatles.",
+    "answers":[
+      {"name":"John Lennon"},
+      {"name":"Paul McCartney"},
+      {"name":"George Harrison"},
+      {"name":"Ringo Starr"}
+    ]
+  },
+  {
+    "id":"quality_seven_wonders_ancient",
+    "prompt":"Name one of the Seven Wonders of the Ancient World.",
+    "answers":[
+      {"name":"Great Pyramid of Giza","aliases":["Pyramid of Giza","Pyramids of Giza"]},
+      {"name":"Hanging Gardens of Babylon"},
+      {"name":"Colossus of Rhodes"},
+      {"name":"Lighthouse of Alexandria","aliases":["Pharos of Alexandria"]},
+      {"name":"Statue of Zeus at Olympia"},
+      {"name":"Temple of Artemis at Ephesus"},
+      {"name":"Mausoleum at Halicarnassus"}
+    ]
+  },
+  {
+    "id":"quality_new_seven_wonders_2007",
+    "prompt":"Name one of the New Seven Wonders of the World, as declared in a 2007 global poll.",
+    "answers":[
+      {"name":"Great Wall of China"},
+      {"name":"Colosseum","aliases":["Roman Colosseum"]},
+      {"name":"Taj Mahal"},
+      {"name":"Christ the Redeemer"},
+      {"name":"Machu Picchu"},
+      {"name":"Chichen Itza"},
+      {"name":"Petra"}
+    ]
+  },
+  {
+    "id":"quality_presidents_assassinated",
+    "prompt":"Name a U.S. president who was assassinated while in office.",
+    "answers":[
+      {"name":"Abraham Lincoln"},
+      {"name":"John F. Kennedy","aliases":["JFK"]},
+      {"name":"James Garfield"},
+      {"name":"William McKinley"}
+    ]
+  },
+  {
+    "id":"quality_thirteen_colonies",
+    "prompt":"Name one of the original Thirteen Colonies that became the United States.",
+    "answers":[
+      {"name":"Virginia"},
+      {"name":"Massachusetts"},
+      {"name":"New Hampshire"},
+      {"name":"Maryland"},
+      {"name":"Connecticut"},
+      {"name":"Rhode Island"},
+      {"name":"Delaware"},
+      {"name":"North Carolina"},
+      {"name":"South Carolina"},
+      {"name":"New Jersey"},
+      {"name":"New York"},
+      {"name":"Pennsylvania"},
+      {"name":"Georgia"}
+    ]
+  },
+  {
+    "id":"quality_european_monarchies",
+    "prompt":"Name a country in Europe that is currently a monarchy.",
+    "answers":[
+      {"name":"United Kingdom"},
+      {"name":"Spain"},
+      {"name":"Sweden"},
+      {"name":"Norway"},
+      {"name":"Denmark"},
+      {"name":"Netherlands"},
+      {"name":"Belgium"},
+      {"name":"Luxembourg"},
+      {"name":"Monaco"},
+      {"name":"Liechtenstein"},
+      {"name":"Andorra"}
+    ]
+  },
+  {
+    "id":"quality_nordic_countries",
+    "prompt":"Name one of the five Nordic countries.",
+    "answers":[
+      {"name":"Sweden"},
+      {"name":"Norway"},
+      {"name":"Denmark"},
+      {"name":"Finland"},
+      {"name":"Iceland"}
+    ]
+  },
+  {
+    "id":"quality_central_america_countries",
+    "prompt":"Name a country in Central America.",
+    "answers":[
+      {"name":"Panama"},
+      {"name":"Costa Rica"},
+      {"name":"Guatemala"},
+      {"name":"Belize"},
+      {"name":"Honduras"},
+      {"name":"Nicaragua"},
+      {"name":"El Salvador"}
+    ]
+  },
+  {
+    "id":"quality_caribbean_nations",
+    "prompt":"Name a sovereign country in the Caribbean.",
+    "answers":[
+      {"name":"Cuba"},
+      {"name":"Jamaica"},
+      {"name":"The Bahamas","aliases":["Bahamas"]},
+      {"name":"Dominican Republic"},
+      {"name":"Haiti"},
+      {"name":"Barbados"},
+      {"name":"Trinidad and Tobago"},
+      {"name":"Saint Lucia"},
+      {"name":"Grenada"},
+      {"name":"Antigua and Barbuda"},
+      {"name":"Dominica"},
+      {"name":"Saint Kitts and Nevis"},
+      {"name":"Saint Vincent and the Grenadines"}
+    ]
+  }
+]
