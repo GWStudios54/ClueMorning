@@ -1,7 +1,7 @@
 {
   "cutoverDate": "2026-09-05",
   "cutoverDay": 6,
-  "minimumCanonicalAnswers": 8,
+  "minimumCanonicalAnswers": 4,
   "minimumRepeatGapDays": 6,
   "doctrine": "Common-knowledge prompts; difficulty comes from answer rarity; accepted answers may not overlap within a daily set.",
   "dailyDifficultyRule": {
@@ -34,13 +34,13 @@
   ],
   "supplementPrompts": 63,
   "totalPrompts": 170,
-  "eligiblePrompts": 71,
+  "eligiblePrompts": 85,
   "eligibleByDifficulty": {
-    "accessible": 71,
+    "accessible": 85,
     "standard": 0,
     "deep": 0
   },
-  "excludedPrompts": 99,
+  "excludedPrompts": 85,
   "futureDailySets": 359,
   "uniqueDailySets": 365,
   "firstCuratedDay": {
@@ -54,11 +54,11 @@
       "music": 1,
       "entertainment": 2,
       "domains": {
-        "geography": 3,
-        "history": 1,
-        "general": 2,
+        "geography": 4,
         "music": 1,
-        "movies": 1
+        "sports": 1,
+        "movies": 1,
+        "science": 1
       },
       "withinCaps": true,
       "valid": true
@@ -74,13 +74,49 @@
         "domain": "geography"
       },
       {
-        "index": 135,
-        "id": "quality_crewed_apollo_missions",
-        "prompt": "Name a crewed Apollo mission.",
-        "canonicalAnswers": 11,
+        "index": 151,
+        "id": "quality_germany_borders",
+        "prompt": "Name a sovereign country that shares a land border with Germany.",
+        "canonicalAnswers": 9,
+        "source": "deepcut_quality_supplement.json",
+        "difficulty": "accessible",
+        "domain": "geography"
+      },
+      {
+        "index": 149,
+        "id": "quality_cure_studio",
+        "prompt": "Name a studio album by The Cure.",
+        "canonicalAnswers": 14,
+        "source": "deepcut_quality_supplement.json",
+        "difficulty": "accessible",
+        "domain": "music"
+      },
+      {
+        "index": 110,
+        "id": "quality_mlb_teams",
+        "prompt": "Name a current Major League Baseball team.",
+        "canonicalAnswers": 30,
+        "source": "deepcut_quality_accessible.json",
+        "difficulty": "accessible",
+        "domain": "sports"
+      },
+      {
+        "index": 161,
+        "id": "quality_mississippi_border_states",
+        "prompt": "Name a U.S. state that borders the Mississippi River.",
+        "canonicalAnswers": 10,
+        "source": "deepcut_quality_supplement.json",
+        "difficulty": "accessible",
+        "domain": "geography"
+      },
+      {
+        "index": 129,
+        "id": "quality_pixar_features_2025",
+        "prompt": "Name a Pixar feature film released through 2025.",
+        "canonicalAnswers": 29,
         "source": "deepcut_quality_expansion.json",
         "difficulty": "accessible",
-        "domain": "history"
+        "domain": "movies"
       },
       {
         "index": 126,
@@ -92,49 +128,13 @@
         "domain": "geography"
       },
       {
-        "index": 134,
-        "id": "quality_classical_chess_champions",
-        "prompt": "Name a player in the commonly recognized line of classical World Chess Champions from Steinitz through Gukesh.",
-        "canonicalAnswers": 18,
-        "source": "deepcut_quality_expansion.json",
+        "index": 16,
+        "id": "dwarf",
+        "prompt": "Name an IAU-recognized dwarf planet.",
+        "canonicalAnswers": 5,
+        "source": "base",
         "difficulty": "accessible",
-        "domain": "general"
-      },
-      {
-        "index": 136,
-        "id": "quality_moonwalkers",
-        "prompt": "Name one of the 12 people who have walked on the Moon.",
-        "canonicalAnswers": 12,
-        "source": "deepcut_quality_expansion.json",
-        "difficulty": "accessible",
-        "domain": "general"
-      },
-      {
-        "index": 146,
-        "id": "quality_queen_studio",
-        "prompt": "Name a Queen studio album.",
-        "canonicalAnswers": 15,
-        "source": "deepcut_quality_supplement.json",
-        "difficulty": "accessible",
-        "domain": "music"
-      },
-      {
-        "index": 143,
-        "id": "quality_wes_anderson_features",
-        "prompt": "Name a feature film directed by Wes Anderson.",
-        "canonicalAnswers": 12,
-        "source": "deepcut_quality_supplement.json",
-        "difficulty": "accessible",
-        "domain": "movies"
-      },
-      {
-        "index": 151,
-        "id": "quality_germany_borders",
-        "prompt": "Name a sovereign country that shares a land border with Germany.",
-        "canonicalAnswers": 9,
-        "source": "deepcut_quality_supplement.json",
-        "difficulty": "accessible",
-        "domain": "geography"
+        "domain": "science"
       }
     ]
   },
@@ -284,6 +284,105 @@
       "domain": "science"
     },
     {
+      "index": 16,
+      "id": "dwarf",
+      "prompt": "Name an IAU-recognized dwarf planet.",
+      "canonicalAnswers": 5,
+      "source": "base",
+      "difficulty": "accessible",
+      "domain": "science"
+    },
+    {
+      "index": 17,
+      "id": "greatlakes",
+      "prompt": "Name one of the Great Lakes.",
+      "canonicalAnswers": 5,
+      "source": "base",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 18,
+      "id": "continents",
+      "prompt": "Name a continent.",
+      "canonicalAnswers": 7,
+      "source": "base",
+      "difficulty": "accessible",
+      "domain": "geography"
+    },
+    {
+      "index": 19,
+      "id": "oceans",
+      "prompt": "Name one of Earth’s five oceans.",
+      "canonicalAnswers": 5,
+      "source": "base",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 20,
+      "id": "g7",
+      "prompt": "Name a G7 country.",
+      "canonicalAnswers": 7,
+      "source": "base",
+      "difficulty": "accessible",
+      "domain": "geography"
+    },
+    {
+      "index": 21,
+      "id": "unsc",
+      "prompt": "Name a permanent member of the UN Security Council.",
+      "canonicalAnswers": 5,
+      "source": "base",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 22,
+      "id": "unlangs",
+      "prompt": "Name an official language of the United Nations.",
+      "canonicalAnswers": 6,
+      "source": "base",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 23,
+      "id": "nobel",
+      "prompt": "Name a Nobel Prize category.",
+      "canonicalAnswers": 6,
+      "source": "base",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 24,
+      "id": "military",
+      "prompt": "Name a branch of the U.S. Armed Forces.",
+      "canonicalAnswers": 6,
+      "source": "base",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 25,
+      "id": "chess",
+      "prompt": "Name a type of chess piece.",
+      "canonicalAnswers": 6,
+      "source": "base",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 26,
+      "id": "cardsuits",
+      "prompt": "Name a standard playing-card suit.",
+      "canonicalAnswers": 4,
+      "source": "base",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
       "index": 27,
       "id": "cardranks",
       "prompt": "Name a standard playing-card rank.",
@@ -302,6 +401,15 @@
       "domain": "sports"
     },
     {
+      "index": 29,
+      "id": "rainbow",
+      "prompt": "Name a traditional rainbow color.",
+      "canonicalAnswers": 7,
+      "source": "base",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
       "index": 30,
       "id": "months",
       "prompt": "Name a month of the year.",
@@ -318,6 +426,24 @@
       "source": "base",
       "difficulty": "accessible",
       "domain": "science"
+    },
+    {
+      "index": 32,
+      "id": "si",
+      "prompt": "Name an SI base unit.",
+      "canonicalAnswers": 7,
+      "source": "base",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 33,
+      "id": "apollo",
+      "prompt": "Name an Apollo mission that landed astronauts on the Moon.",
+      "canonicalAnswers": 6,
+      "source": "base",
+      "difficulty": "accessible",
+      "domain": "history"
     },
     {
       "index": 34,
@@ -781,138 +907,11 @@
   ],
   "excluded": [
     {
-      "index": 16,
-      "id": "dwarf",
-      "prompt": "Name an IAU-recognized dwarf planet.",
-      "source": "base",
-      "reasons": [
-        "only 5 canonical answers"
-      ]
-    },
-    {
-      "index": 17,
-      "id": "greatlakes",
-      "prompt": "Name one of the Great Lakes.",
-      "source": "base",
-      "reasons": [
-        "only 5 canonical answers"
-      ]
-    },
-    {
-      "index": 18,
-      "id": "continents",
-      "prompt": "Name a continent.",
-      "source": "base",
-      "reasons": [
-        "only 7 canonical answers"
-      ]
-    },
-    {
-      "index": 19,
-      "id": "oceans",
-      "prompt": "Name one of Earth’s five oceans.",
-      "source": "base",
-      "reasons": [
-        "only 5 canonical answers"
-      ]
-    },
-    {
-      "index": 20,
-      "id": "g7",
-      "prompt": "Name a G7 country.",
-      "source": "base",
-      "reasons": [
-        "only 7 canonical answers"
-      ]
-    },
-    {
-      "index": 21,
-      "id": "unsc",
-      "prompt": "Name a permanent member of the UN Security Council.",
-      "source": "base",
-      "reasons": [
-        "only 5 canonical answers"
-      ]
-    },
-    {
-      "index": 22,
-      "id": "unlangs",
-      "prompt": "Name an official language of the United Nations.",
-      "source": "base",
-      "reasons": [
-        "only 6 canonical answers"
-      ]
-    },
-    {
-      "index": 23,
-      "id": "nobel",
-      "prompt": "Name a Nobel Prize category.",
-      "source": "base",
-      "reasons": [
-        "only 6 canonical answers"
-      ]
-    },
-    {
-      "index": 24,
-      "id": "military",
-      "prompt": "Name a branch of the U.S. Armed Forces.",
-      "source": "base",
-      "reasons": [
-        "only 6 canonical answers"
-      ]
-    },
-    {
-      "index": 25,
-      "id": "chess",
-      "prompt": "Name a type of chess piece.",
-      "source": "base",
-      "reasons": [
-        "only 6 canonical answers"
-      ]
-    },
-    {
-      "index": 26,
-      "id": "cardsuits",
-      "prompt": "Name a standard playing-card suit.",
-      "source": "base",
-      "reasons": [
-        "only 4 canonical answers"
-      ]
-    },
-    {
-      "index": 29,
-      "id": "rainbow",
-      "prompt": "Name a traditional rainbow color.",
-      "source": "base",
-      "reasons": [
-        "only 7 canonical answers"
-      ]
-    },
-    {
-      "index": 32,
-      "id": "si",
-      "prompt": "Name an SI base unit.",
-      "source": "base",
-      "reasons": [
-        "only 7 canonical answers"
-      ]
-    },
-    {
-      "index": 33,
-      "id": "apollo",
-      "prompt": "Name an Apollo mission that landed astronauts on the Moon.",
-      "source": "base",
-      "reasons": [
-        "only 6 canonical answers"
-      ]
-    },
-    {
       "index": 36,
       "id": "state_initial_a",
       "prompt": "Name a U.S. state beginning with A.",
       "source": "base",
       "reasons": [
-        "only 4 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -922,7 +921,6 @@
       "prompt": "Name a U.S. state beginning with I.",
       "source": "base",
       "reasons": [
-        "only 4 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -950,7 +948,6 @@
       "prompt": "Name a U.S. state beginning with W.",
       "source": "base",
       "reasons": [
-        "only 4 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -987,7 +984,6 @@
       "prompt": "Name a country beginning with D.",
       "source": "base",
       "reasons": [
-        "only 5 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1024,7 +1020,6 @@
       "prompt": "Name a country beginning with K.",
       "source": "base",
       "reasons": [
-        "only 5 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1070,7 +1065,6 @@
       "prompt": "Name a country beginning with R.",
       "source": "base",
       "reasons": [
-        "only 4 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1098,7 +1092,6 @@
       "prompt": "Name a country beginning with U.",
       "source": "base",
       "reasons": [
-        "only 7 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1108,7 +1101,6 @@
       "prompt": "Name a country beginning with V.",
       "source": "base",
       "reasons": [
-        "only 4 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1118,7 +1110,6 @@
       "prompt": "Name a chemical element beginning with A.",
       "source": "base",
       "reasons": [
-        "only 7 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1128,7 +1119,6 @@
       "prompt": "Name a chemical element beginning with B.",
       "source": "base",
       "reasons": [
-        "only 7 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1147,7 +1137,6 @@
       "prompt": "Name a chemical element beginning with F.",
       "source": "base",
       "reasons": [
-        "only 4 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1157,7 +1146,6 @@
       "prompt": "Name a chemical element beginning with G.",
       "source": "base",
       "reasons": [
-        "only 4 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1167,7 +1155,6 @@
       "prompt": "Name a chemical element beginning with H.",
       "source": "base",
       "reasons": [
-        "only 5 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1177,7 +1164,6 @@
       "prompt": "Name a chemical element beginning with I.",
       "source": "base",
       "reasons": [
-        "only 4 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1187,7 +1173,6 @@
       "prompt": "Name a chemical element beginning with L.",
       "source": "base",
       "reasons": [
-        "only 6 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1197,7 +1182,6 @@
       "prompt": "Name a chemical element beginning with M.",
       "source": "base",
       "reasons": [
-        "only 7 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1252,7 +1236,6 @@
       "prompt": "Name a U.S. state capital beginning with A.",
       "source": "base",
       "reasons": [
-        "only 5 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1262,7 +1245,6 @@
       "prompt": "Name a U.S. state capital beginning with B.",
       "source": "base",
       "reasons": [
-        "only 4 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1272,7 +1254,6 @@
       "prompt": "Name a U.S. state capital beginning with C.",
       "source": "base",
       "reasons": [
-        "only 6 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1282,7 +1263,6 @@
       "prompt": "Name a U.S. state capital beginning with H.",
       "source": "base",
       "reasons": [
-        "only 4 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1292,7 +1272,6 @@
       "prompt": "Name a U.S. state capital beginning with S.",
       "source": "base",
       "reasons": [
-        "only 6 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1320,7 +1299,6 @@
       "prompt": "Name a constellation beginning with H.",
       "source": "base",
       "reasons": [
-        "only 4 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1339,7 +1317,6 @@
       "prompt": "Name a constellation beginning with M.",
       "source": "base",
       "reasons": [
-        "only 4 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1358,7 +1335,6 @@
       "prompt": "Name a constellation beginning with S.",
       "source": "base",
       "reasons": [
-        "only 7 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1368,7 +1344,6 @@
       "prompt": "Name a constellation beginning with T.",
       "source": "base",
       "reasons": [
-        "only 5 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1378,7 +1353,6 @@
       "prompt": "Name a constellation beginning with V.",
       "source": "base",
       "reasons": [
-        "only 4 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1388,7 +1362,6 @@
       "prompt": "Name a Shakespeare play beginning with A.",
       "source": "base",
       "reasons": [
-        "only 4 canonical answers",
         "single-letter prefix restriction"
       ]
     },
@@ -1515,7 +1488,6 @@
       "prompt": "Name a chemical element beginning with a letter from U–Z.",
       "source": "base",
       "reasons": [
-        "only 7 canonical answers",
         "alphabet-range restriction"
       ]
     },
@@ -1570,7 +1542,6 @@
       "prompt": "Name a constellation beginning with a letter from U–Z.",
       "source": "base",
       "reasons": [
-        "only 6 canonical answers",
         "alphabet-range restriction"
       ]
     },

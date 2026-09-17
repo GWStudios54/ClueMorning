@@ -1,4 +1,10 @@
-export const DEEP_CUT_MIN_ANSWERS = 8;
+// 8 was an arbitrary round number that silently disqualified several
+// genuinely common-knowledge prompts whose real-world answer set is
+// naturally smaller (7 continents, 6 Nobel categories, 5 oceans, ...).
+// 4 matches the hard floor curate-deep-cut-sets.mjs already enforces on
+// any prompt's answer list, so this only stops excluding prompts the
+// pipeline already considered valid content.
+export const DEEP_CUT_MIN_ANSWERS = 4;
 export const DEEP_CUT_QUALITY_CUTOVER_DAY = 6; // 2026-09-05; rebuild the post-launch rotation.
 export const DEEP_CUT_QUALITY_CUTOVER_DATE = '2026-09-05';
 export const DEEP_CUT_MIN_ACCESSIBLE_PER_DAY = 8;
