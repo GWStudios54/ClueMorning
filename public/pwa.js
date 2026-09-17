@@ -122,7 +122,7 @@
     const style=document.createElement('style');
     style.id='push-settings-styles';
     style.textContent=`
-      .notification-button{position:relative}
+      .top-actions .notification-button{display:inline-flex!important;align-items:center;justify-content:center;position:relative;width:42px;min-height:42px;border-radius:50%;border:2px solid var(--brass,var(--line));background:var(--paper2,rgba(8,24,20,.9));color:var(--dark,var(--cream));box-shadow:0 0 0 2px var(--paper,#121a16),0 5px 12px rgba(0,0,0,.35)}
       .notification-button.push-active::after{content:"";position:absolute;right:5px;top:5px;width:7px;height:7px;border-radius:50%;background:currentColor}
       .push-dialog{width:min(560px,92vw);max-height:min(86vh,760px);overflow:auto;padding:28px}
       .push-dialog h2{margin:.2rem 0 .45rem;font-family:Georgia,"Times New Roman",serif}
@@ -149,10 +149,10 @@
   }
 
   function makeBellButton(){
-    const actions=document.querySelector('.header-actions');
+    const actions=document.querySelector('.top-actions');
     if(!actions||document.querySelector('#notificationButton'))return;
     const button=document.createElement('button');
-    button.className='theme-button notification-button';
+    button.className='notification-button';
     button.id='notificationButton';
     button.type='button';
     button.title='Notification settings';
@@ -342,4 +342,14 @@
 
   if(document.readyState==='complete')void init();
   else window.addEventListener('load',()=>void init(),{once:true});
+
+  // Thin API for other scripts (the daily results dialog) to offer the
+  // "remind me tomorrow" prompt at the moment someone finishes a game,
+  // without duplicating the subscribe/permission logic above.
+  window.clueMorningPush={
+    isSupported:supportsPush,
+    isSubscribed:async()=>!!(await currentSubscription()),
+    enable:()=>enableNotifications(),
+    openSettings:()=>{makeDialog();void renderDialog();dialog.showModal()}
+  };
 })();

@@ -1075,7 +1075,12 @@ function ensureResultDialog(){
     .deepcut-recap-row{padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:var(--paper2)}
     .deepcut-recap-row strong{display:block;font-family:Georgia,"Times New Roman",serif;font-size:.95rem;margin-bottom:5px}
     .deepcut-recap-row span{display:block;color:var(--muted);font-size:.76rem;line-height:1.45}
-    @media(max-width:520px){.daily-score-actions{grid-template-columns:1fr}}
+    .daily-score-reminder{display:flex;align-items:center;gap:12px;text-align:left;margin:18px 0 0;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--paper2)}
+    .daily-score-reminder p{flex:1;margin:0;font-size:.86rem;line-height:1.4;color:var(--dark)}
+    .daily-score-reminder-actions{display:flex;flex-direction:column;gap:6px;flex-shrink:0}
+    .daily-score-reminder-actions button{min-height:38px;padding:0 14px;font-size:.8rem}
+    .daily-score-reminder-dismiss{background:none;border:0;color:var(--muted);font-size:.76rem;text-decoration:underline;cursor:pointer;padding:2px}
+    @media(max-width:520px){.daily-score-actions{grid-template-columns:1fr}.daily-score-reminder{flex-direction:column;align-items:stretch;text-align:center}}
   `;
   document.head.appendChild(style);
   const dialog=document.createElement('dialog');dialog.id='dailyScoreDialog';dialog.className='daily-score-dialog';
@@ -1093,6 +1098,13 @@ function ensureResultDialog(){
       <button id="dailyScoreShare" class="secondary-button" type="button">Share Score</button>
     </div>
     <p id="dailyShareStatus" class="daily-share-status" role="status" aria-live="polite"></p>
+    <div id="dailyScoreReminder" class="daily-score-reminder" hidden>
+      <p>Come back tomorrow for a fresh set. Want a reminder when it's ready?</p>
+      <div class="daily-score-reminder-actions">
+        <button id="dailyScoreReminderEnable" class="secondary-button" type="button">Remind Me</button>
+        <button id="dailyScoreReminderDismiss" class="daily-score-reminder-dismiss" type="button">Not now</button>
+      </div>
+    </div>
   `;
   (document.querySelector('.app')||document.body).appendChild(dialog);
   dialog.querySelector('#dailyScoreMore').addEventListener('click',()=>{
@@ -1101,7 +1113,33 @@ function ensureResultDialog(){
     if(homeTab)homeTab.click();else location.assign('/');
   });
   dialog.querySelector('#dailyScoreShare').addEventListener('click',()=>void shareResult());
+  dialog.querySelector('#dailyScoreReminderEnable').addEventListener('click',async event=>{
+    const button=event.currentTarget,box=dialog.querySelector('#dailyScoreReminder');
+    button.disabled=true;button.textContent='Enabling…';
+    try{
+      await window.clueMorningPush?.enable();
+      if(await window.clueMorningPush?.isSubscribed()){box.hidden=true;return}
+      button.disabled=false;button.textContent='Remind Me';
+    }catch{button.disabled=false;button.textContent='Remind Me'}
+  });
+  dialog.querySelector('#dailyScoreReminderDismiss').addEventListener('click',()=>{
+    try{localStorage.setItem(PUSH_NUDGE_DISMISSED_KEY,new Date().toISOString().slice(0,10))}catch{}
+    dialog.querySelector('#dailyScoreReminder').hidden=true;
+  });
   resultDialogEl=dialog;return dialog;
+}
+const PUSH_NUDGE_DISMISSED_KEY='clue-morning-push-nudge-dismissed';
+async function syncPushReminderVisibility(dialog){
+  const box=dialog.querySelector('#dailyScoreReminder');if(!box)return;
+  const push=window.clueMorningPush;
+  if(!push?.isSupported?.()){box.hidden=true;return}
+  try{
+    const dismissedOn=localStorage.getItem(PUSH_NUDGE_DISMISSED_KEY);
+    if(dismissedOn===new Date().toISOString().slice(0,10)){box.hidden=true;return}
+  }catch{}
+  let subscribed=false;
+  try{subscribed=await push.isSubscribed()}catch{}
+  box.hidden=subscribed;
 }
 function renderResultDialog(meta,data,title,recap){
   const dialog=ensureResultDialog();
@@ -1115,6 +1153,7 @@ function renderResultDialog(meta,data,title,recap){
   const extraEl=dialog.querySelector('#dailyScoreExtra');extraEl.innerHTML='';
   dialog.querySelector('#dailyShareStatus').textContent='';
   if(recap)void recap(extraEl,token);
+  void syncPushReminderVisibility(dialog);
   if(!dialog.open)dialog.showModal();
 }
 function showResultDialog(game){
