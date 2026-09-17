@@ -830,7 +830,7 @@ async function api(request,env){
 
 // ---------- dedicated /play/<game>/ pages ----------
 function stripHomepageRuntime(html,game){
-  html=html.replace(/\s*<script[^>]+(?:founders-ui|extra-games|word-controls|daily-presentation-fix|daily-run-v2|presentation-v1|social|leaderboards-v2|performance-bridge|retention-hooks|competition|homepage-guard|pwa)\.js[^>]*><\/script>/gi,'');
+  html=html.replace(/\s*<script[^>]+(?:founders-ui|extra-games|word-controls|daily-presentation-fix|daily-run-v2|presentation-v1|social|leaderboards-v2|performance-bridge|retention-hooks|competition|homepage-guard)\.js[^>]*><\/script>/gi,'');
   html=html.replace(/\s*<link[^>]+(?:daily-presentation-fix|presentation-v1|social|leaderboards-v2|retention-hooks)\.css[^>]*>/gi,'');
   if(game!=='lastcall'){
     html=html.replace(/\s*<script[^>]+last-call\.js[^>]*><\/script>/gi,'');
@@ -879,6 +879,7 @@ async function dedicatedGamePage(request,env,game){
     if(!html.includes('/last-call.css'))html=html.replace('</head>','<link rel="stylesheet" href="/last-call.css?v=1">\n</head>');
     if(!html.includes('/last-call.js'))html=html.replace('</body>','<script src="/last-call.js?v=3" defer></script>\n</body>');
   }
+  if(!html.includes('/pwa.js'))html=html.replace('</body>','<script src="/pwa.js" defer></script>\n</body>');
   html=html.replace('</body>','<script src="/game-page.js?v=2"></script>\n</body>');
 
   const headers=new Headers(response.headers);
