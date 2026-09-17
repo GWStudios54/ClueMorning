@@ -30,13 +30,17 @@
     {
       "name": "deepcut_quality_supplement.json",
       "prompts": 32
+    },
+    {
+      "name": "deepcut_quality_topics_batch1.json",
+      "prompts": 33
     }
   ],
-  "supplementPrompts": 63,
-  "totalPrompts": 170,
-  "eligiblePrompts": 85,
+  "supplementPrompts": 96,
+  "totalPrompts": 203,
+  "eligiblePrompts": 118,
   "eligibleByDifficulty": {
-    "accessible": 85,
+    "accessible": 118,
     "standard": 0,
     "deep": 0
   },
@@ -54,11 +58,12 @@
       "music": 1,
       "entertainment": 2,
       "domains": {
-        "geography": 4,
+        "geography": 2,
         "music": 1,
-        "sports": 1,
+        "general": 2,
+        "games": 1,
         "movies": 1,
-        "science": 1
+        "sports": 1
       },
       "withinCaps": true,
       "valid": true
@@ -92,6 +97,42 @@
         "domain": "music"
       },
       {
+        "index": 188,
+        "id": "quality_tmnt",
+        "prompt": "Name one of the four Teenage Mutant Ninja Turtles.",
+        "canonicalAnswers": 4,
+        "source": "deepcut_quality_topics_batch1.json",
+        "difficulty": "accessible",
+        "domain": "general"
+      },
+      {
+        "index": 191,
+        "id": "quality_pacman_ghosts",
+        "prompt": "Name one of the four ghosts that chase Pac-Man in the original arcade game.",
+        "canonicalAnswers": 4,
+        "source": "deepcut_quality_topics_batch1.json",
+        "difficulty": "accessible",
+        "domain": "games"
+      },
+      {
+        "index": 182,
+        "id": "quality_shrek_films",
+        "prompt": "Name a film in the Shrek series.",
+        "canonicalAnswers": 4,
+        "source": "deepcut_quality_topics_batch1.json",
+        "difficulty": "accessible",
+        "domain": "movies"
+      },
+      {
+        "index": 195,
+        "id": "quality_seven_wonders_ancient",
+        "prompt": "Name one of the Seven Wonders of the Ancient World.",
+        "canonicalAnswers": 7,
+        "source": "deepcut_quality_topics_batch1.json",
+        "difficulty": "accessible",
+        "domain": "general"
+      },
+      {
         "index": 110,
         "id": "quality_mlb_teams",
         "prompt": "Name a current Major League Baseball team.",
@@ -99,42 +140,6 @@
         "source": "deepcut_quality_accessible.json",
         "difficulty": "accessible",
         "domain": "sports"
-      },
-      {
-        "index": 161,
-        "id": "quality_mississippi_border_states",
-        "prompt": "Name a U.S. state that borders the Mississippi River.",
-        "canonicalAnswers": 10,
-        "source": "deepcut_quality_supplement.json",
-        "difficulty": "accessible",
-        "domain": "geography"
-      },
-      {
-        "index": 129,
-        "id": "quality_pixar_features_2025",
-        "prompt": "Name a Pixar feature film released through 2025.",
-        "canonicalAnswers": 29,
-        "source": "deepcut_quality_expansion.json",
-        "difficulty": "accessible",
-        "domain": "movies"
-      },
-      {
-        "index": 126,
-        "id": "quality_us_parks_ca_ut_az",
-        "prompt": "Name a U.S. national park in California, Utah, or Arizona.",
-        "canonicalAnswers": 17,
-        "source": "deepcut_quality_domains.json",
-        "difficulty": "accessible",
-        "domain": "geography"
-      },
-      {
-        "index": 16,
-        "id": "dwarf",
-        "prompt": "Name an IAU-recognized dwarf planet.",
-        "canonicalAnswers": 5,
-        "source": "base",
-        "difficulty": "accessible",
-        "domain": "science"
       }
     ]
   },
@@ -903,6 +908,303 @@
       "source": "deepcut_quality_supplement.json",
       "difficulty": "accessible",
       "domain": "sports"
+    },
+    {
+      "index": 170,
+      "id": "quality_arithmetic_operations",
+      "prompt": "Name one of the four basic arithmetic operations.",
+      "canonicalAnswers": 4,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 171,
+      "id": "quality_platonic_solids",
+      "prompt": "Name one of the five Platonic solids.",
+      "canonicalAnswers": 5,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 172,
+      "id": "quality_roman_numeral_symbols",
+      "prompt": "Name one of the seven basic Roman numeral symbols.",
+      "canonicalAnswers": 7,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 173,
+      "id": "quality_first_ten_primes",
+      "prompt": "Name one of the first ten prime numbers.",
+      "canonicalAnswers": 10,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 174,
+      "id": "quality_perfect_squares_1_100",
+      "prompt": "Name a perfect square between 1 and 100.",
+      "canonicalAnswers": 10,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 175,
+      "id": "quality_fibonacci_first_terms",
+      "prompt": "Name a number in the first ten terms of the Fibonacci sequence 1, 1, 2, 3, 5, 8, 13, 21, 34, 55.",
+      "canonicalAnswers": 9,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 176,
+      "id": "quality_harry_potter_films",
+      "prompt": "Name a film in the Harry Potter movie series.",
+      "canonicalAnswers": 8,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "movies"
+    },
+    {
+      "index": 177,
+      "id": "quality_star_wars_saga_films",
+      "prompt": "Name one of the nine numbered Star Wars saga films.",
+      "canonicalAnswers": 9,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 178,
+      "id": "quality_avengers_films",
+      "prompt": "Name one of the four numbered Marvel Avengers team-up films.",
+      "canonicalAnswers": 4,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 179,
+      "id": "quality_indiana_jones_films",
+      "prompt": "Name a film in the Indiana Jones series.",
+      "canonicalAnswers": 5,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "movies"
+    },
+    {
+      "index": 180,
+      "id": "quality_toy_story_films",
+      "prompt": "Name a film in the Toy Story series.",
+      "canonicalAnswers": 4,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "movies"
+    },
+    {
+      "index": 181,
+      "id": "quality_jurassic_park_films",
+      "prompt": "Name a film in the Jurassic Park / Jurassic World series.",
+      "canonicalAnswers": 6,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "movies"
+    },
+    {
+      "index": 182,
+      "id": "quality_shrek_films",
+      "prompt": "Name a film in the Shrek series.",
+      "canonicalAnswers": 4,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "movies"
+    },
+    {
+      "index": 183,
+      "id": "quality_best_picture_1990s",
+      "prompt": "Name a Best Picture Academy Award winner from the 1990s.",
+      "canonicalAnswers": 10,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "movies"
+    },
+    {
+      "index": 184,
+      "id": "quality_friends_main_characters",
+      "prompt": "Name one of the six main characters on the sitcom Friends.",
+      "canonicalAnswers": 6,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "tv"
+    },
+    {
+      "index": 185,
+      "id": "quality_simpsons_family",
+      "prompt": "Name a member of the immediate Simpson family on the animated series The Simpsons.",
+      "canonicalAnswers": 5,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "tv"
+    },
+    {
+      "index": 186,
+      "id": "quality_hogwarts_houses",
+      "prompt": "Name one of the four houses at Hogwarts in the Harry Potter series.",
+      "canonicalAnswers": 4,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "tv"
+    },
+    {
+      "index": 187,
+      "id": "quality_scooby_doo_gang",
+      "prompt": "Name a member of the Mystery Inc. gang on the animated series Scooby-Doo.",
+      "canonicalAnswers": 5,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "tv"
+    },
+    {
+      "index": 188,
+      "id": "quality_tmnt",
+      "prompt": "Name one of the four Teenage Mutant Ninja Turtles.",
+      "canonicalAnswers": 4,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 189,
+      "id": "quality_spongebob_main_characters",
+      "prompt": "Name a main character on the animated series SpongeBob SquarePants.",
+      "canonicalAnswers": 6,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "tv"
+    },
+    {
+      "index": 190,
+      "id": "quality_rubiks_cube_colors",
+      "prompt": "Name one of the six colors on a standard Rubik's Cube.",
+      "canonicalAnswers": 6,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 191,
+      "id": "quality_pacman_ghosts",
+      "prompt": "Name one of the four ghosts that chase Pac-Man in the original arcade game.",
+      "canonicalAnswers": 4,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "games"
+    },
+    {
+      "index": 192,
+      "id": "quality_super_mario_kart_1992_roster",
+      "prompt": "Name a playable character from the original 1992 Super Mario Kart roster.",
+      "canonicalAnswers": 8,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 193,
+      "id": "quality_sesame_street_muppets",
+      "prompt": "Name a classic Muppet character from Sesame Street.",
+      "canonicalAnswers": 8,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 194,
+      "id": "quality_beatles_members",
+      "prompt": "Name a member of the Beatles.",
+      "canonicalAnswers": 4,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 195,
+      "id": "quality_seven_wonders_ancient",
+      "prompt": "Name one of the Seven Wonders of the Ancient World.",
+      "canonicalAnswers": 7,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 196,
+      "id": "quality_new_seven_wonders_2007",
+      "prompt": "Name one of the New Seven Wonders of the World, as declared in a 2007 global poll.",
+      "canonicalAnswers": 7,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 197,
+      "id": "quality_presidents_assassinated",
+      "prompt": "Name a U.S. president who was assassinated while in office.",
+      "canonicalAnswers": 4,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "history"
+    },
+    {
+      "index": 198,
+      "id": "quality_thirteen_colonies",
+      "prompt": "Name one of the original Thirteen Colonies that became the United States.",
+      "canonicalAnswers": 13,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "general"
+    },
+    {
+      "index": 199,
+      "id": "quality_european_monarchies",
+      "prompt": "Name a country in Europe that is currently a monarchy.",
+      "canonicalAnswers": 11,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "geography"
+    },
+    {
+      "index": 200,
+      "id": "quality_nordic_countries",
+      "prompt": "Name one of the five Nordic countries.",
+      "canonicalAnswers": 5,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "geography"
+    },
+    {
+      "index": 201,
+      "id": "quality_central_america_countries",
+      "prompt": "Name a country in Central America.",
+      "canonicalAnswers": 7,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "geography"
+    },
+    {
+      "index": 202,
+      "id": "quality_caribbean_nations",
+      "prompt": "Name a sovereign country in the Caribbean.",
+      "canonicalAnswers": 13,
+      "source": "deepcut_quality_topics_batch1.json",
+      "difficulty": "accessible",
+      "domain": "geography"
     }
   ],
   "excluded": [
